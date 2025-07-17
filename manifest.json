@@ -1,0 +1,99 @@
+{
+"display_override": ["window-controls-overlay"], 
+  "id": "/?source=pwa",
+  "version": "1.0.0",
+  "name": "FraseGo",
+  "short_name": "FraseGo",
+  "description": "Gere frases motivacionais com estilo e compartilhe em segundos.",
+  "start_url": "https://frase-go.vercel.app/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1a1a1a",
+  "orientation": "portrait",
+  "categories": [
+    "productivity",
+    "lifestyle",
+    "quotes"
+  ],
+  "scope": "https://frase-go.vercel.app/",
+  "lang": "pt-BR",
+  
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/1.png",
+      "sizes": "540x960",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Nova frase",
+      "short_name": "Nova",
+      "url": "/#nova",
+      "icons": [
+        {
+          "src": "/icons/shortcut.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Favoritos",
+      "short_name": "Favoritos",
+      "url": "/#favoritos",
+      "icons": [
+        {
+          "src": "/icons/fav.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "file_handlers": [
+    {
+      "action": "/abrir-frase",
+      "accept": {
+        "application/json": [
+          ".frasego"
+        ]
+      }
+    }
+  ],
+  "share_target": {
+    "action": "/compartilhar",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "titulo",
+      "text": "texto",
+      "url": "url"
+    }
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+frasego",
+      "url": "/?q=%s"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "chrome_web_store", "play": "itunes" ,"windows": "macos", "android": "web",
+      "url": "https://frase-go.vercel.app"
+    }
+  ],
+  "prefer_related_applications": false
+}

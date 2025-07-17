@@ -1,0 +1,670 @@
+/* === Fonte Global === */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&family=Roboto:wght@400;700&family=Space+Mono:wght@400;700&display=swap');
+
+/* === Corpo === */
+body {
+    background: #f6f6f6;
+    color: #222;
+    font-family: 'Inter', Arial, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    min-width: 100vw;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container {
+    background: #fff;
+    border-radius: 25px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    padding: 18px 8px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 540px;
+    min-width: 0;
+    width: 100vw;           /* Preenche toda largura da tela */
+    max-width: 600px;       /* Limite máximo, pode ajustar! */
+    margin: auto;           /* Centraliza horizontalmente */
+    box-sizing: border-box;
+    text-align: center;
+}
+@media (max-width: 600px) {
+    .container {
+        max-width: 100vw;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 8px 0 16px;
+    }
+    body {
+        padding: 0;
+    }
+}
+body.dark-mode {
+    background: #181a1b !important;
+    color: #eee !important;
+}
+body.dark-mode .frase-box {
+    background: #23272b !important;
+    color: #eee !important;
+    box-shadow: 0 2px 12px #0006;
+}
+body.dark-mode select,
+body.dark-mode button,
+body.dark-mode input {
+    background: #23272b !important;
+    color: #eee !important;
+    border-color: #444 !important;
+}
+body.dark-mode svg {
+    stroke: #eee !important;
+}
+
+/* === Botões Redondos Com Ícone === */
+.remover-fav-btn,
+.remover-todos-btn,
+.copiar-fav-btn,
+.copiar-btn {
+    background: #fff;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border 0.2s, background 0.2s;
+    padding: 0;
+    vertical-align: middle;
+}
+
+/* Dimensões individuais */
+.remover-fav-btn,
+.remover-todos-btn {
+    border: 2px solid #e53935;
+    width: clamp(28px, 1.5vw + 1.2rem, 36px);
+    height: clamp(28px, 1.5vw + 1.2rem, 36px);
+    margin-left: 8px;
+}
+
+.remover-todos-btn {
+    margin-top: 2px;
+    visibility: visible;
+}
+
+.copiar-fav-btn {
+    border: 2px solid #222;
+    width: 32px;
+    height: 32px;
+    margin-left: 8px;
+}
+
+.copiar-btn {
+    border: 2px solid #222;
+    width: 38px;
+    height: 38px;
+    margin-left: 8px;
+    display: flex;
+}
+
+/* Estados ativos */
+.remover-fav-btn:active,
+.remover-todos-btn:active {
+    border-color: #b71c1c;
+}
+
+.copiar-fav-btn:active,
+.copiar-btn:active {
+    border-color: #2196f3;
+}
+
+/* SVGs dentro dos botões */
+.remover-fav-btn svg,
+.remover-todos-btn svg,
+.copiar-fav-btn svg,
+.copiar-btn svg {
+    display: block;
+    stroke: currentColor;
+    fill: none;
+    transition: fill 0.2s, stroke 0.2s;
+    width: 70%;
+    height: 70%;
+    max-width: 20px;
+    max-height: 20px;
+    min-width: 12px;
+    min-height: 12px;
+}
+
+/* Cores dos strokes individuais */
+.remover-fav-btn svg,
+.remover-todos-btn svg {
+    stroke: #e53935;
+}
+
+.copiar-fav-btn svg,
+.copiar-btn svg {
+    stroke: #222;
+}
+
+/* === Layouts === */
+.favoritos-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.mid-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 0.5rem;
+}
+
+.bottom-botoes {
+    margin-top: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.7rem;
+    width: 100%;
+    padding-bottom: 8px;
+    box-sizing: border-box;
+}
+
+.bottom-botoes button {
+    flex: 1;
+    min-width: 0;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+body.dark-mode .frase-box,
+body.dark-mode .favoritos-content,
+body.dark-mode .tags-content {
+  background: #23272b !important;
+  color: #eee !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+}
+body.dark-mode svg {
+  stroke: #eee !important;
+}
+body.dark-mode select,
+body.dark-mode button,
+body.dark-mode input {
+  background: #23272b !important;
+  color: #eee !important;
+  border-color: #444 !important;
+}
+body.dark-mode #iconeJogoDaVelha {
+  color: #fff !important;
+}
+body.dark-mode .favoritos-content h2,
+body.dark-mode .tags-content h2 {
+  color: #fff !important;
+}
+body.dark-mode .favoritos-lista li {
+  border-bottom: 1px solid #444 !important;
+  color: #eee !important;
+}
+body.dark-mode .fechar-modal {
+  background: #444 !important;
+  color: #fff !important;
+}
+body.dark-mode .fechar-modal:hover {
+  background: #222 !important;
+}
+body.dark-mode .bg-watermark {
+  opacity: 0.5 !important;
+  filter: brightness(1.5) grayscale(0.2) contrast(1.1);
+}
+
+/* === Light Mode Watermark === */
+body:not(.dark-mode) .bg-watermark {
+    filter: drop-shadow(0 0 6px #fff8) drop-shadow(0 0 2px #0002);
+    opacity: 0.38;
+}
+
+/* === Container Principal === */
+.container {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  padding: 18px 8px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 540px;
+  max-width: 420px;
+  width: 100vw;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* === Títulos e Texto === */
+h1 {
+  font-size: 2.2rem;
+  margin: 0 0 10px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  width: 100%;
+  text-align: center;
+}
+
+/* === Frase Box === */
+.frase-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: calc(2cm + 1.2rem) 5vw calc(2cm + 0.7rem) 5vw; /* top, right, bottom, left */
+  margin: 0 auto;
+  width: 100%;
+  max-width: 400px;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.frase-box > *:not(.bg-watermark) {
+  position: relative;
+  z-index: 1;
+}
+
+.frase {
+  font-size: 2.18rem;
+  min-height: 60px;
+  width: 100%;
+  text-align: center;
+  line-height: 1.45;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: font-family 0.3s;
+  overflow-wrap: break-word;
+}
+
+/* === Botões e Controles === */
+.controls {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1.5px solid #0d47a1;
+  background: rgba(255,255,255,0.65);
+  font-size: 0.7rem;
+  color: #0d47a1;
+  outline: none;
+  box-shadow: 0 1px 6px #0001;
+  transition: background 0.2s, border 0.2s;
+  backdrop-filter: blur(2px);
+}
+
+select:focus {
+  background: rgba(255,255,255,0.85);
+  border-color: #08306b;
+}
+
+button {
+  background: #0d47a1;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #08306b;
+}
+
+/* === Botões de Ação (Favoritos, Coração etc.) === */
+.coracao-btn,
+.favoritos-btn {
+  background: #fff;
+  border: 2px solid #222;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border 0.2s, background 0.2s;
+  padding: 0;
+}
+
+.coracao-btn {
+  width: 48px;
+  height: 48px;
+  margin-left: 8px;
+}
+
+.favoritos-btn {
+  width: 40px;
+  height: 40px;
+  margin-left: 8px;
+}
+
+.coracao-btn svg,
+.favoritos-btn svg {
+  stroke: #222;
+  fill: none;
+  transition: fill 0.2s, stroke 0.2s;
+}
+
+.coracao-btn.favorito svg {
+  fill: #e53935;
+  stroke: #e53935;
+}
+
+.favoritos-btn.ativo svg {
+  fill: #ff9800;
+  stroke: #ff9800;
+}
+
+.coracao-btn:focus {
+  outline: 2px solid #e53935;
+}
+
+/* === Modal de Favoritos === */
+#favoritosModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+#favoritosModal.ativo {
+  visibility: visible;
+  opacity: 1;
+}
+
+.favoritos-content {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  padding: 32px 24px;
+  max-width: 400px;
+  width: 90vw;
+  max-height: 80vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.favoritos-content h2 {
+  font-size: 1.5rem;
+  margin: 0 0 18px;
+}
+
+.favoritos-lista {
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+.favoritos-lista li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 10px 0;
+  font-size: 1.1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  word-break: break-word;
+}
+
+.favoritos-lista span {
+  flex: 1;
+  min-width: 0;
+  font-size: 1em;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.favoritos-lista button {
+  flex-shrink: 0;
+  width: 2.2em;
+  height: 2.2em;
+  min-width: 36px;
+  min-height: 36px;
+  max-width: 44px;
+  max-height: 44px;
+  margin-left: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.favoritos-lista svg {
+  width: 1.4em;
+  height: 1.4em;
+  min-width: 18px;
+  min-height: 18px;
+  max-width: 28px;
+  max-height: 28px;
+}
+
+/* Ajuste para telas pequenas */
+@media (max-width: 600px) {
+  .favoritos-content {
+    padding: 16px 4px;
+    max-width: 98vw;
+  }
+  .favoritos-lista li {
+    font-size: 1rem;
+    gap: 0.3rem;
+    padding: 8px 0;
+  }
+  .favoritos-lista button {
+    min-width: 30px;
+    min-height: 30px;
+    width: 1.8em;
+    height: 1.8em;
+  }
+  .favoritos-lista svg {
+    min-width: 16px;
+    min-height: 16px;
+    width: 1.1em;
+    height: 1.1em;
+  }
+  .favoritos-lista span {
+    font-size: 0.97em;
+  }
+}
+
+/* Ajuste para telas muito pequenas */
+@media (max-width: 400px) {
+  .favoritos-lista li {
+    font-size: 0.92rem;
+    gap: 0.15rem;
+    padding: 6px 0;
+  }
+  .favoritos-lista button {
+    min-width: 24px;
+    min-height: 24px;
+    width: 1.2em;
+    height: 1.2em;
+  }
+  .favoritos-lista svg {
+    min-width: 12px;
+    min-height: 12px;
+    width: 0.9em;
+    height: 0.9em;
+  }
+  .favoritos-lista span {
+    font-size: 0.92em;
+  }
+}
+
+/* === Barra Superior === */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.top-bar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* === Marca d'água temática === */
+.bg-watermark {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.33;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70% auto;
+  transition: background-image 0.3s, opacity 0.2s;
+  margin-top: 2cm;
+}
+
+/* === Botões Copiar e Jogo da Velha === */
+.botoes-copiar-tags {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+  width: 100%;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
+
+.botoes-copiar-tags button {
+  flex: 1;
+  min-width: 0;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#iconeJogoDaVelha {
+    font-weight: 400 !important;
+}
+body.dark-mode #tagsModal {
+  background: rgba(0,0,0,0.45) !important;
+}
+body.dark-mode .tags-content {
+  background: #23272b !important;
+  color: #eee !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+}
+body.dark-mode .tags-content h2 {
+  color: #fff !important;
+}
+body.dark-mode .tags-content button {
+  background: #444 !important;
+  color: #fff !important;
+}
+body.dark-mode .tags-content button:hover {
+  background: #222 !important;
+}
+body.dark-mode .tags-content div {
+  background: #333 !important;
+  color: #eee !important;
+  border-color: #444 !important;
+}
+#logoApp {
+  margin-left: -7cm;
+position: relative;
+left: -8cm;
+}
+
+/* Melhorias de acessibilidade para botões */
+button:focus, .coracao-btn:focus, .fechar-modal:focus {
+    outline: 2px solid #2196f3;
+    outline-offset: 2px;
+}
+
+/* Responsividade extra para dispositivos menores */
+@media (max-width: 400px) {
+    .container {
+        padding: 4px 0 8px;
+        font-size: 0.95rem;
+    }
+    .frase-box {
+        padding: 1.2rem 2vw 1.2rem 2vw;
+        max-width: 98vw;
+    }
+    h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Corrige sobreposição do logo em telas pequenas */
+@media (max-width: 600px) {
+    #logoApp {
+        margin-left: 0;
+        left: 0;
+        position: static;
+        max-width: 120px;
+        width: 100%;
+    }
+}
+
+/* Melhora contraste de botões no modo escuro */
+body.dark-mode button,
+body.dark-mode .fechar-modal {
+    background: #23272b !important;
+    color: #ff9800 !important;
+    border-color: #ff9800 !important;
+}
+
+body.dark-mode button:hover,
+body.dark-mode .fechar-modal:hover {
+    background: #444 !important;
+    color: #fff !important;
+}
+
+/* Corrige detalhes vazados da logo/frase no modo dark */
+body.dark-mode #logoApp,
+body.dark-mode .logoApp,
+body.dark-mode .logo-frase {
+  filter: brightness(1.2) contrast(1.3) drop-shadow(0 0 2px #181a1b) !important;
+  /* Se for SVG, força preenchimento */
+  fill: #fff !important;
+  stroke: #fff !important;
+}
+
+/* Se a logo for SVG, garanta que todos paths estejam preenchidos */
+body.dark-mode #logoApp svg path,
+body.dark-mode .logoApp svg path,
+body.dark-mode .logo-frase svg path {
+  fill: #fff !important;
+  stroke: #fff !important;
+}

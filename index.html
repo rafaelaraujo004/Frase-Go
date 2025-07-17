@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frase Go</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Montserrat:400,700|Lato:400,700|Inter:400,700|Open+Sans:400,700|Space+Mono:400,700&display=swap" rel="stylesheet">
+    <!-- Adicione o script da biblioteca html2canvas aqui -->
+<link rel="manifest" href="manifest.json" />    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d0d0d">
+<meta name="description" content="Frase Go - Encontre inspiração diária com frases motivacionais, de amor, amizade e muito mais. Personalize com temas e fontes exclusivas.">
+<body>
+    <div class="container" style="width:100vw;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;padding:0;">
+        <div class="frase-box" style="width:100%;max-width:370px;min-width:260px;min-height:calc(420px + 2cm);max-height:calc(98vh + 3cm);background:#fff;border-radius:1.1rem;padding:1.1rem 1.1rem 0.7rem 1.1rem;box-shadow:0 2px 12px #0001;display:flex;flex-direction:column;align-items:center;overflow:hidden;position:relative;justify-content:flex-start;gap:0;">
+            <div class="bg-watermark" id="bgWatermark" style="position:absolute;top:calc(50% - 2.5cm);left:50%;transform:translate(-50%, -50%);width:100%;height:200%;z-index:0;pointer-events:none;display:flex;align-items:center;justify-content:center;">
+                <!-- SVGs dinâmicos serão inseridos via JS conforme o tema -->
+            </div>
+            <div class="top-bar" style="width:100%;padding:0.3rem 0 0.5rem 0;display:flex;flex-direction:row;align-items:flex-start;justify-content:space-between;">
+                <!-- Botão Print à esquerda (agora é câmera) -->
+                <button id="btnPrint" title="Salvar imagem para postagem" style="background:none;border:none;cursor:pointer;padding:0.3rem 0.5rem 0 0.5rem;">
+                   <!-- Ícone de compartilhamento -->
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M4 12v2a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4v-2"/>
+  <polyline points="16 6 12 2 8 6"/>
+  <line x1="12" y1="2" x2="12" y2="15"/>
+</svg>
+
+                    <rect x="3" y="7" width="18" height="13" rx="2"/>
+                        <circle cx="12" cy="13.5" r="4"/>
+                        <path d="M5 7l2-3h10l2 3"/>
+                    </svg>
+                </button>
+               <div class="top-bar-center" style="position:absolute;top:+0cm;left:calc(50% + 1cm);transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.10rem;z-index:2;">
+    <!-- Logo SVG -->
+    <svg width="215" height="50" viewBox="0 0 270 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:1.2rem;">
+ <rect x="8" y="4" width="38" height="46" rx="8" fill="#0d47a1" stroke="#0d47a1" stroke-width="2"/>
+                        <rect x="16" y="12" width="22" height="22" rx="6" fill="#fff"/>
+                        <rect x="24" y="38" width="6" height="2" rx="1" fill="#fff"/>
+                        <circle cx="27" cy="44" r="2" fill="#fff"/>
+                        <text x="58" y="36" fill="#0d47a1" font-size="32" font-family="Montserrat, Arial, sans-serif" font-weight="bold">FraseGo</text>
+                    </svg>
+                </div>
+                <!-- Botão Dark Mode à direita -->
+                <button id="btnDarkMode" title="Modo escuro" style="background:none;border:none;cursor:pointer;padding:0.3rem 0.5rem 0 0.5rem;">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="controls" style="width:100%;display:flex;gap:0.3rem;justify-content:center;align-items:center;margin-bottom:0.2rem;">
+                <select id="temaSelect">
+                    <option value="motivacional">Motivacional</option>
+                    <option value="amor">Amor</option>
+                    <option value="amizade">Amizade</option>
+                    <option value="felicidade">Felicidade</option>
+                    <option value="superacao">Superação</option>
+                    <option value="gratidao">Gratidão</option>
+                    <option value="reflexao">Reflexão</option>
+                    <option value="sucesso">Sucesso</option>
+                    <option value="familia">Família</option>
+                    <option value="inspiração">Inspiração</option>
+                </select>
+                <select id="fonteSelect">
+                    <option value="Roboto">Roboto</option>
+                    <option value="Montserrat">Montserrat</option>
+                    <option value="Lato">Lato</option>
+                    <option value="Inter">Inter</option>
+                    <option value="Open Sans">Open Sans</option>
+                    <option value="Space Mono">Space Mono</option>
+                </select>
+            </div>
+            <div class="mid-bar" style="width:100%;display:flex;justify-content:center;align-items:center;gap:0.3rem;margin-bottom:0;">
+                <!-- Removido o botão de favoritos daqui -->
+            </div>
+            <div id="frase" class="frase" style="
+    position: absolute;
+    top: 32%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    text-align: center;
+    word-break: break-word;
+    font-size: 1.08rem;
+    line-height: 1.28;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;">
+
+                <!-- O texto da frase será sempre centralizado no meio da página -->
+            </div>
+            <div class="botoes-interativos" style="
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    position: absolute;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+">
+
+                <button id="btnTags" class="tags-btn" title="Gerar tags para redes sociais" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;min-width:36px;min-height:36px;">
+                    <span id="iconeJogoDaVelha" style="font-size:1.5rem;line-height:1;color:#222;transition:color 0.2s;">#</span>
+                </button>
+                <button id="btnFavoritos" title="Favoritos" class="favoritos-btn" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;min-width:36px;min-height:36px;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        <title>Favoritos</title>
+                    </svg>
+                </button>
+                <button id="btnCopiarFrase" class="copiar-btn" title="Copiar frase" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;min-width:36px;min-height:36px;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                    </svg>
+                </button>
+                <button id="btnFavoritar" class="coracao-btn" title="Favoritar" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;min-width:36px;min-height:36px;">
+                    <svg id="coracaoIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </button>
+            </div>
+            <div style="width:100%;display:flex;flex-direction:row;justify-content:space-between;align-items:flex-end;gap:0.2rem;margin-top:auto;margin-bottom:0.08rem;">
+                <div class="botoes bottom-botoes" style="display:flex;gap:0.2rem;flex:1;">
+                    <button id="voltarFrase" style="flex:1;min-width:0;">Frase Anterior</button>
+                    <button id="novaFrase" style="flex:1;min-width:0;">Nova Frase</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="tagsModal" style="display:none;position:absolute;z-index:1000;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.25);align-items:center;justify-content:center;">
+        <div class="tags-content" style="background:#fff;padding:2rem 1.5rem;border-radius:1.2rem;max-width:95vw;width:400px;box-shadow:0 2px 16px #0002;display:flex;flex-direction:column;align-items:center;">
+            <h2 style="margin-bottom:1rem;">Sugestões de Tags</h2>
+            <div id="tagsLacunas" style="width:100%;display:flex;flex-direction:column;gap:1.2rem;"></div>
+            <button class="fechar-modal" id="fecharTags" style="margin-top:1.5rem;">Fechar</button>
+        </div>
+    </div>
+    <div id="favoritosModal">
+        <div class="favoritos-content">
+            <div class="favoritos-header">
+                <h2>Favoritos</h2>
+                <button id="btnRemoverTodosFavs" class="remover-todos-btn" title="Remover todos os favoritos">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e53935" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="6" width="18" height="13" rx="2"/>
+                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                        <line x1="1" y1="6" x2="23" y2="6"/>
+                        <line x1="10" y1="11" x2="10" y2="17"/>
+                        <line x1="14" y1="11" x2="14" y2="17"/>
+                    </svg>
+                </button>
+            </div>
+            <ul class="favoritos-lista" id="favoritosLista"></ul>
+            <button class="fechar-modal" id="fecharFavoritos">Fechar</button>
+        </div>
+    </div>
+    <!-- Botão Postagens removido -->
+    <script src="script.js"></script>
+    <script>
+const bgWatermark = document.getElementById('bgWatermark');
+const temaSelect = document.getElementById('temaSelect');
+
+function getSVGForTheme(theme) {
+    switch (theme) {
+        case 'amor':
+            // Coração estilizado
+            return `<svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M55 95s-35-22-35-50a22 22 0 0 1 44 0 22 22 0 0 1 44 0c0 28-35 50-35 50z" fill="#e53935" stroke="#c62828" stroke-width="4"/>
+            </svg>`;
+        case 'superacao':
+            // Montanha com bandeira
+            return `<svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="20,90 55,30 90,90" fill="#90caf9" stroke="#1976d2" stroke-width="3"/>
+                <rect x="53" y="15" width="4" height="20" fill="#1976d2"/>
+                <polygon points="57,15 70,20 57,25" fill="#e53935"/>
+            </svg>`;
+        case 'gratidao':
+            // Duas mãos agradecendo
+            return `<svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M35 80 Q55 60 75 80" stroke="#fbc02d" stroke-width="6" fill="none"/>
+                <path d="M40 85 Q55 70 70 85" stroke="#fbc02d" stroke-width="6" fill="none"/>
+                <ellipse cx="35" cy="80" rx="8" ry="12" fill="#ffe0b2"/>
+                <ellipse cx="75" cy="80" rx="8" ry="12" fill="#ffe0b2"/>
+            </svg>`;
+        case 'reflexao':
+            // Nuvem de pensamento
+            return `<svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="55" cy="60" rx="32" ry="18" fill="#b3e5fc"/>
+                <ellipse cx="35" cy="70" rx="10" ry="7" fill="#b3e5fc"/>
+                <ellipse cx="75" cy="70" rx="10" ry="7" fill="#b3e5fc"/>
+                <circle cx="45" cy="90" r="4" fill="#b3e5fc"/>
+                <circle cx="65" cy="90" r="3" fill="#b3e5fc"/>
+            </svg>`;
+        case 'sucesso':
+            // Gráfico subindo
+            return `<svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="20,90 40,70 60,50 80,30 95,20" fill="none" stroke="#43a047" stroke-width="6"/>
+                <circle cx="95" cy="20" r="7" fill="#43a047"/>
+            </svg>`;
+        case 'familia':
+            // Grupo de indivíduos
+            return `<svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="40" cy="70" r="10" fill="#90caf9"/>
+                <circle cx="70" cy="70" r="10" fill="#ffb74d"/>
+                <circle cx="55" cy="55" r="12" fill="#a5d6a7"/>
+                <rect x="35" y="80" width="10" height="18" rx="5" fill="#90caf9"/>
+                <rect x="65" y="80" width="10" height="18" rx="5" fill="#ffb74d"/>
+                <rect x="49" y="67" width="12" height="25" rx="6" fill="#a5d6a7"/>
+            </svg>`;
+        case 'inspiração':
+            // Lâmpada ideia
+            return `<svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="55" cy="60" rx="22" ry="28" fill="#fff176" stroke="#fbc02d" stroke-width="4"/>
+                <rect x="47" y="88" width="16" height="10" rx="4" fill="#fbc02d"/>
+                <line x1="55" y1="40" x2="55" y2="20" stroke="#fbc02d" stroke-width="3"/>
+                <line x1="35" y1="60" x2="20" y2="60" stroke="#fbc02d" stroke-width="3"/>
+                <line x1="75" y1="60" x2="90" y2="60" stroke="#fbc02d" stroke-width="3"/>
+            </svg>`;
+        default:
+            return '';
+    }
+}
+
+// Atualiza a imagem de fundo conforme o tema selecionado
+function updateBgWatermark() {
+    const theme = temaSelect.value;
+    bgWatermark.innerHTML = getSVGForTheme(theme);
+}
+
+// Atualiza ao carregar e ao trocar o tema
+temaSelect.addEventListener('change', updateBgWatermark);
+updateBgWatermark();
+
+document.getElementById('btnPrint').addEventListener('click', function () {
+    const fraseBox = document.querySelector('.frase-box');
+    
+    // Elementos a ocultar temporariamente
+    const elementosOcultos = [
+        '#btnPrint',
+        '#btnTags',
+        '#btnFavoritos',
+        '#btnCopiarFrase',
+        '#btnFavoritar',
+        '#btnDarkMode',
+        '#voltarFrase',
+        '#novaFrase'
+    ];
+    
+    // Esconde os elementos
+    elementosOcultos.forEach(sel => {
+        const el = document.querySelector(sel);
+        if (el) el.style.display = 'none';
+    });
+
+    // Aguarda um pouquinho antes de capturar
+    setTimeout(() => {
+        html2canvas(fraseBox).then(function (canvas) {
+            const tema = document.getElementById('temaSelect').value;
+            const data = new Date();
+            const nomeArquivo = `frase-${tema}-${data.getFullYear()}-${(data.getMonth()+1).toString().padStart(2, '0')}-${data.getDate().toString().padStart(2, '0')}.png`;
+
+            const link = document.createElement('a');
+            link.download = nomeArquivo;
+            link.href = canvas.toDataURL();
+            link.click();
+
+            // Restaura os elementos
+            elementosOcultos.forEach(sel => {
+                const el = document.querySelector(sel);
+                if (el) el.style.display = '';
+            });
+        });
+    }, 200); // tempo para aplicar os hides corretamente
+});
+
+    // Seleciona a área da frase-box para exportar como imagem
+    const fraseBox = document.querySelector('.frase-box');
+    // Usa html2canvas para capturar a área
+    html2canvas(fraseBox).then(function(canvas) {
+        // Cria um link para download da imagem
+        const link = document.createElement('a');
+        link.download = 'frase.png';
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+</script><script>
+// ==== CONTROLE DE PREMIUM E USO DIÁRIO ====
+
+function isPremium() {
+  return localStorage.getItem('frasego_premium') === 'true';
+}
+
+function ativarPremium() {
+  localStorage.setItem('frasego_premium', 'true');
+  aplicarRestricoes(); // Atualiza os bloqueios
+  alert("✅ Premium ativado com sucesso!");
+}
+
+function aplicarRestricoes() {
+  const premium = isPremium();
+
+  // BLOQUEIO DE FONTES EXCLUSIVAS
+  const fonteSelect = document.getElementById('fonteSelect');
+  const fontesPremium = ['Work Sans', 'Fira Sans'];
+  [...fonteSelect.options].forEach(opt => {
+    opt.disabled = !premium && fontesPremium.includes(opt.value);
+  });
+
+  // aplicarRestricoes
+  const temaSelect = document.getElementById('temaSelect');
+  const temasPremium = ['sucesso', 'inspiração'];
+  [...temaSelect.options].forEach(opt => {
+    opt.disabled = !premium && temasPremium.includes(opt.value);
+  });
+
+  // BLOQUEIO DE FRASES EXCEDENTES
+  const frasesMaxGratuitas = 5;
+  const usadas = Number(localStorage.getItem('frases_hoje')) || 0;
+  const btnNovaFrase = document.getElementById('novaFrase');
+  btnNovaFrase.disabled = !premium && usadas >= frasesMaxGratuitas;
+}
+
+// CONTADOR DE USO DIÁRIO
+function registrarUsoFrase() {
+  if (!isPremium()) {
+    let usadas = Number(localStorage.getItem('frases_hoje')) || 0;
+    usadas += 1;
+    localStorage.setItem('frases_hoje', usadas);
+    aplicarRestricoes();
+  }
+}
+
+// RESET DIÁRIO AUTOMÁTICO
+(function () {
+  const hoje = new Date().toISOString().split('T')[0];
+  const dataSalva = localStorage.getItem('data_frase');
+  if (dataSalva !== hoje) {
+    localStorage.setItem('data_frase', hoje);
+    localStorage.setItem('frases_hoje', '0');
+  }
+  aplicarRestricoes();
+})();
+
+// VINCULAR AO BOTÃO NOVA FRASE
+document.getElementById('novaFrase').addEventListener('click', registrarUsoFrase);
+
+// OPCIONAL: VINCULAR A UM BOTÃO PARA SIMULAR O PREMIUM
+// (Você pode trocar isso por um botão visível no modal premium real)
+document.addEventListener('DOMContentLoaded', function () {
+  const btnFakePremium = document.createElement('button');
+  btnFakePremium.textContent = "🔓 Ativar Premium";
+  btnFakePremium.style.position = "fixed";
+  btnFakePremium.style.bottom = "12px";
+  btnFakePremium.style.right = "12px";
+  btnFakePremium.style.padding = "10px 14px";
+  btnFakePremium.style.borderRadius = "8px";
+  btnFakePremium.style.background = "#0d47a1";
+  btnFakePremium.style.color = "#fff";
+  btnFakePremium.style.border = "none";
+  btnFakePremium.style.cursor = "pointer";
+  btnFakePremium.style.zIndex = "9999";
+  btnFakePremium.onclick = ativarPremium;
+  document.body.appendChild(btnFakePremium);
+});
+</script>
+<!-- Modal Premium -->
+<div id="modalPremium" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);z-index:999;justify-content:center;align-items:center;">
+  <div style="background:#fff;padding:2rem;border-radius:1.2rem;max-width:95vw;width:420px;box-shadow:0 0 20px #0003;display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.2rem;">
+    <h2 style="font-size:1.8rem;color:#0d47a1;">🚀 FraseGo Premium</h2>
+    <p style="font-size:1rem;color:#444;">Desbloqueie todo o poder do FraseGo com recursos exclusivos!</p>
+    <ul style="list-style:none;padding:0;margin:0;text-align:left;width:100%;max-width:320px;">
+      <li style="margin:0.6rem 0;display:flex;align-items:center;gap:0.6rem;">
+        ✅ Acesso ilimitado a frases
+      </li>
+      <li style="margin:0.6rem 0;display:flex;align-items:center;gap:0.6rem;">
+        🖋️ Temas e fontes exclusivas
+      </li>
+      <li style="margin:0.6rem 0;display:flex;align-items:center;gap:0.6rem;">
+        ☁️ Backup dos favoritos
+      </li>
+      <li style="margin:0.6rem 0;display:flex;align-items:center;gap:0.6rem;">
+        🚫 Sem anúncios
+      </li>
+    </ul>
+    <p style="font-size:1.1rem;font-weight:bold;color:#222;">Só R$4,90 por mês</p>
+    <button id="btnAssinarPremium" style="background:#0d47a1;color:#fff;border:none;padding:0.8rem 1.4rem;border-radius:0.7rem;cursor:pointer;font-size:1rem;">Assinar agora</button>
+    <button id="fecharModalPremium" style="margin-top:1rem;background:none;border:none;color:#888;font-size:0.9rem;cursor:pointer;">Fechar</button>
+  </div>
+</div>
+
+</body>
+</html>
+<script>
+// Temas e fontes Premium
+const temasPremium = ['inspiração', 'sucesso', 'gratidao'];
+const fontesPremium = ['Space Mono', 'Inter'];
+
+// Verifica se é premium
+function isPremium() {
+    return localStorage.getItem("isPremium") === "true";
+}
+
+// Bloqueia/desbloqueia temas e fontes conforme premium
+function bloquearTemasEFonte() {
+    document.querySelectorAll('#temaSelect option').forEach(opt => {
+        if (temasPremium.includes(opt.value)) {
+            if (!isPremium()) {
+                opt.textContent = opt.textContent.replace(' (Premium)', '') + ' (Premium)';
+                opt.disabled = true;
+            } else {
+                opt.textContent = opt.textContent.replace(' (Premium)', '');
+                opt.disabled = false;
+            }
+        } else {
+            opt.textContent = opt.textContent.replace(' (Premium)', '');
+            opt.disabled = false;
+        }
+    });
+    document.querySelectorAll('#fonteSelect option').forEach(opt => {
+        if (fontesPremium.includes(opt.value)) {
+            if (!isPremium()) {
+                opt.textContent = opt.textContent.replace(' (Premium)', '') + ' (Premium)';
+                opt.disabled = true;
+            } else {
+                opt.textContent = opt.textContent.replace(' (Premium)', '');
+                opt.disabled = false;
+            }
+        } else {
+            opt.textContent = opt.textContent.replace(' (Premium)', '');
+            opt.disabled = false;
+        }
+    });
+}
+
+// Limite de frases diárias para não-premium
+const LIMITE_FRASES_GRATUITO = 5;
+const KEY_DATA = 'dataUltimoUso';
+const KEY_QUANTIDADE = 'frasesUsadasHoje';
+
+function resetarUsoDiario() {
+    const hoje = new Date().toLocaleDateString();
+    localStorage.setItem(KEY_DATA, hoje);
+    localStorage.setItem(KEY_QUANTIDADE, '0');
+}
+
+function verificarLimiteDeFrases() {
+    if (isPremium()) return true;
+    const hoje = new Date().toLocaleDateString();
+    const dataSalva = localStorage.getItem(KEY_DATA);
+    if (dataSalva !== hoje) {
+        resetarUsoDiario();
+    }
+    let usadas = parseInt(localStorage.getItem(KEY_QUANTIDADE) || '0');
+    if (usadas >= LIMITE_FRASES_GRATUITO) {
+        alert("🚫 Você atingiu o limite de frases diárias grátis.\nTorne-se Premium para acesso ilimitado!");
+        return false;
+    }
+    usadas += 1;
+    localStorage.setItem(KEY_QUANTIDADE, usadas.toString());
+    return true;
+}
+
+// Ao clicar no botão de nova frase
+document.getElementById('novaFrase').addEventListener('click', function (e) {
+    if (!verificarLimiteDeFrases()) {
+        e.stopImmediatePropagation();
+        return;
+    }
+    // Aqui segue normalmente a lógica da nova frase (já existente no seu código)
+});
+
+// Botão premium ativa conta (simulação ou redirecionamento)
+document.getElementById('btnAssinarPremium')?.addEventListener('click', () => {
+    // Simulação: para produção, redirecione para o pagamento
+    const confirmar = confirm("Deseja liberar recursos Premium agora?\n\n(Para testes, esta função é simulada)");
+    if (confirmar) {
+        localStorage.setItem("isPremium", "true");
+        alert("✅ Recursos Premium ativados!");
+        bloquearTemasEFonte();
+        location.reload();
+    }
+});
+
+// Sempre rodar ao carregar
+document.addEventListener('DOMContentLoaded', bloquearTemasEFonte);
+</script>
+<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="/manifest.json">
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(() => console.log('✅ Service Worker registrado com sucesso'))
+      .catch(error => console.error('❌ Falha ao registrar SW:', error));
+  }
+</script>
+<script>
+  // Verifica se o usuário está usando um tema escuro
+  const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+  // Função para aplicar o tema escuro
+  function aplicarTemaEscuro() {
+    document.body.classList.add("dark-mode");
+    document.querySelectorAll(".frase-box, .top-bar, .controls, .mid-bar, .botoes-interativos").forEach(el => {
+      el.classList.add("dark-mode");
+    });
+  }
+
+  // Função para remover o tema escuro
+  function removerTemaEscuro() {
+    document.body.classList.remove("dark-mode");
+    document.querySelectorAll(".frase-box, .top-bar, .controls, .mid-bar, .botoes-interativos").forEach(el => {
+      el.classList.remove("dark-mode");
+    });
+  }
+
+  // Verifica o estado inicial do tema
+  if (prefersDarkScheme.matches) {
+    aplicarTemaEscuro();
+  }
+
+  // Adiciona um listener para mudanças no tema
+  prefersDarkScheme.addEventListener("change", e => {
+    if (e.matches) {
+      aplicarTemaEscuro();
+    } else {
+      removerTemaEscuro();
+    }
+  });
+
+  // Botão de alternância de modo escuro
+  document.getElementById('btnDarkMode').addEventListener('click', () => {
+    if (document.body.classList.contains("dark-mode")) {
+      removerTemaEscuro();
+    } else {
+      aplicarTemaEscuro();
+    }
+  });
