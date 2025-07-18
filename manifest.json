@@ -1,11 +1,10 @@
 {
-"display_override": ["window-controls-overlay"], 
   "id": "/?source=pwa",
   "version": "1.0.0",
   "name": "FraseGo",
   "short_name": "FraseGo",
   "description": "Gere frases motivacionais com estilo e compartilhe em segundos.",
-  "start_url": "https://frase-go.vercel.app/",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#1a1a1a",
@@ -15,9 +14,8 @@
     "lifestyle",
     "quotes"
   ],
-  "scope": "https://frase-go.vercel.app/",
+  "scope": "/",
   "lang": "pt-BR",
-  
   "icons": [
     {
       "src": "/icons/icon-192.png",
@@ -67,9 +65,7 @@
     {
       "action": "/abrir-frase",
       "accept": {
-        "application/json": [
-          ".frasego"
-        ]
+        "application/json": [".frasego"]
       }
     }
   ],
@@ -91,7 +87,7 @@
   ],
   "related_applications": [
     {
-      "platform": "chrome_web_store", "play": "itunes" ,"windows": "macos", "android": "web",
+      "platform": "web",
       "url": "https://frase-go.vercel.app"
     }
   ],

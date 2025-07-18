@@ -1,4 +1,12 @@
 /* === Fonte Global === */
+body {
+    margin:0;
+    padding:0;
+    font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+    font-size: 100%;
+    line-height: 1.6;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&family=Roboto:wght@400;700&family=Space+Mono:wght@400;700&display=swap');
 
 /* === Corpo === */
@@ -668,10 +676,31 @@ body.dark-mode .logo-frase svg path {
   fill: #fff !important;
   stroke: #fff !important;
 }
+
 /* Exemplo: cinza claro e cadeado */
 .premium {
   color: #aaa;
 }
 .premium::before {
   content: '🔒 ';
+}
+.container-frase {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  min-height: 300px;
+}
+
+.frase-card {
+background: linear-gradient(135deg, #e0f0ff, #ffffff);
+  border-radius: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  max-width: 90%;
+  text-align: center;
+  color: #111;
+  backdrop-filter: blur(4px);
 }
