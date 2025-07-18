@@ -11,7 +11,7 @@
 </head>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0d0d0d">
-<meta name="description" content="Frase Go - Encontre inspiração diária com frases motivacionais, de amor, amizade e muito mais. Personalize com temas e fontes exclusivas.">
+<meta name="description" content="Frase Go - Encontre inspiracao diária com frases motivacionais, de amor, amizade e muito mais. Personalize com temas e fontes exclusivas.">
 <body>
     <div class="container" style="width:100vw;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;padding:0;">
         <div class="frase-box" style="width:100%;max-width:370px;min-width:260px;min-height:calc(420px + 2cm);max-height:calc(98vh + 3cm);background:#fff;border-radius:1.1rem;padding:1.1rem 1.1rem 0.7rem 1.1rem;box-shadow:0 2px 12px #0001;display:flex;flex-direction:column;align-items:center;overflow:hidden;position:relative;justify-content:flex-start;gap:0;">
@@ -61,7 +61,7 @@
                     <option value="reflexao">Reflexão</option>
                     <option value="sucesso">Sucesso</option>
                     <option value="familia">Família</option>
-                    <option value="inspiração">Inspiração</option>
+                    <option value="inspiracao">Inspiração</option>
                 </select>
                 <select id="fonteSelect">
                     <option value="Roboto">Roboto</option>
@@ -214,7 +214,7 @@ function getSVGForTheme(theme) {
                 <rect x="65" y="80" width="10" height="18" rx="5" fill="#ffb74d"/>
                 <rect x="49" y="67" width="12" height="25" rx="6" fill="#a5d6a7"/>
             </svg>`;
-        case 'inspiração':
+        case 'inspiracao':
             // Lâmpada ideia
             return `<svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <ellipse cx="55" cy="60" rx="22" ry="28" fill="#fff176" stroke="#fbc02d" stroke-width="4"/>
@@ -393,7 +393,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </html>
 <script>
 // Temas e fontes Premium
-const temasPremium = ['inspiração', 'sucesso', 'gratidao'];
+const temasPremium = ['Inspiracao', 'Sucesso', 'Gratidão'];
 const fontesPremium = ['Space Mono', 'Inter'];
 
 // Verifica se é premium
@@ -401,37 +401,48 @@ function isPremium() {
     return localStorage.getItem("isPremium") === "true";
 }
 
-// Bloqueia/desbloqueia temas e fontes conforme premium
 function bloquearTemasEFonte() {
+    const premiumTag = ' (Premium)';
+
+    // Temas
     document.querySelectorAll('#temaSelect option').forEach(opt => {
-        if (temasPremium.includes(opt.value)) {
+        const isPremiumTema = temasPremium.includes(opt.value);
+        const temTag = opt.textContent.includes(premiumTag);
+
+        if (isPremiumTema) {
             if (!isPremium()) {
-                opt.textContent = opt.textContent.replace(' (Premium)', '') + ' (Premium)';
+                if (!temTag) opt.textContent += premiumTag;
                 opt.disabled = true;
             } else {
-                opt.textContent = opt.textContent.replace(' (Premium)', '');
+                opt.textContent = opt.textContent.replace(premiumTag, '');
                 opt.disabled = false;
             }
         } else {
-            opt.textContent = opt.textContent.replace(' (Premium)', '');
+            opt.textContent = opt.textContent.replace(premiumTag, '');
             opt.disabled = false;
         }
     });
+
+    // Fontes
     document.querySelectorAll('#fonteSelect option').forEach(opt => {
-        if (fontesPremium.includes(opt.value)) {
+        const isPremiumFonte = fontesPremium.includes(opt.value);
+        const temTag = opt.textContent.includes(premiumTag);
+
+        if (isPremiumFonte) {
             if (!isPremium()) {
-                opt.textContent = opt.textContent.replace(' (Premium)', '') + ' (Premium)';
+                if (!temTag) opt.textContent += premiumTag;
                 opt.disabled = true;
             } else {
-                opt.textContent = opt.textContent.replace(' (Premium)', '');
+                opt.textContent = opt.textContent.replace(premiumTag, '');
                 opt.disabled = false;
             }
         } else {
-            opt.textContent = opt.textContent.replace(' (Premium)', '');
+            opt.textContent = opt.textContent.replace(premiumTag, '');
             opt.disabled = false;
         }
     });
 }
+
 
 // Limite de frases diárias para não-premium
 const LIMITE_FRASES_GRATUITO = 5;
