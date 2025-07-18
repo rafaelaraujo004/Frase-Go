@@ -668,3 +668,16 @@ body.dark-mode .logo-frase svg path {
   fill: #fff !important;
   stroke: #fff !important;
 }
+/* Exemplo: cinza claro e cadeado */
+.premium {
+  color: #aaa;
+}
+.premium::before {
+  content: '🔒 ';
+}
+.premium {
+  color: #aaa;
+}
+.premium::before {
+  content: '🔒 ';
+}
