@@ -313,12 +313,6 @@ function aplicarRestricoes() {
     opt.disabled = !premium && fontesPremium.includes(opt.value);
   });
 
-  // aplicarRestricoes
-  const temaSelect = document.getElementById('temaSelect');
-  const temasPremium = ['sucesso', 'inspiração'];
-  [...temaSelect.options].forEach(opt => {
-    opt.disabled = !premium && temasPremium.includes(opt.value);
-  });
 
   // BLOQUEIO DE FRASES EXCEDENTES
   const frasesMaxGratuitas = 5;
