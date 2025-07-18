@@ -675,9 +675,3 @@ body.dark-mode .logo-frase svg path {
 .premium::before {
   content: '🔒 ';
 }
-.premium {
-  color: #aaa;
-}
-.premium::before {
-  content: '🔒 ';
-}

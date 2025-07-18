@@ -1,4 +1,3 @@
-
 // --- Jogo da velha (tags) ---
 let iconeJogoDaVelha = document.getElementById('iconeJogoDaVelha');
 if (!window._tagsBtnHandlerAdded) {
@@ -75,15 +74,6 @@ const tagsModal = document.getElementById('tagsModal');
 const tagsLacunas = document.getElementById('tagsLacunas');
 const fecharTags = document.getElementById('fecharTags');
 const temaSelect = document.getElementById('temaSelect');
-const temasPremium = [
-  'amor',
-  'amizade',
-  'familia',
-  'inspiracao',
-  'sucesso',
-  'superacao'
-];
-
 const fraseDiv = document.getElementById('frase');
 fraseDiv.style.marginTop = '2cm';
 const fonteSelect = document.getElementById('fonteSelect');
@@ -122,15 +112,6 @@ if (btnTags) {
             btnCopiar.title = 'Copiar tags';
             btnCopiar.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
             btnCopiar.addEventListener('click', () => {
-              btnAtivarPremium.addEventListener('click', () => {
-  // Aqui você faria a chamada à sua API/serviço de pagamento...
-  // Após confirmação de sucesso:
-  isPremium = true;
-  localStorage.setItem('isPremium', 'true');
-  atualizarTemasPremium();        // desbloqueia imediatamente
-  alert('Parabéns! Você agora é Premium.');
-});
-
                 copiarTextoComFonte(tagsStr, '');
             });
             div.appendChild(span);
@@ -750,7 +731,6 @@ const frases = {
 };
 
 const fontes = {
-  
     'Roboto': 'Roboto, sans-serif',
     'Montserrat': 'Montserrat, sans-serif',
     'Lato': 'Lato, sans-serif',
@@ -758,31 +738,6 @@ const fontes = {
     'Open Sans': 'Open Sans, sans-serif',
     'Space Mono': 'Space Mono, monospace'
 };
-function atualizarTemasPremium() {
-  if (!temaSelect) return;
-
-  Array.from(temaSelect.options).forEach(option => {
-    const valor = option.value.toLowerCase();
-
-    // Só aplica lógica para os temas listados como premium
-    if (temasPremium.includes(valor)) {
-      if (isPremium) {
-        // Usuário Premium → desbloquear 
-        option.disabled = false;
-        option.classList.remove('premium');
-        option.textContent = option.textContent.replace(' (Premium)', '');
-      } else {
-        // Usuário não-Premium → bloquear 
-        option.disabled = true;
-        option.classList.add('premium');
-        if (!option.textContent.includes('(Premium)')) {
-          option.textContent += ' (Premium)';
-        }
-      }
-    }
-  });
-}
-
 
 let favoritos = JSON.parse(localStorage.getItem('favoritosAppFrases') || '[]');
 if (favoritos.length && typeof favoritos[0] === 'string') {
@@ -982,7 +937,7 @@ const watermarks = {
   superacao: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">🏆</text></svg>')`,
   gratidao: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">🙏</text></svg>')`,
   reflexao: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">💭</text></svg>')`,
-  Sucesso: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">📈</text></svg>')`,
+  sucesso: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">📈</text></svg>')`,
   familia: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">👨‍👩‍👧‍👦</text></svg>')`,
   inspiracao: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">💡</text></svg>')`,
   default: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">✨</text></svg>')`,
@@ -999,13 +954,11 @@ if (temaSelectWatermark) {
 }
 
 // Inicialização
-  document.addEventListener('DOMContentLoaded', () => {
-  atualizarTemasPremium();  // aplica bloqueio ou desbloqueio
-  mostrarFrase();
-  mudarFonte();
-  atualizarCoracao();
+document.addEventListener('DOMContentLoaded', () => {
+    mostrarFrase();
+    mudarFonte();
+    atualizarCoracao();
 });
-
 
 // Ativar modo escuro
 const btnDarkMode = document.getElementById('btnDarkMode');

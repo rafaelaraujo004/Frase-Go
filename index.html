@@ -187,7 +187,7 @@ function getSVGForTheme(theme) {
                 <path d="M35 80 Q55 60 75 80" stroke="#fbc02d" stroke-width="6" fill="none"/>
                 <path d="M40 85 Q55 70 70 85" stroke="#fbc02d" stroke-width="6" fill="none"/>
                 <ellipse cx="35" cy="80" rx="8" ry="12" fill="#ffe0b2"/>
-                <ellipse cx="75" cy="80" rx="8" ry="12" fill="#ffe0b2"/>
+                <ellipse cx="75" cy="80" rx="8"body ry="12" fill="#ffe0b2"/>
             </svg>`;
         case 'reflexao':
             // Nuvem de pensamento
@@ -416,23 +416,6 @@ function bloquearTemasEFonte() {
             opt.textContent = opt.textContent.replace(' (Premium)', '');
             opt.disabled = false;
         }
-    });
-    document.querySelectorAll('#fonteSelect option').forEach(opt => {
-        if (fontesPremium.includes(opt.value)) {
-            if (!isPremium()) {
-                opt.textContent = opt.textContent.replace(' (Premium)', '') + ' (Premium)';
-                opt.disabled = true;
-            } else {
-                opt.textContent = opt.textContent.replace(' (Premium)', '');
-                opt.disabled = false;
-            }
-        } else {
-            opt.textContent = opt.textContent.replace(' (Premium)', '');
-            opt.disabled = false;
-        }
-    });
-}
-
 // Limite de frases diárias para não-premium
 const LIMITE_FRASES_GRATUITO = 5;
 const KEY_DATA = 'dataUltimoUso';
