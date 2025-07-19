@@ -523,6 +523,7 @@ document.addEventListener('DOMContentLoaded', bloquearTemasEFonte);
 </div>
 
 <script type="module">
+// Inicialização do Supabase
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
 const supabaseUrl = 'https://lfvfvrpfrphpbsxktazn.supabase.co';
@@ -540,6 +541,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   const btnFecharCadastro = document.getElementById('btnFecharCadastro');
   const cadastroForm = document.getElementById('cadastroForm');
   const btnGoogleLogin = document.getElementById('btnGoogleLogin');
+  const btnPerfil = document.getElementById('btnPerfil');
 
   // Verifica sessão ao carregar
   const { data } = await supabase.auth.getSession();
@@ -622,9 +624,19 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (error) {
       loginMsg.textContent = 'Erro ao logar com Google!';
     }
-    // Não precisa recarregar, pois o Supabase faz o redirect
+    // O Supabase faz o redirect automaticamente
   };
 
+  // Logout correto
+  btnPerfil.onclick = async function() {
+    if (confirm('Deseja sair da sua conta?')) {
+      await supabase.auth.signOut();
+      localStorage.removeItem('preferenciaTema');
+      location.reload();
+    }
+  };
+
+  // Função para aplicar tema
   function aplicarPreferenciaTema(tema) {
     if (tema === 'escuro') {
       document.body.classList.add('dark-mode');
