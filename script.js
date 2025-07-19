@@ -1054,7 +1054,7 @@ if (temasPremium.includes(opt.value.toLowerCase())) {
 document.querySelector('.btn').addEventListener('click', function(event) {
     // Você pode adicionar lógica adicional aqui antes de enviar o formulário
 });
-const supabaseUrl = 'EXPO_PUBLIC_SUPABASE_URL=https://lfvfvrpfrphpbsxktazn.supabase.co';
+const supabaseUrl = 'https://lfvfvrpfrphpbsxktazn.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxmdmZ2cnBmcnBocGJzeGt0YXpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI4NzgyMzgsImV4cCI6MjA2ODQ1NDIzOH0.aXIRLdSYBt5_ifMAtpKeOV1mnZooqtkWQ7OTqxcg7s4';
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 async function salvarFrase(texto, tema, fonte) {
