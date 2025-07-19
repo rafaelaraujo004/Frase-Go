@@ -523,11 +523,21 @@ document.addEventListener('DOMContentLoaded', bloquearTemasEFonte);
 </div>
 
 <script type="module">
-// Integração Supabase
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-const supabaseUrl = 'https://lfvfvrpfrphpbsxktazn.supabase.co';
-const supabase = createClient(supabaseUrl, supabaseKey);
+// ...código Supabase...
 
+document.addEventListener('DOMContentLoaded', function() {
+  // ...outros elementos...
+  const btnCriarConta = document.getElementById('btnCriarConta');
+  const cadastroModal = document.getElementById('cadastroModal');
+  const loginModal = document.getElementById('loginModal');
+  const cadastroMsg = document.getElementById('cadastroMsg');
+
+  btnCriarConta.onclick = function() {
+    if (loginModal) loginModal.style.display = 'none';
+    if (cadastroModal) cadastroModal.style.display = 'flex';
+    if (cadastroMsg) cadastroMsg.textContent = '';
+  };
+});
 // Login Supabase
 document.addEventListener('DOMContentLoaded', function() {
   const loginModal = document.getElementById('loginModal');
@@ -535,10 +545,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const loginMsg = document.getElementById('loginMsg');
   const btnCriarConta = document.getElementById('btnCriarConta');
   const cadastroModal = document.getElementById('cadastroModal');
-  const cadastroForm = document.getElementById('cadastroForm');
+  const loginModal = document.getElementById('loginModal');
   const cadastroMsg = document.getElementById('cadastroMsg');
-  const btnFecharCadastro = document.getElementById('btnFecharCadastro');
-  const btnGoogleLogin = document.getElementById('btnGoogleLogin');
 
   // Verifica sessão Supabase
   supabase.auth.getSession().then(({ data }) => {
@@ -571,9 +579,9 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
   btnCriarConta.onclick = function() {
-    loginModal.style.display = 'none';
-    cadastroModal.style.display = 'flex';
-    cadastroMsg.textContent = '';
+    if (loginModal) loginModal.style.display = 'none';
+    if (cadastroModal) cadastroModal.style.display = 'flex';
+    if (cadastroMsg) cadastroMsg.textContent = '';
   };
 
   btnFecharCadastro.onclick = function() {
