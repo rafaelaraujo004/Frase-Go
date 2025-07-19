@@ -364,108 +364,6 @@ document.addEventListener('DOMContentLoaded', function () {
   document.body.appendChild(btnFakePremium);
 });
 </script>
-<script>
-// Temas e fontes Premium
-const temasPremium = ['inspiração', 'sucesso', 'gratidao'];
-const fontesPremium = ['Space Mono', 'Inter'];
-
-// Função para verificar se é premium
-function isPremium() {
-  return localStorage.getItem("isPremium") === "true";
-}
-
-// Bloqueia/desbloqueia temas e fontes conforme premium
-function bloquearTemasEFonte() {
-  document.querySelectorAll('#temaSelect option').forEach(opt => {
-    if (temasPremium.includes(opt.value)) {
-      if (!isPremium()) {
-        opt.textContent = opt.textContent.replace(' (Premium)', '') + ' (Premium)';
-        opt.disabled = true;
-      } else {
-        opt.textContent = opt.textContent.replace(' (Premium)', '');
-        opt.disabled = false;
-      }
-    } else {
-      opt.textContent = opt.textContent.replace(' (Premium)', '');
-      opt.disabled = false;
-    }
-  });
-  document.querySelectorAll('#fonteSelect option').forEach(opt => {
-    if (fontesPremium.includes(opt.value)) {
-      if (!isPremium()) {
-        opt.textContent = opt.textContent.replace(' (Premium)', '') + ' (Premium)';
-        opt.disabled = true;
-      } else {
-        opt.textContent = opt.textContent.replace(' (Premium)', '');
-        opt.disabled = false;
-      }
-    } else {
-      opt.textContent = opt.textContent.replace(' (Premium)', '');
-      opt.disabled = false;
-    }
-  });
-}
-
-// Limite de frases diárias para não-premium
-const LIMITE_FRASES_GRATUITO = 5;
-const KEY_DATA = 'dataUltimoUso';
-const KEY_QUANTIDADE = 'frasesUsadasHoje';
-
-function resetarUsoDiario() {
-  const hoje = new Date().toLocaleDateString();
-  localStorage.setItem(KEY_DATA, hoje);
-  localStorage.setItem(KEY_QUANTIDADE, '0');
-}
-
-function verificarLimiteDeFrases() {
-  if (isPremium()) return true;
-  const hoje = new Date().toLocaleDateString();
-  const dataSalva = localStorage.getItem(KEY_DATA);
-  if (dataSalva !== hoje) {
-    resetarUsoDiario();
-  }
-  let usadas = parseInt(localStorage.getItem(KEY_QUANTIDADE) || '0');
-  if (usadas >= LIMITE_FRASES_GRATUITO) {
-    mostrarModalPremium();
-    return false;
-  }
-  usadas += 1;
-  localStorage.setItem(KEY_QUANTIDADE, usadas.toString());
-  return true;
-}
-
-// Ao clicar no botão de nova frase
-document.getElementById('novaFrase').addEventListener('click', function (e) {
-  if (!verificarLimiteDeFrases()) {
-    e.stopImmediatePropagation();
-    return;
-  }
-  // Aqui segue normalmente a lógica da nova frase (já existente no seu código)
-});
-
-// Modal Premium
-function mostrarModalPremium() {
-  document.getElementById('modalPremium').style.display = 'flex';
-}
-document.getElementById('fecharModalPremium').onclick = function() {
-  document.getElementById('modalPremium').style.display = 'none';
-};
-document.getElementById('btnAssinarPremium').onclick = function() {
-  const confirmar = confirm("Deseja liberar recursos Premium agora?\n\n(Para testes, esta função é simulada)");
-  if (confirmar) {
-    localStorage.setItem("isPremium", "true");
-    alert("✅ Recursos Premium ativados!");
-    bloquearTemasEFonte();
-    document.getElementById('modalPremium').style.display = 'none';
-    location.reload();
-  }
-};
-
-// Sempre rodar ao carregar
-document.addEventListener('DOMContentLoaded', bloquearTemasEFonte);
-
-</script>
-
 <!-- Modal Premium -->
 <div id="modalPremium" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);z-index:999;justify-content:center;align-items:center;">
   <div style="background:#fff;padding:2rem;border-radius:1.2rem;max-width:95vw;width:420px;box-shadow:0 0 20px #0003;display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.2rem;">
@@ -491,194 +389,87 @@ document.addEventListener('DOMContentLoaded', bloquearTemasEFonte);
   </div>
 </div>
 
-<!-- Modal de Login -->
-<div id="loginModal" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:2000;display:flex;align-items:center;justify-content:center;">
-  <form id="loginForm" style="background:#fff;padding:2.2rem 2rem;border-radius:1.2rem;box-shadow:0 2px 24px #0003;display:flex;flex-direction:column;align-items:center;gap:1.2rem;min-width:320px;">
-    <h2 style="color:#0d47a1;">Bem-vindo ao FraseGo</h2>
-    <input type="email" id="loginUsuario" placeholder="E-mail" required style="padding:0.7rem;width:100%;border-radius:0.6rem;border:1px solid #bbb;font-size:1rem;">
-    <input type="password" id="loginSenha" placeholder="Senha" required style="padding:0.7rem;width:100%;border-radius:0.6rem;border:1px solid #bbb;font-size:1rem;">
-    <select id="loginPreferenciaTema" style="padding:0.7rem;width:100%;border-radius:0.6rem;border:1px solid #bbb;font-size:1rem;">
-      <option value="claro">Tema Claro</option>
-      <option value="escuro">Tema Escuro</option>
-    </select>
-    <button type="submit" style="background:#0d47a1;color:#fff;border:none;padding:0.8rem 1.4rem;border-radius:0.7rem;cursor:pointer;font-size:1rem;width:100%;">Entrar</button>
-    <button type="button" id="btnGoogleLogin" style="background:#fff;color:#0d47a1;border:1px solid #0d47a1;padding:0.8rem 1.4rem;border-radius:0.7rem;cursor:pointer;font-size:1rem;width:100%;display:flex;align-items:center;justify-content:center;gap:0.6rem;">
-      <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width:22px;height:22px;"> Entrar com Google
-    </button>
-    <button type="button" id="btnCriarConta" style="background:none;color:#0d47a1;border:none;padding:0.5rem 0;cursor:pointer;font-size:0.98rem;width:100%;text-decoration:underline;">Criar nova conta</button>
-    <div id="loginMsg" style="color:#e53935;font-size:0.98rem;text-align:center;"></div>
-  </form>
-</div>
-
-<!-- Modal de Cadastro -->
-<div id="cadastroModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:2100;align-items:center;justify-content:center;">
-  <form id="cadastroForm" style="background:#fff;padding:2.2rem 2rem;border-radius:1.2rem;box-shadow:0 2px 24px #0003;display:flex;flex-direction:column;align-items:center;gap:1.2rem;min-width:320px;">
-    <h2 style="color:#0d47a1;">Criar Conta</h2>
-    <input type="email" id="cadastroUsuario" placeholder="E-mail" required style="padding:0.7rem;width:100%;border-radius:0.6rem;border:1px solid #bbb;font-size:1rem;">
-    <input type="password" id="cadastroSenha" placeholder="Nova senha" required style="padding:0.7rem;width:100%;border-radius:0.6rem;border:1px solid #bbb;font-size:1rem;">
-    <button type="submit" style="background:#0d47a1;color:#fff;border:none;padding:0.8rem 1.4rem;border-radius:0.7rem;cursor:pointer;font-size:1rem;width:100%;">Criar Conta</button>
-    <button type="button" id="btnFecharCadastro" style="background:none;color:#0d47a1;border:none;padding:0.5rem 0;cursor:pointer;font-size:0.98rem;width:100%;text-decoration:underline;">Cancelar</button>
-    <div id="cadastroMsg" style="color:#e53935;font-size:0.98rem;text-align:center;"></div>
-  </form>
-</div>
-
-<script type="module">
-// Inicialização do Supabase
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-
-const supabaseUrl = 'https://lfvfvrpfrphpbsxktazn.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxmdmZ2cnBmcnBocGJzeGt0YXpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI4NzgyMzgsImV4cCI6MjA2ODQ1NDIzOH0.aXIRLdSYBt5_ifMAtpKeOV1mnZooqtkWQ7OTqxcg7s4';
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-document.addEventListener('DOMContentLoaded', async function() {
-  // Elementos
-  const btnCriarConta = document.getElementById('btnCriarConta');
-  const cadastroModal = document.getElementById('cadastroModal');
-  const loginModal = document.getElementById('loginModal');
-  const cadastroMsg = document.getElementById('cadastroMsg');
-  const loginForm = document.getElementById('loginForm');
-  const loginMsg = document.getElementById('loginMsg');
-  const btnFecharCadastro = document.getElementById('btnFecharCadastro');
-  const cadastroForm = document.getElementById('cadastroForm');
-  const btnGoogleLogin = document.getElementById('btnGoogleLogin');
-  const btnPerfil = document.getElementById('btnPerfil');
-
-  // Verifica sessão ao carregar
-  const { data } = await supabase.auth.getSession();
-  if (data.session) {
-    loginModal.style.display = 'none';
-    cadastroModal.style.display = 'none';
-  } else {
-    loginModal.style.display = 'flex';
-  }
-
-  // Abrir modal de cadastro
-  btnCriarConta.onclick = function() {
-    loginModal.style.display = 'none';
-    cadastroModal.style.display = 'flex';
-    cadastroMsg.textContent = '';
-  };
-
-  // Fechar modal de cadastro
-  btnFecharCadastro.onclick = function() {
-    cadastroModal.style.display = 'none';
-    loginModal.style.display = 'flex';
-  };
-
-  // Cadastro de usuário
-  cadastroForm.onsubmit = async function(e) {
-    e.preventDefault();
-    const email = document.getElementById('cadastroUsuario').value.trim();
-    const senha = document.getElementById('cadastroSenha').value;
-
-    if (email.length < 3 || senha.length < 3) {
-      cadastroMsg.textContent = 'Usuário e senha devem ter pelo menos 3 caracteres.';
-      return;
-    }
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password: senha
-    });
-
-    if (error) {
-      cadastroMsg.textContent = error.message;
-      return;
-    }
-    cadastroMsg.textContent = 'Conta criada com sucesso! Faça login.';
-    setTimeout(() => {
-      cadastroModal.style.display = 'none';
-      loginModal.style.display = 'flex';
-    }, 1200);
-  };
-
-  // Login de usuário
-  loginForm.onsubmit = async function(e) {
-    e.preventDefault();
-    const email = document.getElementById('loginUsuario').value.trim();
-    const senha = document.getElementById('loginSenha').value;
-    const preferenciaTema = document.getElementById('loginPreferenciaTema').value;
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password: senha
-    });
-
-    if (error) {
-      loginMsg.textContent = 'Usuário ou senha inválidos!';
-      return;
-    }
-
-    localStorage.setItem('preferenciaTema', preferenciaTema);
-    aplicarPreferenciaTema(preferenciaTema);
-    loginModal.style.display = 'none';
-    loginMsg.textContent = '';
-    location.reload(); // Recarrega para garantir sessão
-  };
-
-  // Login com Google
-  btnGoogleLogin.onclick = async function() {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google'
-    });
-    if (error) {
-      loginMsg.textContent = 'Erro ao logar com Google!';
-    }
-    // O Supabase faz o redirect automaticamente
-  };
-
-  // Logout correto
-  btnPerfil.onclick = async function() {
-    if (confirm('Deseja sair da sua conta?')) {
-      await supabase.auth.signOut();
-      localStorage.removeItem('preferenciaTema');
-      location.reload();
-    }
-  };
-
-  // Função para aplicar tema
-  function aplicarPreferenciaTema(tema) {
-    if (tema === 'escuro') {
-      document.body.classList.add('dark-mode');
-    } else {
-      document.body.classList.remove('dark-mode');
-    }
-  }
-});
-</script>
-<button id="btnPerfil" title="Perfil / Logout" style="
-  position:fixed;
-  top:22px;
-  right:22px;
-  z-index:3000;
-  background:#fff;
-  color:#0d47a1;
-  border:2px solid #0d47a1;
-  border-radius:50%;
-  width:48px;
-  height:48px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 2px 12px #0002;
-  cursor:pointer;
-">
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0d47a1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="8" r="4"/>
-    <path d="M4 20v-1a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v1"/>
-  </svg>
-</button>
-<script>
-document.getElementById('btnPerfil').onclick = function() {
-  if (confirm('Deseja sair da sua conta?')) {
-    localStorage.removeItem('usuarioLogado');
-    localStorage.removeItem('preferenciaTema');
-    location.reload();
-  }
-};
-</script>
 </body>
 </html>
+<script>
+// Temas e fontes Premium
+const temasPremium = ['inspiração', 'sucesso', 'gratidao'];
+const fontesPremium = ['Space Mono', 'Inter'];
+
+// Verifica se é premium
+function isPremium() {
+    return localStorage.getItem("isPremium") === "true";
+}
+
+// Bloqueia/desbloqueia temas e fontes conforme premium
+function bloquearTemasEFonte() {
+    document.querySelectorAll('#temaSelect option').forEach(opt => {
+        if (temasPremium.includes(opt.value)) {
+            if (!isPremium()) {
+                opt.textContent = opt.textContent.replace(' (Premium)', '') + ' (Premium)';
+                opt.disabled = true;
+            } else {
+                opt.textContent = opt.textContent.replace(' (Premium)', '');
+                opt.disabled = false;
+            }
+        } else {
+            opt.textContent = opt.textContent.replace(' (Premium)', '');
+            opt.disabled = false;
+        }
+// Limite de frases diárias para não-premium
+const LIMITE_FRASES_GRATUITO = 5;
+const KEY_DATA = 'dataUltimoUso';
+const KEY_QUANTIDADE = 'frasesUsadasHoje';
+
+function resetarUsoDiario() {
+    const hoje = new Date().toLocaleDateString();
+    localStorage.setItem(KEY_DATA, hoje);
+    localStorage.setItem(KEY_QUANTIDADE, '0');
+}
+
+function verificarLimiteDeFrases() {
+    if (isPremium()) return true;
+    const hoje = new Date().toLocaleDateString();
+    const dataSalva = localStorage.getItem(KEY_DATA);
+    if (dataSalva !== hoje) {
+        resetarUsoDiario();
+    }
+    let usadas = parseInt(localStorage.getItem(KEY_QUANTIDADE) || '0');
+    if (usadas >= LIMITE_FRASES_GRATUITO) {
+        alert("🚫 Você atingiu o limite de frases diárias grátis.\nTorne-se Premium para acesso ilimitado!");
+        return false;
+    }
+    usadas += 1;
+    localStorage.setItem(KEY_QUANTIDADE, usadas.toString());
+    return true;
+}
+
+// Ao clicar no botão de nova frase
+document.getElementById('novaFrase').addEventListener('click', function (e) {
+    if (!verificarLimiteDeFrases()) {
+        e.stopImmediatePropagation();
+        return;
+    }
+    // Aqui segue normalmente a lógica da nova frase (já existente no seu código)
+});
+
+// Botão premium ativa conta (simulação ou redirecionamento)
+document.getElementById('btnAssinarPremium')?.addEventListener('click', () => {
+    // Simulação: para produção, redirecione para o pagamento
+    const confirmar = confirm("Deseja liberar recursos Premium agora?\n\n(Para testes, esta função é simulada)");
+    if (confirmar) {
+        localStorage.setItem("isPremium", "true");
+        alert("✅ Recursos Premium ativados!");
+        bloquearTemasEFonte();
+        location.reload();
+    }
+});
+
+// Sempre rodar ao carregar
+document.addEventListener('DOMContentLoaded', bloquearTemasEFonte);
+</script>
+<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="/manifest.json">
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/service-worker.js')
@@ -720,17 +511,11 @@ document.getElementById('btnPerfil').onclick = function() {
     }
   });
 
-document.addEventListener('DOMContentLoaded', async function() {
-  const { data } = await supabase.auth.getSession();
-  const loginModal = document.getElementById('loginModal');
-  const cadastroModal = document.getElementById('cadastroModal');
-
-  if (data.session) {
-    loginModal.style.display = 'none';
-    cadastroModal.style.display = 'none';
-  } else {
-    loginModal.style.display = 'flex';
-  }
-});
-
-
+  // Botão de alternância de modo escuro
+  document.getElementById('btnDarkMode').addEventListener('click', () => {
+    if (document.body.classList.contains("dark-mode")) {
+      removerTemaEscuro();
+    } else {
+      aplicarTemaEscuro();
+    }
+  });
