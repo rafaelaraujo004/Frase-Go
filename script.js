@@ -1038,57 +1038,46 @@ if (btnCopiarFrase) {
     });
 }
 
-// Adicione no topo do arquivo (após os imports, se houver):
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-
-// Configuração Supabase
-const supabaseUrl = '<https://lfvfvrpfrphpbsxktazn.supabase.co>.supabase.co'; // Substitua pelo seu URL do Supabase
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxmdmZ2cnBmcnBocGJzeGt0YXpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI4NzgyMzgsImV4cCI6MjA2ODQ1NDIzOH0.aXIRLdSYBt5_ifMAtpKeOV1mnZooqtkWQ7OTqxcg7s4'; // Substitua pela sua chave anon
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-// Função para salvar frase no Supabase
+;
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/service-worker.js')
+      .then(reg => console.log('[FraseGo] SW registrado:', reg.scope))
+      .catch(err => console.error('[FraseGo] Erro ao registrar SW:', err));
+  });
+}
+if (temasPremium.includes(opt.value.toLowerCase())) {
+    opt.classList.add('premium');
+    opt.textContent += ' (Premium)';
+} 
+document.querySelector('.btn').addEventListener('click', function(event) {
+    // Você pode adicionar lógica adicional aqui antes de enviar o formulário
+});
+const supabaseUrl = 'EXPO_PUBLIC_SUPABASE_URL=https://lfvfvrpfrphpbsxktazn.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxmdmZ2cnBmcnBocGJzeGt0YXpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI4NzgyMzgsImV4cCI6MjA2ODQ1NDIzOH0.aXIRLdSYBt5_ifMAtpKeOV1mnZooqtkWQ7OTqxcg7s4';
+const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 async function salvarFrase(texto, tema, fonte) {
   const { data, error } = await supabase
     .from('frases')
     .insert([{ texto, tema, fonte }]);
+
   if (error) {
     console.error('Erro ao salvar:', error.message);
-    alert('Erro ao salvar frase!');
   } else {
     console.log('Frase salva:', data);
-    alert('Frase salva no Supabase!');
   }
 }
-
-// Função para carregar frases do Supabase
 async function carregarFrases() {
   const { data, error } = await supabase
     .from('frases')
     .select('*')
     .order('data_criacao', { ascending: false });
+
   if (error) {
     console.error('Erro ao carregar frases:', error.message);
-    alert('Erro ao carregar frases!');
-    return [];
   } else {
     console.log('Frases carregadas:', data);
-    return data;
+    // Aqui você pode atualizar seu app com os dados recebidos
   }
 }
-
-// Exemplo de uso: salvar frase ao favoritar
-if (btnFavoritar) {
-  btnFavoritar.addEventListener('click', async () => {
-    const fraseAtual = fraseDiv.textContent;
-    const fonteAtual = fonteSelect.value;
-    // Salva no Supabase ao favoritar
-    await salvarFrase(fraseAtual, temaSelect.value, fonteAtual);
-    // ...restante da lógica local...
-  });
-}
-
-// Exemplo de uso: carregar frases ao iniciar
-document.addEventListener('DOMContentLoaded', async () => {
-  const frasesSupabase = await carregarFrases();
-  // Atualize seu app com frasesSupabase se desejar
-});

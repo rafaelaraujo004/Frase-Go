@@ -522,16 +522,14 @@ document.addEventListener('DOMContentLoaded', bloquearTemasEFonte);
   </form>
 </div>
 
-<script>
-// Simulação de "base de usuários" localStorage
-function getUsuarios() {
-  return JSON.parse(localStorage.getItem('usuariosFraseGo') || '{}');
-}
-function setUsuarios(usuarios) {
-  localStorage.setItem('usuariosFraseGo', JSON.stringify(usuarios));
-}
+<script type="module">
+// Integração Supabase
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+const supabaseUrl = 'https://lfvfvrpfrphpbsxktazn.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxmdmZ2cnBmcnBocGJzeGt0YXpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI4NzgyMzgsImV4cCI6MjA2ODQ1NDIzOH0.aXIRLdSYBt5_ifMAtpKeOV1mnZooqtkWQ7OTqxcg7s4';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Login tradicional
+// Login Supabase
 document.addEventListener('DOMContentLoaded', function() {
   const loginModal = document.getElementById('loginModal');
   const loginForm = document.getElementById('loginForm');
@@ -543,62 +541,66 @@ document.addEventListener('DOMContentLoaded', function() {
   const btnFecharCadastro = document.getElementById('btnFecharCadastro');
   const btnGoogleLogin = document.getElementById('btnGoogleLogin');
 
-  // Se já estiver logado, não mostra o modal
-  if (localStorage.getItem('usuarioLogado')) {
-    loginModal.style.display = 'none';
-    aplicarPreferenciaTema(localStorage.getItem('preferenciaTema'));
-    return;
-  }
+  // Verifica sessão Supabase
+  supabase.auth.getSession().then(({ data }) => {
+    if (data.session) {
+      loginModal.style.display = 'none';
+      aplicarPreferenciaTema(localStorage.getItem('preferenciaTema'));
+    }
+  });
 
-  loginForm.onsubmit = function(e) {
+  loginForm.onsubmit = async function(e) {
     e.preventDefault();
-    const usuario = document.getElementById('loginUsuario').value.trim();
+    const email = document.getElementById('loginUsuario').value.trim();
     const senha = document.getElementById('loginSenha').value;
     const preferenciaTema = document.getElementById('loginPreferenciaTema').value;
-    const usuarios = getUsuarios();
 
-    if (!usuarios[usuario] || usuarios[usuario] !== senha) {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password: senha
+    });
+
+    if (error) {
       loginMsg.textContent = 'Usuário ou senha inválidos!';
       return;
     }
 
-    localStorage.setItem('usuarioLogado', usuario);
     localStorage.setItem('preferenciaTema', preferenciaTema);
     aplicarPreferenciaTema(preferenciaTema);
     loginModal.style.display = 'none';
     loginMsg.textContent = '';
   };
 
-  // Abrir modal de cadastro
   btnCriarConta.onclick = function() {
     loginModal.style.display = 'none';
     cadastroModal.style.display = 'flex';
     cadastroMsg.textContent = '';
   };
 
-  // Fechar modal de cadastro
   btnFecharCadastro.onclick = function() {
     cadastroModal.style.display = 'none';
     loginModal.style.display = 'flex';
   };
 
-  // Cadastro de novo usuário
-  cadastroForm.onsubmit = function(e) {
+  cadastroForm.onsubmit = async function(e) {
     e.preventDefault();
-    const usuario = document.getElementById('cadastroUsuario').value.trim();
+    const email = document.getElementById('cadastroUsuario').value.trim();
     const senha = document.getElementById('cadastroSenha').value;
-    let usuarios = getUsuarios();
 
-    if (usuario.length < 3 || senha.length < 3) {
+    if (email.length < 3 || senha.length < 3) {
       cadastroMsg.textContent = 'Usuário e senha devem ter pelo menos 3 caracteres.';
       return;
     }
-    if (usuarios[usuario]) {
-      cadastroMsg.textContent = 'Usuário já existe!';
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password: senha
+    });
+
+    if (error) {
+      cadastroMsg.textContent = error.message;
       return;
     }
-    usuarios[usuario] = senha;
-    setUsuarios(usuarios);
     cadastroMsg.textContent = 'Conta criada com sucesso! Faça login.';
     setTimeout(() => {
       cadastroModal.style.display = 'none';
@@ -606,25 +608,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 1200);
   };
 
-  // Login com Google (simulação)
-  btnGoogleLogin.onclick = function() {
-    // Simulação: cria usuário Google se não existir
-    let usuarios = getUsuarios();
-    const usuarioGoogle = 'google_user';
-    const senhaGoogle = 'google_auth';
-    if (!usuarios[usuarioGoogle]) {
-      usuarios[usuarioGoogle] = senhaGoogle;
-      setUsuarios(usuarios);
+  btnGoogleLogin.onclick = async function() {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google'
+    });
+    if (error) {
+      loginMsg.textContent = 'Erro ao logar com Google!';
     }
-    localStorage.setItem('usuarioLogado', usuarioGoogle);
-    localStorage.setItem('preferenciaTema', 'claro');
-    aplicarPreferenciaTema('claro');
-    loginModal.style.display = 'none';
-    loginMsg.textContent = '';
-    alert('Login Google simulado!');
   };
 
-  // Aplica tema conforme preferência
   function aplicarPreferenciaTema(tema) {
     if (tema === 'escuro') {
       document.body.classList.add('dark-mode');
@@ -633,6 +625,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
+
+// Botão de logout
+document.getElementById('btnPerfil').onclick = async function() {
+  if (confirm('Deseja sair da sua conta?')) {
+    await supabase.auth.signOut();
+    localStorage.removeItem('preferenciaTema');
+    location.reload();
+  }
+};
 </script>
 <button id="btnPerfil" title="Perfil / Logout" style="
   position:fixed;
