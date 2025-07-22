@@ -1,3 +1,96 @@
+// --- BLOQUEIO GLOBAL USANDO SUPABASE AUTH ---
+const SUPABASE_URL = 'https://lfvfvrpfrphpbsxktazn.supabase.co'; // Substitua pela sua URL
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxmdmZ2cnBmcnBocGJzeGt0YXpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI4NzgyMzgsImV4cCI6MjA2ODQ1NDIzOH0.aXIRLdSYBt5_ifMAtpKeOV1mnZooqtkWQ7OTqxcg7s4'; // Substitua pela sua anon key
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+function bloquearApp() {
+  document.querySelectorAll('button,select,input,textarea').forEach(el => {
+    el.disabled = true;
+  });
+}
+function desbloquearApp() {
+  document.querySelectorAll('button,select,input,textarea').forEach(el => {
+    el.disabled = false;
+  });
+}
+
+function mostrarModal(id) {
+  document.querySelectorAll('#modalLogin,#modalCadastro,#modalEsqueciSenha').forEach(m => m.style.display = 'none');
+  document.getElementById(id).style.display = 'flex';
+}
+
+async function checarSessao() {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) {
+    bloquearApp();
+    mostrarModal('modalLogin');
+  } else {
+    desbloquearApp();
+    document.getElementById('modalLogin').style.display = 'none';
+    document.getElementById('modalCadastro').style.display = 'none';
+    document.getElementById('modalEsqueciSenha').style.display = 'none';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  checarSessao();
+});
+
+// --- HANDLERS DE AUTENTICAÇÃO ---
+document.getElementById('formLogin').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const email = this.email.value;
+  const senha = this.senha.value;
+  const { error } = await supabase.auth.signInWithPassword({ email, password: senha });
+  if (error) {
+    alert('Erro ao logar: ' + error.message);
+  } else {
+    checarSessao();
+  }
+});
+
+document.getElementById('btnGoogle').addEventListener('click', async function() {
+  const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
+  if (error) alert('Erro ao logar com Google: ' + error.message);
+});
+
+document.getElementById('btnCriarConta').addEventListener('click', function() {
+  mostrarModal('modalCadastro');
+});
+document.getElementById('btnEsqueciSenha').addEventListener('click', function() {
+  mostrarModal('modalEsqueciSenha');
+});
+
+document.getElementById('formCadastro').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const email = this.email.value;
+  const senha = this.senha.value;
+  const { error } = await supabase.auth.signUp({ email, password: senha });
+  if (error) {
+    alert('Erro ao criar conta: ' + error.message);
+  } else {
+    alert('Conta criada! Verifique seu e-mail para confirmar.');
+    mostrarModal('modalLogin');
+  }
+});
+
+document.getElementById('formEsqueciSenha').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const email = this.email.value;
+  const { error } = await supabase.auth.resetPasswordForEmail(email);
+  if (error) {
+    alert('Erro ao enviar e-mail de recuperação: ' + error.message);
+  } else {
+    alert('E-mail de recuperação enviado!');
+    mostrarModal('modalLogin');
+  }
+});
+
+// Logout handler (adicione um botão de logout se quiser)
+window.logoutSupabase = async function() {
+  await supabase.auth.signOut();
+  checarSessao();
+};
 // --- Jogo da velha (tags) ---
 let iconeJogoDaVelha = document.getElementById('iconeJogoDaVelha');
 if (!window._tagsBtnHandlerAdded) {
@@ -75,8 +168,7 @@ const tagsModal = document.getElementById('tagsModal');
 const tagsLacunas = document.getElementById('tagsLacunas');
 const fecharTags = document.getElementById('fecharTags');
 const temaSelect = document.getElementById('temaSelect');
-const fraseDiv = document.getElementById('frase');
-fraseDiv.style.marginTop = '2cm';
+const fraseDiv = document.getElementById('fraseApp');
 const fonteSelect = document.getElementById('fonteSelect');
 const novaFraseBtn = document.getElementById('novaFrase');
 const voltarFraseBtn = document.getElementById('voltarFrase');
@@ -147,6 +239,107 @@ function copiarTextoComFonte(texto, fonte) {
 
 // --- Frases por tema ---
 const frases = {
+    versiculo: [
+        "O temor do Senhor é o princípio do conhecimento, mas os insensatos desprezam a sabedoria e a disciplina. (Provérbios 1:7)",
+        "Filho meu, ouve a instrução de teu pai e não deixes o ensino de tua mãe. (Provérbios 1:8)",
+        "Se te convidarem os pecadores, não consintas. (Provérbios 1:10)",
+        "O Senhor dá a sabedoria; da sua boca procedem o conhecimento e o entendimento. (Provérbios 2:6)",
+        "Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento. (Provérbios 3:5)",
+        "Reconhece-o em todos os teus caminhos, e ele endireitará as tuas veredas. (Provérbios 3:6)",
+        "Não sejas sábio a teus próprios olhos; teme ao Senhor e aparta-te do mal. (Provérbios 3:7)",
+        "Honra ao Senhor com os teus bens e com as primícias de toda a tua renda. (Provérbios 3:9)",
+        "Filho meu, não rejeites a disciplina do Senhor, nem te enfades da sua repreensão. (Provérbios 3:11)",
+        "O Senhor repreende a quem ama, assim como o pai ao filho a quem quer bem. (Provérbios 3:12)",
+        "Feliz o homem que acha sabedoria, e o homem que adquire conhecimento. (Provérbios 3:13)",
+        "O seu lucro é melhor do que o lucro da prata, e a sua renda melhor do que o ouro mais fino. (Provérbios 3:14)",
+        "Ela é mais preciosa do que rubis; tudo o que podes desejar não se compara a ela. (Provérbios 3:15)",
+        "O Senhor, com sabedoria, fundou a terra; com entendimento estabeleceu os céus. (Provérbios 3:19)",
+        "Não te furtes a fazer o bem a quem de direito, estando na tua mão o poder de fazê-lo. (Provérbios 3:27)",
+        "Não digas ao teu próximo: Vai e volta amanhã, então to darei, se o tens agora contigo. (Provérbios 3:28)",
+        "Não tenhas inveja do homem violento, nem escolhas nenhum dos seus caminhos. (Provérbios 3:31)",
+        "O Senhor abençoa a habitação dos justos. (Provérbios 3:33)",
+        "Sobre tudo o que se deve guardar, guarda o teu coração, porque dele procedem as fontes da vida. (Provérbios 4:23)",
+        "O caminho dos justos é como a luz da aurora, que brilha mais e mais até ser dia perfeito. (Provérbios 4:18)",
+        "Não entres na vereda dos ímpios, nem andes pelo caminho dos maus. (Provérbios 4:14)",
+        "Atenta para as minhas palavras, inclina o teu ouvido às minhas instruções. (Provérbios 4:20)",
+        "Afasta de ti a falsidade da boca e afasta de ti a perversidade dos lábios. (Provérbios 4:24)",
+        "Olhem os teus olhos direitos, e as tuas pálpebras diretamente diante de ti. (Provérbios 4:25)",
+        "Pondera a vereda de teus pés, e todos os teus caminhos sejam retos. (Provérbios 4:26)",
+        "Não declines nem para a direita nem para a esquerda; retira o teu pé do mal. (Provérbios 4:27)",
+        "Filho meu, atende à minha sabedoria, à minha inteligência inclina o teu ouvido. (Provérbios 5:1)",
+        "Os caminhos do homem estão perante os olhos do Senhor, e ele considera todas as suas veredas. (Provérbios 5:21)",
+        "Vai ter com a formiga, ó preguiçoso, olha para os seus caminhos e sê sábio. (Provérbios 6:6)",
+        "A soberba precede a ruína, e a altivez do espírito precede a queda. (Provérbios 16:18)",
+        "O coração do homem pode fazer planos, mas a resposta certa dos lábios vem do Senhor. (Provérbios 16:1)",
+        "O coração alegre aformoseia o rosto, mas pela dor do coração o espírito se abate. (Provérbios 15:13)",
+        "A resposta branda desvia o furor, mas a palavra dura suscita a ira. (Provérbios 15:1)",
+        "O temor do Senhor é fonte de vida, para evitar os laços da morte. (Provérbios 14:27)",
+        "A mulher sábia edifica a sua casa, mas a insensata, com as próprias mãos, a derruba. (Provérbios 14:1)",
+        "O que anda em sinceridade teme ao Senhor, mas o que se desvia de seus caminhos o despreza. (Provérbios 14:2)",
+        "A resposta suave acalma o furor, mas a palavra dura aumenta a raiva. (Provérbios 15:1)",
+        "O que guarda a sua boca conserva a sua alma, mas o que muito abre os lábios a si mesmo se arruína. (Provérbios 13:3)",
+        "O que anda com os sábios será sábio, mas o companheiro dos tolos sofrerá aflição. (Provérbios 13:20)",
+        "A esperança adiada faz adoecer o coração, mas o desejo cumprido é árvore de vida. (Provérbios 13:12)",
+        "O justo aborrece a palavra de mentira, mas o ímpio faz vergonha e se desonra. (Provérbios 13:5)",
+        "O que despreza o próximo é falto de senso, mas o homem prudente se cala. (Provérbios 11:12)",
+        "O que semeia a justiça terá recompensa fiel. (Provérbios 11:18)",
+        "O que confia nas suas riquezas cairá, mas os justos reverdecerão como a folhagem. (Provérbios 11:28)",
+        "O que ganha almas é sábio. (Provérbios 11:30)",
+        "A bênção do Senhor é que enriquece, e ele não acrescenta dores. (Provérbios 10:22)",
+        "O justo nunca será abalado, mas os ímpios não habitarão a terra. (Provérbios 10:30)",
+        "O ódio excita contendas, mas o amor cobre todas as transgressões. (Provérbios 10:12)",
+        "O caminho do Senhor é fortaleza para os íntegros, mas ruína para os que praticam a iniquidade. (Provérbios 10:29)",
+        "O que anda em integridade anda seguro, mas o que perverte os seus caminhos será conhecido. (Provérbios 10:9)",
+        "O preguiçoso deseja e nada tem, mas a alma dos diligentes se farta. (Provérbios 13:4)",
+        "O que encobre as suas transgressões nunca prosperará, mas o que as confessa e deixa alcançará misericórdia. (Provérbios 28:13)",
+        "O que confia no seu próprio coração é insensato, mas o que anda em sabedoria será salvo. (Provérbios 28:26)",
+        "O que repreende o homem achará depois mais favor do que aquele que lisonjeia com a língua. (Provérbios 28:23)",
+        "O que anda em sinceridade será salvo, mas o perverso em seus caminhos cairá logo. (Provérbios 28:18)",
+        "O que tapa o ouvido ao clamor do pobre também clamará e não será ouvido. (Provérbios 21:13)",
+        "O que segue a justiça e a bondade achará a vida, a justiça e a honra. (Provérbios 21:21)",
+        "Melhor é o pouco com justiça do que grandes rendimentos com injustiça. (Provérbios 16:8)",
+        "O que guarda a sua boca e a sua língua guarda a sua alma das angústias. (Provérbios 21:23)",
+        "O que ama a pureza de coração e é amável de lábios terá por amigo o rei. (Provérbios 22:11)",
+        "Instrui o menino no caminho em que deve andar, e até quando envelhecer não se desviará dele. (Provérbios 22:6)",
+        "Não te associes com o iracundo, nem andes com o homem colérico. (Provérbios 22:24)",
+        "Não removas os antigos limites que teus pais fizeram. (Provérbios 22:28)",
+        "Não te glories do dia de amanhã, porque não sabes o que produzirá o dia. (Provérbios 27:1)",
+        "Como o ferro com ferro se afia, assim o homem afia o rosto do seu amigo. (Provérbios 27:17)",
+        "O homem que tem muitos amigos pode congratular-se, mas há amigo mais chegado do que um irmão. (Provérbios 18:24)",
+        "A resposta branda desvia o furor, mas a palavra dura suscita a ira. (Provérbios 15:1)",
+        "O coração alegre aformoseia o rosto, mas pela dor do coração o espírito se abate. (Provérbios 15:13)",
+        "O que atenta prudentemente para o ensino achará o bem, e o que confia no Senhor, esse é feliz. (Provérbios 16:20)",
+        "O que guarda a sua boca conserva a sua alma, mas o que muito abre os lábios a si mesmo se arruína. (Provérbios 13:3)",
+        "O que anda com os sábios será sábio, mas o companheiro dos tolos sofrerá aflição. (Provérbios 13:20)",
+        "A esperança adiada faz adoecer o coração, mas o desejo cumprido é árvore de vida. (Provérbios 13:12)",
+        "O justo aborrece a palavra de mentira, mas o ímpio faz vergonha e se desonra. (Provérbios 13:5)",
+        "O que despreza o próximo é falto de senso, mas o homem prudente se cala. (Provérbios 11:12)",
+        "O que semeia a justiça terá recompensa fiel. (Provérbios 11:18)",
+        "O que confia nas suas riquezas cairá, mas os justos reverdecerão como a folhagem. (Provérbios 11:28)",
+        "O que ganha almas é sábio. (Provérbios 11:30)",
+        "A bênção do Senhor é que enriquece, e ele não acrescenta dores. (Provérbios 10:22)",
+        "O justo nunca será abalado, mas os ímpios não habitarão a terra. (Provérbios 10:30)",
+        "O ódio excita contendas, mas o amor cobre todas as transgressões. (Provérbios 10:12)",
+        "O caminho do Senhor é fortaleza para os íntegros, mas ruína para os que praticam a iniquidade. (Provérbios 10:29)",
+        "O que anda em integridade anda seguro, mas o que perverte os seus caminhos será conhecido. (Provérbios 10:9)",
+        "O preguiçoso deseja e nada tem, mas a alma dos diligentes se farta. (Provérbios 13:4)",
+        "O que encobre as suas transgressões nunca prosperará, mas o que as confessa e deixa alcançará misericórdia. (Provérbios 28:13)",
+        "O que confia no seu próprio coração é insensato, mas o que anda em sabedoria será salvo. (Provérbios 28:26)",
+        "O que repreende o homem achará depois mais favor do que aquele que lisonjeia com a língua. (Provérbios 28:23)",
+        "O que anda em sinceridade será salvo, mas o perverso em seus caminhos cairá logo. (Provérbios 28:18)",
+        "O que tapa o ouvido ao clamor do pobre também clamará e não será ouvido. (Provérbios 21:13)",
+        "O que segue a justiça e a bondade achará a vida, a justiça e a honra. (Provérbios 21:21)",
+        "Melhor é o pouco com justiça do que grandes rendimentos com injustiça. (Provérbios 16:8)",
+        "O que guarda a sua boca e a sua língua guarda a sua alma das angústias. (Provérbios 21:23)",
+        "O que ama a pureza de coração e é amável de lábios terá por amigo o rei. (Provérbios 22:11)",
+        "Instrui o menino no caminho em que deve andar, e até quando envelhecer não se desviará dele. (Provérbios 22:6)",
+        "Não te associes com o iracundo, nem andes com o homem colérico. (Provérbios 22:24)",
+        "Não removas os antigos limites que teus pais fizeram. (Provérbios 22:28)",
+        "Não te glories do dia de amanhã, porque não sabes o que produzirá o dia. (Provérbios 27:1)",
+        "Como o ferro com ferro se afia, assim o homem afia o rosto do seu amigo. (Provérbios 27:17)",
+        "O homem que tem muitos amigos pode congratular-se, mas há amigo mais chegado do que um irmão. (Provérbios 18:24)",
+        // ...adicione mais versículos de Provérbios até completar 150...
+    ],
     motivacional: [
        "Acredite em você e tudo será possível.",
     "O sucesso é a soma de pequenos esforços repetidos diariamente.",
@@ -984,12 +1177,10 @@ btnPrint?.addEventListener('click', () => {
         '#novaFrase',
         '#temaSelect',
         '#fonteSelect',
-        '.frase-actions' // Se você tiver um container com os botões
+        '.frase-actions'
     ];
 
     const elementosOcultados = [];
-
-    // Oculta temporariamente
     seletorOcultos.forEach(sel => {
         const el = document.querySelector(sel);
         if (el) {
@@ -998,7 +1189,6 @@ btnPrint?.addEventListener('click', () => {
         }
     });
 
-    // Aguarda o DOM atualizar antes de capturar
     setTimeout(() => {
         html2canvas(fraseBox, {
             backgroundColor: null,
@@ -1008,18 +1198,50 @@ btnPrint?.addEventListener('click', () => {
             const tema = document.getElementById('temaSelect')?.value || 'frase';
             const data = new Date();
             const nomeArquivo = `frase-${tema}-${data.toISOString().slice(0,10)}.png`;
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            if (isIOS) {
+                // Exibe a imagem em tela cheia e instrução para salvar
+                const overlay = document.createElement('div');
+                overlay.style.position = 'fixed';
+                overlay.style.top = 0;
+                overlay.style.left = 0;
+                overlay.style.width = '100vw';
+                overlay.style.height = '100vh';
+                overlay.style.background = 'rgba(0,0,0,0.85)';
+                overlay.style.display = 'flex';
+                overlay.style.flexDirection = 'column';
+                overlay.style.alignItems = 'center';
+                overlay.style.justifyContent = 'center';
+                overlay.style.zIndex = 9999;
+                overlay.style.padding = '2rem 1rem 1rem 1rem';
 
-            const link = document.createElement('a');
-            link.download = nomeArquivo;
-            link.href = canvas.toDataURL();
-            link.click();
+                const img = document.createElement('img');
+                img.src = canvas.toDataURL();
+                img.style.maxWidth = '90vw';
+                img.style.maxHeight = '60vh';
+                img.style.borderRadius = '1.2rem';
+                img.style.boxShadow = '0 0 24px #0008';
 
-            // Restaurar os elementos ocultos
+                const msg = document.createElement('div');
+                msg.innerHTML = '<span style="color:#fff;font-size:1.2rem;line-height:1.5;display:block;text-align:center;margin-bottom:1rem;">Para salvar a imagem na sua galeria, toque e segure a imagem e escolha <b>"Adicionar a Fotos"</b>.<br><br><small style="color:#ccc;font-size:0.95rem;">Toque fora da imagem para fechar.</small></span>';
+
+                overlay.appendChild(img);
+                overlay.appendChild(msg);
+                document.body.appendChild(overlay);
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) overlay.remove();
+                });
+            } else {
+                const link = document.createElement('a');
+                link.download = nomeArquivo;
+                link.href = canvas.toDataURL();
+                link.click();
+            }
             elementosOcultados.forEach(({ el, display }) => {
                 el.style.display = display;
             });
         });
-    }, 300); // Pequeno delay para garantir que todos sumiram
+    }, 300);
 });
 
 // Copiar frase principal
@@ -1047,35 +1269,152 @@ if ('serviceWorker' in navigator) {
       .catch(err => console.error('[FraseGo] Erro ao registrar SW:', err));
   });
 }
-if (temasPremium.includes(opt.value.toLowerCase())) {
-    opt.classList.add('premium');
-    opt.textContent += ' (Premium)';
-} 
-document.querySelector('.btn').addEventListener('click', function(event) {
-    // Você pode adicionar lógica adicional aqui antes de enviar o formulário
-});
 
-async function salvarFrase(texto, tema, fonte) {
-  const { data, error } = await supabase
-    .from('frases')
-    .insert([{ texto, tema, fonte }]);
-
-  if (error) {
-    console.error('Erro ao salvar:', error.message);
-  } else {
-    console.log('Frase salva:', data);
-  }
+// --- RESTRIÇÕES PARA NÃO PREMIUM ---
+function aplicarRestricoesPremiumScript() {
+    // Bloqueia temas premium
+    const temasPremium = ['inspiração', 'sucesso', 'gratidao'];
+    if (temaSelect) {
+        [...temaSelect.options].forEach(opt => {
+            if (temasPremium.includes(opt.value)) {
+                if (!isPremium()) {
+                    opt.disabled = true;
+                    opt.classList.add('premium');
+                    if (!opt.textContent.includes('(Premium)')) opt.textContent += ' (Premium)';
+                } else {
+                    opt.disabled = false;
+                    opt.classList.remove('premium');
+                    opt.textContent = opt.textContent.replace(' (Premium)', '');
+                }
+            } else {
+                opt.disabled = false;
+                opt.classList.remove('premium');
+                opt.textContent = opt.textContent.replace(' (Premium)', '');
+            }
+        });
+        // Impede seleção via JS
+        if (!isPremium() && temasPremium.includes(temaSelect.value)) {
+            temaSelect.value = 'motivacional';
+        }
+        // Impede seleção via teclado
+        temaSelect.onkeydown = function(e) {
+            if (!isPremium()) {
+                const idx = temaSelect.selectedIndex;
+                if (temasPremium.includes(temaSelect.options[idx].value)) {
+                    e.preventDefault();
+                }
+            }
+        };
+        // Impede seleção via mouse
+        temaSelect.onmousedown = function(e) {
+            if (!isPremium()) {
+                const idx = temaSelect.selectedIndex;
+                if (temasPremium.includes(temaSelect.options[idx].value)) {
+                    e.preventDefault();
+                }
+            }
+        };
+    }
+    // Bloqueia fontes premium
+    const fontesPremium = ['Space Mono', 'Inter'];
+    if (fonteSelect) {
+        [...fonteSelect.options].forEach(opt => {
+            if (fontesPremium.includes(opt.value)) {
+                if (!isPremium()) {
+                    opt.disabled = true;
+                    opt.classList.add('premium');
+                    if (!opt.textContent.includes('(Premium)')) opt.textContent += ' (Premium)';
+                } else {
+                    opt.disabled = false;
+                    opt.classList.remove('premium');
+                    opt.textContent = opt.textContent.replace(' (Premium)', '');
+                }
+            } else {
+                opt.disabled = false;
+                opt.classList.remove('premium');
+                opt.textContent = opt.textContent.replace(' (Premium)', '');
+            }
+        });
+        // Impede seleção via JS
+        if (!isPremium() && fontesPremium.includes(fonteSelect.value)) {
+            fonteSelect.value = 'Roboto';
+        }
+        // Impede seleção via teclado
+        fonteSelect.onkeydown = function(e) {
+            if (!isPremium()) {
+                const idx = fonteSelect.selectedIndex;
+                if (fontesPremium.includes(fonteSelect.options[idx].value)) {
+                    e.preventDefault();
+                }
+            }
+        };
+        // Impede seleção via mouse
+        fonteSelect.onmousedown = function(e) {
+            if (!isPremium()) {
+                const idx = fonteSelect.selectedIndex;
+                if (fontesPremium.includes(fonteSelect.options[idx].value)) {
+                    e.preventDefault();
+                }
+            }
+        };
+    }
+    // Limite de frases diárias
+    if (!isPremium()) {
+        let usadas = Number(localStorage.getItem('frases_hoje')) || 0;
+        if (usadas >= 5 && novaFraseBtn) {
+            novaFraseBtn.disabled = true;
+            novaFraseBtn.classList.add('premium');
+        }
+        // Impede click via JS
+        if (novaFraseBtn) {
+            novaFraseBtn.onclick = function(e) {
+                if (novaFraseBtn.disabled) {
+                    e.preventDefault();
+                    return false;
+                }
+            };
+        }
+    } else {
+        if (novaFraseBtn) {
+            novaFraseBtn.disabled = false;
+            novaFraseBtn.classList.remove('premium');
+            novaFraseBtn.onclick = null;
+        }
+    }
+    // Bloqueia selects visualmente para não premium
+    if (!isPremium()) {
+        if (fonteSelect) fonteSelect.classList.add('premium');
+        if (temaSelect) temaSelect.classList.add('premium');
+    } else {
+        if (fonteSelect) fonteSelect.classList.remove('premium');
+        if (temaSelect) temaSelect.classList.remove('premium');
+    }
 }
-async function carregarFrases() {
-  const { data, error } = await supabase
-    .from('frases')
-    .select('*')
-    .order('data_criacao', { ascending: false });
 
-  if (error) {
-    console.error('Erro ao carregar frases:', error.message);
-  } else {
-    console.log('Frases carregadas:', data);
-    // Aqui você pode atualizar seu app com os dados recebidos
-  }
+function isPremium() {
+    return localStorage.getItem('frasego_premium') === 'true' || localStorage.getItem('isPremium') === 'true';
 }
+
+// Aplica restrições ao carregar
+document.addEventListener('DOMContentLoaded', aplicarRestricoesPremiumScript);
+temaSelect?.addEventListener('change', aplicarRestricoesPremiumScript);
+fonteSelect?.addEventListener('change', aplicarRestricoesPremiumScript);
+
+// Garante que ao clicar em Nova Frase, respeite o limite
+if (novaFraseBtn) {
+    novaFraseBtn.addEventListener('click', function(e) {
+        if (!isPremium()) {
+            let usadas = Number(localStorage.getItem('frases_hoje')) || 0;
+            if (usadas >= 5) {
+                e.preventDefault();
+                alert('🚫 Você atingiu o limite de frases diárias grátis. Torne-se Premium para acesso ilimitado!');
+                return;
+            }
+            usadas++;
+            localStorage.setItem('frases_hoje', usadas);
+            aplicarRestricoesPremiumScript();
+        }
+    });
+}
+
+// ...existing code...
