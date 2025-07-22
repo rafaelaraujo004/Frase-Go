@@ -406,22 +406,152 @@
 
     // Frases já existentes no projeto com autores
     const frasesComAutores = [
-      // ...existing code...
+      // VERSÍCULOS BÍBLICOS
+      { frase: "O temor do Senhor é o princípio do conhecimento, mas os insensatos desprezam a sabedoria e a disciplina.", autor: "Provérbios 1:7" },
+      { frase: "Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento.", autor: "Provérbios 3:5" },
+      { frase: "Reconhece-o em todos os teus caminhos, e ele endireitará as tuas veredas.", autor: "Provérbios 3:6" },
+      { frase: "Feliz o homem que acha sabedoria, e o homem que adquire conhecimento.", autor: "Provérbios 3:13" },
+      { frase: "Sobre tudo o que se deve guardar, guarda o teu coração, porque dele procedem as fontes da vida.", autor: "Provérbios 4:23" },
+      { frase: "O caminho dos justos é como a luz da aurora, que brilha mais e mais até ser dia perfeito.", autor: "Provérbios 4:18" },
+      { frase: "A soberba precede a ruína, e a altivez do espírito precede a queda.", autor: "Provérbios 16:18" },
+      { frase: "A resposta branda desvia o furor, mas a palavra dura suscita a ira.", autor: "Provérbios 15:1" },
+      { frase: "O que anda com os sábios será sábio, mas o companheiro dos tolos sofrerá aflição.", autor: "Provérbios 13:20" },
+      { frase: "Instrui o menino no caminho em que deve andar, e até quando envelhecer não se desviará dele.", autor: "Provérbios 22:6" },
+      
+      // MOTIVACIONAL
+      { frase: "Acredite em você e tudo será possível.", autor: "Anônimo" },
+      { frase: "O sucesso é a soma de pequenos esforços repetidos diariamente.", autor: "Robert Collier" },
+      { frase: "Não desista, grandes coisas levam tempo.", autor: "Anônimo" },
+      { frase: "A persistência realiza o impossível.", autor: "Anônimo" },
+      { frase: "Você é mais forte do que imagina.", autor: "Anônimo" },
+      { frase: "Transforme sonhos em metas e metas em conquistas.", autor: "Anônimo" },
+      { frase: "A coragem é a chave para grandes realizações.", autor: "Anônimo" },
+      { frase: "Cada dia é uma nova chance de recomeçar.", autor: "Anônimo" },
+      { frase: "O impossível é apenas uma opinião.", autor: "Paulo Coelho" },
+      { frase: "A disciplina é a ponte entre metas e conquistas.", autor: "Jim Rohn" },
+      
+      // AMOR
+      { frase: "O amor é a resposta para tudo.", autor: "Anônimo" },
+      { frase: "Amar é enxergar o outro com o coração.", autor: "Anônimo" },
+      { frase: "O amor verdadeiro não se desgasta.", autor: "Anônimo" },
+      { frase: "Onde há amor, há vida.", autor: "Mahatma Gandhi" },
+      { frase: "O amor transforma o mundo.", autor: "Anônimo" },
+      { frase: "Amar é encontrar no outro a extensão da sua alma.", autor: "Anônimo" },
+      { frase: "O amor não se mede, se sente.", autor: "Anônimo" },
+      { frase: "Amor é o alimento da alma.", autor: "Anônimo" },
+      { frase: "O amor cura feridas invisíveis.", autor: "Anônimo" },
+      { frase: "Amar é aceitar as imperfeições.", autor: "Anônimo" },
+      
+      // AMIZADE
+      { frase: "Amigos tornam os momentos especiais.", autor: "Anônimo" },
+      { frase: "A amizade é o conforto de saber que existe alguém por você.", autor: "Anônimo" },
+      { frase: "Amizade verdadeira é para sempre.", autor: "Anônimo" },
+      { frase: "Rir com amigos é o melhor remédio.", autor: "Anônimo" },
+      { frase: "Amigos são a família que escolhemos.", autor: "Anônimo" },
+      { frase: "A verdadeira amizade é um tesouro eterno.", autor: "Anônimo" },
+      { frase: "Amigos são luz nos dias mais sombrios.", autor: "Anônimo" },
+      { frase: "Na amizade, a sinceridade é o maior presente.", autor: "Anônimo" },
+      { frase: "Amizade é um porto seguro para a alma.", autor: "Anônimo" },
+      { frase: "Os amigos são a família da alma.", autor: "Anônimo" },
+      
+      // FELICIDADE
+      { frase: "A felicidade está nas pequenas coisas.", autor: "Anônimo" },
+      { frase: "Sorria, a vida retribui.", autor: "Anônimo" },
+      { frase: "Ser feliz é uma escolha diária.", autor: "Anônimo" },
+      { frase: "A felicidade contagia quem está por perto.", autor: "Anônimo" },
+      { frase: "A gratidão é o caminho para a felicidade.", autor: "Anônimo" },
+      { frase: "A felicidade é feita de momentos simples.", autor: "Anônimo" },
+      { frase: "Ser feliz é valorizar o que se tem.", autor: "Anônimo" },
+      { frase: "A felicidade começa dentro de você.", autor: "Anônimo" },
+      { frase: "Cultive alegria e colha felicidade.", autor: "Anônimo" },
+      { frase: "A felicidade é um estado de espírito.", autor: "Anônimo" },
+      
+      // SUPERAÇÃO
+      { frase: "A superação começa com a decisão de tentar.", autor: "Anônimo" },
+      { frase: "Desafios existem para serem vencidos.", autor: "Anônimo" },
+      { frase: "Cada obstáculo é uma oportunidade de crescer.", autor: "Anônimo" },
+      { frase: "A força está dentro de você.", autor: "Anônimo" },
+      { frase: "Acredite: você é capaz de superar tudo.", autor: "Anônimo" },
+      { frase: "Superar é transformar dor em aprendizado.", autor: "Anônimo" },
+      { frase: "A vitória é fruto da persistência.", autor: "Anônimo" },
+      { frase: "Quando tudo parece difícil, a superação aparece.", autor: "Anônimo" },
+      { frase: "Os maiores guerreiros são os que nunca desistem.", autor: "Anônimo" },
+      { frase: "Cada queda é um convite para levantar mais forte.", autor: "Anônimo" },
+      
+      // GRATIDÃO
+      { frase: "Seja grato por cada amanhecer.", autor: "Anônimo" },
+      { frase: "A gratidão transforma o que temos em suficiente.", autor: "Anônimo" },
+      { frase: "Agradecer é o primeiro passo para a felicidade.", autor: "Anônimo" },
+      { frase: "A gratidão é a chave que abre as portas da abundância.", autor: "Anônimo" },
+      { frase: "Quando agradecemos, a vida nos dá mais motivos para agradecer.", autor: "Anônimo" },
+      { frase: "Gratidão é a memória do coração.", autor: "Jean Baptiste Massieu" },
+      { frase: "A gratidão é a virtude das almas nobres.", autor: "Anônimo" },
+      { frase: "Ser grato é reconhecer as bênçãos da vida.", autor: "Anônimo" },
+      { frase: "A gratidão é o melhor remédio para a alma.", autor: "Anônimo" },
+      { frase: "Quem tem gratidão no coração, tem riqueza na alma.", autor: "Anônimo" },
+      
+      // REFLEXÃO
+      { frase: "A vida é uma constante aprendizagem.", autor: "Anônimo" },
+      { frase: "Reflita sobre suas escolhas, elas moldam seu futuro.", autor: "Anônimo" },
+      { frase: "A sabedoria vem da experiência e da reflexão.", autor: "Anônimo" },
+      { frase: "Conhece-te a ti mesmo.", autor: "Sócrates" },
+      { frase: "A reflexão é a lâmpada da mente.", autor: "Anônimo" },
+      { frase: "Parar para pensar é o primeiro passo para crescer.", autor: "Anônimo" },
+      { frase: "A reflexão profunda traz clareza à mente.", autor: "Anônimo" },
+      { frase: "Quem reflete sobre a vida, vive com mais propósito.", autor: "Anônimo" },
+      { frase: "A meditação é o espelho da alma.", autor: "Anônimo" },
+      { frase: "Refletir é o caminho para a sabedoria.", autor: "Anônimo" },
+      
+      // SUCESSO
+      { frase: "O sucesso é a soma de preparação e oportunidade.", autor: "Anônimo" },
+      { frase: "Sucesso é fazer o que você ama.", autor: "Anônimo" },
+      { frase: "O sucesso começa com a decisão de tentar.", autor: "Anônimo" },
+      { frase: "Sucesso é persistir quando outros desistem.", autor: "Anônimo" },
+      { frase: "O sucesso é resultado de trabalho duro e dedicação.", autor: "Anônimo" },
+      { frase: "Sucesso é levantar cada vez que você cair.", autor: "Nelson Mandela" },
+      { frase: "O sucesso é a recompensa do esforço contínuo.", autor: "Anônimo" },
+      { frase: "Sucesso é transformar sonhos em realidade.", autor: "Anônimo" },
+      { frase: "O sucesso pertence aos que acreditam nele.", autor: "Anônimo" },
+      { frase: "Sucesso é a conquista de quem nunca desiste.", autor: "Anônimo" },
+      
+      // FAMÍLIA
+      { frase: "Família é o porto seguro da alma.", autor: "Anônimo" },
+      { frase: "O amor da família é a base de tudo.", autor: "Anônimo" },
+      { frase: "Família: onde a vida começa e o amor nunca termina.", autor: "Anônimo" },
+      { frase: "A família é o tesouro mais precioso.", autor: "Anônimo" },
+      { frase: "Em família, encontramos força e amor.", autor: "Anônimo" },
+      { frase: "Família é união, é apoio, é amor incondicional.", autor: "Anônimo" },
+      { frase: "O lar não é onde você nasce, mas onde você ama.", autor: "Anônimo" },
+      { frase: "Família é a primeira escola do coração.", autor: "Anônimo" },
+      { frase: "A família é a obra-prima da criação.", autor: "Anônimo" },
+      { frase: "Família é where love lives, memories are created.", autor: "Anônimo" },
+      
+      // INSPIRAÇÃO
+      { frase: "Seja a inspiração que você gostaria de encontrar.", autor: "Anônimo" },
+      { frase: "A inspiração existe, mas ela tem que encontrar você trabalhando.", autor: "Pablo Picasso" },
+      { frase: "Inspire-se todos os dias para inspirar outros.", autor: "Anônimo" },
+      { frase: "A inspiração é o combustível da criatividade.", autor: "Anônimo" },
+      { frase: "Busque inspiração em cada momento da vida.", autor: "Anônimo" },
+      { frase: "A inspiração nasce do desejo de fazer a diferença.", autor: "Anônimo" },
+      { frase: "Inspire-se nos sonhos e realize o impossível.", autor: "Anônimo" },
+      { frase: "A verdadeira inspiração vem do coração.", autor: "Anônimo" },
+      { frase: "Inspire-se na natureza e encontre paz.", autor: "Anônimo" },
+      { frase: "A inspiração é a ponte entre o sonho e a realidade.", autor: "Anônimo" }
     ];
 
     // Mapeamento de temas para as frases correspondentes
     const temaParaFrases = {
-      motivacional: frasesComAutores.slice(0, 10),
-      amor: frasesComAutores.slice(10, 20),
-      amizade: frasesComAutores.slice(20, 30),
-      felicidade: frasesComAutores.slice(30, 40),
-      superacao: frasesComAutores.slice(40, 50),
-      gratidao: frasesComAutores.slice(50, 60),
-      reflexao: frasesComAutores.slice(60, 70),
-      sucesso: frasesComAutores.slice(70, 80),
-      familia: frasesComAutores.slice(80, 90),
-      inspiracao: frasesComAutores.slice(90, 100),
-      versiculo: frasesComAutores.slice(100, 110)
+      versiculo: frasesComAutores.slice(0, 10),        // Versículos bíblicos
+      motivacional: frasesComAutores.slice(10, 20),    // Frases motivacionais
+      amor: frasesComAutores.slice(20, 30),            // Frases de amor
+      amizade: frasesComAutores.slice(30, 40),         // Frases de amizade
+      felicidade: frasesComAutores.slice(40, 50),      // Frases de felicidade
+      superacao: frasesComAutores.slice(50, 60),       // Frases de superação
+      gratidao: frasesComAutores.slice(60, 70),        // Frases de gratidão
+      reflexao: frasesComAutores.slice(70, 80),        // Frases de reflexão
+      sucesso: frasesComAutores.slice(80, 90),         // Frases de sucesso
+      familia: frasesComAutores.slice(90, 100),        // Frases de família
+      inspiracao: frasesComAutores.slice(100, 110)     // Frases de inspiração
     };
 
     // Função para obter o tema selecionado
@@ -451,17 +581,27 @@
 
     // Exibir a primeira frase ao carregar e garantir fonte correta
     document.addEventListener('DOMContentLoaded', function() {
-      atualizarFrasesFiltradas();
-      if (frasesFiltradas.length > 0) {
-        exibirFraseComAutor(frasesFiltradas[0].frase, frasesFiltradas[0].autor);
-      }
-      // Garante que a fonte inicial está correta
-      const fraseSpan = document.getElementById('fraseApp');
-      const fonteSelect = document.getElementById('fonteSelect');
-      if (fonteSelect && fraseSpan) {
-        fraseSpan.style.fontFamily = `'${fonteSelect.value}', Arial, sans-serif`;
-      }
+      // Aguarda um pouco para garantir que todos os elementos estejam prontos
+      setTimeout(() => {
+        atualizarFrasesFiltradas();
+        if (frasesFiltradas.length > 0) {
+          const primeiraFrase = frasesFiltradas[0];
+          exibirFraseComAutor(primeiraFrase.frase, primeiraFrase.autor);
+          console.log('Primeira frase carregada:', primeiraFrase.frase);
+        } else {
+          // Fallback para uma frase padrão
+          exibirFraseComAutor("A única forma de fazer um excelente trabalho é amar o que você faz.", "Steve Jobs");
+        }
+        
+        // Garante que a fonte inicial está correta
+        const fraseSpan = document.getElementById('fraseApp');
+        const fonteSelect = document.getElementById('fonteSelect');
+        if (fraseSpan && fonteSelect) {
+          fraseSpan.style.fontFamily = fonteSelect.value;
+        }
+      }, 200);
     });
+    
     // Atualiza a fonte da frase ao trocar o select
     document.getElementById('fonteSelect')?.addEventListener('change', function() {
       const fraseSpan = document.getElementById('fraseApp');
