@@ -15,13 +15,54 @@ function desbloquearApp() {
 }
 
 function mostrarModal(id) {
-  document.querySelectorAll('#modalLogin,#modalCadastro,#modalEsqueciSenha').forEach(m => m.style.display = 'none');
-  document.getElementById(id).style.display = 'flex';
+  // Hide all modals
+  document.querySelectorAll('#modalLogin,#modalCadastro,#modalEsqueciSenha').forEach(m => {
+    m.style.display = 'none';
+    m.classList.remove('active');
+  });
+  
+  // Show the requested modal
+  const modal = document.getElementById(id);
+  if (modal) {
+    modal.style.display = 'flex';
+    modal.classList.add('active');
+    
+    // Clear any previous errors and reset form states
+    const form = modal.querySelector('form');
+    if (form) {
+      form.querySelectorAll('.modal-error, .modal-success').forEach(el => el.style.display = 'none');
+      form.querySelectorAll('input').forEach(input => {
+        input.classList.remove('error');
+        input.value = '';
+      });
+      setFormLoading(form, false);
+      
+      // Focus on first input
+      const firstInput = form.querySelector('input[type="email"], input[type="password"]');
+      if (firstInput) {
+        setTimeout(() => firstInput.focus(), 100);
+      }
+    }
+  }
+}
+
+// Anonymous user support
+function isAnonymousUser() {
+  return localStorage.getItem('frasego_anonymous') === 'true';
+}
+
+function setAnonymousUser(isAnonymous) {
+  localStorage.setItem('frasego_anonymous', isAnonymous ? 'true' : 'false');
+  if (isAnonymous) {
+    localStorage.setItem('frasego_anonymous_started', new Date().toISOString());
+  }
 }
 
 async function checarSessao() {
   const { data: { session } } = await supabase.auth.getSession();
-  if (!session) {
+  
+  // Allow anonymous usage
+  if (!session && !isAnonymousUser()) {
     bloquearApp();
     mostrarModal('modalLogin');
   } else {
@@ -29,29 +70,155 @@ async function checarSessao() {
     document.getElementById('modalLogin').style.display = 'none';
     document.getElementById('modalCadastro').style.display = 'none';
     document.getElementById('modalEsqueciSenha').style.display = 'none';
+    
+    // Show subtle prompt for anonymous users
+    if (isAnonymousUser() && !session) {
+      showAnonymousUserPrompts();
+    }
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  checarSessao();
-});
+// Show subtle prompts for anonymous users
+function showAnonymousUserPrompts() {
+  // Add subtle reminder tooltip near premium button
+  const premiumBtn = document.querySelector('#btnAssinarPremium, [id*="premium"], [class*="premium"]');
+  if (premiumBtn) {
+    premiumBtn.title = "Crie uma conta para salvar seus favoritos e desbloquear recursos exclusivos!";
+  }
+  
+  // Add account benefits reminder after some usage
+  const frasesUsadas = Number(localStorage.getItem('frases_hoje')) || 0;
+  if (frasesUsadas >= 3) {
+    setTimeout(() => {
+      showAccountBenefitTooltip();
+    }, 2000);
+  }
+}
+
+function showAccountBenefitTooltip() {
+  if (document.querySelector('.account-benefit-tooltip')) return; // Don't show multiple times
+  
+  const tooltip = document.createElement('div');
+  tooltip.className = 'account-benefit-tooltip';
+  tooltip.innerHTML = `
+    <div class="tooltip-content">
+      <span class="tooltip-text">💡 Dica: Crie uma conta para salvar seus favoritos!</span>
+      <button class="tooltip-close" onclick="this.parentElement.parentElement.remove()">×</button>
+    </div>
+  `;
+  
+  document.body.appendChild(tooltip);
+  
+  // Auto-remove after 5 seconds
+  setTimeout(() => {
+    if (tooltip.parentNode) {
+      tooltip.remove();
+    }
+  }, 5000);
+}
+
+// Form validation helpers
+function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
+
+function validatePassword(password) {
+  return password.length >= 6;
+}
+
+function showError(elementId, message) {
+  const errorElement = document.getElementById(elementId);
+  if (errorElement) {
+    errorElement.textContent = message;
+    errorElement.style.display = 'block';
+  }
+}
+
+function hideError(elementId) {
+  const errorElement = document.getElementById(elementId);
+  if (errorElement) {
+    errorElement.style.display = 'none';
+  }
+}
+
+function setFormLoading(formElement, loading) {
+  if (loading) {
+    formElement.classList.add('loading');
+    formElement.querySelectorAll('button, input').forEach(el => el.disabled = true);
+  } else {
+    formElement.classList.remove('loading');
+    formElement.querySelectorAll('button, input').forEach(el => el.disabled = false);
+  }
+}
 
 // --- HANDLERS DE AUTENTICAÇÃO ---
 document.getElementById('formLogin').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const email = this.email.value;
-  const senha = this.senha.value;
-  const { error } = await supabase.auth.signInWithPassword({ email, password: senha });
-  if (error) {
-    alert('Erro ao logar: ' + error.message);
-  } else {
-    checarSessao();
+  hideError('loginErro');
+  
+  const email = this.loginEmail.value.trim();
+  const senha = this.loginSenha.value;
+  
+  // Validation
+  if (!validateEmail(email)) {
+    showError('loginErro', 'Por favor, insira um e-mail válido.');
+    this.loginEmail.classList.add('error');
+    this.loginEmail.focus();
+    return;
+  }
+  
+  if (!validatePassword(senha)) {
+    showError('loginErro', 'A senha deve ter pelo menos 6 caracteres.');
+    this.loginSenha.classList.add('error');
+    this.loginSenha.focus();
+    return;
+  }
+  
+  // Remove error states
+  this.loginEmail.classList.remove('error');
+  this.loginSenha.classList.remove('error');
+  
+  setFormLoading(this, true);
+  
+  try {
+    const { error } = await supabase.auth.signInWithPassword({ email, password: senha });
+    if (error) {
+      showError('loginErro', 'Erro ao fazer login: ' + error.message);
+    } else {
+      // Clear anonymous flag on successful login
+      setAnonymousUser(false);
+      checarSessao();
+    }
+  } catch (err) {
+    showError('loginErro', 'Erro de conexão. Tente novamente.');
+  } finally {
+    setFormLoading(this, false);
   }
 });
 
 document.getElementById('btnGoogle').addEventListener('click', async function() {
-  const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
-  if (error) alert('Erro ao logar com Google: ' + error.message);
+  hideError('loginErro');
+  const button = this;
+  const originalText = button.innerHTML;
+  
+  button.disabled = true;
+  button.innerHTML = '⏳ Conectando...';
+  
+  try {
+    const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
+    if (error) {
+      showError('loginErro', 'Erro ao fazer login com Google: ' + error.message);
+    } else {
+      // Clear anonymous flag on successful login
+      setAnonymousUser(false);
+    }
+  } catch (err) {
+    showError('loginErro', 'Erro de conexão com Google. Tente novamente.');
+  } finally {
+    button.disabled = false;
+    button.innerHTML = originalText;
+  }
 });
 
 document.getElementById('btnCriarConta').addEventListener('click', function() {
@@ -63,28 +230,108 @@ document.getElementById('btnEsqueciSenha').addEventListener('click', function() 
 
 document.getElementById('formCadastro').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const email = this.email.value;
-  const senha = this.senha.value;
-  const { error } = await supabase.auth.signUp({ email, password: senha });
-  if (error) {
-    alert('Erro ao criar conta: ' + error.message);
-  } else {
-    alert('Conta criada! Verifique seu e-mail para confirmar.');
-    mostrarModal('modalLogin');
+  hideError('cadastroErro');
+  
+  const email = this.cadastroEmail.value.trim();
+  const senha = this.cadastroSenha.value;
+  
+  // Validation
+  if (!validateEmail(email)) {
+    showError('cadastroErro', 'Por favor, insira um e-mail válido.');
+    this.cadastroEmail.classList.add('error');
+    this.cadastroEmail.focus();
+    return;
+  }
+  
+  if (!validatePassword(senha)) {
+    showError('cadastroErro', 'A senha deve ter pelo menos 6 caracteres.');
+    this.cadastroSenha.classList.add('error');
+    this.cadastroSenha.focus();
+    return;
+  }
+  
+  // Remove error states
+  this.cadastroEmail.classList.remove('error');
+  this.cadastroSenha.classList.remove('error');
+  
+  setFormLoading(this, true);
+  
+  try {
+    const { error } = await supabase.auth.signUp({ email, password: senha });
+    if (error) {
+      showError('cadastroErro', 'Erro ao criar conta: ' + error.message);
+    } else {
+      alert('Conta criada! Verifique seu e-mail para confirmar.');
+      mostrarModal('modalLogin');
+    }
+  } catch (err) {
+    showError('cadastroErro', 'Erro de conexão. Tente novamente.');
+  } finally {
+    setFormLoading(this, false);
   }
 });
 
 document.getElementById('formEsqueciSenha').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const email = this.email.value;
-  const { error } = await supabase.auth.resetPasswordForEmail(email);
-  if (error) {
-    alert('Erro ao enviar e-mail de recuperação: ' + error.message);
-  } else {
-    alert('E-mail de recuperação enviado!');
-    mostrarModal('modalLogin');
+  hideError('esqueciErro');
+  document.getElementById('esqueciSucesso').style.display = 'none';
+  
+  const email = this.esqueciEmail.value.trim();
+  
+  // Validation
+  if (!validateEmail(email)) {
+    showError('esqueciErro', 'Por favor, insira um e-mail válido.');
+    this.esqueciEmail.classList.add('error');
+    this.esqueciEmail.focus();
+    return;
+  }
+  
+  // Remove error state
+  this.esqueciEmail.classList.remove('error');
+  
+  setFormLoading(this, true);
+  
+  try {
+    const { error } = await supabase.auth.resetPasswordForEmail(email);
+    if (error) {
+      showError('esqueciErro', 'Erro ao enviar e-mail: ' + error.message);
+    } else {
+      const successElement = document.getElementById('esqueciSucesso');
+      successElement.textContent = 'E-mail de recuperação enviado! Verifique sua caixa de entrada.';
+      successElement.style.display = 'block';
+      setTimeout(() => {
+        mostrarModal('modalLogin');
+      }, 3000);
+    }
+  } catch (err) {
+    showError('esqueciErro', 'Erro de conexão. Tente novamente.');
+  } finally {
+    setFormLoading(this, false);
   }
 });
+
+// Continue without login handler
+function continueWithoutLogin() {
+  setAnonymousUser(true);
+  checarSessao();
+}
+
+// Add continue without login button to login modal
+function addContinueWithoutLoginButton() {
+  const loginForm = document.getElementById('formLogin');
+  if (loginForm && !document.getElementById('btnContinuarSemLogin')) {
+    const continueBtn = document.createElement('button');
+    continueBtn.type = 'button';
+    continueBtn.id = 'btnContinuarSemLogin';
+    continueBtn.className = 'continue-without-login-btn';
+    continueBtn.innerHTML = '🚀 Continuar sem login';
+    continueBtn.onclick = continueWithoutLogin;
+    
+    // Insert before the error div
+    const errorDiv = document.getElementById('loginErro');
+    loginForm.insertBefore(continueBtn, errorDiv);
+  }
+}
 
 // Logout handler (adicione um botão de logout se quiser)
 window.logoutSupabase = async function() {
@@ -1152,6 +1399,8 @@ document.addEventListener('DOMContentLoaded', () => {
     mostrarFrase();
     mudarFonte();
     atualizarCoracao();
+    addContinueWithoutLoginButton();
+    checarSessao();
 });
 
 // Ativar modo escuro

@@ -14,42 +14,45 @@
 <meta name="description" content="Frase Go - Encontre inspiração diária com frases motivacionais, de amor, amizade e muito mais. Personalize com temas e fontes exclusivas.">
 <body>
     <!-- Modal de Login -->
-    <div id="modalLogin" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:2000;justify-content:center;align-items:center;">
-      <form id="formLogin" style="background:#fff;padding:2.2rem 1.5rem 1.5rem 1.5rem;border-radius:1.2rem;max-width:95vw;width:340px;box-shadow:0 2px 24px #0003;display:flex;flex-direction:column;align-items:center;gap:1.1rem;">
-        <h2 style="margin-bottom:0.5rem;font-size:1.5rem;color:#0d47a1;">Entrar</h2>
-        <input id="loginEmail" type="email" placeholder="E-mail" required style="width:100%;padding:0.7rem 1rem;border-radius:0.6rem;border:1.5px solid #bbb;font-size:1rem;outline:none;">
-        <input id="loginSenha" type="password" placeholder="Senha" required style="width:100%;padding:0.7rem 1rem;border-radius:0.6rem;border:1.5px solid #bbb;font-size:1rem;outline:none;">
-        <button type="submit" style="width:100%;background:#0d47a1;color:#fff;border:none;padding:0.8rem 0;border-radius:0.7rem;cursor:pointer;font-size:1.1rem;font-weight:bold;">Entrar</button>
-        <button type="button" id="btnGoogle" style="width:100%;background:#fff;color:#222;border:1.5px solid #0d47a1;padding:0.8rem 0;border-radius:0.7rem;cursor:pointer;font-size:1.1rem;font-weight:bold;display:flex;align-items:center;justify-content:center;gap:0.6rem;margin-top:0.2rem;">
-          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width:22px;height:22px;"> Entrar com Google
+    <div id="modalLogin" class="modal-overlay">
+      <form id="formLogin" class="modal-form" role="dialog" aria-labelledby="loginTitle" aria-describedby="loginDesc">
+        <h2 id="loginTitle">Entrar</h2>
+        <p id="loginDesc" class="sr-only">Faça login para acessar recursos exclusivos</p>
+        <input id="loginEmail" type="email" placeholder="E-mail" required aria-label="E-mail">
+        <input id="loginSenha" type="password" placeholder="Senha" required aria-label="Senha">
+        <button type="submit">Entrar</button>
+        <button type="button" id="btnGoogle" class="google-login-btn" aria-label="Entrar com Google">
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt=""> Entrar com Google
         </button>
-        <div style="width:100%;display:flex;justify-content:space-between;align-items:center;margin-top:0.2rem;">
-          <button type="button" id="btnCriarConta" style="background:none;border:none;color:#0d47a1;cursor:pointer;font-size:0.98rem;">Criar conta</button>
-          <button type="button" id="btnEsqueciSenha" style="background:none;border:none;color:#e53935;cursor:pointer;font-size:0.98rem;">Esqueci a senha</button>
+        <div class="modal-buttons-row">
+          <button type="button" id="btnCriarConta" class="modal-text-btn">Criar conta</button>
+          <button type="button" id="btnEsqueciSenha" class="modal-text-btn danger">Esqueci a senha</button>
         </div>
-        <div id="loginErro" style="color:#e53935;font-size:0.98rem;display:none;"></div>
+        <div id="loginErro" class="modal-error" role="alert"></div>
       </form>
     </div>
     <!-- Modal de cadastro -->
-    <div id="modalCadastro" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:2001;justify-content:center;align-items:center;">
-      <form id="formCadastro" style="background:#fff;padding:2.2rem 1.5rem 1.5rem 1.5rem;border-radius:1.2rem;max-width:95vw;width:340px;box-shadow:0 2px 24px #0003;display:flex;flex-direction:column;align-items:center;gap:1.1rem;">
-        <h2 style="margin-bottom:0.5rem;font-size:1.5rem;color:#0d47a1;">Criar Conta</h2>
-        <input id="cadastroEmail" type="email" placeholder="E-mail" required style="width:100%;padding:0.7rem 1rem;border-radius:0.6rem;border:1.5px solid #bbb;font-size:1rem;outline:none;">
-        <input id="cadastroSenha" type="password" placeholder="Senha" required style="width:100%;padding:0.7rem 1rem;border-radius:0.6rem;border:1.5px solid #bbb;font-size:1rem;outline:none;">
-        <button type="submit" style="width:100%;background:#0d47a1;color:#fff;border:none;padding:0.8rem 0;border-radius:0.7rem;cursor:pointer;font-size:1.1rem;font-weight:bold;">Cadastrar</button>
-        <button type="button" id="btnVoltarLogin" style="background:none;border:none;color:#0d47a1;cursor:pointer;font-size:0.98rem;">Voltar ao login</button>
-        <div id="cadastroErro" style="color:#e53935;font-size:0.98rem;display:none;"></div>
+    <div id="modalCadastro" class="modal-overlay">
+      <form id="formCadastro" class="modal-form" role="dialog" aria-labelledby="cadastroTitle" aria-describedby="cadastroDesc">
+        <h2 id="cadastroTitle">Criar Conta</h2>
+        <p id="cadastroDesc" class="sr-only">Crie sua conta para salvar favoritos e acessar recursos exclusivos</p>
+        <input id="cadastroEmail" type="email" placeholder="E-mail" required aria-label="E-mail">
+        <input id="cadastroSenha" type="password" placeholder="Senha" required aria-label="Senha" minlength="6">
+        <button type="submit">Cadastrar</button>
+        <button type="button" id="btnVoltarLogin" class="modal-text-btn">Voltar ao login</button>
+        <div id="cadastroErro" class="modal-error" role="alert"></div>
       </form>
     </div>
     <!-- Modal de esqueci senha -->
-    <div id="modalEsqueciSenha" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:2002;justify-content:center;align-items:center;">
-      <form id="formEsqueciSenha" style="background:#fff;padding:2.2rem 1.5rem 1.5rem 1.5rem;border-radius:1.2rem;max-width:95vw;width:340px;box-shadow:0 2px 24px #0003;display:flex;flex-direction:column;align-items:center;gap:1.1rem;">
-        <h2 style="margin-bottom:0.5rem;font-size:1.5rem;color:#0d47a1;">Recuperar Senha</h2>
-        <input id="esqueciEmail" type="email" placeholder="E-mail cadastrado" required style="width:100%;padding:0.7rem 1rem;border-radius:0.6rem;border:1.5px solid #bbb;font-size:1rem;outline:none;">
-        <button type="submit" style="width:100%;background:#0d47a1;color:#fff;border:none;padding:0.8rem 0;border-radius:0.7rem;cursor:pointer;font-size:1.1rem;font-weight:bold;">Enviar link de recuperação</button>
-        <button type="button" id="btnVoltarLogin2" style="background:none;border:none;color:#0d47a1;cursor:pointer;font-size:0.98rem;">Voltar ao login</button>
-        <div id="esqueciErro" style="color:#e53935;font-size:0.98rem;display:none;"></div>
-        <div id="esqueciSucesso" style="color:#388e3c;font-size:0.98rem;display:none;"></div>
+    <div id="modalEsqueciSenha" class="modal-overlay">
+      <form id="formEsqueciSenha" class="modal-form" role="dialog" aria-labelledby="esqueciTitle" aria-describedby="esqueciDesc">
+        <h2 id="esqueciTitle">Recuperar Senha</h2>
+        <p id="esqueciDesc" class="sr-only">Digite seu e-mail para receber o link de recuperação</p>
+        <input id="esqueciEmail" type="email" placeholder="E-mail cadastrado" required aria-label="E-mail cadastrado">
+        <button type="submit">Enviar link de recuperação</button>
+        <button type="button" id="btnVoltarLogin2" class="modal-text-btn">Voltar ao login</button>
+        <div id="esqueciErro" class="modal-error" role="alert"></div>
+        <div id="esqueciSucesso" class="modal-success" role="status"></div>
       </form>
     </div>
     <div class="container" style="width:100vw;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;padding:0;">
