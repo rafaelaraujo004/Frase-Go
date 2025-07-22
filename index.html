@@ -237,6 +237,371 @@
                       padding: 1.2rem 1rem 1rem 1rem;
                     }
                   }
+                  
+                  /* ===== RESPONSIVIDADE COMPLETA ===== */
+                  
+                  /* Dispositivos muito pequenos (até 320px) */
+                  @media (max-width: 320px) {
+                    .container {
+                      padding: 0.5rem !important;
+                    }
+                    .frase-box {
+                      width: 95vw !important;
+                      min-height: 350px !important;
+                      padding: 1rem !important;
+                    }
+                    #fraseApp {
+                      font-size: 1rem !important;
+                      line-height: 1.4 !important;
+                    }
+                    .top-bar, .mid-bar, .botoes-interativos {
+                      padding: 0.3rem 0.5rem !important;
+                    }
+                    .top-bar button, .mid-bar button, .botoes-interativos button {
+                      padding: 0.4rem !important;
+                      font-size: 0.8rem !important;
+                    }
+                    #nomeUsuario {
+                      font-size: 0.9rem !important;
+                    }
+                    #arrobaUsuario {
+                      font-size: 0.8rem !important;
+                    }
+                  }
+                  
+                  /* Smartphones (321px - 480px) */
+                  @media (min-width: 321px) and (max-width: 480px) {
+                    .frase-box {
+                      width: 90vw !important;
+                      min-height: 400px !important;
+                      padding: 1.2rem !important;
+                    }
+                    #fraseApp {
+                      font-size: 1.1rem !important;
+                      line-height: 1.5 !important;
+                    }
+                    .top-bar, .mid-bar, .botoes-interativos {
+                      padding: 0.4rem 0.6rem !important;
+                    }
+                    #nomeUsuario {
+                      font-size: 1rem !important;
+                    }
+                    #arrobaUsuario {
+                      font-size: 0.85rem !important;
+                    }
+                  }
+                  
+                  /* Tablets portrait (481px - 768px) */
+                  @media (min-width: 481px) and (max-width: 768px) {
+                    .frase-box {
+                      width: 85vw !important;
+                      min-height: 450px !important;
+                      padding: 1.5rem !important;
+                    }
+                    #fraseApp {
+                      font-size: 1.3rem !important;
+                      line-height: 1.6 !important;
+                    }
+                    .top-bar, .mid-bar, .botoes-interativos {
+                      padding: 0.5rem 0.8rem !important;
+                    }
+                    #nomeUsuario {
+                      font-size: 1.1rem !important;
+                    }
+                    #arrobaUsuario {
+                      font-size: 0.9rem !important;
+                    }
+                  }
+                  
+                  /* Tablets landscape (769px - 1024px) */
+                  @media (min-width: 769px) and (max-width: 1024px) {
+                    .frase-box {
+                      width: 75vw !important;
+                      min-height: 500px !important;
+                      padding: 2rem !important;
+                    }
+                    #fraseApp {
+                      font-size: 1.4rem !important;
+                      line-height: 1.7 !important;
+                    }
+                    #nomeUsuario {
+                      font-size: 1.2rem !important;
+                    }
+                    #arrobaUsuario {
+                      font-size: 1rem !important;
+                    }
+                  }
+                  
+                  /* Desktops pequenos (1025px - 1200px) */
+                  @media (min-width: 1025px) and (max-width: 1200px) {
+                    .frase-box {
+                      width: 65vw !important;
+                      max-width: 700px !important;
+                      min-height: 550px !important;
+                    }
+                    #fraseApp {
+                      font-size: 1.5rem !important;
+                      line-height: 1.8 !important;
+                    }
+                  }
+                  
+                  /* Desktops médios (1201px - 1600px) */
+                  @media (min-width: 1201px) and (max-width: 1600px) {
+                    .frase-box {
+                      width: 55vw !important;
+                      max-width: 800px !important;
+                      min-height: 600px !important;
+                    }
+                    #fraseApp {
+                      font-size: 1.6rem !important;
+                      line-height: 1.9 !important;
+                    }
+                  }
+                  
+                  /* Desktops grandes (1601px+) */
+                  @media (min-width: 1601px) {
+                    .frase-box {
+                      width: 45vw !important;
+                      max-width: 900px !important;
+                      min-height: 650px !important;
+                    }
+                    #fraseApp {
+                      font-size: 1.8rem !important;
+                      line-height: 2 !important;
+                    }
+                  }
+                  
+                  /* Orientação paisagem em dispositivos móveis */
+                  @media (max-height: 500px) and (orientation: landscape) {
+                    .frase-box {
+                      min-height: 280px !important;
+                      padding: 1rem !important;
+                    }
+                    #fraseApp {
+                      font-size: 1rem !important;
+                      line-height: 1.3 !important;
+                    }
+                    .top-bar, .mid-bar, .botoes-interativos {
+                      padding: 0.3rem !important;
+                    }
+                    .top-bar button, .mid-bar button, .botoes-interativos button {
+                      padding: 0.3rem 0.5rem !important;
+                      font-size: 0.8rem !important;
+                    }
+                  }
+                  
+                  /* Ajustes para dispositivos com altura muito baixa */
+                  @media (max-height: 400px) {
+                    .container {
+                      padding: 0.2rem !important;
+                    }
+                    .frase-box {
+                      min-height: 200px !important;
+                      padding: 0.8rem !important;
+                    }
+                    #fraseApp {
+                      font-size: 0.9rem !important;
+                      line-height: 1.2 !important;
+                    }
+                  }
+                  
+                  /* Ajustes gerais para telas de alta densidade */
+                  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+                    .frase-box {
+                      border-width: 0.5px !important;
+                    }
+                  }
+                  
+                  /* Melhorias para acessibilidade em telas grandes */
+                  @media (min-width: 1200px) {
+                    .frase-box button {
+                      min-height: 44px !important;
+                      min-width: 44px !important;
+                    }
+                  }
+                  
+                  /* Ajustes específicos para iPhone SE e similares */
+                  @media (max-width: 375px) and (max-height: 667px) {
+                    .frase-box {
+                      width: 92vw !important;
+                      min-height: 380px !important;
+                    }
+                    #fraseApp {
+                      font-size: 1.05rem !important;
+                      padding: 0.5rem !important;
+                    }
+                  }
+                  
+                  /* Ajustes para iPad Pro e tablets grandes */
+                  @media (min-width: 1024px) and (max-width: 1366px) {
+                    .frase-box {
+                      width: 60vw !important;
+                      max-width: 750px !important;
+                    }
+                  }
+                  
+                  /* ===== MELHORIAS PARA DISPOSITIVOS TOUCH ===== */
+                  
+                  /* Aumenta área de toque em dispositivos móveis */
+                  @media (max-width: 768px) {
+                    .top-bar button, .mid-bar button, .botoes-interativos button {
+                      min-height: 44px !important;
+                      min-width: 44px !important;
+                      padding: 0.6rem !important;
+                      margin: 0.1rem !important;
+                    }
+                    
+                    /* Sidebar responsiva aprimorada */
+                    #sidebarUsuario {
+                      width: 90vw !important;
+                      right: -90vw !important;
+                      padding: 1.5rem 1rem !important;
+                    }
+                    
+                    #sidebarUsuario h2 {
+                      font-size: 1.2rem !important;
+                      margin-bottom: 1rem !important;
+                    }
+                    
+                    #sidebarUsuario input {
+                      padding: 0.8rem !important;
+                      font-size: 16px !important; /* Evita zoom no iOS */
+                      margin-bottom: 1rem !important;
+                    }
+                    
+                    #btnSalvarUsuario {
+                      width: 100% !important;
+                      padding: 0.8rem !important;
+                      font-size: 1rem !important;
+                      min-height: 48px !important;
+                    }
+                    
+                    .fecharSidebar {
+                      font-size: 1.5rem !important;
+                      padding: 0.5rem !important;
+                      min-height: 44px !important;
+                      min-width: 44px !important;
+                    }
+                  }
+                  
+                  /* Ajustes específicos para telas pequenas */
+                  @media (max-width: 480px) {
+                    #sidebarUsuario {
+                      width: 100vw !important;
+                      right: -100vw !important;
+                      padding: 1rem 0.8rem !important;
+                    }
+                    
+                    #temaSelect, #fonteSelect {
+                      font-size: 14px !important;
+                      padding: 0.5rem !important;
+                      min-height: 40px !important;
+                    }
+                  }
+                  
+                  /* ===== MELHORIAS PARA MODO PAISAGEM ===== */
+                  
+                  @media (max-width: 896px) and (orientation: landscape) {
+                    .container {
+                      padding: 0.5rem !important;
+                    }
+                    
+                    .frase-box {
+                      width: 95vw !important;
+                      min-height: 250px !important;
+                      padding: 1rem !important;
+                    }
+                    
+                    #fraseApp {
+                      font-size: 1rem !important;
+                      line-height: 1.3 !important;
+                    }
+                    
+                    .top-bar, .mid-bar, .botoes-interativos {
+                      padding: 0.3rem 0.5rem !important;
+                    }
+                    
+                    #nomeUsuario {
+                      font-size: 0.9rem !important;
+                    }
+                    
+                    #arrobaUsuario {
+                      font-size: 0.8rem !important;
+                    }
+                  }
+                  
+                  /* ===== OTIMIZAÇÕES PARA PERFORMANCE ===== */
+                  
+                  /* Reduz animações em dispositivos com pouca potência */
+                  @media (prefers-reduced-motion: reduce) {
+                    * {
+                      animation-duration: 0.01ms !important;
+                      animation-iteration-count: 1 !important;
+                      transition-duration: 0.01ms !important;
+                    }
+                  }
+                  
+                  /* ===== MELHORIAS PARA ACESSIBILIDADE ===== */
+                  
+                  /* Melhora contraste em telas de baixa qualidade */
+                  @media (max-resolution: 150dpi) {
+                    .frase-box {
+                      border-width: 2px !important;
+                    }
+                    
+                    #fraseApp {
+                      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+                    }
+                  }
+                  
+                  /* Ajustes para temas de alto contraste */
+                  @media (prefers-contrast: high) {
+                    .frase-box {
+                      border-color: #000 !important;
+                      background: #fff !important;
+                    }
+                    
+                    #fraseApp {
+                      color: #000 !important;
+                      text-shadow: none !important;
+                    }
+                    
+                    body.dark-mode .frase-box {
+                      background: #000 !important;
+                      border-color: #fff !important;
+                    }
+                    
+                    body.dark-mode #fraseApp {
+                      color: #fff !important;
+                    }
+                  }
+                  
+                  /* ===== PRINT RESPONSIVO ===== */
+                  
+                  @media print {
+                    .frase-box {
+                      width: 100% !important;
+                      min-height: auto !important;
+                      box-shadow: none !important;
+                      border: 2px solid #000 !important;
+                      background: #fff !important;
+                      page-break-inside: avoid;
+                    }
+                    
+                    #fraseApp {
+                      color: #000 !important;
+                      text-shadow: none !important;
+                      font-size: 1.2rem !important;
+                    }
+                    
+                    .top-bar, .mid-bar, .botoes-interativos {
+                      display: none !important;
+                    }
+                    
+                    #autorFraseApp {
+                      color: #333 !important;
+                    }
+                  }
                 </style>
             <!-- Sidebar Usuário -->
             <div id="sidebarUsuarioOverlay" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(30,32,40,0.45);z-index:4000;justify-content:flex-end;align-items:stretch;">
@@ -636,6 +1001,65 @@
     // Vincular aos botões
     document.getElementById('novaFrase')?.addEventListener('click', mostrarProximaFrase);
     document.getElementById('voltarFrase')?.addEventListener('click', mostrarFraseAnterior);
+    
+    // Garantir que os botões de ação funcionem
+    document.addEventListener('DOMContentLoaded', function() {
+      // Botão copiar frase
+      const btnCopiarFrase = document.getElementById('btnCopiarFrase');
+      if (btnCopiarFrase) {
+        btnCopiarFrase.addEventListener('click', function() {
+          const fraseElement = document.getElementById('fraseApp');
+          const autorElement = document.getElementById('autorFraseApp');
+          if (fraseElement) {
+            const textoCompleto = fraseElement.textContent + (autorElement ? '\n\n' + autorElement.textContent : '');
+            navigator.clipboard.writeText(textoCompleto).then(() => {
+              console.log('Frase copiada:', textoCompleto);
+              // Feedback visual opcional
+              btnCopiarFrase.style.color = '#4CAF50';
+              setTimeout(() => {
+                btnCopiarFrase.style.color = '';
+              }, 1000);
+            }).catch(err => {
+              console.error('Erro ao copiar:', err);
+            });
+          }
+        });
+      }
+      
+      // Botão favoritar
+      const btnFavoritar = document.getElementById('btnFavoritar');
+      if (btnFavoritar) {
+        btnFavoritar.addEventListener('click', function() {
+          const fraseElement = document.getElementById('fraseApp');
+          const autorElement = document.getElementById('autorFraseApp');
+          if (fraseElement) {
+            const frase = fraseElement.textContent;
+            const autor = autorElement ? autorElement.textContent : '';
+            
+            // Pega favoritos do localStorage
+            let favoritos = JSON.parse(localStorage.getItem('favoritos') || '[]');
+            
+            // Verifica se já está nos favoritos
+            const jaFavoritado = favoritos.some(f => f.frase === frase);
+            
+            if (jaFavoritado) {
+              // Remove dos favoritos
+              favoritos = favoritos.filter(f => f.frase !== frase);
+              btnFavoritar.style.color = '';
+              console.log('Frase removida dos favoritos');
+            } else {
+              // Adiciona aos favoritos
+              favoritos.push({ frase, autor });
+              btnFavoritar.style.color = '#e91e63';
+              console.log('Frase adicionada aos favoritos');
+            }
+            
+            // Salva no localStorage
+            localStorage.setItem('favoritos', JSON.stringify(favoritos));
+          }
+        });
+      }
+    });
     </script>
     <script>
     // Sidebar Usuário - lógica
@@ -851,6 +1275,13 @@ updateBgWatermark();
 document.getElementById('btnPrint').addEventListener('click', function () {
     const fraseBox = document.querySelector('.frase-box');
     
+    if (!fraseBox) {
+        alert('Erro: Área da frase não encontrada');
+        return;
+    }
+    
+    console.log('Iniciando captura de imagem...');
+    
     // Elementos a ocultar temporariamente
     const elementosOcultos = [
         '#btnPrint',
@@ -864,43 +1295,75 @@ document.getElementById('btnPrint').addEventListener('click', function () {
         '#btnMenuUsuario'
     ];
     
-    // Esconde os elementos
+    // Esconde os elementos e armazena seus estilos originais
+    const estilosOriginais = {};
     elementosOcultos.forEach(sel => {
         const el = document.querySelector(sel);
-        if (el) el.style.display = 'none';
+        if (el) {
+            estilosOriginais[sel] = el.style.display;
+            el.style.display = 'none';
+        }
     });
 
-    // Aguarda um pouquinho antes de capturar
+    // Aguarda um pouquinho antes de capturar para garantir que os elementos estejam ocultos
     setTimeout(() => {
-        html2canvas(fraseBox).then(function (canvas) {
-            const tema = document.getElementById('temaSelect').value;
-            const data = new Date();
-            const nomeArquivo = `frase-${tema}-${data.getFullYear()}-${(data.getMonth()+1).toString().padStart(2, '0')}-${data.getDate().toString().padStart(2, '0')}.png`;
+        // Configurações para o html2canvas
+        const opcoes = {
+            backgroundColor: null, // Mantém o fundo transparente se houver
+            scale: 2, // Melhora a qualidade da imagem
+            logging: false, // Remove logs desnecessários
+            useCORS: true, // Permite recursos externos
+            allowTaint: true,
+            width: fraseBox.offsetWidth,
+            height: fraseBox.offsetHeight
+        };
+        
+        html2canvas(fraseBox, opcoes).then(function (canvas) {
+            try {
+                // Cria nome do arquivo com data e tema
+                const tema = document.getElementById('temaSelect')?.value || 'frase';
+                const data = new Date();
+                const nomeArquivo = `frase-${tema}-${data.getFullYear()}-${(data.getMonth()+1).toString().padStart(2, '0')}-${data.getDate().toString().padStart(2, '0')}.png`;
 
-            const link = document.createElement('a');
-            link.download = nomeArquivo;
-            link.href = canvas.toDataURL();
-            link.click();
-
-            // Restaura os elementos
+                // Cria link para download
+                const link = document.createElement('a');
+                link.download = nomeArquivo;
+                link.href = canvas.toDataURL('image/png', 1.0);
+                
+                // Adiciona o link ao DOM temporariamente e clica
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                console.log('Imagem baixada com sucesso:', nomeArquivo);
+                
+            } catch (error) {
+                console.error('Erro ao criar download:', error);
+                alert('Erro ao baixar a imagem. Tente novamente.');
+            }
+            
+            // Restaura os elementos com seus estilos originais
             elementosOcultos.forEach(sel => {
                 const el = document.querySelector(sel);
-                if (el) el.style.display = '';
+                if (el) {
+                    el.style.display = estilosOriginais[sel] || '';
+                }
+            });
+            
+        }).catch(function(error) {
+            console.error('Erro no html2canvas:', error);
+            alert('Erro ao capturar a imagem. Verifique se todos os elementos estão carregados.');
+            
+            // Restaura os elementos mesmo em caso de erro
+            elementosOcultos.forEach(sel => {
+                const el = document.querySelector(sel);
+                if (el) {
+                    el.style.display = estilosOriginais[sel] || '';
+                }
             });
         });
-    }, 200); // tempo para aplicar os hides corretamente
+    }, 300); // Tempo aumentado para garantir que os elementos sejam ocultados
 });
-
-    // Seleciona a área da frase-box para exportar como imagem
-    const fraseBox = document.querySelector('.frase-box');
-    // Usa html2canvas para capturar a área
-    html2canvas(fraseBox).then(function(canvas) {
-        // Cria um link para download da imagem
-        const link = document.createElement('a');
-        link.download = 'frase.png';
-        link.href = canvas.toDataURL();
-        link.click();
-    });
 </script><script>
 // ==== CONTROLE DE PREMIUM E USO DIÁRIO (UNIFICADO) ====
 
@@ -1501,6 +1964,183 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   }, 100);
+});
+</script>
+
+<script>
+// ===== RESPONSIVIDADE DINÂMICA E MELHORIAS PARA TOUCH =====
+document.addEventListener('DOMContentLoaded', function() {
+  
+  function ajustarResponsividadeDinamica() {
+    const largura = window.innerWidth;
+    const altura = window.innerHeight;
+    const fraseBox = document.querySelector('.frase-box');
+    const fraseApp = document.getElementById('fraseApp');
+    const container = document.querySelector('.container');
+    
+    // Detecta tipo de dispositivo
+    const isSmartphone = largura <= 480;
+    const isTablet = largura > 480 && largura <= 1024;
+    const isDesktop = largura > 1024;
+    const isLandscape = largura > altura;
+    
+    console.log(`Dispositivo detectado: ${isSmartphone ? 'Smartphone' : isTablet ? 'Tablet' : 'Desktop'}, Largura: ${largura}px`);
+    
+    // Ajustes específicos por dispositivo
+    if (isSmartphone) {
+      document.body.classList.add('device-mobile');
+      document.body.classList.remove('device-tablet', 'device-desktop');
+      
+      if (fraseBox) {
+        fraseBox.style.setProperty('width', '92vw', 'important');
+        fraseBox.style.setProperty('min-height', isLandscape ? '280px' : '380px', 'important');
+        fraseBox.style.setProperty('padding', '1rem', 'important');
+      }
+      
+      if (fraseApp) {
+        fraseApp.style.setProperty('font-size', isLandscape ? '1rem' : '1.1rem', 'important');
+        fraseApp.style.setProperty('line-height', isLandscape ? '1.3' : '1.5', 'important');
+      }
+      
+    } else if (isTablet) {
+      document.body.classList.add('device-tablet');
+      document.body.classList.remove('device-mobile', 'device-desktop');
+      
+      if (fraseBox) {
+        fraseBox.style.setProperty('width', '85vw', 'important');
+        fraseBox.style.setProperty('min-height', '450px', 'important');
+        fraseBox.style.setProperty('padding', '1.5rem', 'important');
+      }
+      
+      if (fraseApp) {
+        fraseApp.style.setProperty('font-size', '1.3rem', 'important');
+        fraseApp.style.setProperty('line-height', '1.6', 'important');
+      }
+      
+    } else if (isDesktop) {
+      document.body.classList.add('device-desktop');
+      document.body.classList.remove('device-mobile', 'device-tablet');
+      
+      if (fraseBox) {
+        const maxWidth = largura > 1600 ? '900px' : largura > 1200 ? '800px' : '700px';
+        const width = largura > 1600 ? '45vw' : largura > 1200 ? '55vw' : '65vw';
+        
+        fraseBox.style.setProperty('width', width, 'important');
+        fraseBox.style.setProperty('max-width', maxWidth, 'important');
+        fraseBox.style.setProperty('min-height', '600px', 'important');
+      }
+      
+      if (fraseApp) {
+        const fontSize = largura > 1600 ? '1.8rem' : largura > 1200 ? '1.6rem' : '1.5rem';
+        fraseApp.style.setProperty('font-size', fontSize, 'important');
+        fraseApp.style.setProperty('line-height', '1.8', 'important');
+      }
+    }
+    
+    // Ajustes para altura baixa (modo paisagem)
+    if (altura <= 500 && isLandscape) {
+      if (fraseBox) {
+        fraseBox.style.setProperty('min-height', '250px', 'important');
+        fraseBox.style.setProperty('padding', '0.8rem', 'important');
+      }
+      if (fraseApp) {
+        fraseApp.style.setProperty('font-size', '1rem', 'important');
+        fraseApp.style.setProperty('line-height', '1.3', 'important');
+      }
+    }
+    
+    // Detecta e ajusta para dispositivos touch
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+      document.body.classList.add('touch-device');
+      
+      // Aumenta área de toque para botões em dispositivos móveis
+      if (isSmartphone || isTablet) {
+        const botoes = document.querySelectorAll('button, select');
+        botoes.forEach(btn => {
+          btn.style.setProperty('min-height', '44px', 'important');
+          btn.style.setProperty('min-width', '44px', 'important');
+          btn.style.setProperty('padding', '0.6rem', 'important');
+        });
+      }
+      
+      // Melhora inputs para dispositivos touch
+      const inputs = document.querySelectorAll('input');
+      inputs.forEach(input => {
+        input.style.setProperty('font-size', '16px', 'important'); // Evita zoom no iOS
+        input.style.setProperty('padding', '0.8rem', 'important');
+      });
+    }
+    
+    // Ajustes para sidebar em diferentes tamanhos
+    const sidebar = document.getElementById('sidebarUsuario');
+    if (sidebar) {
+      if (isSmartphone) {
+        sidebar.style.setProperty('width', '100vw', 'important');
+        sidebar.style.setProperty('right', '-100vw', 'important');
+        sidebar.style.setProperty('padding', '1rem 0.8rem', 'important');
+      } else if (isTablet) {
+        sidebar.style.setProperty('width', '90vw', 'important');
+        sidebar.style.setProperty('right', '-90vw', 'important');
+        sidebar.style.setProperty('padding', '1.5rem 1rem', 'important');
+      }
+    }
+  }
+  
+  // Função de debounce para otimizar performance
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+  
+  // Executa no carregamento
+  ajustarResponsividadeDinamica();
+  
+  // Executa quando a tela é redimensionada (com debounce)
+  const debouncedResize = debounce(ajustarResponsividadeDinamica, 100);
+  window.addEventListener('resize', debouncedResize);
+  
+  // Detecta mudança de orientação
+  window.addEventListener('orientationchange', function() {
+    setTimeout(ajustarResponsividadeDinamica, 200);
+  });
+  
+  // Melhorias específicas para dispositivos móveis
+  if ('ontouchstart' in window) {
+    // Melhora o scroll
+    document.body.style.webkitOverflowScrolling = 'touch';
+    
+    // Previne zoom acidental em inputs
+    const inputs = document.querySelectorAll('input, select');
+    inputs.forEach(input => {
+      input.addEventListener('focus', function() {
+        if (window.innerWidth <= 768) {
+          this.style.fontSize = '16px';
+        }
+      });
+    });
+    
+    // Adiciona classe para CSS específico
+    document.body.classList.add('mobile-device');
+  }
+  
+  // Detecta se é um PWA
+  if (window.matchMedia('(display-mode: standalone)').matches) {
+    document.body.classList.add('pwa-mode');
+  }
+  
+  // Otimização para telas de alta densidade
+  if (window.devicePixelRatio > 1.5) {
+    document.body.classList.add('high-dpi');
+  }
+  
+  console.log('Sistema de responsividade dinâmica inicializado');
 });
 </script>
 
