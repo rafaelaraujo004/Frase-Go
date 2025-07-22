@@ -28,6 +28,9 @@
           <button type="button" id="btnCriarConta" class="modal-text-btn">Criar conta</button>
           <button type="button" id="btnEsqueciSenha" class="modal-text-btn danger">Esqueci a senha</button>
         </div>
+        <button type="button" id="btnConvidado" class="guest-login-btn" aria-label="Continuar como convidado">
+          Continuar como convidado
+        </button>
         <div id="loginErro" class="modal-error" role="alert"></div>
       </form>
     </div>
@@ -66,16 +69,15 @@
               </span>
             </button>
             <!-- NOVA CAIXA DE TEXTO ESTILO ANEXO (fixa, 4cm abaixo do topo) -->
-            <div id="twitterTextBox" style="background:rgba(90,90,105,0.78);border-radius:17px;box-shadow:0 8px 29px 0 rgba(31,38,135,0.18);position:absolute;top:4cm;left:50%;transform:translateX(-50%);width:300px;max-width:90vw;min-width:220px;min-height:150px;max-height:370px;padding:44px 32px 44px 32px;display:flex;flex-direction:column;align-items:center;overflow:visible;transition:background 0.5s;border: 3.5px solid rgba(13,71,161,0.55);">
+            <div id="twitterTextBox" style="background:rgba(90,90,105,0.78);border-radius:17px;box-shadow:0 8px 29px 0 rgba(31,38,135,0.18);position:absolute;top:4cm;left:50%;transform:translateX(-50%);width:300px;max-width:90vw;min-width:220px;min-height:150px;max-height:332px;padding:44px 32px 44px 32px;display:flex;flex-direction:column;align-items:center;overflow:visible;transition:background 0.5s;border: 3.5px solid #0d47a1;">
                 <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0.1rem;margin-bottom:8px;width:100%;justify-content:center;">
                   <span id="nomeUsuario" style="font-family:'Montserrat',Arial,sans-serif;font-size:1.08rem;font-weight:400;color:#222;letter-spacing:0.01em;line-height:1.1;text-shadow:0 1px 4px #fff,0 1px 1px #bbb;"></span>
                   <span style="display:flex;align-items:center;gap:0.32em;">
                     <span id="arrobaUsuario" style="font-family:'Space Mono',monospace;font-size:0.99rem;color:#555;padding:1px 7px 1px 4px;line-height:1.2;"></span>
                     <span id="iconVerificado" title="Verificado" style="display:inline-flex;align-items:center;margin-left:2px;">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1976d2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="9" fill="#1976d2" stroke="#1565c0" stroke-width="2"/>
-                        <circle cx="12" cy="12" r="7.5" fill="#fff" stroke="#42a5f5" stroke-width="2"/>
-                        <path d="M9.5 12.5l2 2 3-4" stroke="#1976d2" stroke-width="2" fill="none"/>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" fill="#1DA1F2"/>
+                        <path d="M9 12l2 2 4-4" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                       </svg>
                     </span>
                   </span>
@@ -492,77 +494,179 @@
     const btnMenuUsuario = document.getElementById('btnMenuUsuario');
     const sidebarUsuarioOverlay = document.getElementById('sidebarUsuarioOverlay');
     const sidebarUsuario = document.getElementById('sidebarUsuario');
-    const fecharSidebar = sidebarUsuario.querySelector('.fecharSidebar');
+    const fecharSidebar = sidebarUsuario?.querySelector('.fecharSidebar');
     const inputNomeUsuario = document.getElementById('inputNomeUsuario');
     const inputArrobaUsuario = document.getElementById('inputArrobaUsuario');
     const btnSalvarUsuario = document.getElementById('btnSalvarUsuario');
     const nomeUsuarioSpan = document.getElementById('nomeUsuario');
     const arrobaUsuarioSpan = document.getElementById('arrobaUsuario');
 
+    // Debug: verificar se todos os elementos foram encontrados
+    if (!btnMenuUsuario || !sidebarUsuario || !btnSalvarUsuario || !nomeUsuarioSpan || !arrobaUsuarioSpan) {
+      console.warn('Alguns elementos da sidebar de usuário não foram encontrados. Verifique os IDs no HTML.');
+    }
+
     // Carregar valores salvos
     function carregarUsuario() {
       const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
       const arroba = localStorage.getItem('usuario_arroba') || '@';
+      
+      // Busca os elementos diretamente
+      const nomeSpan = document.getElementById('nomeUsuario');
+      const arrobaSpan = document.getElementById('arrobaUsuario');
+      
       // Atualiza os campos visuais
-      if (nomeUsuarioSpan) nomeUsuarioSpan.textContent = nome;
-      if (arrobaUsuarioSpan) arrobaUsuarioSpan.textContent = arroba;
-      if (inputNomeUsuario) inputNomeUsuario.value = nome !== 'Seu nome' ? nome : '';
-      if (inputArrobaUsuario) inputArrobaUsuario.value = arroba !== '@' ? arroba : '';
+      if (nomeSpan) {
+        nomeSpan.textContent = nome;
+        nomeSpan.style.display = 'block';
+      }
+      if (arrobaSpan) {
+        arrobaSpan.textContent = arroba;
+        arrobaSpan.style.display = 'block';
+        // Garante que tenha o estilo correto
+        arrobaSpan.style.background = 'rgba(245,245,245,0.85)';
+        arrobaSpan.style.borderRadius = '12px';
+        arrobaSpan.style.boxShadow = '0 1px 4px #fff, 0 1px 1px #bbb';
+      }
+      
+      // Atualiza os campos de input
+      if (inputNomeUsuario) {
+        inputNomeUsuario.value = nome !== 'Seu nome' ? nome : '';
+      }
+      if (inputArrobaUsuario) {
+        inputArrobaUsuario.value = arroba !== '@' ? arroba.replace('@', '') : '';
+      }
     }
     document.addEventListener('DOMContentLoaded', function() {
       carregarUsuario();
-      // Garante que os campos acima da frase sejam preenchidos ao abrir
-      const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
-      const arroba = localStorage.getItem('usuario_arroba') || '@';
-      const nomeUsuarioSpan = document.getElementById('nomeUsuario');
-      const arrobaUsuarioSpan = document.getElementById('arrobaUsuario');
-      if (nomeUsuarioSpan) nomeUsuarioSpan.textContent = nome;
-      if (arrobaUsuarioSpan) arrobaUsuarioSpan.textContent = arroba;
+      
+      // Força a atualização após um pequeno delay para garantir que os elementos estejam renderizados
+      setTimeout(() => {
+        const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
+        const arroba = localStorage.getItem('usuario_arroba') || '@';
+        
+        const nomeSpan = document.getElementById('nomeUsuario');
+        const arrobaSpan = document.getElementById('arrobaUsuario');
+        
+        if (nomeSpan) {
+          nomeSpan.textContent = nome;
+          nomeSpan.style.display = 'block';
+        }
+        if (arrobaSpan) {
+          arrobaSpan.textContent = arroba;
+          arrobaSpan.style.display = 'block';
+        }
+      }, 500);
     });
 
-    btnMenuUsuario.addEventListener('click', () => {
-      // Se a aba lateral estiver aberta, fecha completamente (inclui transição e overlay)
-      if (sidebarUsuario.classList.contains('open')) {
-        sidebarUsuario.classList.remove('open');
-        document.body.classList.remove('sidebar-usuario-aberta');
-        sidebarUsuario.style.right = '-340px';
+    // Event listeners com verificação de segurança
+    if (btnMenuUsuario) {
+      btnMenuUsuario.addEventListener('click', () => {
+        // Se a aba lateral estiver aberta, fecha completamente (inclui transição e overlay)
+        if (sidebarUsuario?.classList.contains('open')) {
+          sidebarUsuario.classList.remove('open');
+          document.body.classList.remove('sidebar-usuario-aberta');
+          sidebarUsuario.style.right = '-340px';
+          setTimeout(() => {
+            if (sidebarUsuarioOverlay) sidebarUsuarioOverlay.style.display = 'none';
+            sidebarUsuario.style.right = '';
+          }, 400);
+          return;
+        }
+        
+        // Se não estiver aberta, abre normalmente e carrega os dados atuais
+        carregarUsuario(); // Recarrega os dados antes de abrir
+        
+        // Força a atualização visual dos elementos
+        const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
+        const arroba = localStorage.getItem('usuario_arroba') || '@';
+        const nomeSpan = document.getElementById('nomeUsuario');
+        const arrobaSpan = document.getElementById('arrobaUsuario');
+        
+        if (nomeSpan) nomeSpan.textContent = nome;
+        if (arrobaSpan) arrobaSpan.textContent = arroba;
+        
+        if (sidebarUsuario) sidebarUsuario.classList.add('open');
+        document.body.classList.add('sidebar-usuario-aberta');
+        if (sidebarUsuarioOverlay) sidebarUsuarioOverlay.style.display = 'flex';
+        
+        // Foca no campo de nome após um pequeno delay para garantir que a sidebar esteja visível
         setTimeout(() => {
-          sidebarUsuarioOverlay.style.display = 'none';
-          sidebarUsuario.style.right = '';
-        }, 400);
-        return;
-      }
-      // Se não estiver aberta, abre normalmente
-      sidebarUsuario.classList.add('open');
-      document.body.classList.add('sidebar-usuario-aberta');
-      sidebarUsuarioOverlay.style.display = 'flex';
-      inputNomeUsuario.focus();
-    });
-    fecharSidebar.addEventListener('click', () => {
-      sidebarUsuario.classList.remove('open');
-      document.body.classList.remove('sidebar-usuario-aberta');
-      sidebarUsuarioOverlay.style.display = 'none';
-    });
-btnSalvarUsuario.addEventListener('click', () => {
-  let nome = inputNomeUsuario.value.trim().slice(0, 20) || 'Seu nome';
-  let arroba = inputArrobaUsuario.value.trim().slice(0, 20);
-  if (!arroba.startsWith('@')) arroba = arroba ? '@' + arroba : '@';
-  localStorage.setItem('usuario_nome', nome);
-  localStorage.setItem('usuario_arroba', arroba);
-  // Atualiza imediatamente os elementos acima da frase
-  if (nomeUsuarioSpan) nomeUsuarioSpan.textContent = nome;
-  if (arrobaUsuarioSpan) arrobaUsuarioSpan.textContent = arroba;
-  if (inputNomeUsuario) inputNomeUsuario.value = nome !== 'Seu nome' ? nome : '';
-  if (inputArrobaUsuario) inputArrobaUsuario.value = arroba !== '@' ? arroba : '';
-  sidebarUsuario.classList.remove('open');
-  document.body.classList.remove('sidebar-usuario-aberta');
-});
+          if (inputNomeUsuario) inputNomeUsuario.focus();
+        }, 100);
+      });
+    }
+
+    if (fecharSidebar) {
+      fecharSidebar.addEventListener('click', () => {
+        if (sidebarUsuario) sidebarUsuario.classList.remove('open');
+        document.body.classList.remove('sidebar-usuario-aberta');
+        if (sidebarUsuarioOverlay) sidebarUsuarioOverlay.style.display = 'none';
+      });
+    }
+if (btnSalvarUsuario) {
+  btnSalvarUsuario.addEventListener('click', () => {
+    if (!inputNomeUsuario || !inputArrobaUsuario) {
+      alert('❌ Erro: Campos de entrada não encontrados!');
+      return;
+    }
+    
+    let nome = inputNomeUsuario.value.trim().slice(0, 20) || 'Seu nome';
+    let arroba = inputArrobaUsuario.value.trim().slice(0, 20);
+    if (!arroba.startsWith('@')) arroba = arroba ? '@' + arroba : '@';
+    
+    // Salva no localStorage
+    localStorage.setItem('usuario_nome', nome);
+    localStorage.setItem('usuario_arroba', arroba);
+    
+    // Força a atualização dos elementos visuais
+    const nomeSpan = document.getElementById('nomeUsuario');
+    const arrobaSpan = document.getElementById('arrobaUsuario');
+    
+    if (nomeSpan) {
+      nomeSpan.textContent = nome;
+      nomeSpan.style.display = 'block'; // Força a visibilidade
+    }
+    
+    if (arrobaSpan) {
+      arrobaSpan.textContent = arroba;
+      arrobaSpan.style.display = 'block'; // Força a visibilidade
+    }
+    
+    // Adiciona estilos visuais para forçar a atualização
+    if (arrobaSpan) {
+      arrobaSpan.style.background = 'rgba(245,245,245,0.85)';
+      arrobaSpan.style.borderRadius = '12px';
+      arrobaSpan.style.boxShadow = '0 1px 4px #fff, 0 1px 1px #bbb';
+    }
+    
+    // Atualiza os campos de input para mostrar os valores corretos
+    if (inputNomeUsuario) inputNomeUsuario.value = nome !== 'Seu nome' ? nome : '';
+    if (inputArrobaUsuario) inputArrobaUsuario.value = arroba !== '@' ? arroba.replace('@', '') : '';
+    
+    // Fecha a sidebar
+    if (sidebarUsuario) sidebarUsuario.classList.remove('open');
+    document.body.classList.remove('sidebar-usuario-aberta');
+    if (sidebarUsuarioOverlay) sidebarUsuarioOverlay.style.display = 'none';
+    
+    // Força um refresh visual
+    setTimeout(() => {
+      if (nomeSpan) nomeSpan.textContent = nome;
+      if (arrobaSpan) arrobaSpan.textContent = arroba;
+    }, 100);
+    
+    // Feedback visual
+    alert('✅ Informações do usuário atualizadas!\n\nNome: ' + nome + '\n@: ' + arroba);
+  });
+}
     // Fechar ao clicar fora
     window.addEventListener('mousedown', function(e) {
-      if (sidebarUsuario.classList.contains('open') && !sidebarUsuario.contains(e.target) && e.target !== btnMenuUsuario) {
-        sidebarUsuario.classList.remove('open');
+      if (sidebarUsuario?.classList.contains('open') && 
+          !sidebarUsuario.contains(e.target) && 
+          e.target !== btnMenuUsuario) {
+        if (sidebarUsuario) sidebarUsuario.classList.remove('open');
         document.body.classList.remove('sidebar-usuario-aberta');
-        sidebarUsuarioOverlay.style.display = 'none';
+        if (sidebarUsuarioOverlay) sidebarUsuarioOverlay.style.display = 'none';
       }
     });
     </script>

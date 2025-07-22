@@ -4,8 +4,13 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 function bloquearApp() {
+  // Desabilita elementos exceto os que estão nos modais de autenticação
   document.querySelectorAll('button,select,input,textarea').forEach(el => {
-    el.disabled = true;
+    // Não desabilita elementos dentro dos modais de autenticação
+    const isInAuthModal = el.closest('#modalLogin, #modalCadastro, #modalEsqueciSenha');
+    if (!isInAuthModal) {
+      el.disabled = true;
+    }
   });
 }
 function desbloquearApp() {
@@ -15,76 +20,260 @@ function desbloquearApp() {
 }
 
 function mostrarModal(id) {
+  // Oculta todos os modais
   document.querySelectorAll('#modalLogin,#modalCadastro,#modalEsqueciSenha').forEach(m => m.style.display = 'none');
-  document.getElementById(id).style.display = 'flex';
+  
+  // Limpa mensagens de erro e sucesso
+  document.querySelectorAll('.modal-error, .modal-success').forEach(el => {
+    el.style.display = 'none';
+    el.textContent = '';
+  });
+  
+  // Limpa os campos do formulário
+  const modal = document.getElementById(id);
+  if (modal) {
+    modal.querySelectorAll('input[type="email"], input[type="password"]').forEach(input => {
+      input.value = '';
+    });
+    modal.style.display = 'flex';
+  }
 }
 
 async function checarSessao() {
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session) {
-    bloquearApp();
-    mostrarModal('modalLogin');
-  } else {
+  try {
+    console.log('Verificando sessão...');
+    const { data: { session } } = await supabase.auth.getSession();
+    console.log('Sessão:', session ? 'encontrada' : 'não encontrada');
+    
+    if (!session) {
+      console.log('Usuário não logado, bloqueando app e mostrando modal de login');
+      bloquearApp();
+      mostrarModal('modalLogin');
+    } else {
+      console.log('Usuário logado, desbloqueando app');
+      desbloquearApp();
+      const modalLogin = document.getElementById('modalLogin');
+      const modalCadastro = document.getElementById('modalCadastro');
+      const modalEsqueciSenha = document.getElementById('modalEsqueciSenha');
+      
+      if (modalLogin) modalLogin.style.display = 'none';
+      if (modalCadastro) modalCadastro.style.display = 'none';
+      if (modalEsqueciSenha) modalEsqueciSenha.style.display = 'none';
+    }
+  } catch (error) {
+    console.error('Erro ao verificar sessão:', error);
+    // Em caso de erro, permite acesso como convidado
     desbloquearApp();
-    document.getElementById('modalLogin').style.display = 'none';
-    document.getElementById('modalCadastro').style.display = 'none';
-    document.getElementById('modalEsqueciSenha').style.display = 'none';
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM carregado, inicializando autenticação...');
+  
+  // Inicializa os elementos de erro como ocultos
+  document.querySelectorAll('.modal-error, .modal-success').forEach(el => {
+    el.style.display = 'none';
+  });
+  
+  // Verifica se o Supabase foi carregado
+  if (typeof window.supabase === 'undefined') {
+    console.error('Supabase não foi carregado. Verifique se o script do Supabase está incluído.');
+    // Em caso de erro, permite acesso como convidado
+    desbloquearApp();
+    return;
+  }
+  
+  console.log('Supabase carregado com sucesso');
+  
+  // Verifica se os elementos dos modais existem
+  const modalLogin = document.getElementById('modalLogin');
+  const formLogin = document.getElementById('formLogin');
+  const btnConvidado = document.getElementById('btnConvidado');
+  
+  console.log('Elementos encontrados:', {
+    modalLogin: !!modalLogin,
+    formLogin: !!formLogin,
+    btnConvidado: !!btnConvidado
+  });
+  
+  // Adiciona todos os event listeners aqui
+  inicializarEventListeners();
+  
+  // Verifica a sessão do usuário
   checarSessao();
 });
 
-// --- HANDLERS DE AUTENTICAÇÃO ---
-document.getElementById('formLogin').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const email = this.email.value;
-  const senha = this.senha.value;
-  const { error } = await supabase.auth.signInWithPassword({ email, password: senha });
-  if (error) {
-    alert('Erro ao logar: ' + error.message);
+function inicializarEventListeners() {
+  // --- HANDLERS DE AUTENTICAÇÃO ---
+  const formLogin = document.getElementById('formLogin');
+  if (formLogin) {
+    console.log('Adicionando event listener ao formulário de login');
+    formLogin.addEventListener('submit', async function(e) {
+      console.log('Submit do formulário de login chamado');
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const senha = document.getElementById('loginSenha').value;
+      const erroDiv = document.getElementById('loginErro');
+      
+      console.log('Tentando fazer login com:', email);
+      
+      try {
+        const { error } = await supabase.auth.signInWithPassword({ email, password: senha });
+        if (error) {
+          console.error('Erro de login:', error.message);
+          if (erroDiv) {
+            erroDiv.textContent = 'Erro ao logar: ' + error.message;
+            erroDiv.style.display = 'block';
+          }
+        } else {
+          console.log('Login realizado com sucesso');
+          if (erroDiv) erroDiv.style.display = 'none';
+          checarSessao();
+        }
+      } catch (err) {
+        console.error('Erro inesperado:', err);
+        if (erroDiv) {
+          erroDiv.textContent = 'Erro inesperado: ' + err.message;
+          erroDiv.style.display = 'block';
+        }
+      }
+    });
   } else {
-    checarSessao();
+    console.error('Elemento formLogin não encontrado!');
   }
-});
 
-document.getElementById('btnGoogle').addEventListener('click', async function() {
-  const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
-  if (error) alert('Erro ao logar com Google: ' + error.message);
-});
+  const btnGoogle = document.getElementById('btnGoogle');
+  if (btnGoogle) {
+    btnGoogle.addEventListener('click', async function() {
+      const erroDiv = document.getElementById('loginErro');
+      try {
+        const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
+        if (error && erroDiv) {
+          erroDiv.textContent = 'Erro ao logar com Google: ' + error.message;
+          erroDiv.style.display = 'block';
+        }
+      } catch (err) {
+        if (erroDiv) {
+          erroDiv.textContent = 'Erro inesperado: ' + err.message;
+          erroDiv.style.display = 'block';
+        }
+      }
+    });
+  }
 
-document.getElementById('btnCriarConta').addEventListener('click', function() {
-  mostrarModal('modalCadastro');
-});
-document.getElementById('btnEsqueciSenha').addEventListener('click', function() {
-  mostrarModal('modalEsqueciSenha');
-});
-
-document.getElementById('formCadastro').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const email = this.email.value;
-  const senha = this.senha.value;
-  const { error } = await supabase.auth.signUp({ email, password: senha });
-  if (error) {
-    alert('Erro ao criar conta: ' + error.message);
+  const btnConvidado = document.getElementById('btnConvidado');
+  if (btnConvidado) {
+    console.log('Adicionando event listener ao botão convidado');
+    btnConvidado.addEventListener('click', function() {
+      console.log('Botão convidado clicado');
+      // Fecha todos os modais e desbloqueia o app para uso como convidado
+      const modalLogin = document.getElementById('modalLogin');
+      const modalCadastro = document.getElementById('modalCadastro');
+      const modalEsqueciSenha = document.getElementById('modalEsqueciSenha');
+      
+      if (modalLogin) modalLogin.style.display = 'none';
+      if (modalCadastro) modalCadastro.style.display = 'none';
+      if (modalEsqueciSenha) modalEsqueciSenha.style.display = 'none';
+      
+      desbloquearApp();
+    });
   } else {
-    alert('Conta criada! Verifique seu e-mail para confirmar.');
-    mostrarModal('modalLogin');
+    console.error('Elemento btnConvidado não encontrado!');
   }
-});
 
-document.getElementById('formEsqueciSenha').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const email = this.email.value;
-  const { error } = await supabase.auth.resetPasswordForEmail(email);
-  if (error) {
-    alert('Erro ao enviar e-mail de recuperação: ' + error.message);
-  } else {
-    alert('E-mail de recuperação enviado!');
-    mostrarModal('modalLogin');
+  const btnCriarConta = document.getElementById('btnCriarConta');
+  if (btnCriarConta) {
+    btnCriarConta.addEventListener('click', function() {
+      mostrarModal('modalCadastro');
+    });
   }
-});
+
+  const btnEsqueciSenha = document.getElementById('btnEsqueciSenha');
+  if (btnEsqueciSenha) {
+    btnEsqueciSenha.addEventListener('click', function() {
+      mostrarModal('modalEsqueciSenha');
+    });
+  }
+
+  const formCadastro = document.getElementById('formCadastro');
+  if (formCadastro) {
+    formCadastro.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('cadastroEmail').value;
+      const senha = document.getElementById('cadastroSenha').value;
+      const erroDiv = document.getElementById('cadastroErro');
+      
+      try {
+        const { error } = await supabase.auth.signUp({ email, password: senha });
+        if (error) {
+          if (erroDiv) {
+            erroDiv.textContent = 'Erro ao criar conta: ' + error.message;
+            erroDiv.style.display = 'block';
+          }
+        } else {
+          if (erroDiv) erroDiv.style.display = 'none';
+          alert('Conta criada! Verifique seu e-mail para confirmar.');
+          mostrarModal('modalLogin');
+        }
+      } catch (err) {
+        if (erroDiv) {
+          erroDiv.textContent = 'Erro inesperado: ' + err.message;
+          erroDiv.style.display = 'block';
+        }
+      }
+    });
+  }
+
+  const btnVoltarLogin = document.getElementById('btnVoltarLogin');
+  if (btnVoltarLogin) {
+    btnVoltarLogin.addEventListener('click', function() {
+      mostrarModal('modalLogin');
+    });
+  }
+
+  const formEsqueciSenha = document.getElementById('formEsqueciSenha');
+  if (formEsqueciSenha) {
+    formEsqueciSenha.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('esqueciEmail').value;
+      const erroDiv = document.getElementById('esqueciErro');
+      const sucessoDiv = document.getElementById('esqueciSucesso');
+      
+      try {
+        const { error } = await supabase.auth.resetPasswordForEmail(email);
+        if (error) {
+          if (erroDiv) {
+            erroDiv.textContent = 'Erro ao enviar e-mail de recuperação: ' + error.message;
+            erroDiv.style.display = 'block';
+          }
+          if (sucessoDiv) sucessoDiv.style.display = 'none';
+        } else {
+          if (sucessoDiv) {
+            sucessoDiv.textContent = 'E-mail de recuperação enviado!';
+            sucessoDiv.style.display = 'block';
+          }
+          if (erroDiv) erroDiv.style.display = 'none';
+          setTimeout(() => {
+            mostrarModal('modalLogin');
+          }, 2000);
+        }
+      } catch (err) {
+        if (erroDiv) {
+          erroDiv.textContent = 'Erro inesperado: ' + err.message;
+          erroDiv.style.display = 'block';
+        }
+        if (sucessoDiv) sucessoDiv.style.display = 'none';
+      }
+    });
+  }
+
+  const btnVoltarLogin2 = document.getElementById('btnVoltarLogin2');
+  if (btnVoltarLogin2) {
+    btnVoltarLogin2.addEventListener('click', function() {
+      mostrarModal('modalLogin');
+    });
+  }
+}
 
 // Logout handler (adicione um botão de logout se quiser)
 window.logoutSupabase = async function() {
