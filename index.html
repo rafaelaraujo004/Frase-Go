@@ -28,7 +28,6 @@
           <button type="button" id="btnEsqueciSenha" style="background:none;border:none;color:#e53935;cursor:pointer;font-size:0.98rem;">Esqueci a senha</button>
         </div>
         <div id="loginErro" style="color:#e53935;font-size:0.98rem;display:none;"></div>
-        <button type="button" id="btnEntrarSemLogin" style="width:100%;background:#666;color:#fff;border:none;padding:0.7rem 0;border-radius:0.7rem;cursor:pointer;font-size:1.05rem;font-weight:bold;margin-top:0.8rem;">Entrar sem login</button>
       </form>
     </div>
     <!-- Modal de cadastro -->
@@ -66,9 +65,9 @@
             <!-- NOVA CAIXA DE TEXTO ESTILO ANEXO (fixa, 4cm abaixo do topo) -->
             <div id="twitterTextBox" style="background:rgba(90,90,105,0.78);border-radius:17px;box-shadow:0 8px 29px 0 rgba(31,38,135,0.18);position:absolute;top:4cm;left:50%;transform:translateX(-50%);width:300px;max-width:90vw;min-width:220px;min-height:150px;max-height:370px;padding:44px 32px 44px 32px;display:flex;flex-direction:column;align-items:center;overflow:visible;transition:background 0.5s;border: 3.5px solid rgba(13,71,161,0.55);">
                 <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0.1rem;margin-bottom:8px;width:100%;justify-content:center;">
-                  <span id="nomeUsuario" style="font-family:'Montserrat',Arial,sans-serif;font-size:1.08rem;font-weight:400;color:#f5f5f5;letter-spacing:0.01em;line-height:1.1;text-shadow:0 1px 4px #000,0 1px 1px #222;display:block;">Seu nome</span>
+                  <span id="nomeUsuario" style="font-family:'Montserrat',Arial,sans-serif;font-size:1.08rem;font-weight:400;color:#222;letter-spacing:0.01em;line-height:1.1;text-shadow:0 1px 4px #fff,0 1px 1px #bbb;"></span>
                   <span style="display:flex;align-items:center;gap:0.32em;">
-                    <span id="arrobaUsuario" style="font-family:'Space Mono',monospace;font-size:0.99rem;color:#ddd;background:rgba(0,0,0,0.3);padding:1px 7px 1px 4px;border-radius:8px;line-height:1.2;display:inline-block;">@seunome</span>
+                    <span id="arrobaUsuario" style="font-family:'Space Mono',monospace;font-size:0.99rem;color:#555;padding:1px 7px 1px 4px;line-height:1.2;"></span>
                     <span id="iconVerificado" title="Verificado" style="display:inline-flex;align-items:center;margin-left:2px;">
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1976d2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="9" fill="#1976d2" stroke="#1565c0" stroke-width="2"/>
@@ -237,371 +236,6 @@
                       padding: 1.2rem 1rem 1rem 1rem;
                     }
                   }
-                  
-                  /* ===== RESPONSIVIDADE COMPLETA ===== */
-                  
-                  /* Dispositivos muito pequenos (até 320px) */
-                  @media (max-width: 320px) {
-                    .container {
-                      padding: 0.5rem !important;
-                    }
-                    .frase-box {
-                      width: 95vw !important;
-                      min-height: 350px !important;
-                      padding: 1rem !important;
-                    }
-                    #fraseApp {
-                      font-size: 1rem !important;
-                      line-height: 1.4 !important;
-                    }
-                    .top-bar, .mid-bar, .botoes-interativos {
-                      padding: 0.3rem 0.5rem !important;
-                    }
-                    .top-bar button, .mid-bar button, .botoes-interativos button {
-                      padding: 0.4rem !important;
-                      font-size: 0.8rem !important;
-                    }
-                    #nomeUsuario {
-                      font-size: 0.9rem !important;
-                    }
-                    #arrobaUsuario {
-                      font-size: 0.8rem !important;
-                    }
-                  }
-                  
-                  /* Smartphones (321px - 480px) */
-                  @media (min-width: 321px) and (max-width: 480px) {
-                    .frase-box {
-                      width: 90vw !important;
-                      min-height: 400px !important;
-                      padding: 1.2rem !important;
-                    }
-                    #fraseApp {
-                      font-size: 1.1rem !important;
-                      line-height: 1.5 !important;
-                    }
-                    .top-bar, .mid-bar, .botoes-interativos {
-                      padding: 0.4rem 0.6rem !important;
-                    }
-                    #nomeUsuario {
-                      font-size: 1rem !important;
-                    }
-                    #arrobaUsuario {
-                      font-size: 0.85rem !important;
-                    }
-                  }
-                  
-                  /* Tablets portrait (481px - 768px) */
-                  @media (min-width: 481px) and (max-width: 768px) {
-                    .frase-box {
-                      width: 85vw !important;
-                      min-height: 450px !important;
-                      padding: 1.5rem !important;
-                    }
-                    #fraseApp {
-                      font-size: 1.3rem !important;
-                      line-height: 1.6 !important;
-                    }
-                    .top-bar, .mid-bar, .botoes-interativos {
-                      padding: 0.5rem 0.8rem !important;
-                    }
-                    #nomeUsuario {
-                      font-size: 1.1rem !important;
-                    }
-                    #arrobaUsuario {
-                      font-size: 0.9rem !important;
-                    }
-                  }
-                  
-                  /* Tablets landscape (769px - 1024px) */
-                  @media (min-width: 769px) and (max-width: 1024px) {
-                    .frase-box {
-                      width: 75vw !important;
-                      min-height: 500px !important;
-                      padding: 2rem !important;
-                    }
-                    #fraseApp {
-                      font-size: 1.4rem !important;
-                      line-height: 1.7 !important;
-                    }
-                    #nomeUsuario {
-                      font-size: 1.2rem !important;
-                    }
-                    #arrobaUsuario {
-                      font-size: 1rem !important;
-                    }
-                  }
-                  
-                  /* Desktops pequenos (1025px - 1200px) */
-                  @media (min-width: 1025px) and (max-width: 1200px) {
-                    .frase-box {
-                      width: 65vw !important;
-                      max-width: 700px !important;
-                      min-height: 550px !important;
-                    }
-                    #fraseApp {
-                      font-size: 1.5rem !important;
-                      line-height: 1.8 !important;
-                    }
-                  }
-                  
-                  /* Desktops médios (1201px - 1600px) */
-                  @media (min-width: 1201px) and (max-width: 1600px) {
-                    .frase-box {
-                      width: 55vw !important;
-                      max-width: 800px !important;
-                      min-height: 600px !important;
-                    }
-                    #fraseApp {
-                      font-size: 1.6rem !important;
-                      line-height: 1.9 !important;
-                    }
-                  }
-                  
-                  /* Desktops grandes (1601px+) */
-                  @media (min-width: 1601px) {
-                    .frase-box {
-                      width: 45vw !important;
-                      max-width: 900px !important;
-                      min-height: 650px !important;
-                    }
-                    #fraseApp {
-                      font-size: 1.8rem !important;
-                      line-height: 2 !important;
-                    }
-                  }
-                  
-                  /* Orientação paisagem em dispositivos móveis */
-                  @media (max-height: 500px) and (orientation: landscape) {
-                    .frase-box {
-                      min-height: 280px !important;
-                      padding: 1rem !important;
-                    }
-                    #fraseApp {
-                      font-size: 1rem !important;
-                      line-height: 1.3 !important;
-                    }
-                    .top-bar, .mid-bar, .botoes-interativos {
-                      padding: 0.3rem !important;
-                    }
-                    .top-bar button, .mid-bar button, .botoes-interativos button {
-                      padding: 0.3rem 0.5rem !important;
-                      font-size: 0.8rem !important;
-                    }
-                  }
-                  
-                  /* Ajustes para dispositivos com altura muito baixa */
-                  @media (max-height: 400px) {
-                    .container {
-                      padding: 0.2rem !important;
-                    }
-                    .frase-box {
-                      min-height: 200px !important;
-                      padding: 0.8rem !important;
-                    }
-                    #fraseApp {
-                      font-size: 0.9rem !important;
-                      line-height: 1.2 !important;
-                    }
-                  }
-                  
-                  /* Ajustes gerais para telas de alta densidade */
-                  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-                    .frase-box {
-                      border-width: 0.5px !important;
-                    }
-                  }
-                  
-                  /* Melhorias para acessibilidade em telas grandes */
-                  @media (min-width: 1200px) {
-                    .frase-box button {
-                      min-height: 44px !important;
-                      min-width: 44px !important;
-                    }
-                  }
-                  
-                  /* Ajustes específicos para iPhone SE e similares */
-                  @media (max-width: 375px) and (max-height: 667px) {
-                    .frase-box {
-                      width: 92vw !important;
-                      min-height: 380px !important;
-                    }
-                    #fraseApp {
-                      font-size: 1.05rem !important;
-                      padding: 0.5rem !important;
-                    }
-                  }
-                  
-                  /* Ajustes para iPad Pro e tablets grandes */
-                  @media (min-width: 1024px) and (max-width: 1366px) {
-                    .frase-box {
-                      width: 60vw !important;
-                      max-width: 750px !important;
-                    }
-                  }
-                  
-                  /* ===== MELHORIAS PARA DISPOSITIVOS TOUCH ===== */
-                  
-                  /* Aumenta área de toque em dispositivos móveis */
-                  @media (max-width: 768px) {
-                    .top-bar button, .mid-bar button, .botoes-interativos button {
-                      min-height: 44px !important;
-                      min-width: 44px !important;
-                      padding: 0.6rem !important;
-                      margin: 0.1rem !important;
-                    }
-                    
-                    /* Sidebar responsiva aprimorada */
-                    #sidebarUsuario {
-                      width: 90vw !important;
-                      right: -90vw !important;
-                      padding: 1.5rem 1rem !important;
-                    }
-                    
-                    #sidebarUsuario h2 {
-                      font-size: 1.2rem !important;
-                      margin-bottom: 1rem !important;
-                    }
-                    
-                    #sidebarUsuario input {
-                      padding: 0.8rem !important;
-                      font-size: 16px !important; /* Evita zoom no iOS */
-                      margin-bottom: 1rem !important;
-                    }
-                    
-                    #btnSalvarUsuario {
-                      width: 100% !important;
-                      padding: 0.8rem !important;
-                      font-size: 1rem !important;
-                      min-height: 48px !important;
-                    }
-                    
-                    .fecharSidebar {
-                      font-size: 1.5rem !important;
-                      padding: 0.5rem !important;
-                      min-height: 44px !important;
-                      min-width: 44px !important;
-                    }
-                  }
-                  
-                  /* Ajustes específicos para telas pequenas */
-                  @media (max-width: 480px) {
-                    #sidebarUsuario {
-                      width: 100vw !important;
-                      right: -100vw !important;
-                      padding: 1rem 0.8rem !important;
-                    }
-                    
-                    #temaSelect, #fonteSelect {
-                      font-size: 14px !important;
-                      padding: 0.5rem !important;
-                      min-height: 40px !important;
-                    }
-                  }
-                  
-                  /* ===== MELHORIAS PARA MODO PAISAGEM ===== */
-                  
-                  @media (max-width: 896px) and (orientation: landscape) {
-                    .container {
-                      padding: 0.5rem !important;
-                    }
-                    
-                    .frase-box {
-                      width: 95vw !important;
-                      min-height: 250px !important;
-                      padding: 1rem !important;
-                    }
-                    
-                    #fraseApp {
-                      font-size: 1rem !important;
-                      line-height: 1.3 !important;
-                    }
-                    
-                    .top-bar, .mid-bar, .botoes-interativos {
-                      padding: 0.3rem 0.5rem !important;
-                    }
-                    
-                    #nomeUsuario {
-                      font-size: 0.9rem !important;
-                    }
-                    
-                    #arrobaUsuario {
-                      font-size: 0.8rem !important;
-                    }
-                  }
-                  
-                  /* ===== OTIMIZAÇÕES PARA PERFORMANCE ===== */
-                  
-                  /* Reduz animações em dispositivos com pouca potência */
-                  @media (prefers-reduced-motion: reduce) {
-                    * {
-                      animation-duration: 0.01ms !important;
-                      animation-iteration-count: 1 !important;
-                      transition-duration: 0.01ms !important;
-                    }
-                  }
-                  
-                  /* ===== MELHORIAS PARA ACESSIBILIDADE ===== */
-                  
-                  /* Melhora contraste em telas de baixa qualidade */
-                  @media (max-resolution: 150dpi) {
-                    .frase-box {
-                      border-width: 2px !important;
-                    }
-                    
-                    #fraseApp {
-                      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
-                    }
-                  }
-                  
-                  /* Ajustes para temas de alto contraste */
-                  @media (prefers-contrast: high) {
-                    .frase-box {
-                      border-color: #000 !important;
-                      background: #fff !important;
-                    }
-                    
-                    #fraseApp {
-                      color: #000 !important;
-                      text-shadow: none !important;
-                    }
-                    
-                    body.dark-mode .frase-box {
-                      background: #000 !important;
-                      border-color: #fff !important;
-                    }
-                    
-                    body.dark-mode #fraseApp {
-                      color: #fff !important;
-                    }
-                  }
-                  
-                  /* ===== PRINT RESPONSIVO ===== */
-                  
-                  @media print {
-                    .frase-box {
-                      width: 100% !important;
-                      min-height: auto !important;
-                      box-shadow: none !important;
-                      border: 2px solid #000 !important;
-                      background: #fff !important;
-                      page-break-inside: avoid;
-                    }
-                    
-                    #fraseApp {
-                      color: #000 !important;
-                      text-shadow: none !important;
-                      font-size: 1.2rem !important;
-                    }
-                    
-                    .top-bar, .mid-bar, .botoes-interativos {
-                      display: none !important;
-                    }
-                    
-                    #autorFraseApp {
-                      color: #333 !important;
-                    }
-                  }
                 </style>
             <!-- Sidebar Usuário -->
             <div id="sidebarUsuarioOverlay" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(30,32,40,0.45);z-index:4000;justify-content:flex-end;align-items:stretch;">
@@ -736,19 +370,7 @@
     <!-- Botão Postagens removido -->
     <!-- Supabase JS SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7/dist/umd/supabase.min.js"></script>
-    <script>
-    // Carrega script.js apenas se não estiver usando modo sem login
-    document.addEventListener('DOMContentLoaded', function() {
-      // Aguarda um pouco para garantir que o login foi processado
-      setTimeout(() => {
-        if (localStorage.getItem('entrou_sem_login') !== 'true') {
-          const script = document.createElement('script');
-          script.src = 'script.js';
-          document.head.appendChild(script);
-        }
-      }, 100);
-    });
-    </script>
+    <script src="script.js"></script>
     <script>
     // Função utilitária para atualizar frase, autor e fonte
     function exibirFraseComAutor(frase, autor) {
@@ -771,152 +393,22 @@
 
     // Frases já existentes no projeto com autores
     const frasesComAutores = [
-      // VERSÍCULOS BÍBLICOS
-      { frase: "O temor do Senhor é o princípio do conhecimento, mas os insensatos desprezam a sabedoria e a disciplina.", autor: "Provérbios 1:7" },
-      { frase: "Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento.", autor: "Provérbios 3:5" },
-      { frase: "Reconhece-o em todos os teus caminhos, e ele endireitará as tuas veredas.", autor: "Provérbios 3:6" },
-      { frase: "Feliz o homem que acha sabedoria, e o homem que adquire conhecimento.", autor: "Provérbios 3:13" },
-      { frase: "Sobre tudo o que se deve guardar, guarda o teu coração, porque dele procedem as fontes da vida.", autor: "Provérbios 4:23" },
-      { frase: "O caminho dos justos é como a luz da aurora, que brilha mais e mais até ser dia perfeito.", autor: "Provérbios 4:18" },
-      { frase: "A soberba precede a ruína, e a altivez do espírito precede a queda.", autor: "Provérbios 16:18" },
-      { frase: "A resposta branda desvia o furor, mas a palavra dura suscita a ira.", autor: "Provérbios 15:1" },
-      { frase: "O que anda com os sábios será sábio, mas o companheiro dos tolos sofrerá aflição.", autor: "Provérbios 13:20" },
-      { frase: "Instrui o menino no caminho em que deve andar, e até quando envelhecer não se desviará dele.", autor: "Provérbios 22:6" },
-      
-      // MOTIVACIONAL
-      { frase: "Acredite em você e tudo será possível.", autor: "Anônimo" },
-      { frase: "O sucesso é a soma de pequenos esforços repetidos diariamente.", autor: "Robert Collier" },
-      { frase: "Não desista, grandes coisas levam tempo.", autor: "Anônimo" },
-      { frase: "A persistência realiza o impossível.", autor: "Anônimo" },
-      { frase: "Você é mais forte do que imagina.", autor: "Anônimo" },
-      { frase: "Transforme sonhos em metas e metas em conquistas.", autor: "Anônimo" },
-      { frase: "A coragem é a chave para grandes realizações.", autor: "Anônimo" },
-      { frase: "Cada dia é uma nova chance de recomeçar.", autor: "Anônimo" },
-      { frase: "O impossível é apenas uma opinião.", autor: "Paulo Coelho" },
-      { frase: "A disciplina é a ponte entre metas e conquistas.", autor: "Jim Rohn" },
-      
-      // AMOR
-      { frase: "O amor é a resposta para tudo.", autor: "Anônimo" },
-      { frase: "Amar é enxergar o outro com o coração.", autor: "Anônimo" },
-      { frase: "O amor verdadeiro não se desgasta.", autor: "Anônimo" },
-      { frase: "Onde há amor, há vida.", autor: "Mahatma Gandhi" },
-      { frase: "O amor transforma o mundo.", autor: "Anônimo" },
-      { frase: "Amar é encontrar no outro a extensão da sua alma.", autor: "Anônimo" },
-      { frase: "O amor não se mede, se sente.", autor: "Anônimo" },
-      { frase: "Amor é o alimento da alma.", autor: "Anônimo" },
-      { frase: "O amor cura feridas invisíveis.", autor: "Anônimo" },
-      { frase: "Amar é aceitar as imperfeições.", autor: "Anônimo" },
-      
-      // AMIZADE
-      { frase: "Amigos tornam os momentos especiais.", autor: "Anônimo" },
-      { frase: "A amizade é o conforto de saber que existe alguém por você.", autor: "Anônimo" },
-      { frase: "Amizade verdadeira é para sempre.", autor: "Anônimo" },
-      { frase: "Rir com amigos é o melhor remédio.", autor: "Anônimo" },
-      { frase: "Amigos são a família que escolhemos.", autor: "Anônimo" },
-      { frase: "A verdadeira amizade é um tesouro eterno.", autor: "Anônimo" },
-      { frase: "Amigos são luz nos dias mais sombrios.", autor: "Anônimo" },
-      { frase: "Na amizade, a sinceridade é o maior presente.", autor: "Anônimo" },
-      { frase: "Amizade é um porto seguro para a alma.", autor: "Anônimo" },
-      { frase: "Os amigos são a família da alma.", autor: "Anônimo" },
-      
-      // FELICIDADE
-      { frase: "A felicidade está nas pequenas coisas.", autor: "Anônimo" },
-      { frase: "Sorria, a vida retribui.", autor: "Anônimo" },
-      { frase: "Ser feliz é uma escolha diária.", autor: "Anônimo" },
-      { frase: "A felicidade contagia quem está por perto.", autor: "Anônimo" },
-      { frase: "A gratidão é o caminho para a felicidade.", autor: "Anônimo" },
-      { frase: "A felicidade é feita de momentos simples.", autor: "Anônimo" },
-      { frase: "Ser feliz é valorizar o que se tem.", autor: "Anônimo" },
-      { frase: "A felicidade começa dentro de você.", autor: "Anônimo" },
-      { frase: "Cultive alegria e colha felicidade.", autor: "Anônimo" },
-      { frase: "A felicidade é um estado de espírito.", autor: "Anônimo" },
-      
-      // SUPERAÇÃO
-      { frase: "A superação começa com a decisão de tentar.", autor: "Anônimo" },
-      { frase: "Desafios existem para serem vencidos.", autor: "Anônimo" },
-      { frase: "Cada obstáculo é uma oportunidade de crescer.", autor: "Anônimo" },
-      { frase: "A força está dentro de você.", autor: "Anônimo" },
-      { frase: "Acredite: você é capaz de superar tudo.", autor: "Anônimo" },
-      { frase: "Superar é transformar dor em aprendizado.", autor: "Anônimo" },
-      { frase: "A vitória é fruto da persistência.", autor: "Anônimo" },
-      { frase: "Quando tudo parece difícil, a superação aparece.", autor: "Anônimo" },
-      { frase: "Os maiores guerreiros são os que nunca desistem.", autor: "Anônimo" },
-      { frase: "Cada queda é um convite para levantar mais forte.", autor: "Anônimo" },
-      
-      // GRATIDÃO
-      { frase: "Seja grato por cada amanhecer.", autor: "Anônimo" },
-      { frase: "A gratidão transforma o que temos em suficiente.", autor: "Anônimo" },
-      { frase: "Agradecer é o primeiro passo para a felicidade.", autor: "Anônimo" },
-      { frase: "A gratidão é a chave que abre as portas da abundância.", autor: "Anônimo" },
-      { frase: "Quando agradecemos, a vida nos dá mais motivos para agradecer.", autor: "Anônimo" },
-      { frase: "Gratidão é a memória do coração.", autor: "Jean Baptiste Massieu" },
-      { frase: "A gratidão é a virtude das almas nobres.", autor: "Anônimo" },
-      { frase: "Ser grato é reconhecer as bênçãos da vida.", autor: "Anônimo" },
-      { frase: "A gratidão é o melhor remédio para a alma.", autor: "Anônimo" },
-      { frase: "Quem tem gratidão no coração, tem riqueza na alma.", autor: "Anônimo" },
-      
-      // REFLEXÃO
-      { frase: "A vida é uma constante aprendizagem.", autor: "Anônimo" },
-      { frase: "Reflita sobre suas escolhas, elas moldam seu futuro.", autor: "Anônimo" },
-      { frase: "A sabedoria vem da experiência e da reflexão.", autor: "Anônimo" },
-      { frase: "Conhece-te a ti mesmo.", autor: "Sócrates" },
-      { frase: "A reflexão é a lâmpada da mente.", autor: "Anônimo" },
-      { frase: "Parar para pensar é o primeiro passo para crescer.", autor: "Anônimo" },
-      { frase: "A reflexão profunda traz clareza à mente.", autor: "Anônimo" },
-      { frase: "Quem reflete sobre a vida, vive com mais propósito.", autor: "Anônimo" },
-      { frase: "A meditação é o espelho da alma.", autor: "Anônimo" },
-      { frase: "Refletir é o caminho para a sabedoria.", autor: "Anônimo" },
-      
-      // SUCESSO
-      { frase: "O sucesso é a soma de preparação e oportunidade.", autor: "Anônimo" },
-      { frase: "Sucesso é fazer o que você ama.", autor: "Anônimo" },
-      { frase: "O sucesso começa com a decisão de tentar.", autor: "Anônimo" },
-      { frase: "Sucesso é persistir quando outros desistem.", autor: "Anônimo" },
-      { frase: "O sucesso é resultado de trabalho duro e dedicação.", autor: "Anônimo" },
-      { frase: "Sucesso é levantar cada vez que você cair.", autor: "Nelson Mandela" },
-      { frase: "O sucesso é a recompensa do esforço contínuo.", autor: "Anônimo" },
-      { frase: "Sucesso é transformar sonhos em realidade.", autor: "Anônimo" },
-      { frase: "O sucesso pertence aos que acreditam nele.", autor: "Anônimo" },
-      { frase: "Sucesso é a conquista de quem nunca desiste.", autor: "Anônimo" },
-      
-      // FAMÍLIA
-      { frase: "Família é o porto seguro da alma.", autor: "Anônimo" },
-      { frase: "O amor da família é a base de tudo.", autor: "Anônimo" },
-      { frase: "Família: onde a vida começa e o amor nunca termina.", autor: "Anônimo" },
-      { frase: "A família é o tesouro mais precioso.", autor: "Anônimo" },
-      { frase: "Em família, encontramos força e amor.", autor: "Anônimo" },
-      { frase: "Família é união, é apoio, é amor incondicional.", autor: "Anônimo" },
-      { frase: "O lar não é onde você nasce, mas onde você ama.", autor: "Anônimo" },
-      { frase: "Família é a primeira escola do coração.", autor: "Anônimo" },
-      { frase: "A família é a obra-prima da criação.", autor: "Anônimo" },
-      { frase: "Família é where love lives, memories are created.", autor: "Anônimo" },
-      
-      // INSPIRAÇÃO
-      { frase: "Seja a inspiração que você gostaria de encontrar.", autor: "Anônimo" },
-      { frase: "A inspiração existe, mas ela tem que encontrar você trabalhando.", autor: "Pablo Picasso" },
-      { frase: "Inspire-se todos os dias para inspirar outros.", autor: "Anônimo" },
-      { frase: "A inspiração é o combustível da criatividade.", autor: "Anônimo" },
-      { frase: "Busque inspiração em cada momento da vida.", autor: "Anônimo" },
-      { frase: "A inspiração nasce do desejo de fazer a diferença.", autor: "Anônimo" },
-      { frase: "Inspire-se nos sonhos e realize o impossível.", autor: "Anônimo" },
-      { frase: "A verdadeira inspiração vem do coração.", autor: "Anônimo" },
-      { frase: "Inspire-se na natureza e encontre paz.", autor: "Anônimo" },
-      { frase: "A inspiração é a ponte entre o sonho e a realidade.", autor: "Anônimo" }
+      // ...existing code...
     ];
 
     // Mapeamento de temas para as frases correspondentes
     const temaParaFrases = {
-      versiculo: frasesComAutores.slice(0, 10),        // Versículos bíblicos
-      motivacional: frasesComAutores.slice(10, 20),    // Frases motivacionais
-      amor: frasesComAutores.slice(20, 30),            // Frases de amor
-      amizade: frasesComAutores.slice(30, 40),         // Frases de amizade
-      felicidade: frasesComAutores.slice(40, 50),      // Frases de felicidade
-      superacao: frasesComAutores.slice(50, 60),       // Frases de superação
-      gratidao: frasesComAutores.slice(60, 70),        // Frases de gratidão
-      reflexao: frasesComAutores.slice(70, 80),        // Frases de reflexão
-      sucesso: frasesComAutores.slice(80, 90),         // Frases de sucesso
-      familia: frasesComAutores.slice(90, 100),        // Frases de família
-      inspiracao: frasesComAutores.slice(100, 110)     // Frases de inspiração
+      motivacional: frasesComAutores.slice(0, 10),
+      amor: frasesComAutores.slice(10, 20),
+      amizade: frasesComAutores.slice(20, 30),
+      felicidade: frasesComAutores.slice(30, 40),
+      superacao: frasesComAutores.slice(40, 50),
+      gratidao: frasesComAutores.slice(50, 60),
+      reflexao: frasesComAutores.slice(60, 70),
+      sucesso: frasesComAutores.slice(70, 80),
+      familia: frasesComAutores.slice(80, 90),
+      inspiracao: frasesComAutores.slice(90, 100),
+      versiculo: frasesComAutores.slice(100, 110)
     };
 
     // Função para obter o tema selecionado
@@ -946,27 +438,17 @@
 
     // Exibir a primeira frase ao carregar e garantir fonte correta
     document.addEventListener('DOMContentLoaded', function() {
-      // Aguarda um pouco para garantir que todos os elementos estejam prontos
-      setTimeout(() => {
-        atualizarFrasesFiltradas();
-        if (frasesFiltradas.length > 0) {
-          const primeiraFrase = frasesFiltradas[0];
-          exibirFraseComAutor(primeiraFrase.frase, primeiraFrase.autor);
-          console.log('Primeira frase carregada:', primeiraFrase.frase);
-        } else {
-          // Fallback para uma frase padrão
-          exibirFraseComAutor("A única forma de fazer um excelente trabalho é amar o que você faz.", "Steve Jobs");
-        }
-        
-        // Garante que a fonte inicial está correta
-        const fraseSpan = document.getElementById('fraseApp');
-        const fonteSelect = document.getElementById('fonteSelect');
-        if (fraseSpan && fonteSelect) {
-          fraseSpan.style.fontFamily = fonteSelect.value;
-        }
-      }, 200);
+      atualizarFrasesFiltradas();
+      if (frasesFiltradas.length > 0) {
+        exibirFraseComAutor(frasesFiltradas[0].frase, frasesFiltradas[0].autor);
+      }
+      // Garante que a fonte inicial está correta
+      const fraseSpan = document.getElementById('fraseApp');
+      const fonteSelect = document.getElementById('fonteSelect');
+      if (fonteSelect && fraseSpan) {
+        fraseSpan.style.fontFamily = `'${fonteSelect.value}', Arial, sans-serif`;
+      }
     });
-    
     // Atualiza a fonte da frase ao trocar o select
     document.getElementById('fonteSelect')?.addEventListener('change', function() {
       const fraseSpan = document.getElementById('fraseApp');
@@ -1001,65 +483,6 @@
     // Vincular aos botões
     document.getElementById('novaFrase')?.addEventListener('click', mostrarProximaFrase);
     document.getElementById('voltarFrase')?.addEventListener('click', mostrarFraseAnterior);
-    
-    // Garantir que os botões de ação funcionem
-    document.addEventListener('DOMContentLoaded', function() {
-      // Botão copiar frase
-      const btnCopiarFrase = document.getElementById('btnCopiarFrase');
-      if (btnCopiarFrase) {
-        btnCopiarFrase.addEventListener('click', function() {
-          const fraseElement = document.getElementById('fraseApp');
-          const autorElement = document.getElementById('autorFraseApp');
-          if (fraseElement) {
-            const textoCompleto = fraseElement.textContent + (autorElement ? '\n\n' + autorElement.textContent : '');
-            navigator.clipboard.writeText(textoCompleto).then(() => {
-              console.log('Frase copiada:', textoCompleto);
-              // Feedback visual opcional
-              btnCopiarFrase.style.color = '#4CAF50';
-              setTimeout(() => {
-                btnCopiarFrase.style.color = '';
-              }, 1000);
-            }).catch(err => {
-              console.error('Erro ao copiar:', err);
-            });
-          }
-        });
-      }
-      
-      // Botão favoritar
-      const btnFavoritar = document.getElementById('btnFavoritar');
-      if (btnFavoritar) {
-        btnFavoritar.addEventListener('click', function() {
-          const fraseElement = document.getElementById('fraseApp');
-          const autorElement = document.getElementById('autorFraseApp');
-          if (fraseElement) {
-            const frase = fraseElement.textContent;
-            const autor = autorElement ? autorElement.textContent : '';
-            
-            // Pega favoritos do localStorage
-            let favoritos = JSON.parse(localStorage.getItem('favoritos') || '[]');
-            
-            // Verifica se já está nos favoritos
-            const jaFavoritado = favoritos.some(f => f.frase === frase);
-            
-            if (jaFavoritado) {
-              // Remove dos favoritos
-              favoritos = favoritos.filter(f => f.frase !== frase);
-              btnFavoritar.style.color = '';
-              console.log('Frase removida dos favoritos');
-            } else {
-              // Adiciona aos favoritos
-              favoritos.push({ frase, autor });
-              btnFavoritar.style.color = '#e91e63';
-              console.log('Frase adicionada aos favoritos');
-            }
-            
-            // Salva no localStorage
-            localStorage.setItem('favoritos', JSON.stringify(favoritos));
-          }
-        });
-      }
-    });
     </script>
     <script>
     // Sidebar Usuário - lógica
@@ -1076,33 +499,23 @@
     // Carregar valores salvos
     function carregarUsuario() {
       const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
-      const arroba = localStorage.getItem('usuario_arroba') || '@seunome';
-      
-      console.log('Carregando usuário:', nome, arroba); // Debug
-      
+      const arroba = localStorage.getItem('usuario_arroba') || '@';
       // Atualiza os campos visuais
-      if (nomeUsuarioSpan) {
-        nomeUsuarioSpan.textContent = nome;
-        nomeUsuarioSpan.style.display = 'block';
-        nomeUsuarioSpan.style.color = '#f5f5f5';
-        nomeUsuarioSpan.style.fontSize = '1.1rem';
-        nomeUsuarioSpan.style.fontWeight = 'bold';
-        console.log('Nome atualizado:', nomeUsuarioSpan.textContent); // Debug
-      }
-      if (arrobaUsuarioSpan) {
-        arrobaUsuarioSpan.textContent = arroba;
-        arrobaUsuarioSpan.style.display = 'inline-block';
-        arrobaUsuarioSpan.style.color = '#ddd';
-        arrobaUsuarioSpan.style.fontSize = '0.9rem';
-        arrobaUsuarioSpan.style.fontWeight = 'normal';
-        console.log('Arroba atualizado:', arrobaUsuarioSpan.textContent); // Debug
-      }
-      
-      // Atualiza os campos de input
+      if (nomeUsuarioSpan) nomeUsuarioSpan.textContent = nome;
+      if (arrobaUsuarioSpan) arrobaUsuarioSpan.textContent = arroba;
       if (inputNomeUsuario) inputNomeUsuario.value = nome !== 'Seu nome' ? nome : '';
-      if (inputArrobaUsuario) inputArrobaUsuario.value = arroba !== '@seunome' ? arroba : '';
+      if (inputArrobaUsuario) inputArrobaUsuario.value = arroba !== '@' ? arroba : '';
     }
-    document.addEventListener('DOMContentLoaded', carregarUsuario);
+    document.addEventListener('DOMContentLoaded', function() {
+      carregarUsuario();
+      // Garante que os campos acima da frase sejam preenchidos ao abrir
+      const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
+      const arroba = localStorage.getItem('usuario_arroba') || '@';
+      const nomeUsuarioSpan = document.getElementById('nomeUsuario');
+      const arrobaUsuarioSpan = document.getElementById('arrobaUsuario');
+      if (nomeUsuarioSpan) nomeUsuarioSpan.textContent = nome;
+      if (arrobaUsuarioSpan) arrobaUsuarioSpan.textContent = arroba;
+    });
 
     btnMenuUsuario.addEventListener('click', () => {
       // Se a aba lateral estiver aberta, fecha completamente (inclui transição e overlay)
@@ -1127,64 +540,20 @@
       document.body.classList.remove('sidebar-usuario-aberta');
       sidebarUsuarioOverlay.style.display = 'none';
     });
-    btnSalvarUsuario.addEventListener('click', () => {
-      let nome = inputNomeUsuario.value.trim().slice(0, 20) || 'Seu nome';
-      let arroba = inputArrobaUsuario.value.trim().slice(0, 20);
-      if (!arroba.startsWith('@')) arroba = arroba ? '@' + arroba : '@seunome';
-      
-      console.log('Salvando usuário:', nome, arroba); // Debug
-      
-      // Salva no localStorage
-      localStorage.setItem('usuario_nome', nome);
-      localStorage.setItem('usuario_arroba', arroba);
-      
-      // Atualiza imediatamente os elementos acima da frase
-      if (nomeUsuarioSpan) {
-        nomeUsuarioSpan.innerHTML = nome;
-        nomeUsuarioSpan.style.cssText = `
-          display: block !important;
-          color: #f5f5f5 !important;
-          font-size: 1.1rem !important;
-          font-weight: bold !important;
-          font-family: 'Montserrat', Arial, sans-serif !important;
-          text-shadow: 0 1px 4px #000, 0 1px 1px #222 !important;
-          visibility: visible !important;
-          opacity: 1 !important;
-        `;
-        console.log('Nome salvo e exibido:', nomeUsuarioSpan.textContent); // Debug
-      }
-      if (arrobaUsuarioSpan) {
-        arrobaUsuarioSpan.innerHTML = arroba;
-        arrobaUsuarioSpan.style.cssText = `
-          display: inline-block !important;
-          color: #ddd !important;
-          font-size: 0.99rem !important;
-          font-weight: normal !important;
-          font-family: 'Space Mono', monospace !important;
-          background: rgba(0,0,0,0.3) !important;
-          padding: 1px 7px 1px 4px !important;
-          border-radius: 8px !important;
-          visibility: visible !important;
-          opacity: 1 !important;
-        `;
-        console.log('Arroba salvo e exibido:', arrobaUsuarioSpan.textContent); // Debug
-      }
-      
-      // Atualiza os campos de input
-      if (inputNomeUsuario) inputNomeUsuario.value = nome !== 'Seu nome' ? nome : '';
-      if (inputArrobaUsuario) inputArrobaUsuario.value = arroba !== '@seunome' ? arroba : '';
-      
-      // Fecha a sidebar
-      sidebarUsuario.classList.remove('open');
-      document.body.classList.remove('sidebar-usuario-aberta');
-      sidebarUsuarioOverlay.style.display = 'none';
-      
-      // Força uma atualização visual adicional
-      setTimeout(() => {
-        if (nomeUsuarioSpan) nomeUsuarioSpan.innerHTML = nome;
-        if (arrobaUsuarioSpan) arrobaUsuarioSpan.innerHTML = arroba;
-      }, 100);
-    });
+btnSalvarUsuario.addEventListener('click', () => {
+  let nome = inputNomeUsuario.value.trim().slice(0, 20) || 'Seu nome';
+  let arroba = inputArrobaUsuario.value.trim().slice(0, 20);
+  if (!arroba.startsWith('@')) arroba = arroba ? '@' + arroba : '@';
+  localStorage.setItem('usuario_nome', nome);
+  localStorage.setItem('usuario_arroba', arroba);
+  // Atualiza imediatamente os elementos acima da frase
+  if (nomeUsuarioSpan) nomeUsuarioSpan.textContent = nome;
+  if (arrobaUsuarioSpan) arrobaUsuarioSpan.textContent = arroba;
+  if (inputNomeUsuario) inputNomeUsuario.value = nome !== 'Seu nome' ? nome : '';
+  if (inputArrobaUsuario) inputArrobaUsuario.value = arroba !== '@' ? arroba : '';
+  sidebarUsuario.classList.remove('open');
+  document.body.classList.remove('sidebar-usuario-aberta');
+});
     // Fechar ao clicar fora
     window.addEventListener('mousedown', function(e) {
       if (sidebarUsuario.classList.contains('open') && !sidebarUsuario.contains(e.target) && e.target !== btnMenuUsuario) {
@@ -1275,13 +644,6 @@ updateBgWatermark();
 document.getElementById('btnPrint').addEventListener('click', function () {
     const fraseBox = document.querySelector('.frase-box');
     
-    if (!fraseBox) {
-        alert('Erro: Área da frase não encontrada');
-        return;
-    }
-    
-    console.log('Iniciando captura de imagem...');
-    
     // Elementos a ocultar temporariamente
     const elementosOcultos = [
         '#btnPrint',
@@ -1295,75 +657,43 @@ document.getElementById('btnPrint').addEventListener('click', function () {
         '#btnMenuUsuario'
     ];
     
-    // Esconde os elementos e armazena seus estilos originais
-    const estilosOriginais = {};
+    // Esconde os elementos
     elementosOcultos.forEach(sel => {
         const el = document.querySelector(sel);
-        if (el) {
-            estilosOriginais[sel] = el.style.display;
-            el.style.display = 'none';
-        }
+        if (el) el.style.display = 'none';
     });
 
-    // Aguarda um pouquinho antes de capturar para garantir que os elementos estejam ocultos
+    // Aguarda um pouquinho antes de capturar
     setTimeout(() => {
-        // Configurações para o html2canvas
-        const opcoes = {
-            backgroundColor: null, // Mantém o fundo transparente se houver
-            scale: 2, // Melhora a qualidade da imagem
-            logging: false, // Remove logs desnecessários
-            useCORS: true, // Permite recursos externos
-            allowTaint: true,
-            width: fraseBox.offsetWidth,
-            height: fraseBox.offsetHeight
-        };
-        
-        html2canvas(fraseBox, opcoes).then(function (canvas) {
-            try {
-                // Cria nome do arquivo com data e tema
-                const tema = document.getElementById('temaSelect')?.value || 'frase';
-                const data = new Date();
-                const nomeArquivo = `frase-${tema}-${data.getFullYear()}-${(data.getMonth()+1).toString().padStart(2, '0')}-${data.getDate().toString().padStart(2, '0')}.png`;
+        html2canvas(fraseBox).then(function (canvas) {
+            const tema = document.getElementById('temaSelect').value;
+            const data = new Date();
+            const nomeArquivo = `frase-${tema}-${data.getFullYear()}-${(data.getMonth()+1).toString().padStart(2, '0')}-${data.getDate().toString().padStart(2, '0')}.png`;
 
-                // Cria link para download
-                const link = document.createElement('a');
-                link.download = nomeArquivo;
-                link.href = canvas.toDataURL('image/png', 1.0);
-                
-                // Adiciona o link ao DOM temporariamente e clica
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                console.log('Imagem baixada com sucesso:', nomeArquivo);
-                
-            } catch (error) {
-                console.error('Erro ao criar download:', error);
-                alert('Erro ao baixar a imagem. Tente novamente.');
-            }
-            
-            // Restaura os elementos com seus estilos originais
+            const link = document.createElement('a');
+            link.download = nomeArquivo;
+            link.href = canvas.toDataURL();
+            link.click();
+
+            // Restaura os elementos
             elementosOcultos.forEach(sel => {
                 const el = document.querySelector(sel);
-                if (el) {
-                    el.style.display = estilosOriginais[sel] || '';
-                }
-            });
-            
-        }).catch(function(error) {
-            console.error('Erro no html2canvas:', error);
-            alert('Erro ao capturar a imagem. Verifique se todos os elementos estão carregados.');
-            
-            // Restaura os elementos mesmo em caso de erro
-            elementosOcultos.forEach(sel => {
-                const el = document.querySelector(sel);
-                if (el) {
-                    el.style.display = estilosOriginais[sel] || '';
-                }
+                if (el) el.style.display = '';
             });
         });
-    }, 300); // Tempo aumentado para garantir que os elementos sejam ocultados
+    }, 200); // tempo para aplicar os hides corretamente
 });
+
+    // Seleciona a área da frase-box para exportar como imagem
+    const fraseBox = document.querySelector('.frase-box');
+    // Usa html2canvas para capturar a área
+    html2canvas(fraseBox).then(function(canvas) {
+        // Cria um link para download da imagem
+        const link = document.createElement('a');
+        link.download = 'frase.png';
+        link.href = canvas.toDataURL();
+        link.click();
+    });
 </script><script>
 // ==== CONTROLE DE PREMIUM E USO DIÁRIO (UNIFICADO) ====
 
@@ -1711,438 +1041,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
-
-// Script para controlar o modal de login
-document.addEventListener('DOMContentLoaded', function() {
-  const modalLogin = document.getElementById('modalLogin');
-  const btnEntrarSemLogin = document.getElementById('btnEntrarSemLogin');
-  
-  // Função para desbloquear completamente o app
-  function desbloquearApp() {
-    // Remove todos os modais
-    modalLogin.style.display = 'none';
-    const modalCadastro = document.getElementById('modalCadastro');
-    const modalEsqueciSenha = document.getElementById('modalEsqueciSenha');
-    if (modalCadastro) modalCadastro.style.display = 'none';
-    if (modalEsqueciSenha) modalEsqueciSenha.style.display = 'none';
-    
-    // Remove qualquer bloqueio da interface
-    document.body.style.overflow = 'auto';
-    document.body.style.pointerEvents = 'auto';
-    document.body.classList.remove('blocked', 'auth-blocked');
-    document.documentElement.style.overflow = 'auto';
-    
-    // Garante que o container principal está visível e funcional
-    const mainContainer = document.querySelector('.container');
-    if (mainContainer) {
-      mainContainer.style.display = 'flex';
-      mainContainer.style.pointerEvents = 'auto';
-      mainContainer.style.opacity = '1';
-      mainContainer.style.visibility = 'visible';
-    }
-    
-    // Garante que a frase-box está visível e funcional
-    const fraseBox = document.querySelector('.frase-box');
-    if (fraseBox) {
-      fraseBox.style.pointerEvents = 'auto';
-      fraseBox.style.opacity = '1';
-      fraseBox.style.visibility = 'visible';
-    }
-    
-    // Inicializa as frases se ainda não foram carregadas
-    setTimeout(() => {
-      inicializarApp();
-    }, 100);
-  }
-  
-  // Função para inicializar o app com frases
-  function inicializarApp() {
-    // Exibe uma frase inicial
-    const fraseApp = document.getElementById('fraseApp');
-    const autorApp = document.getElementById('autorFraseApp');
-    
-    if (fraseApp && fraseApp.textContent.trim() === '') {
-      fraseApp.textContent = "A única forma de fazer um excelente trabalho é amar o que você faz.";
-      if (autorApp) autorApp.textContent = "Autor: Steve Jobs";
-    }
-    
-    // Garante que os controles estão funcionais
-    const temaSelect = document.getElementById('temaSelect');
-    const fonteSelect = document.getElementById('fonteSelect');
-    
-    if (temaSelect) {
-      temaSelect.disabled = false;
-      temaSelect.style.pointerEvents = 'auto';
-    }
-    
-    if (fonteSelect) {
-      fonteSelect.disabled = false;
-      fonteSelect.style.pointerEvents = 'auto';
-    }
-    
-    // Garante que os botões estão funcionais
-    const novaFrase = document.getElementById('novaFrase');
-    const voltarFrase = document.getElementById('voltarFrase');
-    
-    if (novaFrase) {
-      novaFrase.disabled = false;
-      novaFrase.style.pointerEvents = 'auto';
-      novaFrase.style.opacity = '1';
-    }
-    
-    if (voltarFrase) {
-      voltarFrase.disabled = false;
-      voltarFrase.style.pointerEvents = 'auto';
-      voltarFrase.style.opacity = '1';
-    }
-    
-    // Carrega e exibe os dados do usuário salvos
-    carregarDadosUsuario();
-  }
-  
-  // Função para carregar dados do usuário
-  function carregarDadosUsuario() {
-    // Chama a função principal de carregamento
-    if (typeof carregarUsuario === 'function') {
-      carregarUsuario();
-    } else {
-      // Fallback caso a função principal não esteja disponível
-      const nomeUsuarioSpan = document.getElementById('nomeUsuario');
-      const arrobaUsuarioSpan = document.getElementById('arrobaUsuario');
-      
-      if (nomeUsuarioSpan && arrobaUsuarioSpan) {
-        const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
-        const arroba = localStorage.getItem('usuario_arroba') || '@seunome';
-        
-        nomeUsuarioSpan.textContent = nome;
-        arrobaUsuarioSpan.textContent = arroba;
-        
-        // Adiciona estilo para garantir visibilidade
-        nomeUsuarioSpan.style.display = 'block';
-        nomeUsuarioSpan.style.color = '#f5f5f5';
-        nomeUsuarioSpan.style.fontSize = '1.1rem';
-        nomeUsuarioSpan.style.fontWeight = 'bold';
-        arrobaUsuarioSpan.style.display = 'inline-block';
-        arrobaUsuarioSpan.style.color = '#ddd';
-        arrobaUsuarioSpan.style.fontSize = '0.9rem';
-        arrobaUsuarioSpan.style.fontWeight = 'normal';
-      }
-    }
-  }
-  
-  // Verifica se o usuário já fez login ou escolheu entrar sem login
-  if (localStorage.getItem('entrou_sem_login') === 'true' || localStorage.getItem('usuario_logado')) {
-    desbloquearApp();
-  } else {
-    modalLogin.style.display = 'flex';
-  }
-  
-  // Função para entrar sem login
-  if (btnEntrarSemLogin) {
-    btnEntrarSemLogin.addEventListener('click', function() {
-      localStorage.setItem('entrou_sem_login', 'true');
-      desbloquearApp();
-    });
-  }
-  
-  // Controla o formulário de login normal
-  const formLogin = document.getElementById('formLogin');
-  if (formLogin) {
-    formLogin.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const email = document.getElementById('loginEmail').value;
-      const senha = document.getElementById('loginSenha').value;
-      
-      if (email && senha) {
-        // Simula login bem-sucedido
-        localStorage.setItem('usuario_logado', email);
-        desbloquearApp();
-      } else {
-        const erro = document.getElementById('loginErro');
-        if (erro) {
-          erro.textContent = 'Preencha todos os campos';
-          erro.style.display = 'block';
-        }
-      }
-    });
-  }
-});
 </script>
-
-<script>
-// Script adicional para garantir carregamento dos dados do usuário
-document.addEventListener('DOMContentLoaded', function() {
-  // Aguarda um pouco para garantir que todos os elementos estejam carregados
-  setTimeout(function() {
-    // Força o carregamento dos dados do usuário
-    const nomeUsuarioSpan = document.getElementById('nomeUsuario');
-    const arrobaUsuarioSpan = document.getElementById('arrobaUsuario');
-    
-    if (nomeUsuarioSpan && arrobaUsuarioSpan) {
-      const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
-      const arroba = localStorage.getItem('usuario_arroba') || '@seunome';
-      
-      console.log('Carregamento final - Nome:', nome, 'Arroba:', arroba);
-      
-      // Força a atualização do conteúdo
-      nomeUsuarioSpan.innerHTML = nome;
-      arrobaUsuarioSpan.innerHTML = arroba;
-      
-      // Remove todos os estilos inline existentes e aplica novos
-      nomeUsuarioSpan.removeAttribute('style');
-      arrobaUsuarioSpan.removeAttribute('style');
-      
-      // Aplica estilos com !important via CSS
-      nomeUsuarioSpan.style.cssText = `
-        display: block !important;
-        color: #f5f5f5 !important;
-        font-size: 1.1rem !important;
-        font-weight: bold !important;
-        font-family: 'Montserrat', Arial, sans-serif !important;
-        text-shadow: 0 1px 4px #000, 0 1px 1px #222 !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-      `;
-      
-      arrobaUsuarioSpan.style.cssText = `
-        display: inline-block !important;
-        color: #ddd !important;
-        font-size: 0.99rem !important;
-        font-weight: normal !important;
-        font-family: 'Space Mono', monospace !important;
-        background: rgba(0,0,0,0.3) !important;
-        padding: 1px 7px 1px 4px !important;
-        border-radius: 8px !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-      `;
-      
-      console.log('Elementos atualizados:', {
-        nome: nomeUsuarioSpan.textContent,
-        arroba: arrobaUsuarioSpan.textContent,
-        nomeVisible: getComputedStyle(nomeUsuarioSpan).display,
-        arrobaVisible: getComputedStyle(arrobaUsuarioSpan).display
-      });
-    } else {
-      console.log('Elementos não encontrados:', {
-        nomeUsuarioSpan: !!nomeUsuarioSpan,
-        arrobaUsuarioSpan: !!arrobaUsuarioSpan
-      });
-    }
-  }, 500);
-  
-  // Também executa imediatamente
-  setTimeout(function() {
-    const nomeUsuarioSpan = document.getElementById('nomeUsuario');
-    const arrobaUsuarioSpan = document.getElementById('arrobaUsuario');
-    
-    if (nomeUsuarioSpan && arrobaUsuarioSpan) {
-      const nome = localStorage.getItem('usuario_nome');
-      const arroba = localStorage.getItem('usuario_arroba');
-      
-      if (nome && nome !== 'Seu nome') {
-        nomeUsuarioSpan.innerHTML = nome;
-        nomeUsuarioSpan.style.cssText = `
-          display: block !important;
-          color: #f5f5f5 !important;
-          font-size: 1.1rem !important;
-          font-weight: bold !important;
-          visibility: visible !important;
-          opacity: 1 !important;
-        `;
-      }
-      
-      if (arroba && arroba !== '@seunome') {
-        arrobaUsuarioSpan.innerHTML = arroba;
-        arrobaUsuarioSpan.style.cssText = `
-          display: inline-block !important;
-          color: #ddd !important;
-          font-size: 0.99rem !important;
-          visibility: visible !important;
-          opacity: 1 !important;
-        `;
-      }
-    }
-  }, 100);
-});
-</script>
-
-<script>
-// ===== RESPONSIVIDADE DINÂMICA E MELHORIAS PARA TOUCH =====
-document.addEventListener('DOMContentLoaded', function() {
-  
-  function ajustarResponsividadeDinamica() {
-    const largura = window.innerWidth;
-    const altura = window.innerHeight;
-    const fraseBox = document.querySelector('.frase-box');
-    const fraseApp = document.getElementById('fraseApp');
-    const container = document.querySelector('.container');
-    
-    // Detecta tipo de dispositivo
-    const isSmartphone = largura <= 480;
-    const isTablet = largura > 480 && largura <= 1024;
-    const isDesktop = largura > 1024;
-    const isLandscape = largura > altura;
-    
-    console.log(`Dispositivo detectado: ${isSmartphone ? 'Smartphone' : isTablet ? 'Tablet' : 'Desktop'}, Largura: ${largura}px`);
-    
-    // Ajustes específicos por dispositivo
-    if (isSmartphone) {
-      document.body.classList.add('device-mobile');
-      document.body.classList.remove('device-tablet', 'device-desktop');
-      
-      if (fraseBox) {
-        fraseBox.style.setProperty('width', '92vw', 'important');
-        fraseBox.style.setProperty('min-height', isLandscape ? '280px' : '380px', 'important');
-        fraseBox.style.setProperty('padding', '1rem', 'important');
-      }
-      
-      if (fraseApp) {
-        fraseApp.style.setProperty('font-size', isLandscape ? '1rem' : '1.1rem', 'important');
-        fraseApp.style.setProperty('line-height', isLandscape ? '1.3' : '1.5', 'important');
-      }
-      
-    } else if (isTablet) {
-      document.body.classList.add('device-tablet');
-      document.body.classList.remove('device-mobile', 'device-desktop');
-      
-      if (fraseBox) {
-        fraseBox.style.setProperty('width', '85vw', 'important');
-        fraseBox.style.setProperty('min-height', '450px', 'important');
-        fraseBox.style.setProperty('padding', '1.5rem', 'important');
-      }
-      
-      if (fraseApp) {
-        fraseApp.style.setProperty('font-size', '1.3rem', 'important');
-        fraseApp.style.setProperty('line-height', '1.6', 'important');
-      }
-      
-    } else if (isDesktop) {
-      document.body.classList.add('device-desktop');
-      document.body.classList.remove('device-mobile', 'device-tablet');
-      
-      if (fraseBox) {
-        const maxWidth = largura > 1600 ? '900px' : largura > 1200 ? '800px' : '700px';
-        const width = largura > 1600 ? '45vw' : largura > 1200 ? '55vw' : '65vw';
-        
-        fraseBox.style.setProperty('width', width, 'important');
-        fraseBox.style.setProperty('max-width', maxWidth, 'important');
-        fraseBox.style.setProperty('min-height', '600px', 'important');
-      }
-      
-      if (fraseApp) {
-        const fontSize = largura > 1600 ? '1.8rem' : largura > 1200 ? '1.6rem' : '1.5rem';
-        fraseApp.style.setProperty('font-size', fontSize, 'important');
-        fraseApp.style.setProperty('line-height', '1.8', 'important');
-      }
-    }
-    
-    // Ajustes para altura baixa (modo paisagem)
-    if (altura <= 500 && isLandscape) {
-      if (fraseBox) {
-        fraseBox.style.setProperty('min-height', '250px', 'important');
-        fraseBox.style.setProperty('padding', '0.8rem', 'important');
-      }
-      if (fraseApp) {
-        fraseApp.style.setProperty('font-size', '1rem', 'important');
-        fraseApp.style.setProperty('line-height', '1.3', 'important');
-      }
-    }
-    
-    // Detecta e ajusta para dispositivos touch
-    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-      document.body.classList.add('touch-device');
-      
-      // Aumenta área de toque para botões em dispositivos móveis
-      if (isSmartphone || isTablet) {
-        const botoes = document.querySelectorAll('button, select');
-        botoes.forEach(btn => {
-          btn.style.setProperty('min-height', '44px', 'important');
-          btn.style.setProperty('min-width', '44px', 'important');
-          btn.style.setProperty('padding', '0.6rem', 'important');
-        });
-      }
-      
-      // Melhora inputs para dispositivos touch
-      const inputs = document.querySelectorAll('input');
-      inputs.forEach(input => {
-        input.style.setProperty('font-size', '16px', 'important'); // Evita zoom no iOS
-        input.style.setProperty('padding', '0.8rem', 'important');
-      });
-    }
-    
-    // Ajustes para sidebar em diferentes tamanhos
-    const sidebar = document.getElementById('sidebarUsuario');
-    if (sidebar) {
-      if (isSmartphone) {
-        sidebar.style.setProperty('width', '100vw', 'important');
-        sidebar.style.setProperty('right', '-100vw', 'important');
-        sidebar.style.setProperty('padding', '1rem 0.8rem', 'important');
-      } else if (isTablet) {
-        sidebar.style.setProperty('width', '90vw', 'important');
-        sidebar.style.setProperty('right', '-90vw', 'important');
-        sidebar.style.setProperty('padding', '1.5rem 1rem', 'important');
-      }
-    }
-  }
-  
-  // Função de debounce para otimizar performance
-  function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
-  }
-  
-  // Executa no carregamento
-  ajustarResponsividadeDinamica();
-  
-  // Executa quando a tela é redimensionada (com debounce)
-  const debouncedResize = debounce(ajustarResponsividadeDinamica, 100);
-  window.addEventListener('resize', debouncedResize);
-  
-  // Detecta mudança de orientação
-  window.addEventListener('orientationchange', function() {
-    setTimeout(ajustarResponsividadeDinamica, 200);
-  });
-  
-  // Melhorias específicas para dispositivos móveis
-  if ('ontouchstart' in window) {
-    // Melhora o scroll
-    document.body.style.webkitOverflowScrolling = 'touch';
-    
-    // Previne zoom acidental em inputs
-    const inputs = document.querySelectorAll('input, select');
-    inputs.forEach(input => {
-      input.addEventListener('focus', function() {
-        if (window.innerWidth <= 768) {
-          this.style.fontSize = '16px';
-        }
-      });
-    });
-    
-    // Adiciona classe para CSS específico
-    document.body.classList.add('mobile-device');
-  }
-  
-  // Detecta se é um PWA
-  if (window.matchMedia('(display-mode: standalone)').matches) {
-    document.body.classList.add('pwa-mode');
-  }
-  
-  // Otimização para telas de alta densidade
-  if (window.devicePixelRatio > 1.5) {
-    document.body.classList.add('high-dpi');
-  }
-  
-  console.log('Sistema de responsividade dinâmica inicializado');
-});
-</script>
-
-</body>
-</html>
