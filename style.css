@@ -7,6 +7,172 @@ body {
     line-height: 1.6;
 }
 
+/* === Modal Overlay e Forms === */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal-form {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px 24px;
+  max-width: 400px;
+  width: 90vw;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-form h2 {
+  text-align: center;
+  color: #0d47a1;
+  margin: 0 0 8px 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.modal-form input {
+  padding: 12px 16px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.modal-form input:focus {
+  border-color: #0d47a1;
+}
+
+.modal-form button[type="submit"] {
+  background: #0d47a1;
+  color: #fff;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.modal-form button[type="submit"]:hover {
+  background: #08306b;
+}
+
+.modal-text-btn {
+  background: none !important;
+  color: #0d47a1 !important;
+  border: none !important;
+  padding: 8px !important;
+  font-size: 0.9rem !important;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s !important;
+}
+
+.modal-text-btn:hover {
+  color: #08306b !important;
+}
+
+.modal-text-btn.danger {
+  color: #e53935 !important;
+}
+
+.modal-text-btn.danger:hover {
+  color: #b71c1c !important;
+}
+
+.modal-buttons-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.modal-error, .modal-success {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.modal-error {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+}
+
+.modal-success {
+  background: #e8f5e8;
+  color: #2e7d32;
+  border: 1px solid #81c784;
+}
+
+/* Dark mode for modals */
+body.dark-mode .modal-form {
+  background: #23272b !important;
+  color: #eee !important;
+}
+
+body.dark-mode .modal-form h2 {
+  color: #90caf9 !important;
+}
+
+body.dark-mode .modal-form input {
+  background: #181820 !important;
+  color: #f5f5f5 !important;
+  border-color: #444 !important;
+}
+
+body.dark-mode .modal-form input::placeholder {
+  color: #b0b0b0 !important;
+}
+
+body.dark-mode .modal-form button[type="submit"] {
+  background: #1976d2 !important;
+  color: #fff !important;
+}
+
+body.dark-mode .modal-text-btn {
+  color: #90caf9 !important;
+}
+
+body.dark-mode .modal-text-btn:hover {
+  color: #fff !important;
+}
+
+body.dark-mode .modal-text-btn.danger {
+  color: #f48fb1 !important;
+}
+
+body.dark-mode .modal-text-btn.danger:hover {
+  color: #fff !important;
+}
+
+/* Responsive modal adjustments */
+@media (max-width: 600px) {
+  .modal-form {
+    padding: 24px 16px;
+    max-width: 95vw;
+  }
+  
+  .modal-buttons-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&family=Roboto:wght@400;700&family=Space+Mono:wght@400;700&display=swap');
 
 /* === Corpo === */
@@ -382,6 +548,74 @@ button:hover {
 
 .coracao-btn:focus {
   outline: 2px solid #e53935;
+}
+
+/* === Google Login Button === */
+.google-login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #fff;
+  color: #222;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.google-login-btn:hover {
+  border-color: #4285f4;
+  box-shadow: 0 2px 8px rgba(66, 133, 244, 0.15);
+}
+
+.google-login-btn img {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* Dark mode styles for Google button */
+body.dark-mode .google-login-btn {
+  background: #23272b !important;
+  color: #eee !important;
+  border-color: #444 !important;
+}
+
+body.dark-mode .google-login-btn:hover {
+  border-color: #4285f4 !important;
+  box-shadow: 0 2px 8px rgba(66, 133, 244, 0.25) !important;
+}
+
+/* Responsive adjustments for Google button */
+@media (max-width: 600px) {
+  .google-login-btn {
+    font-size: 0.9rem;
+    padding: 9px 14px;
+    gap: 6px;
+  }
+  
+  .google-login-btn img {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 400px) {
+  .google-login-btn {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+  }
+  
+  .google-login-btn img {
+    width: 15px;
+    height: 15px;
+  }
 }
 
 /* === Modal de Favoritos === */
