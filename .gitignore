@@ -1,0 +1,14 @@
+# Server logs
+server.log
+
+# Temporary files
+*.tmp
+*.log
+
+# Development files
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
