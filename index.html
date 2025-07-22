@@ -28,6 +28,7 @@
           <button type="button" id="btnEsqueciSenha" style="background:none;border:none;color:#e53935;cursor:pointer;font-size:0.98rem;">Esqueci a senha</button>
         </div>
         <div id="loginErro" style="color:#e53935;font-size:0.98rem;display:none;"></div>
+        <button type="button" id="btnEntrarSemLogin" style="width:100%;background:#666;color:#fff;border:none;padding:0.7rem 0;border-radius:0.7rem;cursor:pointer;font-size:1.05rem;font-weight:bold;margin-top:0.8rem;">Entrar sem login</button>
       </form>
     </div>
     <!-- Modal de cadastro -->
@@ -65,9 +66,9 @@
             <!-- NOVA CAIXA DE TEXTO ESTILO ANEXO (fixa, 4cm abaixo do topo) -->
             <div id="twitterTextBox" style="background:rgba(90,90,105,0.78);border-radius:17px;box-shadow:0 8px 29px 0 rgba(31,38,135,0.18);position:absolute;top:4cm;left:50%;transform:translateX(-50%);width:300px;max-width:90vw;min-width:220px;min-height:150px;max-height:370px;padding:44px 32px 44px 32px;display:flex;flex-direction:column;align-items:center;overflow:visible;transition:background 0.5s;border: 3.5px solid rgba(13,71,161,0.55);">
                 <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0.1rem;margin-bottom:8px;width:100%;justify-content:center;">
-                  <span id="nomeUsuario" style="font-family:'Montserrat',Arial,sans-serif;font-size:1.08rem;font-weight:400;color:#222;letter-spacing:0.01em;line-height:1.1;text-shadow:0 1px 4px #fff,0 1px 1px #bbb;"></span>
+                  <span id="nomeUsuario" style="font-family:'Montserrat',Arial,sans-serif;font-size:1.08rem;font-weight:400;color:#f5f5f5;letter-spacing:0.01em;line-height:1.1;text-shadow:0 1px 4px #000,0 1px 1px #222;display:block;">Seu nome</span>
                   <span style="display:flex;align-items:center;gap:0.32em;">
-                    <span id="arrobaUsuario" style="font-family:'Space Mono',monospace;font-size:0.99rem;color:#555;padding:1px 7px 1px 4px;line-height:1.2;"></span>
+                    <span id="arrobaUsuario" style="font-family:'Space Mono',monospace;font-size:0.99rem;color:#ddd;background:rgba(0,0,0,0.3);padding:1px 7px 1px 4px;border-radius:8px;line-height:1.2;display:inline-block;">@seunome</span>
                     <span id="iconVerificado" title="Verificado" style="display:inline-flex;align-items:center;margin-left:2px;">
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1976d2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="9" fill="#1976d2" stroke="#1565c0" stroke-width="2"/>
@@ -370,7 +371,19 @@
     <!-- Botão Postagens removido -->
     <!-- Supabase JS SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7/dist/umd/supabase.min.js"></script>
-    <script src="script.js"></script>
+    <script>
+    // Carrega script.js apenas se não estiver usando modo sem login
+    document.addEventListener('DOMContentLoaded', function() {
+      // Aguarda um pouco para garantir que o login foi processado
+      setTimeout(() => {
+        if (localStorage.getItem('entrou_sem_login') !== 'true') {
+          const script = document.createElement('script');
+          script.src = 'script.js';
+          document.head.appendChild(script);
+        }
+      }, 100);
+    });
+    </script>
     <script>
     // Função utilitária para atualizar frase, autor e fonte
     function exibirFraseComAutor(frase, autor) {
@@ -499,23 +512,33 @@
     // Carregar valores salvos
     function carregarUsuario() {
       const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
-      const arroba = localStorage.getItem('usuario_arroba') || '@';
+      const arroba = localStorage.getItem('usuario_arroba') || '@seunome';
+      
+      console.log('Carregando usuário:', nome, arroba); // Debug
+      
       // Atualiza os campos visuais
-      if (nomeUsuarioSpan) nomeUsuarioSpan.textContent = nome;
-      if (arrobaUsuarioSpan) arrobaUsuarioSpan.textContent = arroba;
+      if (nomeUsuarioSpan) {
+        nomeUsuarioSpan.textContent = nome;
+        nomeUsuarioSpan.style.display = 'block';
+        nomeUsuarioSpan.style.color = '#f5f5f5';
+        nomeUsuarioSpan.style.fontSize = '1.1rem';
+        nomeUsuarioSpan.style.fontWeight = 'bold';
+        console.log('Nome atualizado:', nomeUsuarioSpan.textContent); // Debug
+      }
+      if (arrobaUsuarioSpan) {
+        arrobaUsuarioSpan.textContent = arroba;
+        arrobaUsuarioSpan.style.display = 'inline-block';
+        arrobaUsuarioSpan.style.color = '#ddd';
+        arrobaUsuarioSpan.style.fontSize = '0.9rem';
+        arrobaUsuarioSpan.style.fontWeight = 'normal';
+        console.log('Arroba atualizado:', arrobaUsuarioSpan.textContent); // Debug
+      }
+      
+      // Atualiza os campos de input
       if (inputNomeUsuario) inputNomeUsuario.value = nome !== 'Seu nome' ? nome : '';
-      if (inputArrobaUsuario) inputArrobaUsuario.value = arroba !== '@' ? arroba : '';
+      if (inputArrobaUsuario) inputArrobaUsuario.value = arroba !== '@seunome' ? arroba : '';
     }
-    document.addEventListener('DOMContentLoaded', function() {
-      carregarUsuario();
-      // Garante que os campos acima da frase sejam preenchidos ao abrir
-      const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
-      const arroba = localStorage.getItem('usuario_arroba') || '@';
-      const nomeUsuarioSpan = document.getElementById('nomeUsuario');
-      const arrobaUsuarioSpan = document.getElementById('arrobaUsuario');
-      if (nomeUsuarioSpan) nomeUsuarioSpan.textContent = nome;
-      if (arrobaUsuarioSpan) arrobaUsuarioSpan.textContent = arroba;
-    });
+    document.addEventListener('DOMContentLoaded', carregarUsuario);
 
     btnMenuUsuario.addEventListener('click', () => {
       // Se a aba lateral estiver aberta, fecha completamente (inclui transição e overlay)
@@ -540,20 +563,64 @@
       document.body.classList.remove('sidebar-usuario-aberta');
       sidebarUsuarioOverlay.style.display = 'none';
     });
-btnSalvarUsuario.addEventListener('click', () => {
-  let nome = inputNomeUsuario.value.trim().slice(0, 20) || 'Seu nome';
-  let arroba = inputArrobaUsuario.value.trim().slice(0, 20);
-  if (!arroba.startsWith('@')) arroba = arroba ? '@' + arroba : '@';
-  localStorage.setItem('usuario_nome', nome);
-  localStorage.setItem('usuario_arroba', arroba);
-  // Atualiza imediatamente os elementos acima da frase
-  if (nomeUsuarioSpan) nomeUsuarioSpan.textContent = nome;
-  if (arrobaUsuarioSpan) arrobaUsuarioSpan.textContent = arroba;
-  if (inputNomeUsuario) inputNomeUsuario.value = nome !== 'Seu nome' ? nome : '';
-  if (inputArrobaUsuario) inputArrobaUsuario.value = arroba !== '@' ? arroba : '';
-  sidebarUsuario.classList.remove('open');
-  document.body.classList.remove('sidebar-usuario-aberta');
-});
+    btnSalvarUsuario.addEventListener('click', () => {
+      let nome = inputNomeUsuario.value.trim().slice(0, 20) || 'Seu nome';
+      let arroba = inputArrobaUsuario.value.trim().slice(0, 20);
+      if (!arroba.startsWith('@')) arroba = arroba ? '@' + arroba : '@seunome';
+      
+      console.log('Salvando usuário:', nome, arroba); // Debug
+      
+      // Salva no localStorage
+      localStorage.setItem('usuario_nome', nome);
+      localStorage.setItem('usuario_arroba', arroba);
+      
+      // Atualiza imediatamente os elementos acima da frase
+      if (nomeUsuarioSpan) {
+        nomeUsuarioSpan.innerHTML = nome;
+        nomeUsuarioSpan.style.cssText = `
+          display: block !important;
+          color: #f5f5f5 !important;
+          font-size: 1.1rem !important;
+          font-weight: bold !important;
+          font-family: 'Montserrat', Arial, sans-serif !important;
+          text-shadow: 0 1px 4px #000, 0 1px 1px #222 !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+        `;
+        console.log('Nome salvo e exibido:', nomeUsuarioSpan.textContent); // Debug
+      }
+      if (arrobaUsuarioSpan) {
+        arrobaUsuarioSpan.innerHTML = arroba;
+        arrobaUsuarioSpan.style.cssText = `
+          display: inline-block !important;
+          color: #ddd !important;
+          font-size: 0.99rem !important;
+          font-weight: normal !important;
+          font-family: 'Space Mono', monospace !important;
+          background: rgba(0,0,0,0.3) !important;
+          padding: 1px 7px 1px 4px !important;
+          border-radius: 8px !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+        `;
+        console.log('Arroba salvo e exibido:', arrobaUsuarioSpan.textContent); // Debug
+      }
+      
+      // Atualiza os campos de input
+      if (inputNomeUsuario) inputNomeUsuario.value = nome !== 'Seu nome' ? nome : '';
+      if (inputArrobaUsuario) inputArrobaUsuario.value = arroba !== '@seunome' ? arroba : '';
+      
+      // Fecha a sidebar
+      sidebarUsuario.classList.remove('open');
+      document.body.classList.remove('sidebar-usuario-aberta');
+      sidebarUsuarioOverlay.style.display = 'none';
+      
+      // Força uma atualização visual adicional
+      setTimeout(() => {
+        if (nomeUsuarioSpan) nomeUsuarioSpan.innerHTML = nome;
+        if (arrobaUsuarioSpan) arrobaUsuarioSpan.innerHTML = arroba;
+      }, 100);
+    });
     // Fechar ao clicar fora
     window.addEventListener('mousedown', function(e) {
       if (sidebarUsuario.classList.contains('open') && !sidebarUsuario.contains(e.target) && e.target !== btnMenuUsuario) {
@@ -1041,4 +1108,261 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// Script para controlar o modal de login
+document.addEventListener('DOMContentLoaded', function() {
+  const modalLogin = document.getElementById('modalLogin');
+  const btnEntrarSemLogin = document.getElementById('btnEntrarSemLogin');
+  
+  // Função para desbloquear completamente o app
+  function desbloquearApp() {
+    // Remove todos os modais
+    modalLogin.style.display = 'none';
+    const modalCadastro = document.getElementById('modalCadastro');
+    const modalEsqueciSenha = document.getElementById('modalEsqueciSenha');
+    if (modalCadastro) modalCadastro.style.display = 'none';
+    if (modalEsqueciSenha) modalEsqueciSenha.style.display = 'none';
+    
+    // Remove qualquer bloqueio da interface
+    document.body.style.overflow = 'auto';
+    document.body.style.pointerEvents = 'auto';
+    document.body.classList.remove('blocked', 'auth-blocked');
+    document.documentElement.style.overflow = 'auto';
+    
+    // Garante que o container principal está visível e funcional
+    const mainContainer = document.querySelector('.container');
+    if (mainContainer) {
+      mainContainer.style.display = 'flex';
+      mainContainer.style.pointerEvents = 'auto';
+      mainContainer.style.opacity = '1';
+      mainContainer.style.visibility = 'visible';
+    }
+    
+    // Garante que a frase-box está visível e funcional
+    const fraseBox = document.querySelector('.frase-box');
+    if (fraseBox) {
+      fraseBox.style.pointerEvents = 'auto';
+      fraseBox.style.opacity = '1';
+      fraseBox.style.visibility = 'visible';
+    }
+    
+    // Inicializa as frases se ainda não foram carregadas
+    setTimeout(() => {
+      inicializarApp();
+    }, 100);
+  }
+  
+  // Função para inicializar o app com frases
+  function inicializarApp() {
+    // Exibe uma frase inicial
+    const fraseApp = document.getElementById('fraseApp');
+    const autorApp = document.getElementById('autorFraseApp');
+    
+    if (fraseApp && fraseApp.textContent.trim() === '') {
+      fraseApp.textContent = "A única forma de fazer um excelente trabalho é amar o que você faz.";
+      if (autorApp) autorApp.textContent = "Autor: Steve Jobs";
+    }
+    
+    // Garante que os controles estão funcionais
+    const temaSelect = document.getElementById('temaSelect');
+    const fonteSelect = document.getElementById('fonteSelect');
+    
+    if (temaSelect) {
+      temaSelect.disabled = false;
+      temaSelect.style.pointerEvents = 'auto';
+    }
+    
+    if (fonteSelect) {
+      fonteSelect.disabled = false;
+      fonteSelect.style.pointerEvents = 'auto';
+    }
+    
+    // Garante que os botões estão funcionais
+    const novaFrase = document.getElementById('novaFrase');
+    const voltarFrase = document.getElementById('voltarFrase');
+    
+    if (novaFrase) {
+      novaFrase.disabled = false;
+      novaFrase.style.pointerEvents = 'auto';
+      novaFrase.style.opacity = '1';
+    }
+    
+    if (voltarFrase) {
+      voltarFrase.disabled = false;
+      voltarFrase.style.pointerEvents = 'auto';
+      voltarFrase.style.opacity = '1';
+    }
+    
+    // Carrega e exibe os dados do usuário salvos
+    carregarDadosUsuario();
+  }
+  
+  // Função para carregar dados do usuário
+  function carregarDadosUsuario() {
+    // Chama a função principal de carregamento
+    if (typeof carregarUsuario === 'function') {
+      carregarUsuario();
+    } else {
+      // Fallback caso a função principal não esteja disponível
+      const nomeUsuarioSpan = document.getElementById('nomeUsuario');
+      const arrobaUsuarioSpan = document.getElementById('arrobaUsuario');
+      
+      if (nomeUsuarioSpan && arrobaUsuarioSpan) {
+        const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
+        const arroba = localStorage.getItem('usuario_arroba') || '@seunome';
+        
+        nomeUsuarioSpan.textContent = nome;
+        arrobaUsuarioSpan.textContent = arroba;
+        
+        // Adiciona estilo para garantir visibilidade
+        nomeUsuarioSpan.style.display = 'block';
+        nomeUsuarioSpan.style.color = '#f5f5f5';
+        nomeUsuarioSpan.style.fontSize = '1.1rem';
+        nomeUsuarioSpan.style.fontWeight = 'bold';
+        arrobaUsuarioSpan.style.display = 'inline-block';
+        arrobaUsuarioSpan.style.color = '#ddd';
+        arrobaUsuarioSpan.style.fontSize = '0.9rem';
+        arrobaUsuarioSpan.style.fontWeight = 'normal';
+      }
+    }
+  }
+  
+  // Verifica se o usuário já fez login ou escolheu entrar sem login
+  if (localStorage.getItem('entrou_sem_login') === 'true' || localStorage.getItem('usuario_logado')) {
+    desbloquearApp();
+  } else {
+    modalLogin.style.display = 'flex';
+  }
+  
+  // Função para entrar sem login
+  if (btnEntrarSemLogin) {
+    btnEntrarSemLogin.addEventListener('click', function() {
+      localStorage.setItem('entrou_sem_login', 'true');
+      desbloquearApp();
+    });
+  }
+  
+  // Controla o formulário de login normal
+  const formLogin = document.getElementById('formLogin');
+  if (formLogin) {
+    formLogin.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const senha = document.getElementById('loginSenha').value;
+      
+      if (email && senha) {
+        // Simula login bem-sucedido
+        localStorage.setItem('usuario_logado', email);
+        desbloquearApp();
+      } else {
+        const erro = document.getElementById('loginErro');
+        if (erro) {
+          erro.textContent = 'Preencha todos os campos';
+          erro.style.display = 'block';
+        }
+      }
+    });
+  }
+});
 </script>
+
+<script>
+// Script adicional para garantir carregamento dos dados do usuário
+document.addEventListener('DOMContentLoaded', function() {
+  // Aguarda um pouco para garantir que todos os elementos estejam carregados
+  setTimeout(function() {
+    // Força o carregamento dos dados do usuário
+    const nomeUsuarioSpan = document.getElementById('nomeUsuario');
+    const arrobaUsuarioSpan = document.getElementById('arrobaUsuario');
+    
+    if (nomeUsuarioSpan && arrobaUsuarioSpan) {
+      const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
+      const arroba = localStorage.getItem('usuario_arroba') || '@seunome';
+      
+      console.log('Carregamento final - Nome:', nome, 'Arroba:', arroba);
+      
+      // Força a atualização do conteúdo
+      nomeUsuarioSpan.innerHTML = nome;
+      arrobaUsuarioSpan.innerHTML = arroba;
+      
+      // Remove todos os estilos inline existentes e aplica novos
+      nomeUsuarioSpan.removeAttribute('style');
+      arrobaUsuarioSpan.removeAttribute('style');
+      
+      // Aplica estilos com !important via CSS
+      nomeUsuarioSpan.style.cssText = `
+        display: block !important;
+        color: #f5f5f5 !important;
+        font-size: 1.1rem !important;
+        font-weight: bold !important;
+        font-family: 'Montserrat', Arial, sans-serif !important;
+        text-shadow: 0 1px 4px #000, 0 1px 1px #222 !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+      `;
+      
+      arrobaUsuarioSpan.style.cssText = `
+        display: inline-block !important;
+        color: #ddd !important;
+        font-size: 0.99rem !important;
+        font-weight: normal !important;
+        font-family: 'Space Mono', monospace !important;
+        background: rgba(0,0,0,0.3) !important;
+        padding: 1px 7px 1px 4px !important;
+        border-radius: 8px !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+      `;
+      
+      console.log('Elementos atualizados:', {
+        nome: nomeUsuarioSpan.textContent,
+        arroba: arrobaUsuarioSpan.textContent,
+        nomeVisible: getComputedStyle(nomeUsuarioSpan).display,
+        arrobaVisible: getComputedStyle(arrobaUsuarioSpan).display
+      });
+    } else {
+      console.log('Elementos não encontrados:', {
+        nomeUsuarioSpan: !!nomeUsuarioSpan,
+        arrobaUsuarioSpan: !!arrobaUsuarioSpan
+      });
+    }
+  }, 500);
+  
+  // Também executa imediatamente
+  setTimeout(function() {
+    const nomeUsuarioSpan = document.getElementById('nomeUsuario');
+    const arrobaUsuarioSpan = document.getElementById('arrobaUsuario');
+    
+    if (nomeUsuarioSpan && arrobaUsuarioSpan) {
+      const nome = localStorage.getItem('usuario_nome');
+      const arroba = localStorage.getItem('usuario_arroba');
+      
+      if (nome && nome !== 'Seu nome') {
+        nomeUsuarioSpan.innerHTML = nome;
+        nomeUsuarioSpan.style.cssText = `
+          display: block !important;
+          color: #f5f5f5 !important;
+          font-size: 1.1rem !important;
+          font-weight: bold !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+        `;
+      }
+      
+      if (arroba && arroba !== '@seunome') {
+        arrobaUsuarioSpan.innerHTML = arroba;
+        arrobaUsuarioSpan.style.cssText = `
+          display: inline-block !important;
+          color: #ddd !important;
+          font-size: 0.99rem !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+        `;
+      }
+    }
+  }, 100);
+});
+</script>
+
+</body>
+</html>
