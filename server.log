@@ -11,3 +11,26 @@
 127.0.0.1 - - [22/Jul/2025 16:12:13] "GET /icons/icon-192.png HTTP/1.1" 404 -
 127.0.0.1 - - [22/Jul/2025 16:12:13] code 404, message File not found
 127.0.0.1 - - [22/Jul/2025 16:12:13] "GET /icons/icon-512.png HTTP/1.1" 404 -
+127.0.0.1 - - [22/Jul/2025 16:15:43] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jul/2025 16:15:43] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jul/2025 16:15:43] "GET /script.js HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jul/2025 16:15:43] "GET /service-worker.js HTTP/1.1" 304 -
+127.0.0.1 - - [22/Jul/2025 16:15:43] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jul/2025 16:15:43] code 404, message File not found
+127.0.0.1 - - [22/Jul/2025 16:15:43] "GET /icons/icon-192.png HTTP/1.1" 404 -
+127.0.0.1 - - [22/Jul/2025 16:15:43] code 404, message File not found
+127.0.0.1 - - [22/Jul/2025 16:15:43] "GET /icons/icon-512.png HTTP/1.1" 404 -
+127.0.0.1 - - [22/Jul/2025 16:15:43] "GET /manifest.json HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jul/2025 16:15:43] code 404, message File not found
+127.0.0.1 - - [22/Jul/2025 16:15:43] "GET /icons/icon-192.png HTTP/1.1" 404 -
+127.0.0.1 - - [22/Jul/2025 16:17:30] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jul/2025 16:17:30] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jul/2025 16:17:30] "GET /script.js HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jul/2025 16:17:30] "GET /service-worker.js HTTP/1.1" 304 -
+127.0.0.1 - - [22/Jul/2025 16:17:30] "GET /index.html HTTP/1.1" 304 -
+127.0.0.1 - - [22/Jul/2025 16:17:30] code 404, message File not found
+127.0.0.1 - - [22/Jul/2025 16:17:30] "GET /icons/icon-192.png HTTP/1.1" 404 -
+127.0.0.1 - - [22/Jul/2025 16:17:30] "GET /script.js HTTP/1.1" 304 -
+127.0.0.1 - - [22/Jul/2025 16:17:30] "GET /manifest.json HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jul/2025 16:17:30] code 404, message File not found
+127.0.0.1 - - [22/Jul/2025 16:17:30] "GET /icons/icon-192.png HTTP/1.1" 404 -

@@ -1,7 +1,18 @@
 // --- BLOQUEIO GLOBAL USANDO SUPABASE AUTH ---
 const SUPABASE_URL = 'https://lfvfvrpfrphpbsxktazn.supabase.co'; // Substitua pela sua URL
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxmdmZ2cnBmcnBocGJzeGt0YXpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI4NzgyMzgsImV4cCI6MjA2ODQ1NDIzOH0.aXIRLdSYBt5_ifMAtpKeOV1mnZooqtkWQ7OTqxcg7s4'; // Substitua pela sua anon key
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let supabase = null;
+try {
+  if (window.supabase) {
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+} catch (error) {
+  console.log('Supabase not available, guest mode will be default');
+}
+
+// Global guest mode state
+let isGuestMode = false;
 
 function bloquearApp() {
   document.querySelectorAll('button,select,input,textarea').forEach(el => {
@@ -20,6 +31,25 @@ function mostrarModal(id) {
 }
 
 async function checarSessao() {
+  // Check if guest mode is active
+  if (isGuestMode) {
+    desbloquearApp();
+    document.getElementById('modalLogin').style.display = 'none';
+    document.getElementById('modalCadastro').style.display = 'none';
+    document.getElementById('modalEsqueciSenha').style.display = 'none';
+    return;
+  }
+  
+  // If Supabase is not available, force guest mode
+  if (!supabase) {
+    isGuestMode = true;
+    desbloquearApp();
+    document.getElementById('modalLogin').style.display = 'none';
+    document.getElementById('modalCadastro').style.display = 'none';
+    document.getElementById('modalEsqueciSenha').style.display = 'none';
+    return;
+  }
+  
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) {
     bloquearApp();
@@ -39,6 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // --- HANDLERS DE AUTENTICAÇÃO ---
 document.getElementById('formLogin').addEventListener('submit', async function(e) {
   e.preventDefault();
+  if (!supabase) {
+    alert('Serviço de autenticação não disponível. Use o modo convidado.');
+    return;
+  }
   const email = this.email.value;
   const senha = this.senha.value;
   const { error } = await supabase.auth.signInWithPassword({ email, password: senha });
@@ -50,6 +84,10 @@ document.getElementById('formLogin').addEventListener('submit', async function(e
 });
 
 document.getElementById('btnGoogle').addEventListener('click', async function() {
+  if (!supabase) {
+    alert('Serviço de autenticação não disponível. Use o modo convidado.');
+    return;
+  }
   const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
   if (error) alert('Erro ao logar com Google: ' + error.message);
 });
@@ -61,8 +99,18 @@ document.getElementById('btnEsqueciSenha').addEventListener('click', function() 
   mostrarModal('modalEsqueciSenha');
 });
 
+// Guest mode handler
+document.getElementById('btnConvidado').addEventListener('click', function() {
+  isGuestMode = true;
+  checarSessao();
+});
+
 document.getElementById('formCadastro').addEventListener('submit', async function(e) {
   e.preventDefault();
+  if (!supabase) {
+    alert('Serviço de autenticação não disponível. Use o modo convidado.');
+    return;
+  }
   const email = this.email.value;
   const senha = this.senha.value;
   const { error } = await supabase.auth.signUp({ email, password: senha });
@@ -76,6 +124,10 @@ document.getElementById('formCadastro').addEventListener('submit', async functio
 
 document.getElementById('formEsqueciSenha').addEventListener('submit', async function(e) {
   e.preventDefault();
+  if (!supabase) {
+    alert('Serviço de autenticação não disponível. Use o modo convidado.');
+    return;
+  }
   const email = this.email.value;
   const { error } = await supabase.auth.resetPasswordForEmail(email);
   if (error) {
@@ -88,7 +140,10 @@ document.getElementById('formEsqueciSenha').addEventListener('submit', async fun
 
 // Logout handler (adicione um botão de logout se quiser)
 window.logoutSupabase = async function() {
-  await supabase.auth.signOut();
+  if (supabase) {
+    await supabase.auth.signOut();
+  }
+  isGuestMode = false; // Reset guest mode on logout
   checarSessao();
 };
 // --- Jogo da velha (tags) ---
