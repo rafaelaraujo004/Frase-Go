@@ -76,6 +76,7 @@ body.sidebar-usuario-aberta {
 body.sidebar-usuario-aberta .container {
     margin: 20px auto;
 }
+/* Corrige sobreposição do logo em telas pequenas */
 @media (max-width: 600px) {
     .container {
         max-width: 95vw;
@@ -89,15 +90,53 @@ body.sidebar-usuario-aberta .container {
         align-items: center;
         justify-content: center;
     }
+    
+    #logoApp {
+        margin-left: 0;
+        left: 0;
+        position: static;
+        max-width: 120px;
+        width: 100%;
+    }
+    
+    /* Garante funcionalidade touch para todos os botões */
+    button, .coracao-btn, .favoritos-btn, .copiar-btn, .remover-fav-btn, .remover-todos-btn, .copiar-fav-btn {
+        min-height: 44px;
+        min-width: 44px;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        pointer-events: auto !important;
+        cursor: pointer;
+    }
+    
+    /* Otimização específica para selects em mobile */
+    select {
+        min-height: 44px;
+        touch-action: manipulation;
+        -webkit-appearance: none;
+        appearance: none;
+    }
 }
 body.dark-mode {
     background: #181a1b !important;
     color: #eee !important;
 }
+body.dark-mode .container {
+    background: #23272b !important;
+    color: #eee !important;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+}
 body.dark-mode .frase-box {
     background: #23272b !important;
     color: #eee !important;
     box-shadow: 0 2px 12px #0006;
+}
+body.dark-mode .frase-box,
+body.dark-mode .favoritos-content,
+body.dark-mode .tags-content {
+  background: #23272b !important;
+  color: #eee !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35);
 }
 body.dark-mode select,
 body.dark-mode button,
@@ -108,6 +147,79 @@ body.dark-mode input {
 }
 body.dark-mode svg {
     stroke: #eee !important;
+}
+body.dark-mode #iconeJogoDaVelha {
+  color: #fff !important;
+}
+body.dark-mode .favoritos-content h2,
+body.dark-mode .tags-content h2 {
+  color: #fff !important;
+}
+body.dark-mode .favoritos-lista li {
+  border-bottom: 1px solid #444 !important;
+  color: #eee !important;
+}
+body.dark-mode .fechar-modal {
+  background: #444 !important;
+  color: #fff !important;
+}
+body.dark-mode .fechar-modal:hover {
+  background: #222 !important;
+}
+body.dark-mode .bg-watermark {
+  opacity: 0.5 !important;
+  filter: brightness(1.5) grayscale(0.2) contrast(1.1);
+}
+body.dark-mode #tagsModal {
+  background: rgba(0,0,0,0.45) !important;
+}
+body.dark-mode .tags-content {
+  background: #23272b !important;
+  color: #eee !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+}
+body.dark-mode .tags-content h2 {
+  color: #fff !important;
+}
+body.dark-mode .tags-content button {
+  background: #444 !important;
+  color: #fff !important;
+}
+body.dark-mode .tags-content button:hover {
+  background: #222 !important;
+}
+body.dark-mode .tags-content div {
+  background: #333 !important;
+  color: #eee !important;
+  border-color: #444 !important;
+}
+/* Melhora contraste de botões no modo escuro */
+body.dark-mode button,
+body.dark-mode .fechar-modal {
+    background: #23272b !important;
+    color: #ff9800 !important;
+    border-color: #ff9800 !important;
+}
+body.dark-mode button:hover,
+body.dark-mode .fechar-modal:hover {
+    background: #444 !important;
+    color: #fff !important;
+}
+/* Corrige detalhes vazados da logo/frase no modo dark */
+body.dark-mode #logoApp,
+body.dark-mode .logoApp,
+body.dark-mode .logo-frase {
+  filter: brightness(1.2) contrast(1.3) drop-shadow(0 0 2px #181a1b) !important;
+  /* Se for SVG, força preenchimento */
+  fill: #fff !important;
+  stroke: #fff !important;
+}
+/* Se a logo for SVG, garanta que todos paths estejam preenchidos */
+body.dark-mode #logoApp svg path,
+body.dark-mode .logoApp svg path,
+body.dark-mode .logo-frase svg path {
+  fill: #fff !important;
+  stroke: #fff !important;
 }
 
 /* === Botões Redondos Com Ícone === */
@@ -273,24 +385,6 @@ body.dark-mode .bg-watermark {
 body:not(.dark-mode) .bg-watermark {
     filter: drop-shadow(0 0 6px #fff8) drop-shadow(0 0 2px #0002);
     opacity: 0.38;
-}
-
-/* === Container Principal === */
-.container {
-  background: #fff;
-  border-radius: 25px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
-  padding: 18px 8px 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 540px;
-  max-width: 600px;
-  width: 95vw;
-  text-align: center;
-  box-sizing: border-box;
-  margin: auto;
 }
 
 /* === Títulos e Texto === */
@@ -649,9 +743,8 @@ body.dark-mode .tags-content div {
   border-color: #444 !important;
 }
 #logoApp {
-  margin-left: -7cm;
-position: relative;
-left: -8cm;
+  max-width: 120px;
+  width: 100%;
 }
 
 /* Melhorias de acessibilidade para botões */
@@ -684,67 +777,6 @@ button:focus, .coracao-btn:focus, .fechar-modal:focus {
         -webkit-tap-highlight-color: rgba(0,0,0,0.1);
         pointer-events: auto !important;
     }
-}
-
-/* Corrige sobreposição do logo em telas pequenas */
-@media (max-width: 600px) {
-    #logoApp {
-        margin-left: 0;
-        left: 0;
-        position: static;
-        max-width: 120px;
-        width: 100%;
-    }
-    
-    /* Garante funcionalidade touch para todos os botões */
-    button, .coracao-btn, .favoritos-btn, .copiar-btn, .remover-fav-btn, .remover-todos-btn, .copiar-fav-btn {
-        min-height: 44px;
-        min-width: 44px;
-        touch-action: manipulation;
-        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
-        pointer-events: auto !important;
-        cursor: pointer;
-    }
-    
-    /* Otimização específica para selects em mobile */
-    select {
-        min-height: 44px;
-        touch-action: manipulation;
-        -webkit-appearance: none;
-        appearance: none;
-    }
-}
-
-/* Melhora contraste de botões no modo escuro */
-body.dark-mode button,
-body.dark-mode .fechar-modal {
-    background: #23272b !important;
-    color: #ff9800 !important;
-    border-color: #ff9800 !important;
-}
-
-body.dark-mode button:hover,
-body.dark-mode .fechar-modal:hover {
-    background: #444 !important;
-    color: #fff !important;
-}
-
-/* Corrige detalhes vazados da logo/frase no modo dark */
-body.dark-mode #logoApp,
-body.dark-mode .logoApp,
-body.dark-mode .logo-frase {
-  filter: brightness(1.2) contrast(1.3) drop-shadow(0 0 2px #181a1b) !important;
-  /* Se for SVG, força preenchimento */
-  fill: #fff !important;
-  stroke: #fff !important;
-}
-
-/* Se a logo for SVG, garanta que todos paths estejam preenchidos */
-body.dark-mode #logoApp svg path,
-body.dark-mode .logoApp svg path,
-body.dark-mode .logo-frase svg path {
-  fill: #fff !important;
-  stroke: #fff !important;
 }
 
 /* Exemplo: cinza claro e cadeado */
