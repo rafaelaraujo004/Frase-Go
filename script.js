@@ -46,16 +46,22 @@ async function checarSessao() {
     console.log('Sessão:', session ? 'encontrada' : 'não encontrada');
     
     if (!session) {
-      console.log('Usuário não logado, bloqueando app e mostrando modal de login');
-      bloquearApp();
-      mostrarModal('modalLogin');
+      // Só mostra o modal de login se não estiver logado E não for convidado
+      if (!localStorage.getItem('usuario_convidado')) {
+        console.log('Usuário não logado, bloqueando app e mostrando modal de login');
+        bloquearApp();
+        mostrarModal('modalLogin');
+      } else {
+        desbloquearApp();
+        const modalLogin = document.getElementById('modalLogin');
+        if (modalLogin) modalLogin.style.display = 'none';
+      }
     } else {
       console.log('Usuário logado, desbloqueando app');
       desbloquearApp();
       const modalLogin = document.getElementById('modalLogin');
       const modalCadastro = document.getElementById('modalCadastro');
       const modalEsqueciSenha = document.getElementById('modalEsqueciSenha');
-      
       if (modalLogin) modalLogin.style.display = 'none';
       if (modalCadastro) modalCadastro.style.display = 'none';
       if (modalEsqueciSenha) modalEsqueciSenha.style.display = 'none';
@@ -166,15 +172,15 @@ function inicializarEventListeners() {
     console.log('Adicionando event listener ao botão convidado');
     btnConvidado.addEventListener('click', function() {
       console.log('Botão convidado clicado');
+      // Marca usuário como convidado
+      localStorage.setItem('usuario_convidado', 'true');
       // Fecha todos os modais e desbloqueia o app para uso como convidado
       const modalLogin = document.getElementById('modalLogin');
       const modalCadastro = document.getElementById('modalCadastro');
       const modalEsqueciSenha = document.getElementById('modalEsqueciSenha');
-      
       if (modalLogin) modalLogin.style.display = 'none';
       if (modalCadastro) modalCadastro.style.display = 'none';
       if (modalEsqueciSenha) modalEsqueciSenha.style.display = 'none';
-      
       desbloquearApp();
     });
   } else {

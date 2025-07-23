@@ -14,8 +14,7 @@
 <meta name="description" content="Frase Go - Encontre inspiração diária com frases motivacionais, de amor, amizade e muito mais. Personalize com temas e fontes exclusivas.">
 <body>
     <!-- Modal de Login -->
-    <div id="modalLogin" class="modal-overlay">
-      <form id="formLogin" class="modal-form" role="dialog" aria-labelledby="loginTitle" aria-describedby="loginDesc">
+    <div id="modalLogin" class="modal-overlay" style="display: none;">\n      <form id="formLogin" class="modal-form" role="dialog" aria-labelledby="loginTitle" aria-describedby="loginDesc">
         <h2 id="loginTitle">Entrar</h2>
         <p id="loginDesc" class="sr-only">Faça login para acessar recursos exclusivos</p>
         <input id="loginEmail" type="email" placeholder="E-mail" required aria-label="E-mail">
@@ -35,8 +34,7 @@
       </form>
     </div>
     <!-- Modal de cadastro -->
-    <div id="modalCadastro" class="modal-overlay">
-      <form id="formCadastro" class="modal-form" role="dialog" aria-labelledby="cadastroTitle" aria-describedby="cadastroDesc">
+    <div id="modalCadastro" class="modal-overlay" style="display: none;">\n      <form id="formCadastro" class="modal-form" role="dialog" aria-labelledby="cadastroTitle" aria-describedby="cadastroDesc">
         <h2 id="cadastroTitle">Criar Conta</h2>
         <p id="cadastroDesc" class="sr-only">Crie sua conta para salvar favoritos e acessar recursos exclusivos</p>
         <input id="cadastroEmail" type="email" placeholder="E-mail" required aria-label="E-mail">
@@ -47,8 +45,7 @@
       </form>
     </div>
     <!-- Modal de esqueci senha -->
-    <div id="modalEsqueciSenha" class="modal-overlay">
-      <form id="formEsqueciSenha" class="modal-form" role="dialog" aria-labelledby="esqueciTitle" aria-describedby="esqueciDesc">
+    <div id="modalEsqueciSenha" class="modal-overlay" style="display: none;">\n      <form id="formEsqueciSenha" class="modal-form" role="dialog" aria-labelledby="esqueciTitle" aria-describedby="esqueciDesc">
         <h2 id="esqueciTitle">Recuperar Senha</h2>
         <p id="esqueciDesc" class="sr-only">Digite seu e-mail para receber o link de recuperação</p>
         <input id="esqueciEmail" type="email" placeholder="E-mail cadastrado" required aria-label="E-mail cadastrado">
@@ -186,31 +183,35 @@
                     height: 100vh;
                     background: rgba(30,32,40,0.65);
                     z-index: 999999;
+                    display: flex;
                     justify-content: center;
-                    align-items: center;
+                    align-items: flex-start;
+                    padding-top: calc(50vh - 25vh - 5cm);
                     transition: background 0.3s;
                     overflow-y: auto;
-                    padding: 20px;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    padding-bottom: 15px;
                     box-sizing: border-box;
                   }
                   #sidebarUsuario {
                     position: relative;
-                    width: 75vw;
-                    max-width: 320px;
-                    min-width: 260px;
+                    width: 65vw;
+                    max-width: 280px;
+                    min-width: 220px;
                     background: #f9fafb;
-                    border-radius: 14px;
+                    border-radius: 12px;
                     box-shadow: 0 8px 32px 0 rgba(31,38,135,0.35);
-                    padding: 1.4rem 1.2rem 1.2rem 1.2rem;
+                    padding: 1.1rem 1rem 1rem 1rem;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    gap: 0.8rem;
+                    gap: 0.6rem;
                     transition: box-shadow 0.3s, background 0.3s, transform 0.3s;
                     border: 2px solid #e3eaf5;
                     transform: scale(1);
                     margin: 0 auto;
-                    max-height: calc(90vh - 40px);
+                    max-height: calc(85vh - 40px);
                     overflow-y: auto;
                     z-index: 1000000;
                   }
@@ -225,14 +226,14 @@
                     background: none;
                     color: #666;
                     border: none;
-                    font-size: 1.4rem;
+                    font-size: 1.2rem;
                     position: absolute;
-                    top: 8px;
-                    right: 12px;
+                    top: calc(6px + 0.5cm);
+                    right: 10px;
                     cursor: pointer;
                     transition: color 0.2s, transform 0.2s;
-                    width: 26px;
-                    height: 26px;
+                    width: 22px;
+                    height: 22px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -243,9 +244,9 @@
                     transform: scale(1.1);
                   }
                   #sidebarUsuario h2 {
-                    font-size: 1.15rem;
+                    font-size: 1rem;
                     color: #1976d2;
-                    margin-bottom: 0.4rem;
+                    margin-bottom: 0.3rem;
                     font-family: 'Montserrat', Arial, sans-serif;
                     font-weight: 700;
                     letter-spacing: 0.02em;
@@ -256,9 +257,9 @@
                     overflow: visible;
                   }
                   #sidebarUsuario label {
-                    font-size: 0.9rem;
+                    font-size: 0.8rem;
                     color: #333;
-                    margin-bottom: 0.3rem;
+                    margin-bottom: 0.25rem;
                     font-family: 'Inter', Arial, sans-serif;
                     font-weight: 500;
                     align-self: flex-start;
@@ -270,10 +271,10 @@
                   }
                   #sidebarUsuario input {
                     width: 100%;
-                    padding: 0.7rem 0.9rem;
-                    border-radius: 9px;
+                    padding: 0.6rem 0.8rem;
+                    border-radius: 8px;
                     border: 2px solid #d1d5db;
-                    font-size: 0.9rem;
+                    font-size: 0.8rem;
                     outline: none;
                     margin-bottom: 0.6rem;
                     background: #ffffff;
@@ -293,12 +294,12 @@
                     background: linear-gradient(135deg,#1976d2 0%,#42a5f5 100%);
                     color: #fff;
                     border: none;
-                    padding: 0.65rem 1rem;
-                    border-radius: 9px;
+                    padding: 0.55rem 0.85rem;
+                    border-radius: 8px;
                     cursor: pointer;
-                    font-size: 0.9rem;
+                    font-size: 0.8rem;
                     font-weight: 600;
-                    margin-top: 0.3rem;
+                    margin-top: 0.25rem;
                     box-shadow: 0 3px 8px rgba(25,118,210,0.3);
                     transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
                     width: 100%;
@@ -317,86 +318,90 @@
                       padding: 15px;
                     }
                     #sidebarUsuario {
-                      width: 85vw;
-                      max-width: 400px;
-                      min-width: 300px;
-                      padding: 1.5rem 1.2rem 1.3rem 1.2rem;
+                      width: 75vw;
+                      max-width: 340px;
+                      min-width: 260px;
+                      padding: 1.2rem 1rem 1.1rem 1rem;
                       margin: 0 auto;
-                      max-height: 85vh;
+                      max-height: 80vh;
                     }
                     #sidebarUsuario h2 {
-                      font-size: 1.2rem;
-                      margin-bottom: 0.5rem;
-                    }
-                    #sidebarUsuario label {
-                      font-size: 0.95rem;
+                      font-size: 1rem;
                       margin-bottom: 0.4rem;
                     }
+                    #sidebarUsuario label {
+                      font-size: 0.8rem;
+                      margin-bottom: 0.35rem;
+                    }
                     #sidebarUsuario input {
-                      padding: 0.8rem 1rem;
-                      font-size: 0.95rem;
-                      margin-bottom: 0.7rem;
+                      padding: 0.65rem 0.85rem;
+                      font-size: 0.8rem;
+                      margin-bottom: 0.6rem;
                     }
                     #sidebarUsuario button {
-                      padding: 0.7rem 1.1rem;
-                      font-size: 0.95rem;
-                      margin-top: 0.4rem;
+                      padding: 0.6rem 0.9rem;
+                      font-size: 0.8rem;
+                      margin-top: 0.35rem;
                     }
                   }
                   
                   /* Responsividade para dispositivos móveis (iPhone, Samsung, etc.) */
                   @media (max-width: 500px) {
                     #sidebarUsuarioOverlay {
-                      align-items: center;
-                      justify-content: center;
-                      padding: 10px;
+                      align-items: flex-start !important;
+                      justify-content: center !important;
+                      padding: 8px;
+                      padding-top: calc(50vh - 44vh - 5cm);
                       z-index: 999999;
+                      display: flex !important;
                     }
                     #sidebarUsuario {
-                      width: 92vw;
+                      width: 85vw;
                       max-width: none;
                       min-width: 0;
-                      padding: 1.8rem 1.4rem 1.6rem 1.4rem;
-                      border-radius: 18px;
-                      margin: 0 auto;
-                      max-height: 85vh;
+                      padding: 1.4rem 1.1rem 1.2rem 1.1rem;
+                      border-radius: 15px;
+                      margin: auto;
+                      max-height: 80vh;
                       box-shadow: 0 12px 40px 0 rgba(31,38,135,0.4);
                       z-index: 1000000;
+                      position: relative;
+                      transform: none;
+                      top: auto;
+                      left: auto;
+                      right: auto;
                     }
                     #sidebarUsuario h2 {
-                      font-size: 1.2rem;
-                      white-space: normal;
-                      margin-bottom: 0.7rem;
-                      line-height: 1.3;
-                    }
-                    #sidebarUsuario label {
-                      font-size: 0.95rem;
+                      font-size: 0.9rem;
                       white-space: normal;
                       margin-bottom: 0.5rem;
                       line-height: 1.3;
                     }
+                    #sidebarUsuario label {
+                      font-size: 0.75rem;
+                      white-space: normal;
+                      margin-bottom: 0.35rem;
+                      line-height: 1.3;
+                    }
                     #sidebarUsuario input {
-                      padding: 0.9rem 1.1rem;
-                      font-size: 0.95rem;
-                      margin-bottom: 0.9rem;
-                      border-radius: 12px;
+                      padding: 0.6rem 0.8rem;
+                      font-size: 0.75rem;
+                      margin-bottom: 0.6rem;
+                      border-radius: 8px;
                     }
                     #sidebarUsuario button {
-                      padding: 0.85rem 1.3rem;
-                      font-size: 0.95rem;
-                      margin-top: 0.6rem;
-                      border-radius: 12px;
-                      min-height: 44px;
+                      padding: 0.55rem 0.8rem;
+                      font-size: 0.75rem;
+                      margin-top: 0.3rem;
+                      border-radius: 8px;
+                      min-height: 36px;
                     }
                     #sidebarUsuario .fecharSidebar {
-                      font-size: 1.6rem;
-                      top: 12px;
-                      right: 18px;
-                      width: 36px;
-                      height: 36px;
-                      min-width: 44px;
-                      min-height: 44px;
-                      z-index: 1000001;
+                      font-size: 1.1rem;
+                      top: calc(6px + 0.5cm);
+                      right: 10px;
+                      width: 24px;
+                      height: 24px;
                     }
                   }
                   
@@ -419,25 +424,25 @@
                       margin-bottom: 0.6rem;
                     }
                     #sidebarUsuario label {
-                      font-size: 0.88rem;
-                      margin-bottom: 0.3rem;
+                      font-size: 0.75rem;
+                      margin-bottom: 0.25rem;
                     }
                     #sidebarUsuario input {
-                      padding: 0.75rem 0.9rem;
-                      font-size: 0.88rem;
-                      margin-bottom: 0.6rem;
+                      padding: 0.6rem 0.75rem;
+                      font-size: 0.75rem;
+                      margin-bottom: 0.5rem;
                     }
                     #sidebarUsuario button {
-                      padding: 0.75rem 1rem;
-                      font-size: 0.88rem;
-                      margin-top: 0.4rem;
+                      padding: 0.6rem 0.8rem;
+                      font-size: 0.75rem;
+                      margin-top: 0.3rem;
                     }
                     #sidebarUsuario .fecharSidebar {
-                      font-size: 1.3rem;
-                      top: 8px;
-                      right: 12px;
-                      width: 28px;
-                      height: 28px;
+                      font-size: 1.1rem;
+                      top: calc(6px + 0.5cm);
+                      right: 10px;
+                      width: 24px;
+                      height: 24px;
                     }
                   }
                   
@@ -493,8 +498,7 @@
                   }
                 </style>
             <!-- Sidebar Usuário -->
-            <div id="sidebarUsuarioOverlay">
-              <div id="sidebarUsuario">
+            <div id="sidebarUsuarioOverlay" style="display: none;">\n              <div id="sidebarUsuario">
                 <button class="fecharSidebar" title="Fechar">&times;</button>
                 <h2>👤 Perfil do Usuário</h2>
                 <label for="inputNomeUsuario">Digite seu nome</label>
@@ -750,6 +754,32 @@
     const btnSalvarUsuario = document.getElementById('btnSalvarUsuario');
     const nomeUsuarioSpan = document.getElementById('nomeUsuario');
     const arrobaUsuarioSpan = document.getElementById('arrobaUsuario');
+
+    // Garante que todos os overlays estejam fechados na inicialização
+    function fecharTodosOverlays() {
+      // Fecha modais de autenticação
+      const modais = ['modalLogin', 'modalCadastro', 'modalEsqueciSenha', 'favoritosModal', 'tagsModal'];
+      modais.forEach(modalId => {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.style.display = 'none';
+          modal.style.visibility = 'hidden';
+          modal.style.opacity = '0';
+          modal.classList.remove('ativo');
+        }
+      });
+      
+      // Fecha sidebar de usuário
+      if (sidebarUsuarioOverlay) {
+        sidebarUsuarioOverlay.style.display = 'none';
+      }
+      
+      // Remove classe do body
+      document.body.classList.remove('sidebar-usuario-aberta');
+    }
+    
+    // Executa na inicialização
+    fecharTodosOverlays();
 
     // Debug: verificar se todos os elementos foram encontrados
     if (!btnMenuUsuario || !sidebarUsuario || !btnSalvarUsuario || !nomeUsuarioSpan || !arrobaUsuarioSpan) {

@@ -736,10 +736,12 @@ background: linear-gradient(135deg, #e0f0ff, #ffffff);
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.6);
-  display: none;
+  display: none !important;
   align-items: center;
   justify-content: center;
   z-index: 9999;
+  visibility: hidden;
+  opacity: 0;
 }
 
 .modal-form {
