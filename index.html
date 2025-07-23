@@ -59,7 +59,7 @@
       </form>
     </div>
     <div class="container" style="width:100vw;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;padding:0;">
-        <div class="frase-box" style="width:100%;max-width:370px;min-width:260px;min-height:calc(420px + 2cm);max-height:calc(98vh + 3cm);background:#fff;border-radius:1.1rem;padding:1.1rem 1.1rem 0.7rem 1.1rem;box-shadow:0 2px 12px #0001;display:flex;flex-direction:column;align-items:center;overflow:hidden;position:relative;justify-content:flex-start;gap:0;">
+        <div class="frase-box" style="width:100%;max-width:485px;min-width:320px;min-height:calc(420px + 2cm);max-height:calc(98vh + 3cm);background:#fff;border-radius:1.1rem;padding:1.1rem 1.1rem 0.7rem 1.1rem;box-shadow:0 2px 12px #0001;display:flex;flex-direction:column;align-items:center;overflow:hidden;position:relative;justify-content:flex-start;gap:0;">
             <!-- Botão de três linhas (menu usuário) -->
             <button id="btnMenuUsuario" title="Opções de usuário" style="position:absolute;top:14px;right:14px;background:#fff;border:none;cursor:pointer;z-index:10;padding:6px 6px 6px 6px;border-radius:7px;width:38px;height:32px;display:flex;align-items:center;justify-content:center;">
               <span style="display:block;width:26px;height:18px;position:relative;">
@@ -69,7 +69,7 @@
               </span>
             </button>
             <!-- NOVA CAIXA DE TEXTO ESTILO ANEXO (fixa, 4cm abaixo do topo) -->
-            <div id="twitterTextBox" style="background:rgba(90,90,105,0.78);border-radius:17px;box-shadow:0 8px 29px 0 rgba(31,38,135,0.18);position:absolute;top:4cm;left:50%;transform:translateX(-50%);width:300px;max-width:90vw;min-width:220px;min-height:150px;max-height:332px;padding:44px 32px 44px 32px;display:flex;flex-direction:column;align-items:center;overflow:visible;transition:background 0.5s;border: 3.5px solid #0d47a1;">
+            <div id="twitterTextBox" style="background:rgba(90,90,105,0.78);border-radius:17px;box-shadow:0 8px 29px 0 rgba(31,38,135,0.18);position:absolute;top:4cm;left:50%;transform:translateX(-50%);width:262px;max-width:calc(90vw - 2cm);min-width:182px;min-height:36px;max-height:294px;padding:25px 32px 25px 32px;display:flex;flex-direction:column;align-items:center;overflow:visible;transition:background 0.5s;border: 1.5px solid rgba(13,71,161,0.4);">
                 <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0.1rem;margin-bottom:8px;width:100%;justify-content:center;">
                   <span id="nomeUsuario" style="font-family:'Montserrat',Arial,sans-serif;font-size:1.08rem;font-weight:400;color:#222;letter-spacing:0.01em;line-height:1.1;text-shadow:0 1px 4px #fff,0 1px 1px #bbb;"></span>
                   <span style="display:flex;align-items:center;gap:0.32em;">
@@ -156,12 +156,9 @@
                     font-family: 'Space Mono', monospace;
                     font-size: 0.99rem;
                     color: #555;
-                    background: rgba(245,245,245,0.85);
                     padding: 1px 7px 1px 4px;
-                    border-radius: 12px;
                     line-height: 1.2;
-                    box-shadow: 0 1px 4px #fff, 0 1px 1px #bbb;
-                    transition: color 0.3s, background 0.3s;
+                    transition: color 0.3s;
                   }
                   #iconVerificado svg {
                     vertical-align: middle;
@@ -172,8 +169,19 @@
                   }
                   body.dark-mode #arrobaUsuario {
                     color: #eaeaea !important;
-                    background: rgba(30,32,40,0.85);
-                    box-shadow: 0 1px 8px #232323, 0 1px 1px #000;
+                  }
+                  /* Modo dark para caixa de texto */
+                  body.dark-mode #twitterTextBox {
+                    background: rgba(30,35,45,0.95) !important;
+                    border: 1.5px solid rgba(25,118,210,0.6) !important;
+                    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.4) !important;
+                  }
+                  body.dark-mode #fraseApp {
+                    color: #ffffff !important;
+                    text-shadow: 0 1px 3px rgba(0,0,0,0.7) !important;
+                  }
+                  body.dark-mode #autorFraseApp {
+                    color: #e0e0e0 !important;
                   }
                   /* Estilo para a aba lateral */
                   #sidebarUsuario {
@@ -238,7 +246,43 @@
                     #sidebarUsuario {
                       width: 100vw;
                       right: -100vw;
-                      padding: 1.2rem 1rem 1rem 1rem;
+                      padding: 1.2rem 0.5rem 1rem 0.5rem;
+                      border-radius: 0;
+                      min-width: 0;
+                      max-width: 100vw;
+                      box-shadow: none;
+                      font-size: 1rem;
+                    }
+                    #sidebarUsuario h2 {
+                      font-size: 1.1rem;
+                    }
+                    #sidebarUsuario label,
+                    #sidebarUsuario input,
+                    #sidebarUsuario button {
+                      font-size: 0.98rem;
+                    }
+                    #sidebarUsuario .fecharSidebar {
+                      font-size: 1.6rem;
+                      top: 10px;
+                      right: 10px;
+                    }
+                    #sidebarUsuario input {
+                      padding: 0.6rem 0.7rem;
+                      margin-bottom: 0.7rem;
+                    }
+                    #sidebarUsuario button {
+                      padding: 0.7rem 1rem;
+                      margin-top: 0.3rem;
+                    }
+                    #sidebarUsuario.open {
+                      right: 0;
+                    }
+                    #sidebarUsuario {
+                      transition: right 0.35s cubic-bezier(.4,1.3,.6,1), width 0.3s;
+                    }
+                    /* Overlay para facilitar toque */
+                    #sidebarUsuarioOverlay {
+                      align-items: flex-end !important;
                     }
                   }
                 </style>
@@ -506,6 +550,52 @@
       console.warn('Alguns elementos da sidebar de usuário não foram encontrados. Verifique os IDs no HTML.');
     }
 
+    // Função global para forçar atualização dos elementos de usuário
+    window.forcarAtualizacaoUsuario = function() {
+      const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
+      const arroba = localStorage.getItem('usuario_arroba') || '@';
+      
+      const nomeSpan = document.getElementById('nomeUsuario');
+      const arrobaSpan = document.getElementById('arrobaUsuario');
+      
+      if (nomeSpan) {
+        nomeSpan.textContent = nome;
+        nomeSpan.style.display = 'block';
+        nomeSpan.style.opacity = '1';
+        nomeSpan.style.visibility = 'visible';
+      }
+      
+      if (arrobaSpan) {
+        arrobaSpan.textContent = arroba;
+        arrobaSpan.style.display = 'block';
+        arrobaSpan.style.opacity = '1';
+        arrobaSpan.style.visibility = 'visible';
+      }
+      
+      console.log('Forçada atualização do usuário:', { nome, arroba });
+    };
+
+    // Adiciona um botão de teste temporário para verificar a funcionalidade
+    const btnTeste = document.createElement('button');
+    btnTeste.textContent = '🔄 Atualizar Usuário';
+    btnTeste.style.position = 'fixed';
+    btnTeste.style.top = '10px';
+    btnTeste.style.left = '10px';
+    btnTeste.style.zIndex = '9999';
+    btnTeste.style.padding = '8px 12px';
+    btnTeste.style.backgroundColor = '#0d47a1';
+    btnTeste.style.color = 'white';
+    btnTeste.style.border = 'none';
+    btnTeste.style.borderRadius = '6px';
+    btnTeste.style.cursor = 'pointer';
+    btnTeste.onclick = function() {
+      if (window.forcarAtualizacaoUsuario) {
+        window.forcarAtualizacaoUsuario();
+        alert('Função de atualização executada!');
+      }
+    };
+    document.body.appendChild(btnTeste);
+
     // Carregar valores salvos
     function carregarUsuario() {
       const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
@@ -523,10 +613,6 @@
       if (arrobaSpan) {
         arrobaSpan.textContent = arroba;
         arrobaSpan.style.display = 'block';
-        // Garante que tenha o estilo correto
-        arrobaSpan.style.background = 'rgba(245,245,245,0.85)';
-        arrobaSpan.style.borderRadius = '12px';
-        arrobaSpan.style.boxShadow = '0 1px 4px #fff, 0 1px 1px #bbb';
       }
       
       // Atualiza os campos de input
@@ -556,6 +642,9 @@
           arrobaSpan.textContent = arroba;
           arrobaSpan.style.display = 'block';
         }
+        
+        // Chama a função global para garantir atualização
+        if (window.forcarAtualizacaoUsuario) window.forcarAtualizacaoUsuario();
       }, 500);
     });
 
@@ -633,13 +722,6 @@ if (btnSalvarUsuario) {
       arrobaSpan.style.display = 'block'; // Força a visibilidade
     }
     
-    // Adiciona estilos visuais para forçar a atualização
-    if (arrobaSpan) {
-      arrobaSpan.style.background = 'rgba(245,245,245,0.85)';
-      arrobaSpan.style.borderRadius = '12px';
-      arrobaSpan.style.boxShadow = '0 1px 4px #fff, 0 1px 1px #bbb';
-    }
-    
     // Atualiza os campos de input para mostrar os valores corretos
     if (inputNomeUsuario) inputNomeUsuario.value = nome !== 'Seu nome' ? nome : '';
     if (inputArrobaUsuario) inputArrobaUsuario.value = arroba !== '@' ? arroba.replace('@', '') : '';
@@ -653,6 +735,8 @@ if (btnSalvarUsuario) {
     setTimeout(() => {
       if (nomeSpan) nomeSpan.textContent = nome;
       if (arrobaSpan) arrobaSpan.textContent = arroba;
+      // Chama a função global para forçar atualização
+      if (window.forcarAtualizacaoUsuario) window.forcarAtualizacaoUsuario();
     }, 100);
     
     // Feedback visual
