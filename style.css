@@ -269,7 +269,7 @@ h1 {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: calc(2cm + 1.2rem) 5vw calc(2cm + 0.7rem) 5vw; /* top, right, bottom, left */
+  padding: calc(2cm + 1.2rem) calc(2cm + 5vw) calc(2cm + 0.7rem) calc(4cm + 5vw); /* top, right, bottom, left */
   margin: 0 auto;
   width: 100%;
   max-width: 400px;
