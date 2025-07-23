@@ -53,6 +53,84 @@ body.sidebar-usuario-aberta {
     min-height: 100vh !important;
     height: auto !important;
 }
+
+/* === SIDEBAR MOBILE OPTIMIZATIONS === */
+/* Garante que sidebar seja fechável em mobile */
+@media (max-width: 768px) {
+  /* Remove class que pode estar travando a sidebar */
+  body.sidebar-usuario-aberta {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  /* Força overlay a ser clicável para fechar */
+  #sidebarUsuarioOverlay {
+    touch-action: auto !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+  
+  /* Garante que botão fechar seja grande o suficiente */
+  #sidebarUsuario .fecharSidebar,
+  .fecharSidebar {
+    min-width: 48px !important;
+    min-height: 48px !important;
+    font-size: 1.8rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(255,255,255,0.9) !important;
+    border-radius: 50% !important;
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    z-index: 1000002 !important;
+    color: #333 !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: rgba(0,0,0,0.1) !important;
+  }
+  
+  /* Hover/active states para mobile */
+  #sidebarUsuario .fecharSidebar:active,
+  .fecharSidebar:active {
+    background: rgba(255,255,255,1) !important;
+    transform: scale(0.95) !important;
+  }
+  
+  /* Área extra de toque para fechar sidebar */
+  #sidebarUsuario::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 80px;
+    z-index: 1000001;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+  
+  /* Botão emergencial para fechar sidebar */
+  #sidebarUsuario::after {
+    content: "✕ Fechar";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s, visibility 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+    -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+  }
+}
 .container {
     background: #fff;
     border-radius: 25px;
@@ -76,6 +154,7 @@ body.sidebar-usuario-aberta {
 body.sidebar-usuario-aberta .container {
     margin: 20px auto;
 }
+/* Corrige sobreposição do logo em telas pequenas */
 @media (max-width: 600px) {
     .container {
         max-width: 95vw;
@@ -89,15 +168,53 @@ body.sidebar-usuario-aberta .container {
         align-items: center;
         justify-content: center;
     }
+    
+    #logoApp {
+        margin-left: 0;
+        left: 0;
+        position: static;
+        max-width: 120px;
+        width: 100%;
+    }
+    
+    /* Garante funcionalidade touch para todos os botões */
+    button, .coracao-btn, .favoritos-btn, .copiar-btn, .remover-fav-btn, .remover-todos-btn, .copiar-fav-btn {
+        min-height: 44px;
+        min-width: 44px;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        pointer-events: auto !important;
+        cursor: pointer;
+    }
+    
+    /* Otimização específica para selects em mobile */
+    select {
+        min-height: 44px;
+        touch-action: manipulation;
+        -webkit-appearance: none;
+        appearance: none;
+    }
 }
 body.dark-mode {
     background: #181a1b !important;
     color: #eee !important;
 }
+body.dark-mode .container {
+    background: #23272b !important;
+    color: #eee !important;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+}
 body.dark-mode .frase-box {
     background: #23272b !important;
     color: #eee !important;
     box-shadow: 0 2px 12px #0006;
+}
+body.dark-mode .frase-box,
+body.dark-mode .favoritos-content,
+body.dark-mode .tags-content {
+  background: #23272b !important;
+  color: #eee !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35);
 }
 body.dark-mode select,
 body.dark-mode button,
@@ -108,6 +225,79 @@ body.dark-mode input {
 }
 body.dark-mode svg {
     stroke: #eee !important;
+}
+body.dark-mode #iconeJogoDaVelha {
+  color: #fff !important;
+}
+body.dark-mode .favoritos-content h2,
+body.dark-mode .tags-content h2 {
+  color: #fff !important;
+}
+body.dark-mode .favoritos-lista li {
+  border-bottom: 1px solid #444 !important;
+  color: #eee !important;
+}
+body.dark-mode .fechar-modal {
+  background: #444 !important;
+  color: #fff !important;
+}
+body.dark-mode .fechar-modal:hover {
+  background: #222 !important;
+}
+body.dark-mode .bg-watermark {
+  opacity: 0.5 !important;
+  filter: brightness(1.5) grayscale(0.2) contrast(1.1);
+}
+body.dark-mode #tagsModal {
+  background: rgba(0,0,0,0.45) !important;
+}
+body.dark-mode .tags-content {
+  background: #23272b !important;
+  color: #eee !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+}
+body.dark-mode .tags-content h2 {
+  color: #fff !important;
+}
+body.dark-mode .tags-content button {
+  background: #444 !important;
+  color: #fff !important;
+}
+body.dark-mode .tags-content button:hover {
+  background: #222 !important;
+}
+body.dark-mode .tags-content div {
+  background: #333 !important;
+  color: #eee !important;
+  border-color: #444 !important;
+}
+/* Melhora contraste de botões no modo escuro */
+body.dark-mode button,
+body.dark-mode .fechar-modal {
+    background: #23272b !important;
+    color: #ff9800 !important;
+    border-color: #ff9800 !important;
+}
+body.dark-mode button:hover,
+body.dark-mode .fechar-modal:hover {
+    background: #444 !important;
+    color: #fff !important;
+}
+/* Corrige detalhes vazados da logo/frase no modo dark */
+body.dark-mode #logoApp,
+body.dark-mode .logoApp,
+body.dark-mode .logo-frase {
+  filter: brightness(1.2) contrast(1.3) drop-shadow(0 0 2px #181a1b) !important;
+  /* Se for SVG, força preenchimento */
+  fill: #fff !important;
+  stroke: #fff !important;
+}
+/* Se a logo for SVG, garanta que todos paths estejam preenchidos */
+body.dark-mode #logoApp svg path,
+body.dark-mode .logoApp svg path,
+body.dark-mode .logo-frase svg path {
+  fill: #fff !important;
+  stroke: #fff !important;
 }
 
 /* === Botões Redondos Com Ícone === */
@@ -273,24 +463,6 @@ body.dark-mode .bg-watermark {
 body:not(.dark-mode) .bg-watermark {
     filter: drop-shadow(0 0 6px #fff8) drop-shadow(0 0 2px #0002);
     opacity: 0.38;
-}
-
-/* === Container Principal === */
-.container {
-  background: #fff;
-  border-radius: 25px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
-  padding: 18px 8px 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 540px;
-  max-width: 600px;
-  width: 95vw;
-  text-align: center;
-  box-sizing: border-box;
-  margin: auto;
 }
 
 /* === Títulos e Texto === */
@@ -649,9 +821,8 @@ body.dark-mode .tags-content div {
   border-color: #444 !important;
 }
 #logoApp {
-  margin-left: -7cm;
-position: relative;
-left: -8cm;
+  max-width: 120px;
+  width: 100%;
 }
 
 /* Melhorias de acessibilidade para botões */
@@ -686,49 +857,6 @@ button:focus, .coracao-btn:focus, .fechar-modal:focus {
     }
 }
 
-/* Corrige sobreposição do logo em telas pequenas */
-@media (max-width: 600px) {
-    #logoApp {
-        margin-left: 0;
-        left: 0;
-        position: static;
-        max-width: 120px;
-        width: 100%;
-    }
-}
-
-/* Melhora contraste de botões no modo escuro */
-body.dark-mode button,
-body.dark-mode .fechar-modal {
-    background: #23272b !important;
-    color: #ff9800 !important;
-    border-color: #ff9800 !important;
-}
-
-body.dark-mode button:hover,
-body.dark-mode .fechar-modal:hover {
-    background: #444 !important;
-    color: #fff !important;
-}
-
-/* Corrige detalhes vazados da logo/frase no modo dark */
-body.dark-mode #logoApp,
-body.dark-mode .logoApp,
-body.dark-mode .logo-frase {
-  filter: brightness(1.2) contrast(1.3) drop-shadow(0 0 2px #181a1b) !important;
-  /* Se for SVG, força preenchimento */
-  fill: #fff !important;
-  stroke: #fff !important;
-}
-
-/* Se a logo for SVG, garanta que todos paths estejam preenchidos */
-body.dark-mode #logoApp svg path,
-body.dark-mode .logoApp svg path,
-body.dark-mode .logo-frase svg path {
-  fill: #fff !important;
-  stroke: #fff !important;
-}
-
 /* Exemplo: cinza claro e cadeado */
 .premium {
   color: #aaa;
@@ -761,16 +889,19 @@ background: linear-gradient(135deg, #e0f0ff, #ffffff);
 .modal-overlay {
   position: fixed;
   top: 0;
+  position: fixed;
+  top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.6);
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s, visibility 0.2s;
+  display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
-}
-
 /* Remove qualquer elemento com background escuro apenas quando necessário */
 div[style*="background:rgba"].hidden,
 div[style*="background: rgba"].hidden {
@@ -786,18 +917,76 @@ div[style*="background: rgba"].hidden {
     z-index: 1 !important;
     background: #fff !important;
   }
-  
   /* Garante que botões sejam clicáveis */
   button, .coracao-btn, .favoritos-btn, .copiar-btn, .remover-fav-btn {
     pointer-events: auto !important;
     touch-action: manipulation;
+  visibility: hidden;
+  opacity: 0;
+  display: flex;
     -webkit-tap-highlight-color: rgba(0,0,0,0.1);
   }
   
-  /* Otimização para touch */
-  button {
-    min-height: 44px;
-    min-width: 44px;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  }
+  
+  /* Garante que a sidebar funcione corretamente no mobile */
+  #sidebarUsuarioOverlay {
+    display: none !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(30,32,40,0.65) !important;
+    z-index: 999999 !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 15px !important;
+    box-sizing: border-box !important;
+  }
+  
+  #sidebarUsuarioOverlay.ativo,
+  #sidebarUsuarioOverlay[style*="flex"] {
+    display: flex !important;
+  }
+  
+  #sidebarUsuario {
+    position: relative !important;
+    width: 85vw !important;
+    max-width: 400px !important;
+    background: #f9fafb !important;
+    border-radius: 12px !important;
+    padding: 1.5rem 1rem !important;
+    z-index: 1000000 !important;
+    max-height: 80vh !important;
+    overflow-y: auto !important;
+  }
+  
+  #sidebarUsuario .fecharSidebar {
+    position: absolute !important;
+    top: 15px !important;
+    right: 15px !important;
+    background: none !important;
+    border: none !important;
+    font-size: 1.5rem !important;
+    cursor: pointer !important;
+    z-index: 1000001 !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #666 !important;
+  }
+  
+  /* Garante que o body não trave quando sidebar aberta */
+  body.sidebar-usuario-aberta {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
   }
 }
 
@@ -932,4 +1121,54 @@ div[style*="background: rgba"].hidden {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* === SIDEBAR FORCE CLOSE MOBILE === */
+/* Force close sidebar on mobile quando clicado fora */
+@media (max-width: 768px) {
+  /* Força reset da sidebar se estiver aberta */
+  #sidebarUsuarioOverlay:not([style*="none"]) {
+    display: flex !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 999999 !important;
+  }
+  
+  /* Auto-hide sidebar após 30 segundos em mobile se necessário */
+  @supports (animation-timeline: auto) {
+    #sidebarUsuarioOverlay {
+      animation: auto-hide-sidebar 30s forwards;
+    }
+    
+    @keyframes auto-hide-sidebar {
+      0% { opacity: 1; }
+      95% { opacity: 1; }
+      100% { 
+        opacity: 0;
+        display: none !important;
+        visibility: hidden !important;
+      }
+    }
+  }
+  
+  /* Escape key e back button handling */
+  #sidebarUsuarioOverlay[data-closable="true"] {
+    display: none !important;
+  }
+  
+  /* Força fecha sidebar no mobile quando necessário */
+  body:not(.sidebar-usuario-aberta) #sidebarUsuarioOverlay {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+  
+  body:not(.sidebar-usuario-aberta) #sidebarUsuario {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
 }
