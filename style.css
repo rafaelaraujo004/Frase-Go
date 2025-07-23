@@ -32,21 +32,17 @@ body {
     padding: 20px 0;
 }
 
-/* Reset para garantir que nenhum overlay esteja ativo */
+/* Reset para garantir que nenhum overlay esteja bloqueando */
 body::before,
 body::after {
     content: none !important;
 }
 
-/* Remove qualquer backdrop ou overlay que possa estar ativo */
-*[style*="rgba"],
-*[style*="background"] {
-    background: transparent !important;
-}
-
-/* Força reset de qualquer elemento com z-index alto */
-*[style*="z-index"] {
-    z-index: auto !important;
+/* Garante que todos os botões sejam clicáveis */
+button, .coracao-btn, .favoritos-btn, .copiar-btn, .remover-fav-btn, .remover-todos-btn, .copiar-fav-btn {
+  pointer-events: auto !important;
+  touch-action: manipulation;
+  cursor: pointer;
 }
 
 /* Permite rolagem quando a sidebar estiver aberta */
@@ -92,21 +88,6 @@ body.sidebar-usuario-aberta .container {
         padding: 20px 0;
         align-items: center;
         justify-content: center;
-    }
-    
-    /* Força todos os overlays a ficarem ocultos em mobile */
-    .modal-overlay,
-    #modalLogin,
-    #modalCadastro,
-    #modalEsqueciSenha,
-    #sidebarUsuarioOverlay,
-    #favoritosModal,
-    #tagsModal {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
-        background: transparent !important;
     }
 }
 body.dark-mode {
@@ -452,14 +433,11 @@ button:hover {
   width: 100vw;
   height: 100vh;
   background: rgba(0,0,0,0.25);
-  display: none !important;
+  display: none;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  visibility: hidden !important;
-  opacity: 0 !important;
   transition: opacity 0.2s, visibility 0.2s;
-  pointer-events: none !important;
 }
 
 #favoritosModal.ativo {
@@ -697,6 +675,15 @@ button:focus, .coracao-btn:focus, .fechar-modal:focus {
     h1 {
         font-size: 1.8rem;
     }
+    
+    /* Garante que todos os botões sejam tocáveis */
+    button, .coracao-btn, .favoritos-btn, .copiar-btn, .remover-fav-btn, .remover-todos-btn, .copiar-fav-btn {
+        min-height: 44px;
+        min-width: 44px;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        pointer-events: auto !important;
+    }
 }
 
 /* Corrige sobreposição do logo em telas pequenas */
@@ -707,6 +694,24 @@ button:focus, .coracao-btn:focus, .fechar-modal:focus {
         position: static;
         max-width: 120px;
         width: 100%;
+    }
+    
+    /* Garante funcionalidade touch para todos os botões */
+    button, .coracao-btn, .favoritos-btn, .copiar-btn, .remover-fav-btn, .remover-todos-btn, .copiar-fav-btn {
+        min-height: 44px;
+        min-width: 44px;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        pointer-events: auto !important;
+        cursor: pointer;
+    }
+    
+    /* Otimização específica para selects em mobile */
+    select {
+        min-height: 44px;
+        touch-action: manipulation;
+        -webkit-appearance: none;
+        appearance: none;
     }
 }
 
@@ -778,50 +783,39 @@ background: linear-gradient(135deg, #e0f0ff, #ffffff);
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.6);
-  display: none !important;
+  display: none;
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
 }
 
-/* Força todos os overlays a ficarem ocultos */
-#modalLogin,
-#modalCadastro, 
-#modalEsqueciSenha,
-#sidebarUsuarioOverlay,
-#favoritosModal,
-#tagsModal {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-/* Remove qualquer elemento com background escuro */
-div[style*="background:rgba"],
-div[style*="background: rgba"] {
+/* Remove qualquer elemento com background escuro apenas quando necessário */
+div[style*="background:rgba"].hidden,
+div[style*="background: rgba"].hidden {
   display: none !important;
   background: transparent !important;
 }
 
-/* Reset completo para mobile */
+/* Reset completo para mobile - mantém funcionalidade */
 @media (max-width: 768px) {
-  /* Remove todos os backgrounds escuros */
-  *[style*="rgba(0,0,0"],
-  *[style*="rgba(30,"],
-  *[style*="rgba(90,"] {
-    background: transparent !important;
-    display: none !important;
-  }
-  
   /* Força visibilidade do container principal */
   .container {
     position: relative !important;
     z-index: 1 !important;
     background: #fff !important;
+  }
+  
+  /* Garante que botões sejam clicáveis */
+  button, .coracao-btn, .favoritos-btn, .copiar-btn, .remover-fav-btn {
+    pointer-events: auto !important;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+  }
+  
+  /* Otimização para touch */
+  button {
+    min-height: 44px;
+    min-width: 44px;
   }
 }
 
