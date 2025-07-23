@@ -14,7 +14,8 @@
 <meta name="description" content="Frase Go - Encontre inspiração diária com frases motivacionais, de amor, amizade e muito mais. Personalize com temas e fontes exclusivas.">
 <body>
     <!-- Modal de Login -->
-    <div id="modalLogin" class="modal-overlay" style="display: none;">\n      <form id="formLogin" class="modal-form" role="dialog" aria-labelledby="loginTitle" aria-describedby="loginDesc">
+    <div id="modalLogin" class="modal-overlay">
+      <form id="formLogin" class="modal-form" role="dialog" aria-labelledby="loginTitle" aria-describedby="loginDesc">
         <h2 id="loginTitle">Entrar</h2>
         <p id="loginDesc" class="sr-only">Faça login para acessar recursos exclusivos</p>
         <input id="loginEmail" type="email" placeholder="E-mail" required aria-label="E-mail">
@@ -34,7 +35,8 @@
       </form>
     </div>
     <!-- Modal de cadastro -->
-    <div id="modalCadastro" class="modal-overlay" style="display: none;">\n      <form id="formCadastro" class="modal-form" role="dialog" aria-labelledby="cadastroTitle" aria-describedby="cadastroDesc">
+    <div id="modalCadastro" class="modal-overlay">
+      <form id="formCadastro" class="modal-form" role="dialog" aria-labelledby="cadastroTitle" aria-describedby="cadastroDesc">
         <h2 id="cadastroTitle">Criar Conta</h2>
         <p id="cadastroDesc" class="sr-only">Crie sua conta para salvar favoritos e acessar recursos exclusivos</p>
         <input id="cadastroEmail" type="email" placeholder="E-mail" required aria-label="E-mail">
@@ -45,7 +47,8 @@
       </form>
     </div>
     <!-- Modal de esqueci senha -->
-    <div id="modalEsqueciSenha" class="modal-overlay" style="display: none;">\n      <form id="formEsqueciSenha" class="modal-form" role="dialog" aria-labelledby="esqueciTitle" aria-describedby="esqueciDesc">
+    <div id="modalEsqueciSenha" class="modal-overlay">
+      <form id="formEsqueciSenha" class="modal-form" role="dialog" aria-labelledby="esqueciTitle" aria-describedby="esqueciDesc">
         <h2 id="esqueciTitle">Recuperar Senha</h2>
         <p id="esqueciDesc" class="sr-only">Digite seu e-mail para receber o link de recuperação</p>
         <input id="esqueciEmail" type="email" placeholder="E-mail cadastrado" required aria-label="E-mail cadastrado">
@@ -56,9 +59,9 @@
       </form>
     </div>
     <div class="container" style="width:100vw;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;padding:0;">
-        <div class="frase-box" style="width:100%;max-width:485px;min-width:320px;min-height:calc(420px + 2cm);max-height:calc(98vh + 3cm);background:#fff;border-radius:1.1rem;padding:1.1rem 1.1rem 0.7rem 1.1rem;box-shadow:0 2px 12px #0001;display:flex;flex-direction:column;align-items:center;overflow:hidden;position:relative;justify-content:flex-start;gap:0;">
+        <div class="frase-box" style="width:100%;max-width:370px;min-width:260px;min-height:calc(420px + 2cm);max-height:calc(98vh + 3cm);background:#fff;border-radius:1.1rem;padding:1.1rem 1.1rem 0.7rem 1.1rem;box-shadow:0 2px 12px #0001;display:flex;flex-direction:column;align-items:center;overflow:hidden;position:relative;justify-content:flex-start;gap:0;">
             <!-- Botão de três linhas (menu usuário) -->
-            <button id="btnMenuUsuario" title="Opções de usuário" style="position:absolute;top:14px;right:14px;background:#fff;border:none;cursor:pointer;z-index:5;padding:6px 6px 6px 6px;border-radius:7px;width:38px;height:32px;display:flex;align-items:center;justify-content:center;">
+            <button id="btnMenuUsuario" title="Opções de usuário" style="position:absolute;top:14px;right:14px;background:#fff;border:none;cursor:pointer;z-index:10;padding:6px 6px 6px 6px;border-radius:7px;width:38px;height:32px;display:flex;align-items:center;justify-content:center;">
               <span style="display:block;width:26px;height:18px;position:relative;">
                 <span class="menu-bar" style="display:block;position:absolute;left:0;top:0;width:100%;height:3px;border-radius:2px;"></span>
                 <span class="menu-bar" style="display:block;position:absolute;left:0;top:7.5px;width:100%;height:3px;border-radius:2px;"></span>
@@ -66,20 +69,21 @@
               </span>
             </button>
             <!-- NOVA CAIXA DE TEXTO ESTILO ANEXO (fixa, 4cm abaixo do topo) -->
-            <div id="twitterTextBox" style="background:rgba(90,90,105,0.78);border-radius:17px;box-shadow:0 8px 29px 0 rgba(31,38,135,0.18);position:absolute;top:4cm;left:50%;transform:translateX(-50%);width:262px;max-width:calc(90vw - 2cm);min-width:182px;min-height:36px;max-height:294px;padding:25px 32px 25px 32px;display:flex;flex-direction:column;align-items:center;overflow:visible;transition:background 0.5s;border: 1.5px solid rgba(13,71,161,0.4);z-index:1;">
+            <div id="twitterTextBox" style="background:rgba(90,90,105,0.78);border-radius:17px;box-shadow:0 8px 29px 0 rgba(31,38,135,0.18);position:absolute;top:4cm;left:50%;transform:translateX(-50%);width:300px;max-width:90vw;min-width:220px;min-height:150px;max-height:370px;padding:44px 32px 44px 32px;display:flex;flex-direction:column;align-items:center;overflow:visible;transition:background 0.5s;border: 3.5px solid rgba(13,71,161,0.55);">
                 <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0.1rem;margin-bottom:8px;width:100%;justify-content:center;">
                   <span id="nomeUsuario" style="font-family:'Montserrat',Arial,sans-serif;font-size:1.08rem;font-weight:400;color:#222;letter-spacing:0.01em;line-height:1.1;text-shadow:0 1px 4px #fff,0 1px 1px #bbb;"></span>
                   <span style="display:flex;align-items:center;gap:0.32em;">
                     <span id="arrobaUsuario" style="font-family:'Space Mono',monospace;font-size:0.99rem;color:#555;padding:1px 7px 1px 4px;line-height:1.2;"></span>
                     <span id="iconVerificado" title="Verificado" style="display:inline-flex;align-items:center;margin-left:2px;">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="12" r="10" fill="#1DA1F2"/>
-                        <path d="M9 12l2 2 4-4" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1976d2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9" fill="#1976d2" stroke="#1565c0" stroke-width="2"/>
+                        <circle cx="12" cy="12" r="7.5" fill="#fff" stroke="#42a5f5" stroke-width="2"/>
+                        <path d="M9.5 12.5l2 2 3-4" stroke="#1976d2" stroke-width="2" fill="none"/>
                       </svg>
                     </span>
                   </span>
                 </div>
-                <span id="fraseApp" style="position:relative;z-index:1;color:#f5f5f5;font-family:'Space Mono',monospace;font-size:1.13rem;text-align:center;line-height:1.6;font-weight:400;white-space:pre-line;word-break:break-word;display:block;width:100%;padding:10px 0 0 0;display:flex;align-items:center;justify-content:center;height:100%;min-height:80px;"></span>
+                <span id="fraseApp" style="position:relative;z-index:2;color:#f5f5f5;font-family:'Space Mono',monospace;font-size:1.13rem;text-align:center;line-height:1.6;font-weight:400;white-space:pre-line;word-break:break-word;display:block;width:100%;padding:0;display:flex;align-items:center;justify-content:center;height:100%;min-height:80px;"></span>
                 <span id="autorFraseApp" style="display:block;width:100%;text-align:center;font-size:0.98rem;color:#b0b0b0;font-family:'Montserrat',Arial,sans-serif;margin-top:0.5em;line-height:1.2;min-height:1.2em;"></span>
                 <style>
                   /* Sidebar Usuário - modo dark */
@@ -107,6 +111,13 @@
                   }
                   body.dark-mode #sidebarUsuario .fecharSidebar {
                     color: #b0b0b0 !important;
+                  }
+                  /* Oculta controles inferiores quando a sidebar está aberta */
+                  body.sidebar-usuario-aberta .botoes-interativos,
+                  body.sidebar-usuario-aberta .bottom-botoes {
+                    opacity: 0 !important;
+                    pointer-events: none !important;
+                    transition: opacity 0.2s;
                   }
                   /* Visibilidade do botão 3 pontos no modo dark */
                   #btnMenuUsuario .menu-bar {
@@ -146,9 +157,12 @@
                     font-family: 'Space Mono', monospace;
                     font-size: 0.99rem;
                     color: #555;
+                    background: rgba(245,245,245,0.85);
                     padding: 1px 7px 1px 4px;
+                    border-radius: 12px;
                     line-height: 1.2;
-                    transition: color 0.3s;
+                    box-shadow: 0 1px 4px #fff, 0 1px 1px #bbb;
+                    transition: color 0.3s, background 0.3s;
                   }
                   #iconVerificado svg {
                     vertical-align: middle;
@@ -159,358 +173,91 @@
                   }
                   body.dark-mode #arrobaUsuario {
                     color: #eaeaea !important;
+                    background: rgba(30,32,40,0.85);
+                    box-shadow: 0 1px 8px #232323, 0 1px 1px #000;
                   }
-                  /* Modo dark para caixa de texto */
-                  body.dark-mode #twitterTextBox {
-                    background: rgba(30,35,45,0.95) !important;
-                    border: 1.5px solid rgba(25,118,210,0.6) !important;
-                    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.4) !important;
-                  }
-                  body.dark-mode #fraseApp {
-                    color: #ffffff !important;
-                    text-shadow: 0 1px 3px rgba(0,0,0,0.7) !important;
-                  }
-                  body.dark-mode #autorFraseApp {
-                    color: #e0e0e0 !important;
-                  }
-                  /* Sidebar otimizada para melhor visibilidade e centralização */
-                  #sidebarUsuarioOverlay {
-                    display: none;
+                  /* Estilo para a aba lateral */
+                  #sidebarUsuario {
                     position: fixed;
                     top: 0;
-                    left: 0;
-                    width: 100vw;
+                    right: -340px;
+                    width: 320px;
                     height: 100vh;
-                    background: rgba(30,32,40,0.65);
-                    z-index: 999999;
-                    display: flex;
-                    justify-content: center;
-                    align-items: flex-start;
-                    padding-top: calc(50vh - 25vh - 5cm);
-                    transition: background 0.3s;
-                    overflow-y: auto;
-                    padding-left: 15px;
-                    padding-right: 15px;
-                    padding-bottom: 15px;
-                    box-sizing: border-box;
-                  }
-                  #sidebarUsuario {
-                    position: relative;
-                    width: 65vw;
-                    max-width: 280px;
-                    min-width: 220px;
-                    background: #f9fafb;
-                    border-radius: 12px;
-                    box-shadow: 0 8px 32px 0 rgba(31,38,135,0.35);
-                    padding: 1.1rem 1rem 1rem 1rem;
+                    background: #fff;
+                    box-shadow: -2px 0 18px #0002;
+                    z-index: 3000;
                     display: flex;
                     flex-direction: column;
-                    align-items: center;
-                    gap: 0.6rem;
-                    transition: box-shadow 0.3s, background 0.3s, transform 0.3s;
-                    border: 2px solid #e3eaf5;
-                    transform: scale(1);
-                    margin: 0 auto;
-                    max-height: calc(85vh - 40px);
-                    overflow-y: auto;
-                    z-index: 1000000;
+                    align-items: flex-start;
+                    padding: 2.2rem 2rem 1.5rem 2rem;
+                    transition: right 0.35s cubic-bezier(.4,1.3,.6,1);
                   }
                   #sidebarUsuario.open {
-                    animation: slideInSidebar 0.4s ease-out;
-                  }
-                  @keyframes slideInSidebar {
-                    from { opacity: 0; transform: scale(0.9) translateY(-20px); }
-                    to { opacity: 1; transform: scale(1) translateY(0); }
-                  }
-                  #sidebarUsuario .fecharSidebar {
-                    background: none;
-                    color: #666;
-                    border: none;
-                    font-size: 1.2rem;
-                    position: absolute;
-                    top: calc(6px + 0.5cm);
-                    right: 10px;
-                    cursor: pointer;
-                    transition: color 0.2s, transform 0.2s;
-                    width: 22px;
-                    height: 22px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    z-index: 1000001;
-                  }
-                  #sidebarUsuario .fecharSidebar:hover {
-                    color: #1976d2;
-                    transform: scale(1.1);
+                    right: 0;
                   }
                   #sidebarUsuario h2 {
-                    font-size: 1rem;
-                    color: #1976d2;
-                    margin-bottom: 0.3rem;
-                    font-family: 'Montserrat', Arial, sans-serif;
-                    font-weight: 700;
-                    letter-spacing: 0.02em;
-                    text-align: center;
-                    z-index: 100001;
-                    position: relative;
-                    white-space: nowrap;
-                    overflow: visible;
+                    font-size: 1.3rem;
+                    color: #0d47a1;
+                    margin-bottom: 1.2rem;
                   }
                   #sidebarUsuario label {
-                    font-size: 0.8rem;
-                    color: #333;
-                    margin-bottom: 0.25rem;
-                    font-family: 'Inter', Arial, sans-serif;
-                    font-weight: 500;
-                    align-self: flex-start;
-                    width: 100%;
-                    z-index: 100001;
-                    position: relative;
-                    white-space: nowrap;
-                    overflow: visible;
+                    font-size: 1.01rem;
+                    color: #222;
+                    margin-bottom: 0.3rem;
                   }
                   #sidebarUsuario input {
                     width: 100%;
-                    padding: 0.6rem 0.8rem;
-                    border-radius: 8px;
-                    border: 2px solid #d1d5db;
-                    font-size: 0.8rem;
+                    padding: 0.7rem 1rem;
+                    border-radius: 0.6rem;
+                    border: 1.5px solid #bbb;
+                    font-size: 1rem;
                     outline: none;
-                    margin-bottom: 0.6rem;
-                    background: #ffffff;
-                    color: #333;
-                    font-family: 'Inter', Arial, sans-serif;
-                    box-shadow: 0 2px 5px rgba(0,0,0,0.06);
-                    transition: border 0.2s, box-shadow 0.2s;
-                    z-index: 100001;
-                    position: relative;
-                    box-sizing: border-box;
-                  }
-                  #sidebarUsuario input:focus {
-                    border: 2px solid #1976d2;
-                    box-shadow: 0 4px 12px rgba(25,118,210,0.15);
+                    margin-bottom: 1.1rem;
                   }
                   #sidebarUsuario button {
-                    background: linear-gradient(135deg,#1976d2 0%,#42a5f5 100%);
+                    background: #0d47a1;
                     color: #fff;
                     border: none;
-                    padding: 0.55rem 0.85rem;
-                    border-radius: 8px;
+                    padding: 0.8rem 1.2rem;
+                    border-radius: 0.7rem;
                     cursor: pointer;
-                    font-size: 0.8rem;
-                    font-weight: 600;
-                    margin-top: 0.25rem;
-                    box-shadow: 0 3px 8px rgba(25,118,210,0.3);
-                    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-                    width: 100%;
-                    z-index: 100001;
-                    position: relative;
+                    font-size: 1.08rem;
+                    font-weight: bold;
+                    margin-top: 0.5rem;
                   }
-                  #sidebarUsuario button:hover {
-                    background: linear-gradient(135deg,#1565c0 0%,#1976d2 100%);
-                    transform: translateY(-1px);
-                    box-shadow: 0 5px 14px rgba(25,118,210,0.4);
+                  #sidebarUsuario .fecharSidebar {
+                    background: none;
+                    color: #888;
+                    border: none;
+                    font-size: 1.3rem;
+                    position: absolute;
+                    top: 12px;
+                    right: 18px;
+                    cursor: pointer;
                   }
-                  /* Responsividade para tablets e dispositivos médios */
-                  @media (max-width: 768px) {
-                    #sidebarUsuarioOverlay {
-                      align-items: center;
-                      padding: 15px;
-                    }
-                    #sidebarUsuario {
-                      width: 75vw;
-                      max-width: 340px;
-                      min-width: 260px;
-                      padding: 1.2rem 1rem 1.1rem 1rem;
-                      margin: 0 auto;
-                      max-height: 80vh;
-                    }
-                    #sidebarUsuario h2 {
-                      font-size: 1rem;
-                      margin-bottom: 0.4rem;
-                    }
-                    #sidebarUsuario label {
-                      font-size: 0.8rem;
-                      margin-bottom: 0.35rem;
-                    }
-                    #sidebarUsuario input {
-                      padding: 0.65rem 0.85rem;
-                      font-size: 0.8rem;
-                      margin-bottom: 0.6rem;
-                    }
-                    #sidebarUsuario button {
-                      padding: 0.6rem 0.9rem;
-                      font-size: 0.8rem;
-                      margin-top: 0.35rem;
-                    }
-                  }
-                  
-                  /* Responsividade para dispositivos móveis (iPhone, Samsung, etc.) */
                   @media (max-width: 500px) {
-                    #sidebarUsuarioOverlay {
-                      align-items: flex-start !important;
-                      justify-content: center !important;
-                      padding: 8px;
-                      padding-top: calc(50vh - 44vh - 5cm);
-                      z-index: 999999;
-                      display: flex !important;
-                    }
                     #sidebarUsuario {
-                      width: 85vw;
-                      max-width: none;
-                      min-width: 0;
-                      padding: 1.4rem 1.1rem 1.2rem 1.1rem;
-                      border-radius: 15px;
-                      margin: auto;
-                      max-height: 80vh;
-                      box-shadow: 0 12px 40px 0 rgba(31,38,135,0.4);
-                      z-index: 1000000;
-                      position: relative;
-                      transform: none;
-                      top: auto;
-                      left: auto;
-                      right: auto;
+                      width: 100vw;
+                      right: -100vw;
+                      padding: 1.2rem 1rem 1rem 1rem;
                     }
-                    #sidebarUsuario h2 {
-                      font-size: 0.9rem;
-                      white-space: normal;
-                      margin-bottom: 0.5rem;
-                      line-height: 1.3;
-                    }
-                    #sidebarUsuario label {
-                      font-size: 0.75rem;
-                      white-space: normal;
-                      margin-bottom: 0.35rem;
-                      line-height: 1.3;
-                    }
-                    #sidebarUsuario input {
-                      padding: 0.6rem 0.8rem;
-                      font-size: 0.75rem;
-                      margin-bottom: 0.6rem;
-                      border-radius: 8px;
-                    }
-                    #sidebarUsuario button {
-                      padding: 0.55rem 0.8rem;
-                      font-size: 0.75rem;
-                      margin-top: 0.3rem;
-                      border-radius: 8px;
-                      min-height: 36px;
-                    }
-                    #sidebarUsuario .fecharSidebar {
-                      font-size: 1.1rem;
-                      top: calc(6px + 0.5cm);
-                      right: 10px;
-                      width: 24px;
-                      height: 24px;
-                    }
-                  }
-                  
-                  /* Responsividade para dispositivos muito pequenos */
-                  @media (max-width: 380px) {
-                    #sidebarUsuarioOverlay {
-                      align-items: center;
-                      justify-content: center;
-                      padding: 8px;
-                    }
-                    #sidebarUsuario {
-                      width: 96vw;
-                      padding: 1.6rem 1.2rem 1.4rem 1.2rem;
-                      margin: 0 auto;
-                      border-radius: 16px;
-                      max-height: 80vh;
-                    }
-                    #sidebarUsuario h2 {
-                      font-size: 1.15rem;
-                      margin-bottom: 0.6rem;
-                    }
-                    #sidebarUsuario label {
-                      font-size: 0.75rem;
-                      margin-bottom: 0.25rem;
-                    }
-                    #sidebarUsuario input {
-                      padding: 0.6rem 0.75rem;
-                      font-size: 0.75rem;
-                      margin-bottom: 0.5rem;
-                    }
-                    #sidebarUsuario button {
-                      padding: 0.6rem 0.8rem;
-                      font-size: 0.75rem;
-                      margin-top: 0.3rem;
-                    }
-                    #sidebarUsuario .fecharSidebar {
-                      font-size: 1.1rem;
-                      top: calc(6px + 0.5cm);
-                      right: 10px;
-                      width: 24px;
-                      height: 24px;
-                    }
-                  }
-                  
-                  /* Ajustes para orientação landscape em móveis */
-                  @media (max-width: 768px) and (orientation: landscape) {
-                    #sidebarUsuario {
-                      width: 70vw;
-                      max-width: 350px;
-                      margin: 15px auto;
-                      max-height: calc(85vh - 30px);
-                    }
-                  }
-                  
-                  /* Melhorias para dispositivos touch */
-                  @media (hover: none) and (pointer: coarse) {
-                    #sidebarUsuario input {
-                      -webkit-appearance: none;
-                      appearance: none;
-                      font-size: 16px; /* Evita zoom no iOS */
-                      border-radius: 10px;
-                    }
-                    #sidebarUsuario button {
-                      min-height: 44px; /* Tamanho mínimo recomendado para touch */
-                      cursor: pointer;
-                      -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
-                    }
-                    #sidebarUsuario .fecharSidebar {
-                      min-width: 44px;
-                      min-height: 44px;
-                      -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
-                    }
-                  }
-                  
-                  /* Ajustes específicos para iOS */
-                  @supports (-webkit-overflow-scrolling: touch) {
-                    #sidebarUsuarioOverlay {
-                      -webkit-overflow-scrolling: touch;
-                    }
-                    #sidebarUsuario {
-                      -webkit-overflow-scrolling: touch;
-                    }
-                  }
-
-                  /* Força a rolagem do body quando a sidebar estiver aberta */
-                  body.sidebar-usuario-aberta {
-                    overflow-y: auto !important;
-                    height: auto !important;
-                    position: static !important;
-                  }
-
-                  #sidebarUsuarioOverlay {
-                    -webkit-overflow-scrolling: touch;
                   }
                 </style>
             <!-- Sidebar Usuário -->
-            <div id="sidebarUsuarioOverlay" style="display: none;">\n              <div id="sidebarUsuario">
+            <div id="sidebarUsuarioOverlay" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(30,32,40,0.45);z-index:4000;justify-content:flex-end;align-items:stretch;">
+              <div id="sidebarUsuario">
                 <button class="fecharSidebar" title="Fechar">&times;</button>
-                <h2>👤 Perfil do Usuário</h2>
+                <h2>Usuário</h2>
                 <label for="inputNomeUsuario">Digite seu nome</label>
                 <input id="inputNomeUsuario" type="text" maxlength="20" placeholder="Seu nome" autocomplete="off" />
-                <label for="inputArrobaUsuario">Nome de usuário (@)</label>
+                <label for="inputArrobaUsuario">"@"</label>
                 <input id="inputArrobaUsuario" type="text" maxlength="20" placeholder="@" autocomplete="off" />
-                <button id="btnSalvarUsuario">💾 Salvar Informações</button>
+                <button id="btnSalvarUsuario">Salvar</button>
               </div>
             </div>
             </div>
             <!-- Top bar: salvar imagem, darkmode, favoritos -->
-            <div class="top-bar" style="width:100%;padding:0rem 0 0.5rem 0;display:flex;flex-direction:row;align-items:flex-start;justify-content:space-between;z-index:1;position:relative;">
+            <div class="top-bar" style="width:100%;padding:0rem 0 0.5rem 0;display:flex;flex-direction:row;align-items:flex-start;justify-content:space-between;z-index:5;position:relative;">
                 <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0.2rem;position:relative;">
                   <button id="btnPrint" title="Salvar imagem para postagem" style="background:none;border:none;cursor:pointer;padding:0.3rem 0.5rem 0 0.5rem;">
                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -525,7 +272,7 @@
                       </svg>
                   </button>
                 </div>
-                <div class="top-bar-center" style="position:absolute;top:0;left:calc(50% + 1cm);transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.10rem;z-index:1;">
+                <div class="top-bar-center" style="position:absolute;top:0;left:calc(50% + 1cm);transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.10rem;z-index:2;">
                     <svg width="215" height="50" viewBox="0 0 270 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:1.2rem;">
                         <rect x="8" y="4" width="38" height="46" rx="8" fill="#0d47a1" stroke="#0d47a1" stroke-width="2"/>
                         <rect x="16" y="12" width="22" height="22" rx="6" fill="#fff"/>
@@ -545,7 +292,7 @@
                 </div>
             </div>
             <!-- Controles: tema e fonte -->
-            <div class="controls" style="width:100%;display:flex;gap:0.3rem;justify-content:center;align-items:center;margin-bottom:0.2rem;z-index:1;position:relative;">
+            <div class="controls" style="width:100%;display:flex;gap:0.3rem;justify-content:center;align-items:center;margin-bottom:0.2rem;z-index:5;position:relative;">
                 <select id="temaSelect" style="margin-top:-2cm;">
                     <option value="motivacional">Motivacional</option>
                     <option value="amor">Amor</option>
@@ -574,9 +321,9 @@
                 </select>
             </div>
             <!-- Barra intermediária (opcional) -->
-            <div class="mid-bar" style="width:100%;display:flex;justify-content:center;align-items:center;gap:0.3rem;margin-bottom:0;z-index:1;position:relative;"></div>
+            <div class="mid-bar" style="width:100%;display:flex;justify-content:center;align-items:center;gap:0.3rem;margin-bottom:0;z-index:5;position:relative;"></div>
             <!-- Botões interativos: tag, copiar, favoritar -->
-            <div class="botoes-interativos" style="width: 100%;display: flex;flex-direction: row;justify-content: center;align-items: center;gap: 0.4rem;position: absolute;bottom: 70px;left: 50%;transform: translateX(-50%);z-index: 1;">
+            <div class="botoes-interativos" style="width: 100%;display: flex;flex-direction: row;justify-content: center;align-items: center;gap: 0.4rem;position: absolute;bottom: 70px;left: 50%;transform: translateX(-50%);z-index: 3;">
                 <button id="btnTags" class="tags-btn" title="Gerar tags para redes sociais" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;min-width:36px;min-height:36px;">
                     <span id="iconeJogoDaVelha" style="font-size:1.5rem;line-height:1;color:#222;transition:color 0.2s;">#</span>
                 </button>
@@ -748,268 +495,77 @@
     const btnMenuUsuario = document.getElementById('btnMenuUsuario');
     const sidebarUsuarioOverlay = document.getElementById('sidebarUsuarioOverlay');
     const sidebarUsuario = document.getElementById('sidebarUsuario');
-    const fecharSidebar = sidebarUsuario?.querySelector('.fecharSidebar');
+    const fecharSidebar = sidebarUsuario.querySelector('.fecharSidebar');
     const inputNomeUsuario = document.getElementById('inputNomeUsuario');
     const inputArrobaUsuario = document.getElementById('inputArrobaUsuario');
     const btnSalvarUsuario = document.getElementById('btnSalvarUsuario');
     const nomeUsuarioSpan = document.getElementById('nomeUsuario');
     const arrobaUsuarioSpan = document.getElementById('arrobaUsuario');
 
-    // Garante que todos os overlays estejam fechados na inicialização
-    function fecharTodosOverlays() {
-      // Fecha modais de autenticação
-      const modais = ['modalLogin', 'modalCadastro', 'modalEsqueciSenha', 'favoritosModal', 'tagsModal'];
-      modais.forEach(modalId => {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-          modal.style.display = 'none';
-          modal.style.visibility = 'hidden';
-          modal.style.opacity = '0';
-          modal.classList.remove('ativo');
-        }
-      });
-      
-      // Fecha sidebar de usuário
-      if (sidebarUsuarioOverlay) {
-        sidebarUsuarioOverlay.style.display = 'none';
-      }
-      
-      // Remove classe do body
-      document.body.classList.remove('sidebar-usuario-aberta');
-    }
-    
-    // Executa na inicialização
-    fecharTodosOverlays();
-
-    // Debug: verificar se todos os elementos foram encontrados
-    if (!btnMenuUsuario || !sidebarUsuario || !btnSalvarUsuario || !nomeUsuarioSpan || !arrobaUsuarioSpan) {
-      console.warn('Alguns elementos da sidebar de usuário não foram encontrados. Verifique os IDs no HTML.');
-    }
-
-    // Função global para forçar atualização dos elementos de usuário
-    window.forcarAtualizacaoUsuario = function() {
-      const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
-      const arroba = localStorage.getItem('usuario_arroba') || '@';
-      
-      const nomeSpan = document.getElementById('nomeUsuario');
-      const arrobaSpan = document.getElementById('arrobaUsuario');
-      
-      if (nomeSpan) {
-        nomeSpan.textContent = nome;
-        nomeSpan.style.display = 'block';
-        nomeSpan.style.opacity = '1';
-        nomeSpan.style.visibility = 'visible';
-      }
-      
-      if (arrobaSpan) {
-        arrobaSpan.textContent = arroba;
-        arrobaSpan.style.display = 'block';
-        arrobaSpan.style.opacity = '1';
-        arrobaSpan.style.visibility = 'visible';
-      }
-      
-      console.log('Forçada atualização do usuário:', { nome, arroba });
-    };
-
-    // Adiciona um botão de teste temporário para verificar a funcionalidade
-    const btnTeste = document.createElement('button');
-    btnTeste.textContent = '🔄 Atualizar Usuário';
-    btnTeste.style.position = 'fixed';
-    btnTeste.style.top = '10px';
-    btnTeste.style.left = '10px';
-    btnTeste.style.zIndex = '9999';
-    btnTeste.style.padding = '8px 12px';
-    btnTeste.style.backgroundColor = '#0d47a1';
-    btnTeste.style.color = 'white';
-    btnTeste.style.border = 'none';
-    btnTeste.style.borderRadius = '6px';
-    btnTeste.style.cursor = 'pointer';
-    btnTeste.onclick = function() {
-      if (window.forcarAtualizacaoUsuario) {
-        window.forcarAtualizacaoUsuario();
-        alert('Função de atualização executada!');
-      }
-    };
-    document.body.appendChild(btnTeste);
-
     // Carregar valores salvos
     function carregarUsuario() {
       const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
       const arroba = localStorage.getItem('usuario_arroba') || '@';
-      
-      // Busca os elementos diretamente
-      const nomeSpan = document.getElementById('nomeUsuario');
-      const arrobaSpan = document.getElementById('arrobaUsuario');
-      
       // Atualiza os campos visuais
-      if (nomeSpan) {
-        nomeSpan.textContent = nome;
-        nomeSpan.style.display = 'block';
-      }
-      if (arrobaSpan) {
-        arrobaSpan.textContent = arroba;
-        arrobaSpan.style.display = 'block';
-      }
-      
-      // Atualiza os campos de input
-      if (inputNomeUsuario) {
-        inputNomeUsuario.value = nome !== 'Seu nome' ? nome : '';
-      }
-      if (inputArrobaUsuario) {
-        inputArrobaUsuario.value = arroba !== '@' ? arroba.replace('@', '') : '';
-      }
+      if (nomeUsuarioSpan) nomeUsuarioSpan.textContent = nome;
+      if (arrobaUsuarioSpan) arrobaUsuarioSpan.textContent = arroba;
+      if (inputNomeUsuario) inputNomeUsuario.value = nome !== 'Seu nome' ? nome : '';
+      if (inputArrobaUsuario) inputArrobaUsuario.value = arroba !== '@' ? arroba : '';
     }
     document.addEventListener('DOMContentLoaded', function() {
       carregarUsuario();
-      
-      // Força a atualização após um pequeno delay para garantir que os elementos estejam renderizados
-      setTimeout(() => {
-        const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
-        const arroba = localStorage.getItem('usuario_arroba') || '@';
-        
-        const nomeSpan = document.getElementById('nomeUsuario');
-        const arrobaSpan = document.getElementById('arrobaUsuario');
-        
-        if (nomeSpan) {
-          nomeSpan.textContent = nome;
-          nomeSpan.style.display = 'block';
-        }
-        if (arrobaSpan) {
-          arrobaSpan.textContent = arroba;
-          arrobaSpan.style.display = 'block';
-        }
-        
-        // Chama a função global para garantir atualização
-        if (window.forcarAtualizacaoUsuario) window.forcarAtualizacaoUsuario();
-      }, 500);
+      // Garante que os campos acima da frase sejam preenchidos ao abrir
+      const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
+      const arroba = localStorage.getItem('usuario_arroba') || '@';
+      const nomeUsuarioSpan = document.getElementById('nomeUsuario');
+      const arrobaUsuarioSpan = document.getElementById('arrobaUsuario');
+      if (nomeUsuarioSpan) nomeUsuarioSpan.textContent = nome;
+      if (arrobaUsuarioSpan) arrobaUsuarioSpan.textContent = arroba;
     });
 
-    // Event listeners com verificação de segurança
-    if (btnMenuUsuario) {
-      btnMenuUsuario.addEventListener('click', () => {
-        // Se a aba lateral estiver aberta, fecha completamente (inclui transição e overlay)
-        if (sidebarUsuario?.classList.contains('open')) {
-          sidebarUsuario.classList.remove('open');
-          document.body.classList.remove('sidebar-usuario-aberta');
-          sidebarUsuario.style.right = '-340px';
-          setTimeout(() => {
-            if (sidebarUsuarioOverlay) sidebarUsuarioOverlay.style.display = 'none';
-            sidebarUsuario.style.right = '';
-          }, 400);
-          return;
-        }
-        
-        // Se não estiver aberta, abre normalmente e carrega os dados atuais
-        carregarUsuario(); // Recarrega os dados antes de abrir
-        
-        // Força a atualização visual dos elementos
-        const nome = localStorage.getItem('usuario_nome') || 'Seu nome';
-        const arroba = localStorage.getItem('usuario_arroba') || '@';
-        const nomeSpan = document.getElementById('nomeUsuario');
-        const arrobaSpan = document.getElementById('arrobaUsuario');
-        
-        if (nomeSpan) nomeSpan.textContent = nome;
-        if (arrobaSpan) arrobaSpan.textContent = arroba;
-        
-        if (sidebarUsuario) sidebarUsuario.classList.add('open');
-        document.body.classList.add('sidebar-usuario-aberta');
-        if (sidebarUsuarioOverlay) sidebarUsuarioOverlay.style.display = 'flex';
-        
-        // Foca no campo de nome após um pequeno delay para garantir que a sidebar esteja visível
-        setTimeout(() => {
-          if (inputNomeUsuario) inputNomeUsuario.focus();
-        }, 100);
-      });
-    }
-
-    if (fecharSidebar) {
-      fecharSidebar.addEventListener('click', () => {
-        if (sidebarUsuario) sidebarUsuario.classList.remove('open');
+    btnMenuUsuario.addEventListener('click', () => {
+      // Se a aba lateral estiver aberta, fecha completamente (inclui transição e overlay)
+      if (sidebarUsuario.classList.contains('open')) {
+        sidebarUsuario.classList.remove('open');
         document.body.classList.remove('sidebar-usuario-aberta');
-        if (sidebarUsuarioOverlay) sidebarUsuarioOverlay.style.display = 'none';
-      });
-    }
-
-    // Evento para fechar sidebar clicando fora dela
-    if (sidebarUsuarioOverlay) {
-      sidebarUsuarioOverlay.addEventListener('click', (e) => {
-        // Fecha apenas se o clique foi no overlay, não na sidebar
-        if (e.target === sidebarUsuarioOverlay) {
-          if (sidebarUsuario) sidebarUsuario.classList.remove('open');
-          document.body.classList.remove('sidebar-usuario-aberta');
+        sidebarUsuario.style.right = '-340px';
+        setTimeout(() => {
           sidebarUsuarioOverlay.style.display = 'none';
-        }
-      });
-
-      // Força a rolagem no overlay
-      sidebarUsuarioOverlay.addEventListener('wheel', (e) => {
-        // Permite a rolagem natural
-        e.stopPropagation();
-      });
-
-      sidebarUsuarioOverlay.addEventListener('touchmove', (e) => {
-        // Permite rolagem em dispositivos móveis
-        e.stopPropagation();
-      });
-    }
-if (btnSalvarUsuario) {
-  btnSalvarUsuario.addEventListener('click', () => {
-    if (!inputNomeUsuario || !inputArrobaUsuario) {
-      alert('❌ Erro: Campos de entrada não encontrados!');
-      return;
-    }
-    
-    let nome = inputNomeUsuario.value.trim().slice(0, 20) || 'Seu nome';
-    let arroba = inputArrobaUsuario.value.trim().slice(0, 20);
-    if (!arroba.startsWith('@')) arroba = arroba ? '@' + arroba : '@';
-    
-    // Salva no localStorage
-    localStorage.setItem('usuario_nome', nome);
-    localStorage.setItem('usuario_arroba', arroba);
-    
-    // Força a atualização dos elementos visuais
-    const nomeSpan = document.getElementById('nomeUsuario');
-    const arrobaSpan = document.getElementById('arrobaUsuario');
-    
-    if (nomeSpan) {
-      nomeSpan.textContent = nome;
-      nomeSpan.style.display = 'block'; // Força a visibilidade
-    }
-    
-    if (arrobaSpan) {
-      arrobaSpan.textContent = arroba;
-      arrobaSpan.style.display = 'block'; // Força a visibilidade
-    }
-    
-    // Atualiza os campos de input para mostrar os valores corretos
-    if (inputNomeUsuario) inputNomeUsuario.value = nome !== 'Seu nome' ? nome : '';
-    if (inputArrobaUsuario) inputArrobaUsuario.value = arroba !== '@' ? arroba.replace('@', '') : '';
-    
-    // Fecha a sidebar
-    if (sidebarUsuario) sidebarUsuario.classList.remove('open');
-    document.body.classList.remove('sidebar-usuario-aberta');
-    if (sidebarUsuarioOverlay) sidebarUsuarioOverlay.style.display = 'none';
-    
-    // Força um refresh visual
-    setTimeout(() => {
-      if (nomeSpan) nomeSpan.textContent = nome;
-      if (arrobaSpan) arrobaSpan.textContent = arroba;
-      // Chama a função global para forçar atualização
-      if (window.forcarAtualizacaoUsuario) window.forcarAtualizacaoUsuario();
-    }, 100);
-    
-    // Feedback visual
-    alert('✅ Informações do usuário atualizadas!\n\nNome: ' + nome + '\n@: ' + arroba);
-  });
-}
+          sidebarUsuario.style.right = '';
+        }, 400);
+        return;
+      }
+      // Se não estiver aberta, abre normalmente
+      sidebarUsuario.classList.add('open');
+      document.body.classList.add('sidebar-usuario-aberta');
+      sidebarUsuarioOverlay.style.display = 'flex';
+      inputNomeUsuario.focus();
+    });
+    fecharSidebar.addEventListener('click', () => {
+      sidebarUsuario.classList.remove('open');
+      document.body.classList.remove('sidebar-usuario-aberta');
+      sidebarUsuarioOverlay.style.display = 'none';
+    });
+btnSalvarUsuario.addEventListener('click', () => {
+  let nome = inputNomeUsuario.value.trim().slice(0, 20) || 'Seu nome';
+  let arroba = inputArrobaUsuario.value.trim().slice(0, 20);
+  if (!arroba.startsWith('@')) arroba = arroba ? '@' + arroba : '@';
+  localStorage.setItem('usuario_nome', nome);
+  localStorage.setItem('usuario_arroba', arroba);
+  // Atualiza imediatamente os elementos acima da frase
+  if (nomeUsuarioSpan) nomeUsuarioSpan.textContent = nome;
+  if (arrobaUsuarioSpan) arrobaUsuarioSpan.textContent = arroba;
+  if (inputNomeUsuario) inputNomeUsuario.value = nome !== 'Seu nome' ? nome : '';
+  if (inputArrobaUsuario) inputArrobaUsuario.value = arroba !== '@' ? arroba : '';
+  sidebarUsuario.classList.remove('open');
+  document.body.classList.remove('sidebar-usuario-aberta');
+});
     // Fechar ao clicar fora
     window.addEventListener('mousedown', function(e) {
-      if (sidebarUsuario?.classList.contains('open') && 
-          !sidebarUsuario.contains(e.target) && 
-          e.target !== btnMenuUsuario) {
-        if (sidebarUsuario) sidebarUsuario.classList.remove('open');
+      if (sidebarUsuario.classList.contains('open') && !sidebarUsuario.contains(e.target) && e.target !== btnMenuUsuario) {
+        sidebarUsuario.classList.remove('open');
         document.body.classList.remove('sidebar-usuario-aberta');
-        if (sidebarUsuarioOverlay) sidebarUsuarioOverlay.style.display = 'none';
+        sidebarUsuarioOverlay.style.display = 'none';
       }
     });
     </script>
