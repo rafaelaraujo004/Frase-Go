@@ -32,6 +32,23 @@ body {
     padding: 20px 0;
 }
 
+/* Reset para garantir que nenhum overlay esteja ativo */
+body::before,
+body::after {
+    content: none !important;
+}
+
+/* Remove qualquer backdrop ou overlay que possa estar ativo */
+*[style*="rgba"],
+*[style*="background"] {
+    background: transparent !important;
+}
+
+/* Força reset de qualquer elemento com z-index alto */
+*[style*="z-index"] {
+    z-index: auto !important;
+}
+
 /* Permite rolagem quando a sidebar estiver aberta */
 body.sidebar-usuario-aberta {
     overflow-y: auto !important;
@@ -75,6 +92,21 @@ body.sidebar-usuario-aberta .container {
         padding: 20px 0;
         align-items: center;
         justify-content: center;
+    }
+    
+    /* Força todos os overlays a ficarem ocultos em mobile */
+    .modal-overlay,
+    #modalLogin,
+    #modalCadastro,
+    #modalEsqueciSenha,
+    #sidebarUsuarioOverlay,
+    #favoritosModal,
+    #tagsModal {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        background: transparent !important;
     }
 }
 body.dark-mode {
@@ -420,18 +452,21 @@ button:hover {
   width: 100vw;
   height: 100vh;
   background: rgba(0,0,0,0.25);
-  display: flex;
+  display: none !important;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  visibility: hidden;
-  opacity: 0;
+  visibility: hidden !important;
+  opacity: 0 !important;
   transition: opacity 0.2s, visibility 0.2s;
+  pointer-events: none !important;
 }
 
 #favoritosModal.ativo {
-  visibility: visible;
-  opacity: 1;
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
 
 .favoritos-content {
@@ -747,8 +782,47 @@ background: linear-gradient(135deg, #e0f0ff, #ffffff);
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  visibility: hidden;
-  opacity: 0;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Força todos os overlays a ficarem ocultos */
+#modalLogin,
+#modalCadastro, 
+#modalEsqueciSenha,
+#sidebarUsuarioOverlay,
+#favoritosModal,
+#tagsModal {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Remove qualquer elemento com background escuro */
+div[style*="background:rgba"],
+div[style*="background: rgba"] {
+  display: none !important;
+  background: transparent !important;
+}
+
+/* Reset completo para mobile */
+@media (max-width: 768px) {
+  /* Remove todos os backgrounds escuros */
+  *[style*="rgba(0,0,0"],
+  *[style*="rgba(30,"],
+  *[style*="rgba(90,"] {
+    background: transparent !important;
+    display: none !important;
+  }
+  
+  /* Força visibilidade do container principal */
+  .container {
+    position: relative !important;
+    z-index: 1 !important;
+    background: #fff !important;
+  }
 }
 
 .modal-form {
