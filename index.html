@@ -184,13 +184,13 @@
                     left: 0;
                     width: 100vw;
                     height: 100vh;
-                    background: rgba(30,32,40,0.55);
-                    z-index: 99999;
+                    background: rgba(30,32,40,0.65);
+                    z-index: 999999;
                     justify-content: center;
-                    align-items: flex-start;
+                    align-items: center;
                     transition: background 0.3s;
-                    overflow-y: scroll;
-                    padding: 20px 0;
+                    overflow-y: auto;
+                    padding: 20px;
                     box-sizing: border-box;
                   }
                   #sidebarUsuario {
@@ -200,7 +200,7 @@
                     min-width: 260px;
                     background: #f9fafb;
                     border-radius: 14px;
-                    box-shadow: 0 6px 28px 0 rgba(31,38,135,0.25);
+                    box-shadow: 0 8px 32px 0 rgba(31,38,135,0.35);
                     padding: 1.4rem 1.2rem 1.2rem 1.2rem;
                     display: flex;
                     flex-direction: column;
@@ -209,10 +209,10 @@
                     transition: box-shadow 0.3s, background 0.3s, transform 0.3s;
                     border: 2px solid #e3eaf5;
                     transform: scale(1);
-                    margin: calc(10vh - 3cm) auto 20px auto;
-                    max-height: calc(80vh - 40px);
+                    margin: 0 auto;
+                    max-height: calc(90vh - 40px);
                     overflow-y: auto;
-                    z-index: 100000;
+                    z-index: 1000000;
                   }
                   #sidebarUsuario.open {
                     animation: slideInSidebar 0.4s ease-out;
@@ -236,7 +236,7 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    z-index: 100001;
+                    z-index: 1000001;
                   }
                   #sidebarUsuario .fecharSidebar:hover {
                     color: #1976d2;
@@ -312,12 +312,17 @@
                   }
                   /* Responsividade para tablets e dispositivos médios */
                   @media (max-width: 768px) {
+                    #sidebarUsuarioOverlay {
+                      align-items: center;
+                      padding: 15px;
+                    }
                     #sidebarUsuario {
                       width: 85vw;
                       max-width: 400px;
                       min-width: 300px;
                       padding: 1.5rem 1.2rem 1.3rem 1.2rem;
-                      margin: calc(5vh - 1cm) auto 20px auto;
+                      margin: 0 auto;
+                      max-height: 85vh;
                     }
                     #sidebarUsuario h2 {
                       font-size: 1.2rem;
@@ -342,61 +347,76 @@
                   /* Responsividade para dispositivos móveis (iPhone, Samsung, etc.) */
                   @media (max-width: 500px) {
                     #sidebarUsuarioOverlay {
-                      padding: 10px 0;
+                      align-items: center;
+                      justify-content: center;
+                      padding: 10px;
+                      z-index: 999999;
                     }
                     #sidebarUsuario {
-                      width: 95vw;
+                      width: 92vw;
                       max-width: none;
                       min-width: 0;
-                      padding: 1.6rem 1.2rem 1.4rem 1.2rem;
-                      border-radius: 16px;
-                      margin: calc(3vh) auto 15px auto;
-                      max-height: calc(90vh - 30px);
+                      padding: 1.8rem 1.4rem 1.6rem 1.4rem;
+                      border-radius: 18px;
+                      margin: 0 auto;
+                      max-height: 85vh;
+                      box-shadow: 0 12px 40px 0 rgba(31,38,135,0.4);
+                      z-index: 1000000;
                     }
                     #sidebarUsuario h2 {
-                      font-size: 1.15rem;
+                      font-size: 1.2rem;
                       white-space: normal;
-                      margin-bottom: 0.6rem;
+                      margin-bottom: 0.7rem;
                       line-height: 1.3;
                     }
                     #sidebarUsuario label {
-                      font-size: 0.92rem;
+                      font-size: 0.95rem;
                       white-space: normal;
-                      margin-bottom: 0.4rem;
+                      margin-bottom: 0.5rem;
                       line-height: 1.3;
                     }
                     #sidebarUsuario input {
-                      padding: 0.85rem 1rem;
-                      font-size: 0.92rem;
-                      margin-bottom: 0.8rem;
-                      border-radius: 10px;
+                      padding: 0.9rem 1.1rem;
+                      font-size: 0.95rem;
+                      margin-bottom: 0.9rem;
+                      border-radius: 12px;
                     }
                     #sidebarUsuario button {
-                      padding: 0.8rem 1.2rem;
-                      font-size: 0.92rem;
-                      margin-top: 0.5rem;
-                      border-radius: 10px;
+                      padding: 0.85rem 1.3rem;
+                      font-size: 0.95rem;
+                      margin-top: 0.6rem;
+                      border-radius: 12px;
+                      min-height: 44px;
                     }
                     #sidebarUsuario .fecharSidebar {
-                      font-size: 1.5rem;
-                      top: 10px;
-                      right: 15px;
-                      width: 30px;
-                      height: 30px;
+                      font-size: 1.6rem;
+                      top: 12px;
+                      right: 18px;
+                      width: 36px;
+                      height: 36px;
+                      min-width: 44px;
+                      min-height: 44px;
+                      z-index: 1000001;
                     }
                   }
                   
                   /* Responsividade para dispositivos muito pequenos */
                   @media (max-width: 380px) {
+                    #sidebarUsuarioOverlay {
+                      align-items: center;
+                      justify-content: center;
+                      padding: 8px;
+                    }
                     #sidebarUsuario {
-                      width: 98vw;
-                      padding: 1.4rem 1rem 1.2rem 1rem;
-                      margin: calc(2vh) auto 10px auto;
-                      border-radius: 12px;
+                      width: 96vw;
+                      padding: 1.6rem 1.2rem 1.4rem 1.2rem;
+                      margin: 0 auto;
+                      border-radius: 16px;
+                      max-height: 80vh;
                     }
                     #sidebarUsuario h2 {
-                      font-size: 1.1rem;
-                      margin-bottom: 0.5rem;
+                      font-size: 1.15rem;
+                      margin-bottom: 0.6rem;
                     }
                     #sidebarUsuario label {
                       font-size: 0.88rem;
