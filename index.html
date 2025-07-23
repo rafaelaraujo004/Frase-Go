@@ -310,30 +310,154 @@
                     transform: translateY(-1px);
                     box-shadow: 0 5px 14px rgba(25,118,210,0.4);
                   }
-                  @media (max-width: 500px) {
+                  /* Responsividade para tablets e dispositivos médios */
+                  @media (max-width: 768px) {
                     #sidebarUsuario {
-                      width: 90vw;
+                      width: 85vw;
+                      max-width: 400px;
+                      min-width: 300px;
+                      padding: 1.5rem 1.2rem 1.3rem 1.2rem;
+                      margin: calc(5vh - 1cm) auto 20px auto;
+                    }
+                    #sidebarUsuario h2 {
+                      font-size: 1.2rem;
+                      margin-bottom: 0.5rem;
+                    }
+                    #sidebarUsuario label {
+                      font-size: 0.95rem;
+                      margin-bottom: 0.4rem;
+                    }
+                    #sidebarUsuario input {
+                      padding: 0.8rem 1rem;
+                      font-size: 0.95rem;
+                      margin-bottom: 0.7rem;
+                    }
+                    #sidebarUsuario button {
+                      padding: 0.7rem 1.1rem;
+                      font-size: 0.95rem;
+                      margin-top: 0.4rem;
+                    }
+                  }
+                  
+                  /* Responsividade para dispositivos móveis (iPhone, Samsung, etc.) */
+                  @media (max-width: 500px) {
+                    #sidebarUsuarioOverlay {
+                      padding: 10px 0;
+                    }
+                    #sidebarUsuario {
+                      width: 95vw;
                       max-width: none;
-                      min-width: 280px;
+                      min-width: 0;
+                      padding: 1.6rem 1.2rem 1.4rem 1.2rem;
+                      border-radius: 16px;
+                      margin: calc(3vh) auto 15px auto;
+                      max-height: calc(90vh - 30px);
+                    }
+                    #sidebarUsuario h2 {
+                      font-size: 1.15rem;
+                      white-space: normal;
+                      margin-bottom: 0.6rem;
+                      line-height: 1.3;
+                    }
+                    #sidebarUsuario label {
+                      font-size: 0.92rem;
+                      white-space: normal;
+                      margin-bottom: 0.4rem;
+                      line-height: 1.3;
+                    }
+                    #sidebarUsuario input {
+                      padding: 0.85rem 1rem;
+                      font-size: 0.92rem;
+                      margin-bottom: 0.8rem;
+                      border-radius: 10px;
+                    }
+                    #sidebarUsuario button {
+                      padding: 0.8rem 1.2rem;
+                      font-size: 0.92rem;
+                      margin-top: 0.5rem;
+                      border-radius: 10px;
+                    }
+                    #sidebarUsuario .fecharSidebar {
+                      font-size: 1.5rem;
+                      top: 10px;
+                      right: 15px;
+                      width: 30px;
+                      height: 30px;
+                    }
+                  }
+                  
+                  /* Responsividade para dispositivos muito pequenos */
+                  @media (max-width: 380px) {
+                    #sidebarUsuario {
+                      width: 98vw;
                       padding: 1.4rem 1rem 1.2rem 1rem;
-                      border-radius: 14px;
+                      margin: calc(2vh) auto 10px auto;
+                      border-radius: 12px;
                     }
                     #sidebarUsuario h2 {
                       font-size: 1.1rem;
-                      white-space: normal;
+                      margin-bottom: 0.5rem;
                     }
                     #sidebarUsuario label {
-                      font-size: 0.9rem;
-                      white-space: normal;
+                      font-size: 0.88rem;
+                      margin-bottom: 0.3rem;
                     }
-                    #sidebarUsuario input,
+                    #sidebarUsuario input {
+                      padding: 0.75rem 0.9rem;
+                      font-size: 0.88rem;
+                      margin-bottom: 0.6rem;
+                    }
                     #sidebarUsuario button {
-                      font-size: 0.9rem;
+                      padding: 0.75rem 1rem;
+                      font-size: 0.88rem;
+                      margin-top: 0.4rem;
                     }
                     #sidebarUsuario .fecharSidebar {
-                      font-size: 1.4rem;
+                      font-size: 1.3rem;
                       top: 8px;
                       right: 12px;
+                      width: 28px;
+                      height: 28px;
+                    }
+                  }
+                  
+                  /* Ajustes para orientação landscape em móveis */
+                  @media (max-width: 768px) and (orientation: landscape) {
+                    #sidebarUsuario {
+                      width: 70vw;
+                      max-width: 350px;
+                      margin: 15px auto;
+                      max-height: calc(85vh - 30px);
+                    }
+                  }
+                  
+                  /* Melhorias para dispositivos touch */
+                  @media (hover: none) and (pointer: coarse) {
+                    #sidebarUsuario input {
+                      -webkit-appearance: none;
+                      appearance: none;
+                      font-size: 16px; /* Evita zoom no iOS */
+                      border-radius: 10px;
+                    }
+                    #sidebarUsuario button {
+                      min-height: 44px; /* Tamanho mínimo recomendado para touch */
+                      cursor: pointer;
+                      -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+                    }
+                    #sidebarUsuario .fecharSidebar {
+                      min-width: 44px;
+                      min-height: 44px;
+                      -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+                    }
+                  }
+                  
+                  /* Ajustes específicos para iOS */
+                  @supports (-webkit-overflow-scrolling: touch) {
+                    #sidebarUsuarioOverlay {
+                      -webkit-overflow-scrolling: touch;
+                    }
+                    #sidebarUsuario {
+                      -webkit-overflow-scrolling: touch;
                     }
                   }
 
