@@ -61,7 +61,7 @@
     <div class="container" style="width:100vw;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;padding:0;">
         <div class="frase-box" style="width:100%;max-width:485px;min-width:320px;min-height:calc(420px + 2cm);max-height:calc(98vh + 3cm);background:#fff;border-radius:1.1rem;padding:1.1rem 1.1rem 0.7rem 1.1rem;box-shadow:0 2px 12px #0001;display:flex;flex-direction:column;align-items:center;overflow:hidden;position:relative;justify-content:flex-start;gap:0;">
             <!-- Botão de três linhas (menu usuário) -->
-            <button id="btnMenuUsuario" title="Opções de usuário" style="position:absolute;top:14px;right:14px;background:#fff;border:none;cursor:pointer;z-index:10;padding:6px 6px 6px 6px;border-radius:7px;width:38px;height:32px;display:flex;align-items:center;justify-content:center;">
+            <button id="btnMenuUsuario" title="Opções de usuário" style="position:absolute;top:14px;right:14px;background:#fff;border:none;cursor:pointer;z-index:5;padding:6px 6px 6px 6px;border-radius:7px;width:38px;height:32px;display:flex;align-items:center;justify-content:center;">
               <span style="display:block;width:26px;height:18px;position:relative;">
                 <span class="menu-bar" style="display:block;position:absolute;left:0;top:0;width:100%;height:3px;border-radius:2px;"></span>
                 <span class="menu-bar" style="display:block;position:absolute;left:0;top:7.5px;width:100%;height:3px;border-radius:2px;"></span>
@@ -69,7 +69,7 @@
               </span>
             </button>
             <!-- NOVA CAIXA DE TEXTO ESTILO ANEXO (fixa, 4cm abaixo do topo) -->
-            <div id="twitterTextBox" style="background:rgba(90,90,105,0.78);border-radius:17px;box-shadow:0 8px 29px 0 rgba(31,38,135,0.18);position:absolute;top:4cm;left:50%;transform:translateX(-50%);width:262px;max-width:calc(90vw - 2cm);min-width:182px;min-height:36px;max-height:294px;padding:25px 32px 25px 32px;display:flex;flex-direction:column;align-items:center;overflow:visible;transition:background 0.5s;border: 1.5px solid rgba(13,71,161,0.4);">
+            <div id="twitterTextBox" style="background:rgba(90,90,105,0.78);border-radius:17px;box-shadow:0 8px 29px 0 rgba(31,38,135,0.18);position:absolute;top:4cm;left:50%;transform:translateX(-50%);width:262px;max-width:calc(90vw - 2cm);min-width:182px;min-height:36px;max-height:294px;padding:25px 32px 25px 32px;display:flex;flex-direction:column;align-items:center;overflow:visible;transition:background 0.5s;border: 1.5px solid rgba(13,71,161,0.4);z-index:1;">
                 <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0.1rem;margin-bottom:8px;width:100%;justify-content:center;">
                   <span id="nomeUsuario" style="font-family:'Montserrat',Arial,sans-serif;font-size:1.08rem;font-weight:400;color:#222;letter-spacing:0.01em;line-height:1.1;text-shadow:0 1px 4px #fff,0 1px 1px #bbb;"></span>
                   <span style="display:flex;align-items:center;gap:0.32em;">
@@ -82,7 +82,7 @@
                     </span>
                   </span>
                 </div>
-                <span id="fraseApp" style="position:relative;z-index:2;color:#f5f5f5;font-family:'Space Mono',monospace;font-size:1.13rem;text-align:center;line-height:1.6;font-weight:400;white-space:pre-line;word-break:break-word;display:block;width:100%;padding:0;display:flex;align-items:center;justify-content:center;height:100%;min-height:80px;"></span>
+                <span id="fraseApp" style="position:relative;z-index:1;color:#f5f5f5;font-family:'Space Mono',monospace;font-size:1.13rem;text-align:center;line-height:1.6;font-weight:400;white-space:pre-line;word-break:break-word;display:block;width:100%;padding:10px 0 0 0;display:flex;align-items:center;justify-content:center;height:100%;min-height:80px;"></span>
                 <span id="autorFraseApp" style="display:block;width:100%;text-align:center;font-size:0.98rem;color:#b0b0b0;font-family:'Montserrat',Arial,sans-serif;margin-top:0.5em;line-height:1.2;min-height:1.2em;"></span>
                 <style>
                   /* Sidebar Usuário - modo dark */
@@ -110,13 +110,6 @@
                   }
                   body.dark-mode #sidebarUsuario .fecharSidebar {
                     color: #b0b0b0 !important;
-                  }
-                  /* Oculta controles inferiores quando a sidebar está aberta */
-                  body.sidebar-usuario-aberta .botoes-interativos,
-                  body.sidebar-usuario-aberta .bottom-botoes {
-                    opacity: 0 !important;
-                    pointer-events: none !important;
-                    transition: opacity 0.2s;
                   }
                   /* Visibilidade do botão 3 pontos no modo dark */
                   #btnMenuUsuario .menu-bar {
@@ -192,27 +185,34 @@
                     width: 100vw;
                     height: 100vh;
                     background: rgba(30,32,40,0.55);
-                    z-index: 4000;
+                    z-index: 99999;
                     justify-content: center;
-                    align-items: center;
+                    align-items: flex-start;
                     transition: background 0.3s;
+                    overflow-y: scroll;
+                    padding: 20px 0;
+                    box-sizing: border-box;
                   }
                   #sidebarUsuario {
                     position: relative;
-                    width: 90vw;
-                    max-width: 380px;
-                    min-width: 280px;
+                    width: 75vw;
+                    max-width: 320px;
+                    min-width: 260px;
                     background: #f9fafb;
-                    border-radius: 20px;
-                    box-shadow: 0 10px 40px 0 rgba(31,38,135,0.25);
-                    padding: 2rem 1.5rem 1.5rem 1.5rem;
+                    border-radius: 14px;
+                    box-shadow: 0 6px 28px 0 rgba(31,38,135,0.25);
+                    padding: 1.4rem 1.2rem 1.2rem 1.2rem;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    gap: 1rem;
+                    gap: 0.8rem;
                     transition: box-shadow 0.3s, background 0.3s, transform 0.3s;
                     border: 2px solid #e3eaf5;
                     transform: scale(1);
+                    margin: calc(10vh - 3cm) auto 20px auto;
+                    max-height: calc(80vh - 40px);
+                    overflow-y: auto;
+                    z-index: 100000;
                   }
                   #sidebarUsuario.open {
                     animation: slideInSidebar 0.4s ease-out;
@@ -225,53 +225,65 @@
                     background: none;
                     color: #666;
                     border: none;
-                    font-size: 1.8rem;
+                    font-size: 1.4rem;
                     position: absolute;
-                    top: 12px;
-                    right: 18px;
+                    top: 8px;
+                    right: 12px;
                     cursor: pointer;
                     transition: color 0.2s, transform 0.2s;
-                    width: 32px;
-                    height: 32px;
+                    width: 26px;
+                    height: 26px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    z-index: 100001;
                   }
                   #sidebarUsuario .fecharSidebar:hover {
                     color: #1976d2;
                     transform: scale(1.1);
                   }
                   #sidebarUsuario h2 {
-                    font-size: 1.4rem;
+                    font-size: 1.15rem;
                     color: #1976d2;
-                    margin-bottom: 0.5rem;
+                    margin-bottom: 0.4rem;
                     font-family: 'Montserrat', Arial, sans-serif;
                     font-weight: 700;
                     letter-spacing: 0.02em;
                     text-align: center;
+                    z-index: 100001;
+                    position: relative;
+                    white-space: nowrap;
+                    overflow: visible;
                   }
                   #sidebarUsuario label {
-                    font-size: 1rem;
+                    font-size: 0.9rem;
                     color: #333;
                     margin-bottom: 0.3rem;
                     font-family: 'Inter', Arial, sans-serif;
                     font-weight: 500;
                     align-self: flex-start;
                     width: 100%;
+                    z-index: 100001;
+                    position: relative;
+                    white-space: nowrap;
+                    overflow: visible;
                   }
                   #sidebarUsuario input {
                     width: 100%;
-                    padding: 0.8rem 1.1rem;
-                    border-radius: 12px;
+                    padding: 0.7rem 0.9rem;
+                    border-radius: 9px;
                     border: 2px solid #d1d5db;
-                    font-size: 1rem;
+                    font-size: 0.9rem;
                     outline: none;
-                    margin-bottom: 0.8rem;
+                    margin-bottom: 0.6rem;
                     background: #ffffff;
                     color: #333;
                     font-family: 'Inter', Arial, sans-serif;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.06);
                     transition: border 0.2s, box-shadow 0.2s;
+                    z-index: 100001;
+                    position: relative;
+                    box-sizing: border-box;
                   }
                   #sidebarUsuario input:focus {
                     border: 2px solid #1976d2;
@@ -281,42 +293,59 @@
                     background: linear-gradient(135deg,#1976d2 0%,#42a5f5 100%);
                     color: #fff;
                     border: none;
-                    padding: 0.9rem 1.5rem;
-                    border-radius: 12px;
+                    padding: 0.65rem 1rem;
+                    border-radius: 9px;
                     cursor: pointer;
-                    font-size: 1.1rem;
+                    font-size: 0.9rem;
                     font-weight: 600;
-                    margin-top: 0.5rem;
-                    box-shadow: 0 4px 12px rgba(25,118,210,0.3);
+                    margin-top: 0.3rem;
+                    box-shadow: 0 3px 8px rgba(25,118,210,0.3);
                     transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
                     width: 100%;
+                    z-index: 100001;
+                    position: relative;
                   }
                   #sidebarUsuario button:hover {
                     background: linear-gradient(135deg,#1565c0 0%,#1976d2 100%);
                     transform: translateY(-1px);
-                    box-shadow: 0 6px 16px rgba(25,118,210,0.4);
+                    box-shadow: 0 5px 14px rgba(25,118,210,0.4);
                   }
                   @media (max-width: 500px) {
                     #sidebarUsuario {
-                      width: 95vw;
+                      width: 90vw;
                       max-width: none;
-                      min-width: 0;
-                      padding: 1.5rem 1rem 1.2rem 1rem;
-                      border-radius: 16px;
+                      min-width: 280px;
+                      padding: 1.4rem 1rem 1.2rem 1rem;
+                      border-radius: 14px;
                     }
                     #sidebarUsuario h2 {
-                      font-size: 1.2rem;
+                      font-size: 1.1rem;
+                      white-space: normal;
                     }
-                    #sidebarUsuario label,
+                    #sidebarUsuario label {
+                      font-size: 0.9rem;
+                      white-space: normal;
+                    }
                     #sidebarUsuario input,
                     #sidebarUsuario button {
-                      font-size: 0.95rem;
+                      font-size: 0.9rem;
                     }
                     #sidebarUsuario .fecharSidebar {
-                      font-size: 1.6rem;
+                      font-size: 1.4rem;
                       top: 8px;
                       right: 12px;
                     }
+                  }
+
+                  /* Força a rolagem do body quando a sidebar estiver aberta */
+                  body.sidebar-usuario-aberta {
+                    overflow-y: auto !important;
+                    height: auto !important;
+                    position: static !important;
+                  }
+
+                  #sidebarUsuarioOverlay {
+                    -webkit-overflow-scrolling: touch;
                   }
                 </style>
             <!-- Sidebar Usuário -->
@@ -333,7 +362,7 @@
             </div>
             </div>
             <!-- Top bar: salvar imagem, darkmode, favoritos -->
-            <div class="top-bar" style="width:100%;padding:0rem 0 0.5rem 0;display:flex;flex-direction:row;align-items:flex-start;justify-content:space-between;z-index:5;position:relative;">
+            <div class="top-bar" style="width:100%;padding:0rem 0 0.5rem 0;display:flex;flex-direction:row;align-items:flex-start;justify-content:space-between;z-index:1;position:relative;">
                 <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0.2rem;position:relative;">
                   <button id="btnPrint" title="Salvar imagem para postagem" style="background:none;border:none;cursor:pointer;padding:0.3rem 0.5rem 0 0.5rem;">
                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -348,7 +377,7 @@
                       </svg>
                   </button>
                 </div>
-                <div class="top-bar-center" style="position:absolute;top:0;left:calc(50% + 1cm);transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.10rem;z-index:2;">
+                <div class="top-bar-center" style="position:absolute;top:0;left:calc(50% + 1cm);transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.10rem;z-index:1;">
                     <svg width="215" height="50" viewBox="0 0 270 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:1.2rem;">
                         <rect x="8" y="4" width="38" height="46" rx="8" fill="#0d47a1" stroke="#0d47a1" stroke-width="2"/>
                         <rect x="16" y="12" width="22" height="22" rx="6" fill="#fff"/>
@@ -368,7 +397,7 @@
                 </div>
             </div>
             <!-- Controles: tema e fonte -->
-            <div class="controls" style="width:100%;display:flex;gap:0.3rem;justify-content:center;align-items:center;margin-bottom:0.2rem;z-index:5;position:relative;">
+            <div class="controls" style="width:100%;display:flex;gap:0.3rem;justify-content:center;align-items:center;margin-bottom:0.2rem;z-index:1;position:relative;">
                 <select id="temaSelect" style="margin-top:-2cm;">
                     <option value="motivacional">Motivacional</option>
                     <option value="amor">Amor</option>
@@ -397,9 +426,9 @@
                 </select>
             </div>
             <!-- Barra intermediária (opcional) -->
-            <div class="mid-bar" style="width:100%;display:flex;justify-content:center;align-items:center;gap:0.3rem;margin-bottom:0;z-index:5;position:relative;"></div>
+            <div class="mid-bar" style="width:100%;display:flex;justify-content:center;align-items:center;gap:0.3rem;margin-bottom:0;z-index:1;position:relative;"></div>
             <!-- Botões interativos: tag, copiar, favoritar -->
-            <div class="botoes-interativos" style="width: 100%;display: flex;flex-direction: row;justify-content: center;align-items: center;gap: 0.4rem;position: absolute;bottom: 70px;left: 50%;transform: translateX(-50%);z-index: 3;">
+            <div class="botoes-interativos" style="width: 100%;display: flex;flex-direction: row;justify-content: center;align-items: center;gap: 0.4rem;position: absolute;bottom: 70px;left: 50%;transform: translateX(-50%);z-index: 1;">
                 <button id="btnTags" class="tags-btn" title="Gerar tags para redes sociais" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;min-width:36px;min-height:36px;">
                     <span id="iconeJogoDaVelha" style="font-size:1.5rem;line-height:1;color:#222;transition:color 0.2s;">#</span>
                 </button>
@@ -724,6 +753,29 @@
         if (sidebarUsuario) sidebarUsuario.classList.remove('open');
         document.body.classList.remove('sidebar-usuario-aberta');
         if (sidebarUsuarioOverlay) sidebarUsuarioOverlay.style.display = 'none';
+      });
+    }
+
+    // Evento para fechar sidebar clicando fora dela
+    if (sidebarUsuarioOverlay) {
+      sidebarUsuarioOverlay.addEventListener('click', (e) => {
+        // Fecha apenas se o clique foi no overlay, não na sidebar
+        if (e.target === sidebarUsuarioOverlay) {
+          if (sidebarUsuario) sidebarUsuario.classList.remove('open');
+          document.body.classList.remove('sidebar-usuario-aberta');
+          sidebarUsuarioOverlay.style.display = 'none';
+        }
+      });
+
+      // Força a rolagem no overlay
+      sidebarUsuarioOverlay.addEventListener('wheel', (e) => {
+        // Permite a rolagem natural
+        e.stopPropagation();
+      });
+
+      sidebarUsuarioOverlay.addEventListener('touchmove', (e) => {
+        // Permite rolagem em dispositivos móveis
+        e.stopPropagation();
       });
     }
 if (btnSalvarUsuario) {

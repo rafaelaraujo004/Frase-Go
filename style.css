@@ -1,4 +1,10 @@
 /* === Fonte Global === */
+html {
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
 body {
     margin:0;
     padding:0;
@@ -21,6 +27,17 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Permite rolagem quando a sidebar estiver aberta */
+body.sidebar-usuario-aberta {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    align-items: flex-start !important;
+    min-height: 100vh !important;
+    height: auto !important;
 }
 .container {
     background: #fff;
@@ -38,6 +55,12 @@ body {
     margin: auto;           /* Centraliza horizontalmente */
     box-sizing: border-box;
     text-align: center;
+    overflow-x: hidden;
+}
+
+/* Ajuste do container quando a sidebar estiver aberta */
+body.sidebar-usuario-aberta .container {
+    margin: 20px auto;
 }
 @media (max-width: 600px) {
     .container {
