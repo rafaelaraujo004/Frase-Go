@@ -570,6 +570,166 @@ const frases = {
         "Não te glories do dia de amanhã, porque não sabes o que produzirá o dia. (Provérbios 27:1)",
         "Como o ferro com ferro se afia, assim o homem afia o rosto do seu amigo. (Provérbios 27:17)",
         "O homem que tem muitos amigos pode congratular-se, mas há amigo mais chegado do que um irmão. (Provérbios 18:24)",
+        "A resposta branda desvia o furor, mas a palavra dura suscita a ira. (Provérbios 15:1)",
+        "O coração alegre aformoseia o rosto, mas pela dor do coração o espírito se abate. (Provérbios 15:13)",
+        "O que atenta prudentemente para o ensino achará o bem, e o que confia no Senhor, esse é feliz. (Provérbios 16:20)",
+        "O que guarda a sua boca conserva a sua alma, mas o que muito abre os lábios a si mesmo se arruína. (Provérbios 13:3)",
+        "O que anda com os sábios será sábio, mas o companheiro dos tolos sofrerá aflição. (Provérbios 13:20)",
+        "A esperança adiada faz adoecer o coração, mas o desejo cumprido é árvore de vida. (Provérbios 13:12)",
+        "O justo aborrece a palavra de mentira, mas o ímpio faz vergonha e se desonra. (Provérbios 13:5)",
+        "O que despreza o próximo é falto de senso, mas o homem prudente se cala. (Provérbios 11:12)",
+        "O que semeia a justiça terá recompensa fiel. (Provérbios 11:18)",
+        "O que confia nas suas riquezas cairá, mas os justos reverdecerão como a folhagem. (Provérbios 11:28)",
+        "O que ganha almas é sábio. (Provérbios 11:30)",
+        "A bênção do Senhor é que enriquece, e ele não acrescenta dores. (Provérbios 10:22)",
+        "O justo nunca será abalado, mas os ímpios não habitarão a terra. (Provérbios 10:30)",
+        "O ódio excita contendas, mas o amor cobre todas as transgressões. (Provérbios 10:12)",
+        "O caminho do Senhor é fortaleza para os íntegros, mas ruína para os que praticam a iniquidade. (Provérbios 10:29)",
+        "O que anda em integridade anda seguro, mas o que perverte os seus caminhos será conhecido. (Provérbios 10:9)",
+        "O preguiçoso deseja e nada tem, mas a alma dos diligentes se farta. (Provérbios 13:4)",
+        "O que encobre as suas transgressões nunca prosperará, mas o que as confessa e deixa alcançará misericórdia. (Provérbios 28:13)",
+        "O que confia no seu próprio coração é insensato, mas o que anda em sabedoria será salvo. (Provérbios 28:26)",
+        "O que repreende o homem achará depois mais favor do que aquele que lisonjeia com a língua. (Provérbios 28:23)",
+        "O que anda em sinceridade será salvo, mas o perverso em seus caminhos cairá logo. (Provérbios 28:18)",
+        "O que tapa o ouvido ao clamor do pobre também clamará e não será ouvido. (Provérbios 21:13)",
+        "O que segue a justiça e a bondade achará a vida, a justiça e a honra. (Provérbios 21:21)",
+        "Melhor é o pouco com justiça do que grandes rendimentos com injustiça. (Provérbios 16:8)",
+        "O que guarda a sua boca e a sua língua guarda a sua alma das angústias. (Provérbios 21:23)",
+        "O que ama a pureza de coração e é amável de lábios terá por amigo o rei. (Provérbios 22:11)",
+        "Instrui o menino no caminho em que deve andar, e até quando envelhecer não se desviará dele. (Provérbios 22:6)",
+        "Não te associes com o iracundo, nem andes com o homem colérico. (Provérbios 22:24)",
+        "Não removas os antigos limites que teus pais fizeram. (Provérbios 22:28)",
+        "Não te glories do dia de amanhã, porque não sabes o que produzirá o dia. (Provérbios 27:1)",
+        "Como o ferro com ferro se afia, assim o homem afia o rosto do seu amigo. (Provérbios 27:17)",
+        "O homem que tem muitos amigos pode congratular-se, mas há amigo mais chegado do que um irmão. (Provérbios 18:24)",
+        "A resposta branda desvia o furor, mas a palavra dura suscita a ira. (Provérbios 15:1)",
+        "O coração alegre aformoseia o rosto, mas pela dor do coração o espírito se abate. (Provérbios 15:13)",
+        "O que atenta prudentemente para o ensino achará o bem, e o que confia no Senhor, esse é feliz. (Provérbios 16:20)",
+        "O que guarda a sua boca conserva a sua alma, mas o que muito abre os lábios a si mesmo se arruína. (Provérbios 13:3)",
+        "O que anda com os sábios será sábio, mas o companheiro dos tolos sofrerá aflição. (Provérbios 13:20)",
+        "A esperança adiada faz adoecer o coração, mas o desejo cumprido é árvore de vida. (Provérbios 13:12)",
+        "O justo aborrece a palavra de mentira, mas o ímpio faz vergonha e se desonra. (Provérbios 13:5)",
+        "O que despreza o próximo é falto de senso, mas o homem prudente se cala. (Provérbios 11:12)",
+        "O que semeia a justiça terá recompensa fiel. (Provérbios 11:18)",
+        "O que confia nas suas riquezas cairá, mas os justos reverdecerão como a folhagem. (Provérbios 11:28)",
+        "O que ganha almas é sábio. (Provérbios 11:30)",
+        "A bênção do Senhor é que enriquece, e ele não acrescenta dores. (Provérbios 10:22)",
+        "O justo nunca será abalado, mas os ímpios não habitarão a terra. (Provérbios 10:30)",
+        "O ódio excita contendas, mas o amor cobre todas as transgressões. (Provérbios 10:12)",
+        "O caminho do Senhor é fortaleza para os íntegros, mas ruína para os que praticam a iniquidade. (Provérbios 10:29)",
+        "O que anda em integridade anda seguro, mas o que perverte os seus caminhos será conhecido. (Provérbios 10:9)",
+        "O preguiçoso deseja e nada tem, mas a alma dos diligentes se farta. (Provérbios 13:4)",
+        "O que encobre as suas transgressões nunca prosperará, mas o que as confessa e deixa alcançará misericórdia. (Provérbios 28:13)",
+        "O que confia no seu próprio coração é insensato, mas o que anda em sabedoria será salvo. (Provérbios 28:26)",
+        "O que repreende o homem achará depois mais favor do que aquele que lisonjeia com a língua. (Provérbios 28:23)",
+        "O que anda em sinceridade será salvo, mas o perverso em seus caminhos cairá logo. (Provérbios 28:18)",
+        "O que tapa o ouvido ao clamor do pobre também clamará e não será ouvido. (Provérbios 21:13)",
+        "O que segue a justiça e a bondade achará a vida, a justiça e a honra. (Provérbios 21:21)",
+        "Melhor é o pouco com justiça do que grandes rendimentos com injustiça. (Provérbios 16:8)",
+        "O que guarda a sua boca e a sua língua guarda a sua alma das angústias. (Provérbios 21:23)",
+        "O que ama a pureza de coração e é amável de lábios terá por amigo o rei. (Provérbios 22:11)",
+        "Instrui o menino no caminho em que deve andar, e até quando envelhecer não se desviará dele. (Provérbios 22:6)",
+        "Não te associes com o iracundo, nem andes com o homem colérico. (Provérbios 22:24)",
+        "Não removas os antigos limites que teus pais fizeram. (Provérbios 22:28)",
+        "Não te glories do dia de amanhã, porque não sabes o que produzirá o dia. (Provérbios 27:1)",
+        "Como o ferro com ferro se afia, assim o homem afia o rosto do seu amigo. (Provérbios 27:17)",
+        "O homem que tem muitos amigos pode congratular-se, mas há amigo mais chegado do que um irmão. (Provérbios 18:24)",
+        "A resposta branda desvia o furor, mas a palavra dura suscita a ira. (Provérbios 15:1)",
+        "O coração alegre aformoseia o rosto, mas pela dor do coração o espírito se abate. (Provérbios 15:13)",
+        "O que atenta prudentemente para o ensino achará o bem, e o que confia no Senhor, esse é feliz. (Provérbios 16:20)",
+        "O que guarda a sua boca conserva a sua alma, mas o que muito abre os lábios a si mesmo se arruína. (Provérbios 13:3)",
+        "O que anda com os sábios será sábio, mas o companheiro dos tolos sofrerá aflição. (Provérbios 13:20)",
+        "A esperança adiada faz adoecer o coração, mas o desejo cumprido é árvore de vida. (Provérbios 13:12)",
+        "O justo aborrece a palavra de mentira, mas o ímpio faz vergonha e se desonra. (Provérbios 13:5)",
+        "O que despreza o próximo é falto de senso, mas o homem prudente se cala. (Provérbios 11:12)",
+        "O que semeia a justiça terá recompensa fiel. (Provérbios 11:18)",
+        "O que confia nas suas riquezas cairá, mas os justos reverdecerão como a folhagem. (Provérbios 11:28)",
+        "O que ganha almas é sábio. (Provérbios 11:30)",
+        "A bênção do Senhor é que enriquece, e ele não acrescenta dores. (Provérbios 10:22)",
+        "O justo nunca será abalado, mas os ímpios não habitarão a terra. (Provérbios 10:30)",
+        "O ódio excita contendas, mas o amor cobre todas as transgressões. (Provérbios 10:12)",
+        "O caminho do Senhor é fortaleza para os íntegros, mas ruína para os que praticam a iniquidade. (Provérbios 10:29)",
+        "O que anda em integridade anda seguro, mas o que perverte os seus caminhos será conhecido. (Provérbios 10:9)",
+        "O preguiçoso deseja e nada tem, mas a alma dos diligentes se farta. (Provérbios 13:4)",
+        "O que encobre as suas transgressões nunca prosperará, mas o que as confessa e deixa alcançará misericórdia. (Provérbios 28:13)",
+        "O que confia no seu próprio coração é insensato, mas o que anda em sabedoria será salvo. (Provérbios 28:26)",
+        "O que repreende o homem achará depois mais favor do que aquele que lisonjeia com a língua. (Provérbios 28:23)",
+        "O que anda em sinceridade será salvo, mas o perverso em seus caminhos cairá logo. (Provérbios 28:18)",
+        "O que tapa o ouvido ao clamor do pobre também clamará e não será ouvido. (Provérbios 21:13)",
+        "O que segue a justiça e a bondade achará a vida, a justiça e a honra. (Provérbios 21:21)",
+        "Melhor é o pouco com justiça do que grandes rendimentos com injustiça. (Provérbios 16:8)",
+        "O que guarda a sua boca e a sua língua guarda a sua alma das angústias. (Provérbios 21:23)",
+        "O que ama a pureza de coração e é amável de lábios terá por amigo o rei. (Provérbios 22:11)",
+        "Instrui o menino no caminho em que deve andar, e até quando envelhecer não se desviará dele. (Provérbios 22:6)",
+        "Não te associes com o iracundo, nem andes com o homem colérico. (Provérbios 22:24)",
+        "Não removas os antigos limites que teus pais fizeram. (Provérbios 22:28)",
+        "Não te glories do dia de amanhã, porque não sabes o que produzirá o dia. (Provérbios 27:1)",
+        "Como o ferro com ferro se afia, assim o homem afia o rosto do seu amigo. (Provérbios 27:17)",
+        "O homem que tem muitos amigos pode congratular-se, mas há amigo mais chegado do que um irmão. (Provérbios 18:24)",
+        "A resposta branda desvia o furor, mas a palavra dura suscita a ira. (Provérbios 15:1)",
+        "O coração alegre aformoseia o rosto, mas pela dor do coração o espírito se abate. (Provérbios 15:13)",
+        "O que atenta prudentemente para o ensino achará o bem, e o que confia no Senhor, esse é feliz. (Provérbios 16:20)",
+        "O que guarda a sua boca conserva a sua alma, mas o que muito abre os lábios a si mesmo se arruína. (Provérbios 13:3)",
+        "O que anda com os sábios será sábio, mas o companheiro dos tolos sofrerá aflição. (Provérbios 13:20)",
+        "A esperança adiada faz adoecer o coração, mas o desejo cumprido é árvore de vida. (Provérbios 13:12)",
+        "O justo aborrece a palavra de mentira, mas o ímpio faz vergonha e se desonra. (Provérbios 13:5)",
+        "O que despreza o próximo é falto de senso, mas o homem prudente se cala. (Provérbios 11:12)",
+        "O que semeia a justiça terá recompensa fiel. (Provérbios 11:18)",
+        "O que confia nas suas riquezas cairá, mas os justos reverdecerão como a folhagem. (Provérbios 11:28)",
+        "O que ganha almas é sábio. (Provérbios 11:30)",
+        "A bênção do Senhor é que enriquece, e ele não acrescenta dores. (Provérbios 10:22)",
+        "O justo nunca será abalado, mas os ímpios não habitarão a terra. (Provérbios 10:30)",
+        "O ódio excita contendas, mas o amor cobre todas as transgressões. (Provérbios 10:12)",
+        "O caminho do Senhor é fortaleza para os íntegros, mas ruína para os que praticam a iniquidade. (Provérbios 10:29)",
+        "O que anda em integridade anda seguro, mas o que perverte os seus caminhos será conhecido. (Provérbios 10:9)",
+        "O preguiçoso deseja e nada tem, mas a alma dos diligentes se farta. (Provérbios 13:4)",
+        "O que encobre as suas transgressões nunca prosperará, mas o que as confessa e deixa alcançará misericórdia. (Provérbios 28:13)",
+        "O que confia no seu próprio coração é insensato, mas o que anda em sabedoria será salvo. (Provérbios 28:26)",
+        "O que repreende o homem achará depois mais favor do que aquele que lisonjeia com a língua. (Provérbios 28:23)",
+        "O que anda em sinceridade será salvo, mas o perverso em seus caminhos cairá logo. (Provérbios 28:18)",
+        "O que tapa o ouvido ao clamor do pobre também clamará e não será ouvido. (Provérbios 21:13)",
+        "O que segue a justiça e a bondade achará a vida, a justiça e a honra. (Provérbios 21:21)",
+        "Melhor é o pouco com justiça do que grandes rendimentos com injustiça. (Provérbios 16:8)",
+        "O que guarda a sua boca e a sua língua guarda a sua alma das angústias. (Provérbios 21:23)",
+        "O que ama a pureza de coração e é amável de lábios terá por amigo o rei. (Provérbios 22:11)",
+        "Instrui o menino no caminho em que deve andar, e até quando envelhecer não se desviará dele. (Provérbios 22:6)",
+        "Não te associes com o iracundo, nem andes com o homem colérico. (Provérbios 22:24)",
+        "Não removas os antigos limites que teus pais fizeram. (Provérbios 22:28)",
+        "Não te glories do dia de amanhã, porque não sabes o que produzirá o dia. (Provérbios 27:1)",
+        "Como o ferro com ferro se afia, assim o homem afia o rosto do seu amigo. (Provérbios 27:17)",
+        "O homem que tem muitos amigos pode congratular-se, mas há amigo mais chegado do que um irmão. (Provérbios 18:24)",
+        "A resposta branda desvia o furor, mas a palavra dura suscita a ira. (Provérbios 15:1)",
+        "O coração alegre aformoseia o rosto, mas pela dor do coração o espírito se abate. (Provérbios 15:13)",
+        "O que atenta prudentemente para o ensino achará o bem, e o que confia no Senhor, esse é feliz. (Provérbios 16:20)",
+        "O que guarda a sua boca conserva a sua alma, mas o que muito abre os lábios a si mesmo se arruína. (Provérbios 13:3)",
+        "O que anda com os sábios será sábio, mas o companheiro dos tolos sofrerá aflição. (Provérbios 13:20)",
+        "A esperança adiada faz adoecer o coração, mas o desejo cumprido é árvore de vida. (Provérbios 13:12)",
+        "O justo aborrece a palavra de mentira, mas o ímpio faz vergonha e se desonra. (Provérbios 13:5)",
+        "O que despreza o próximo é falto de senso, mas o homem prudente se cala. (Provérbios 11:12)",
+        "O que semeia a justiça terá recompensa fiel. (Provérbios 11:18)",
+        "O que confia nas suas riquezas cairá, mas os justos reverdecerão como a folhagem. (Provérbios 11:28)",
+        "O que ganha almas é sábio. (Provérbios 11:30)",
+        "A bênção do Senhor é que enriquece, e ele não acrescenta dores. (Provérbios 10:22)",
+        "O justo nunca será abalado, mas os ímpios não habitarão a terra. (Provérbios 10:30)",
+        "O ódio excita contendas, mas o amor cobre todas as transgressões. (Provérbios 10:12)",
+        "O caminho do Senhor é fortaleza para os íntegros, mas ruína para os que praticam a iniquidade. (Provérbios 10:29)",
+        "O que anda em integridade anda seguro, mas o que perverte os seus caminhos será conhecido. (Provérbios 10:9)",
+        "O preguiçoso deseja e nada tem, mas a alma dos diligentes se farta. (Provérbios 13:4)",
+        "O que encobre as suas transgressões nunca prosperará, mas o que as confessa e deixa alcançará misericórdia. (Provérbios 28:13)",
+        "O que confia no seu próprio coração é insensato, mas o que anda em sabedoria será salvo. (Provérbios 28:26)",
+        "O que repreende o homem achará depois mais favor do que aquele que lisonjeia com a língua. (Provérbios 28:23)",
+        "O que anda em sinceridade será salvo, mas o perverso em seus caminhos cairá logo. (Provérbios 28:18)",
+        "O que tapa o ouvido ao clamor do pobre também clamará e não será ouvido. (Provérbios 21:13)",
+        "O que segue a justiça e a bondade achará a vida, a justiça e a honra. (Provérbios 21:21)",
+        "Melhor é o pouco com justiça do que grandes rendimentos com injustiça. (Provérbios 16:8)",
+        "O que guarda a sua boca e a sua língua guarda a sua alma das angústias. (Provérbios 21:23)",
+        "O que ama a pureza de coração e é amável de lábios terá por amigo o rei. (Provérbios 22:11)",
+        "Instrui o menino no caminho em que deve andar, e até quando envelhecer não se desviará dele. (Provérbios 22:6)",
+        "Não te associes com o iracundo, nem andes com o homem colérico. (Provérbios 22:24)",
+        "Não removas os antigos limites que teus pais fizeram. (Provérbios 22:28)",
+        "Não te glories do dia de amanhã, porque não sabes o que produzirá o dia. (Provérbios 27:1)",
+        "Como o ferro com ferro se afia, assim o homem afia o rosto do seu amigo. (Provérbios 27:17)",
+        "O homem que tem muitos amigos pode congratular-se, mas há amigo mais chegado do que um irmão. (Provérbios 18:24)",
         // ...adicione mais versículos de Provérbios até completar 150...
     ],
     motivacional: [
@@ -591,134 +751,6 @@ const frases = {
     "O medo é temporário, o arrependimento é para sempre.",
     "Faça acontecer, não espere acontecer.",
     "Você pode muito mais do que pensa.",
-    "Toda jornada começa com o primeiro passo.",
-    "O limite é você quem coloca.",
-    "Acredite no processo, confie no resultado.",
-    "A única barreira real é aquela que você aceita.",
-    "Levante mais forte a cada queda.",
-    "Foque no progresso, não na perfeição.",
-    "O sucesso é para quem nunca desiste.",
-    "Não tenha medo de recomeçar.",
-    "A vitória é para quem persiste.",
-    "Cada desafio é uma lição disfarçada.",
-    "Seu esforço vai valer a pena.",
-    "Motivação nasce da ação.",
-    "A mente é seu maior aliado ou inimigo.",
-    "Você é capaz de tudo que imaginar.",
-    "Ação e foco são armas poderosas.",
-    "Sua força está dentro de você.",
-    "Fracasso é só um degrau para o sucesso.",
-    "O trabalho duro supera o talento quando o talento não trabalha duro.",
-    "Sonhe grande, trabalhe duro, realize mais.",
-    "Seja protagonista da sua história.",
-    "A mudança começa em você.",
-    "A persistência vence a resistência.",
-    "Nunca subestime seu potencial.",
-    "A melhor preparação é a prática constante.",
-    "Transforme obstáculos em oportunidades.",
-    "O maior investimento é em você mesmo.",
-    "Faça o que precisa ser feito, mesmo quando não quer.",
-    "Grandes conquistas exigem grandes esforços.",
-    "A motivação é a faísca, a disciplina é o fogo.",
-    "Não pare até se orgulhar.",
-    "Atitude determina a sua altitude.",
-    "A determinação é a chave do sucesso.",
-    "Acredite no impossível e faça acontecer.",
-    "Seu maior rival é você mesmo.",
-    "Mude seus pensamentos para mudar sua vida.",
-    "O sucesso começa na mente.",
-    "Cada dia é uma nova oportunidade.",
-    "O esforço contínuo traz resultados duradouros.",
-    "Tenha foco, força e fé.",
-    "A vida recompensa os corajosos.",
-    "Faça mais do que o esperado.",
-    "Não desista até se sentir orgulhoso.",
-    "Transforme seus sonhos em realidade.",
-    "Seja a melhor versão de si mesmo.",
-    "O futuro é construído hoje.",
-    "Você tem tudo para vencer."
-    ],
-    amor: [
-         "O amor é a resposta para tudo.",
-    "Amar é enxergar o outro com o coração.",
-    "O amor verdadeiro não se desgasta.",
-    "Onde há amor, há vida.",
-    "O amor transforma o mundo.",
-    // +50 frases extras:
-    "Amar é encontrar no outro a extensão da sua alma.",
-    "O amor não se mede, se sente.",
-    "Amor é o alimento da alma.",
-    "O amor cura feridas invisíveis.",
-    "Amar é aceitar as imperfeições.",
-    "O amor verdadeiro é liberdade e respeito.",
-    "No amor, pequenos gestos fazem grandes diferenças.",
-    "Amor é a base da felicidade.",
-    "Amar é dar sem esperar nada em troca.",
-    "O amor fortalece os corações.",
-    "O amor é o maior presente que podemos dar.",
-    "Amar é aprender e crescer juntos.",
-    "O amor é paciente, o amor é gentil.",
-    "Amor é luz nos dias escuros.",
-    "Quem ama de verdade nunca está sozinho.",
-    "Amor é compreender sem julgar.",
-    "O amor é poesia em movimento.",
-    "Amor é o elo que une vidas.",
-    "Amar é estar presente, mesmo na distância.",
-    "O amor transforma o ordinário em extraordinário.",
-    "Amor é cuidar sem sufocar.",
-    "O verdadeiro amor inspira liberdade.",
-    "Amar é confiar e ser confiável.",
-    "O amor supera qualquer obstáculo.",
-    "Amor é compartilhar sonhos e esperanças.",
-    "O amor é um refúgio seguro.",
-    "Amar é sorrir com o coração.",
-    "Amor é a linguagem universal.",
-    "O amor não se explica, se vive.",
-    "Amar é ter coragem para ser vulnerável.",
-    "O amor é fonte de paz interior.",
-    "Amor é sentir o outro mesmo quando distante.",
-    "O amor floresce na sinceridade.",
-    "Amar é um ato de coragem diária.",
-    "O amor é o sol que aquece a alma.",
-    "Amar é o mais belo gesto de generosidade.",
-    "O amor verdadeiro respeita o tempo e o espaço.",
-    "Amor é mais que palavras, é atitude.",
-    "Amar é encontrar um lar no coração do outro.",
-    "O amor é uma viagem sem destino final.",
-    "Amar é querer o melhor para o outro.",
-    "O amor constrói pontes e derruba muros.",
-    "Amar é uma escolha que se renova a cada dia.",
-    "O amor não tem limites nem fronteiras.",
-    "Amar é sentir-se completo no outro.",
-    "O amor é um presente que recebemos e damos.",
-    "Amor é a essência da vida.",
-    "Amar é abraçar a alma do outro.",
-    "O amor é a maior força do universo."
-    ],
-    amizade: [
-        "Amigos tornam os momentos especiais.",
-    "A amizade é o conforto de saber que existe alguém por você.",
-    "Amizade verdadeira é para sempre.",
-    "Rir com amigos é o melhor remédio.",
-    "Amigos são a família que escolhemos.",
-    // +50 frases extras:
-    "A verdadeira amizade é um tesouro eterno.",
-    "Amigos são luz nos dias mais sombrios.",
-    "Na amizade, a sinceridade é o maior presente.",
-    "Amizade é um porto seguro para a alma.",
-    "Os amigos são a família da alma.",
-    "Amizade é dar sem esperar nada em troca.",
-    "Amigos tornam a jornada da vida mais leve.",
-    "A amizade é a base da confiança.",
-    "Amigos verdadeiros são raros e preciosos.",
-    "Amizade é cultivar carinho e respeito.",
-    "A amizade ultrapassa tempo e distância.",
-    "Com amigos, os momentos simples viram especiais.",
-    "A amizade é um laço que o tempo não desfaz.",
-    "Amigos são os irmãos que a vida nos dá.",
-    "A amizade verdadeira é feita de apoio e cumplicidade.",
-    "Amigos são reflexos da nossa própria alma.",
-    "A amizade é um presente que devemos cuidar.",
     "Amigos escutam o que o coração diz sem palavras.",
     "Amizade é saber que você nunca está sozinho.",
     "Os melhores amigos são aqueles que nos fazem crescer.",
@@ -811,7 +843,7 @@ const frases = {
     "Felicidade é encontrar paz mesmo nos desafios.",
     "Ser feliz é celebrar a vida em cada instante."
     ],
-    superação: [
+    superacao: [
         "A superação começa com a decisão de tentar.",
     "Desafios existem para serem vencidos.",
     "Cada obstáculo é uma oportunidade de crescer.",
@@ -1405,35 +1437,38 @@ btnDarkMode?.addEventListener('click', () => {
 
 // Print da área principal - garantir que o botão existe ao adicionar o evento
 document.addEventListener('DOMContentLoaded', function() {
-    const btnPrint = document.getElementById('btnPrint');
-    if (btnPrint) {
-        btnPrint.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (typeof html2canvas === 'undefined') {
-                alert('Erro: Biblioteca de captura de imagem não carregada. Recarregue a página.');
-                return;
-            }
-            // Captura a tela inteira do body
-            html2canvas(document.body, {
-                backgroundColor: null,
-                useCORS: true,
-                scale: 2
-            }).then(canvas => {
-                const data = new Date();
-                const nomeArquivo = `print-frasego-${data.getFullYear()}-${(data.getMonth()+1)}-${data.getDate()}-${data.getHours()}${data.getMinutes()}${data.getSeconds()}.png`;
-                const link = document.createElement('a');
-                link.download = nomeArquivo;
-                link.href = canvas.toDataURL('image/png', 1.0);
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }).catch(error => {
-                alert('Erro ao gerar a imagem. Tente novamente.');
-                console.error('Erro ao gerar imagem:', error);
-            });
+    var btnPrint = document.getElementById('btnPrint');
+    if (!btnPrint) return;
+    btnPrint.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (typeof html2canvas === 'undefined') {
+            alert('Erro: Biblioteca de captura de imagem não carregada. Recarregue a página.');
+            return;
+        }
+        var fraseBox = document.querySelector('.frase-box');
+        if (!fraseBox) {
+            alert('Erro: Área da frase não encontrada.');
+            return;
+        }
+        html2canvas(fraseBox, {
+            backgroundColor: null,
+            useCORS: true,
+            scale: 2
+        }).then(function(canvas) {
+            var data = new Date();
+            var nomeArquivo = 'frase-' + data.getFullYear() + '-' + (data.getMonth()+1) + '-' + data.getDate() + '-' + data.getHours() + data.getMinutes() + data.getSeconds() + '.png';
+            var link = document.createElement('a');
+            link.download = nomeArquivo;
+            link.href = canvas.toDataURL('image/png', 1.0);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }).catch(function(error) {
+            alert('Erro ao gerar a imagem. Tente novamente.');
+            console.error('Erro ao gerar imagem:', error);
         });
-    }
+    });
 });
 
 // Copiar frase principal
