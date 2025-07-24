@@ -82,6 +82,11 @@
             </button>
             <!-- NOVA CAIXA DE TEXTO ESTILO ANEXO (fixa, 4cm abaixo do topo) -->
             <div id="twitterTextBox" style="background:rgba(90,90,105,0.78);border-radius:17px;box-shadow:0 8px 29px 0 rgba(31,38,135,0.18);position:absolute;top:4cm;left:50%;transform:translateX(-50%);width:262px;max-width:calc(90vw - 2cm);min-width:182px;min-height:36px;max-height:294px;padding:25px 32px 25px 32px;display:flex;flex-direction:column;align-items:center;overflow:visible;transition:background 0.5s;border: 1.5px solid rgba(13,71,161,0.4);z-index:1;">
+                <!-- Imagem de fundo -->
+                <div id="imagemFundoContainer" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:17px;overflow:hidden;z-index:-1;">
+                  <img id="imagemFundo" style="width:100%;height:100%;object-fit:cover;opacity:0.3;transition:opacity 0.3s;" />
+                </div>
+                
                 <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0.1rem;margin-bottom:8px;width:100%;justify-content:center;">
                   <span id="nomeUsuario" style="font-family:'Montserrat',Arial,sans-serif;font-size:1.08rem;font-weight:400;color:#222;letter-spacing:0.01em;line-height:1.1;text-shadow:0 1px 4px #fff,0 1px 1px #bbb;"></span>
                   <span style="display:flex;align-items:center;gap:0.32em;">
@@ -198,7 +203,6 @@
                     height: 100vh;
                     background: rgba(30,32,40,0.65);
                     z-index: 999999;
-                    display: flex;
                     justify-content: center;
                     align-items: center;
                     transition: background 0.3s;
@@ -322,6 +326,186 @@
                     background: linear-gradient(135deg,#1565c0 0%,#1976d2 100%);
                     transform: translateY(-1px);
                     box-shadow: 0 5px 14px rgba(25,118,210,0.4);
+                  }
+                  
+                  /* Estilos para controles de imagem de fundo */
+                  .imagem-controles {
+                    width: 100%;
+                    border-top: 1px solid #e5e7eb;
+                    padding-top: 1rem;
+                    margin-top: 1rem;
+                  }
+                  
+                  .imagem-controles h3 {
+                    font-size: 1rem;
+                    color: #1976d2;
+                    margin: 0 0 0.8rem 0;
+                    font-family: 'Montserrat', Arial, sans-serif;
+                    font-weight: 600;
+                    text-align: center;
+                  }
+                  
+                  .galeria-temas {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+                    gap: 8px;
+                    margin-bottom: 1rem;
+                    max-height: 200px;
+                    overflow-y: auto;
+                    padding: 4px;
+                    border-radius: 8px;
+                    background: #f8f9fa;
+                    border: 1px solid #e5e7eb;
+                  }
+                  
+                  .imagem-tema {
+                    width: 100%;
+                    height: 60px;
+                    object-fit: cover;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    border: 2px solid transparent;
+                    transition: all 0.2s;
+                    display: block !important;
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                    background: #f0f0f0;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                  }
+                  
+                  .imagem-tema:hover {
+                    border-color: #1976d2;
+                    transform: scale(1.05);
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+                  }
+                  
+                  .imagem-tema.selecionada {
+                    border-color: #1976d2;
+                    box-shadow: 0 0 0 1px #1976d2, 0 4px 8px rgba(25,118,210,0.3);
+                  }
+                  
+                  /* Fallback para imagens que não carregam */
+                  .imagem-tema::before {
+                    content: "🖼️";
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    font-size: 20px;
+                    color: #666;
+                    z-index: 1;
+                  }
+                  
+                  .imagem-tema {
+                    position: relative;
+                  }
+                  
+                  .upload-area {
+                    border: 2px dashed #d1d5db;
+                    border-radius: 8px;
+                    padding: 1rem;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    margin-bottom: 1rem;
+                  }
+                  
+                  .upload-area:hover {
+                    border-color: #1976d2;
+                    background: #f0f7ff;
+                  }
+                  
+                  .upload-area input[type="file"] {
+                    display: none;
+                  }
+                  
+                  .upload-text {
+                    font-size: 0.85rem;
+                    color: #666;
+                    margin: 0;
+                  }
+                  
+                  .controles-imagem-botoes {
+                    display: flex;
+                    gap: 8px;
+                    justify-content: space-between;
+                  }
+                  
+                  .btn-imagem {
+                    flex: 1;
+                    padding: 8px 12px;
+                    font-size: 0.8rem;
+                    border-radius: 6px;
+                    border: 1px solid #d1d5db;
+                    background: #fff;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                  }
+                  
+                  .btn-imagem:hover {
+                    background: #f0f7ff;
+                    border-color: #1976d2;
+                  }
+                  
+                  /* Modo dark para controles de imagem */
+                  body.dark-mode .imagem-controles {
+                    border-top-color: #444;
+                  }
+                  
+                  body.dark-mode .imagem-controles h3 {
+                    color: #90caf9;
+                  }
+                  
+                  body.dark-mode .galeria-temas {
+                    background: #2a2a32;
+                    border-color: #444;
+                  }
+                  
+                  body.dark-mode .imagem-tema {
+                    background: #3a3a42;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                  }
+                  
+                  body.dark-mode .imagem-tema:hover {
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+                  }
+                  
+                  body.dark-mode .imagem-tema.selecionada {
+                    box-shadow: 0 0 0 1px #1976d2, 0 4px 8px rgba(25,118,210,0.4);
+                  }
+                  
+                  body.dark-mode .upload-area {
+                    border-color: #444;
+                    background: #2a2a32;
+                  }
+                  
+                  body.dark-mode .upload-area:hover {
+                    border-color: #1976d2;
+                    background: #1a1a22;
+                  }
+                  
+                  body.dark-mode .upload-text {
+                    color: #b0b0b0;
+                  }
+                  
+                  body.dark-mode .btn-imagem {
+                    background: #2a2a32;
+                    border-color: #444;
+                    color: #e0e0e0;
+                  }
+                  
+                  body.dark-mode .btn-imagem:hover {
+                    background: #1a1a22;
+                    border-color: #1976d2;
+                  }
+                  
+                  /* Ajustes para imagem de fundo no modo escuro */
+                  body.dark-mode #imagemFundoContainer {
+                    opacity: 0.7;
+                  }
+                  
+                  body.dark-mode #imagemFundo {
+                    filter: brightness(0.8) contrast(1.1);
                   }
                   /* Responsividade para tablets e dispositivos médios */
                   @media (max-width: 768px) {
@@ -522,21 +706,46 @@
                 <label for="inputArrobaUsuario">Nome de usuário (@)</label>
                 <input id="inputArrobaUsuario" type="text" maxlength="20" placeholder="@" autocomplete="off" />
                 <button id="btnSalvarUsuario">💾 Salvar Informações</button>
+                
+                <!-- Controles de Imagem de Fundo -->
+                <div class="imagem-controles">
+                  <h3>🖼️ Imagem de Fundo</h3>
+                  
+                  <!-- Galeria de imagens por tema -->
+                  <div class="galeria-temas" id="galeriaTemas">
+                    <!-- As imagens serão carregadas dinamicamente pelo JavaScript -->
+                  </div>
+                  
+                  <!-- Upload de imagem personalizada -->
+                  <div class="upload-area" onclick="document.getElementById('uploadImagem').click()">
+                    <input type="file" id="uploadImagem" accept="image/*">
+                    <p class="upload-text">📤 Clique para enviar sua imagem</p>
+                  </div>
+                  
+                  <!-- Botões de controle -->
+                  <div class="controles-imagem-botoes">
+                    <button class="btn-imagem" id="btnRemoverImagem">🗑️ Remover</button>
+                    <button class="btn-imagem" id="btnOpacidadeImagem">🔍 Opacidade</button>
+                  </div>
+                  
+                  <!-- Botão de teste -->
+                  <button class="btn-imagem" id="btnTestarGaleria" style="width: 100%; margin-top: 8px; background: #2196f3; color: white;">🔄 Recarregar Galeria</button>
+                </div>
               </div>
             </div>
             </div>
             <!-- Top bar: salvar imagem, darkmode, favoritos -->
             <div class="top-bar" style="width:100%;padding:0rem 0 0.5rem 0;display:flex;flex-direction:row;align-items:flex-start;justify-content:space-between;z-index:1;position:relative;">
                 <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0.2rem;position:relative;">
-                  <button id="btnPrint" title="Salvar imagem para postagem" style="background:none;border:none;cursor:pointer;padding:0.3rem 0.5rem 0 0.5rem;">
-                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <button id="btnPrint" title="Salvar imagem para postagem" style="background:none;border:none;cursor:pointer;padding:0.2rem 0.4rem 0 0.4rem;">
+                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 12v2a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4v-2"/>
                         <polyline points="16 6 12 2 8 6"/>
                         <line x1="12" y1="2" x2="12" y2="15"/>
                      </svg>
                   </button>
-                  <button id="btnDarkModeNovo" title="Modo escuro" style="background:none;border:none;cursor:pointer;padding:0.3rem 0.5rem 0 0.5rem;">
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <button id="btnDarkModeNovo" title="Modo escuro" style="background:none;border:none;cursor:pointer;padding:0.2rem 0.4rem 0 0.4rem;">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                           <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
                       </svg>
                   </button>
@@ -552,8 +761,8 @@
                 </div>
                 <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.3rem;">
                   <div style="height:2cm;"></div>
-                  <button id="btnFavoritos" title="Favoritos" class="favoritos-btn" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;min-width:36px;min-height:36px;">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <button id="btnFavoritos" title="Favoritos" class="favoritos-btn" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;min-width:32px;min-height:32px;">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
                           <title>Favoritos</title>
                       </svg>
@@ -562,7 +771,7 @@
             </div>
             <!-- Controles: tema e fonte -->
             <div class="controls" style="width:100%;display:flex;gap:0.3rem;justify-content:center;align-items:center;margin-bottom:0.2rem;z-index:1;position:relative;">
-                <select id="temaSelect" style="margin-top:-2cm;">
+                <select id="temaSelect" style="margin-top:-3cm;">
                     <option value="motivacional">Motivacional</option>
                     <option value="amor">Amor</option>
                     <option value="amizade">Amizade</option>
@@ -575,7 +784,7 @@
                     <option value="inspiração">Inspiração</option>
                     <option value="versiculo">Versículo Bíblico</option>
                 </select>
-                <select id="fonteSelect" style="margin-top:-2cm;">
+                <select id="fonteSelect" style="margin-top:-3cm;">
                     <option value="Roboto">Roboto</option>
                     <option value="Montserrat">Montserrat</option>
                     <option value="Lato">Lato</option>
@@ -593,26 +802,26 @@
             <div class="mid-bar" style="width:100%;display:flex;justify-content:center;align-items:center;gap:0.3rem;margin-bottom:0;z-index:1;position:relative;"></div>
             <!-- Botões interativos: tag, copiar, favoritar -->
             <div class="botoes-interativos" style="width: 100%;display: flex;flex-direction: row;justify-content: center;align-items: center;gap: 0.4rem;position: absolute;bottom: 70px;left: 50%;transform: translateX(-50%);z-index: 1;">
-                <button id="btnTags" class="tags-btn" title="Gerar tags para redes sociais" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;min-width:36px;min-height:36px;">
-                    <span id="iconeJogoDaVelha" style="font-size:1.5rem;line-height:1;color:#222;transition:color 0.2s;">#</span>
+                <button id="btnTags" class="tags-btn" title="Gerar tags para redes sociais" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;min-width:32px;min-height:32px;">
+                    <span id="iconeJogoDaVelha" style="font-size: 18px; font-weight: bold;">#</span>
                 </button>
-                <button id="btnCopiarFrase" class="copiar-btn" title="Copiar frase" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;min-width:36px;min-height:36px;">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <button id="btnCopiarFrase" class="copiar-btn" title="Copiar frase" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;min-width:32px;min-height:32px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
                     </svg>
                 </button>
-                <button id="btnFavoritar" class="coracao-btn" title="Favoritar" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;min-width:36px;min-height:36px;">
-                    <svg id="coracaoIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;">
+                <button id="btnFavoritar" class="coracao-btn" title="Favoritar" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;min-width:32px;min-height:32px;margin-top:-3px;">
+                    <svg id="coracaoIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;">
                         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                     </svg>
                 </button>
             </div>
             <!-- Botões de navegação de frases -->
             <div style="width:100%;display:flex;flex-direction:row;justify-content:space-between;align-items:flex-end;gap:0.2rem;margin-top:auto;margin-bottom:0.08rem;z-index:5;position:relative;">
-                <div class="botoes bottom-botoes" style="display:flex;gap:0.2rem;flex:1;">
-                    <button id="voltarFrase" style="flex:1;min-width:0;">Frase Anterior</button>
-                    <button id="novaFrase" style="flex:1;min-width:0;">Nova Frase</button>
+                <div class="botoes bottom-botoes" style="display:flex;gap:0.3rem;flex:1;">
+                    <button id="voltarFrase" class="botao-navegacao">Frase Anterior</button>
+                    <button id="novaFrase" class="botao-navegacao">Nova Frase</button>
                 </div>
             </div>
         </div>
@@ -800,27 +1009,6 @@
       
       console.log('Forçada atualização do usuário:', { nome, arroba });
     };
-
-    // Adiciona um botão de teste temporário para verificar a funcionalidade
-    const btnTeste = document.createElement('button');
-    btnTeste.textContent = '🔄 Atualizar Usuário';
-    btnTeste.style.position = 'fixed';
-    btnTeste.style.top = '10px';
-    btnTeste.style.left = '10px';
-    btnTeste.style.zIndex = '9999';
-    btnTeste.style.padding = '8px 12px';
-    btnTeste.style.backgroundColor = '#0d47a1';
-    btnTeste.style.color = 'white';
-    btnTeste.style.border = 'none';
-    btnTeste.style.borderRadius = '6px';
-    btnTeste.style.cursor = 'pointer';
-    btnTeste.onclick = function() {
-      if (window.forcarAtualizacaoUsuario) {
-        window.forcarAtualizacaoUsuario();
-        alert('Função de atualização executada!');
-      }
-    };
-    document.body.appendChild(btnTeste);
 
     // Carregar valores salvos
     function carregarUsuario() {
@@ -1029,21 +1217,6 @@ if (btnSalvarUsuario) {
     
     // Event listeners para botões de modal
     document.addEventListener('DOMContentLoaded', function() {
-      // Botão para testar login modal (temporário)
-      const btnTeste = document.createElement('button');
-      btnTeste.textContent = '🔑 Testar Login';
-      btnTeste.style.position = 'fixed';
-      btnTeste.style.bottom = '10px';
-      btnTeste.style.left = '10px';
-      btnTeste.style.zIndex = '9999';
-      btnTeste.style.padding = '8px 12px';
-      btnTeste.style.backgroundColor = '#0d47a1';
-      btnTeste.style.color = 'white';
-      btnTeste.style.border = 'none';
-      btnTeste.style.borderRadius = '6px';
-      btnTeste.style.cursor = 'pointer';
-      btnTeste.onclick = () => testarModal('modalLogin');
-      document.body.appendChild(btnTeste);
       
       // Event listeners para fechar modais
       document.addEventListener('click', function(e) {
@@ -1349,13 +1522,24 @@ document.addEventListener('DOMContentLoaded', function () {
   btnFakePremium.style.position = "fixed";
   btnFakePremium.style.bottom = "12px";
   btnFakePremium.style.right = "12px";
-  btnFakePremium.style.padding = "10px 14px";
+  btnFakePremium.style.padding = "4px 8px";
+  btnFakePremium.style.fontSize = "10px";
   btnFakePremium.style.borderRadius = "8px";
-  btnFakePremium.style.background = "#0d47a1";
+  btnFakePremium.style.background = "linear-gradient(135deg, #ff6b6b 0%, #ffd93d 100%)";
   btnFakePremium.style.color = "#fff";
   btnFakePremium.style.border = "none";
   btnFakePremium.style.cursor = "pointer";
   btnFakePremium.style.zIndex = "9999";
+  btnFakePremium.style.boxShadow = "0 2px 10px rgba(255, 107, 107, 0.3)";
+  btnFakePremium.style.transition = "all 0.3s ease";
+  btnFakePremium.addEventListener('mouseenter', function() {
+    btnFakePremium.style.transform = 'translateY(-2px)';
+    btnFakePremium.style.boxShadow = '0 4px 15px rgba(255, 217, 61, 0.5)';
+  });
+  btnFakePremium.addEventListener('mouseleave', function() {
+    btnFakePremium.style.transform = 'translateY(0)';
+    btnFakePremium.style.boxShadow = '0 2px 10px rgba(255, 107, 107, 0.3)';
+  });
   btnFakePremium.onclick = ativarPremium;
   document.body.appendChild(btnFakePremium);
 

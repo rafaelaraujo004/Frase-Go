@@ -418,6 +418,36 @@ body.dark-mode .logo-frase svg path {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #00c9ff 0%, #92fe9d 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 201, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.bottom-botoes button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s;
+}
+
+.bottom-botoes button:hover {
+    background: linear-gradient(135deg, #92fe9d 0%, #00c9ff 100%);
+    box-shadow: 0 6px 30px rgba(146, 254, 157, 0.4);
+    transform: translateY(-1px);
+}
+
+.bottom-botoes button:hover::before {
+    left: 100%;
 }
 body.dark-mode .frase-box,
 body.dark-mode .favoritos-content,
@@ -429,12 +459,75 @@ body.dark-mode .tags-content {
 body.dark-mode svg {
   stroke: #eee !important;
 }
-body.dark-mode select,
+body.dark-mode select {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 255, 255, 0.1) 100%) !important;
+  color: #00d4ff !important;
+  border: 2px solid rgba(0, 212, 255, 0.3) !important;
+  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.2) !important;
+}
+
+body.dark-mode select:focus {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.2) 0%, rgba(0, 255, 255, 0.2) 100%) !important;
+  border-color: #00d4ff !important;
+  box-shadow: 0 6px 30px rgba(0, 212, 255, 0.4) !important;
+}
+
+body.dark-mode select:hover {
+  border-color: rgba(0, 212, 255, 0.5) !important;
+  box-shadow: 0 6px 25px rgba(0, 212, 255, 0.3) !important;
+}
+
 body.dark-mode button,
 body.dark-mode input {
-  background: #23272b !important;
-  color: #eee !important;
-  border-color: #444 !important;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+  color: #00d4ff !important;
+  border: 1px solid rgba(0, 212, 255, 0.3) !important;
+  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.2) !important;
+}
+
+body.dark-mode button:hover {
+  background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%) !important;
+  box-shadow: 0 6px 30px rgba(0, 212, 255, 0.4) !important;
+  border-color: rgba(0, 212, 255, 0.6) !important;
+}
+
+body.dark-mode .bottom-botoes button {
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%) !important;
+  border: 1px solid rgba(0, 255, 255, 0.4) !important;
+  color: #00ffff !important;
+  box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2) !important;
+}
+
+body.dark-mode .bottom-botoes button:hover {
+  background: linear-gradient(135deg, #1a1a2e 0%, #0f0f23 100%) !important;
+  box-shadow: 0 6px 30px rgba(0, 255, 255, 0.4) !important;
+  border-color: rgba(0, 255, 255, 0.8) !important;
+}
+
+body.dark-mode .coracao-btn,
+body.dark-mode .favoritos-btn,
+body.dark-mode .copiar-btn,
+body.dark-mode .tags-btn {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 255, 255, 0.05) 100%) !important;
+  border-color: rgba(0, 212, 255, 0.6) !important;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3) !important;
+}
+
+body.dark-mode .coracao-btn svg,
+body.dark-mode .favoritos-btn svg,
+body.dark-mode .copiar-btn svg {
+  stroke: #00d4ff !important;
+  filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.6)) !important;
+}
+
+body.dark-mode #iconeJogoDaVelha {
+  color: #00ffff !important;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8) !important;
+}
+
+body.dark-mode .tags-btn:hover #iconeJogoDaVelha {
+  color: #92fe9d !important;
+  text-shadow: 0 0 15px rgba(146, 254, 157, 0.9) !important;
 }
 body.dark-mode #iconeJogoDaVelha {
   color: #fff !important;
@@ -518,79 +611,222 @@ h1 {
 
 select {
   padding: 8px 12px;
-  border-radius: 8px;
-  border: 1.5px solid #0d47a1;
-  background: rgba(255,255,255,0.65);
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
   font-size: 0.7rem;
-  color: #0d47a1;
+  color: #667eea;
   outline: none;
-  box-shadow: 0 1px 6px #0001;
-  transition: background 0.2s, border 0.2s;
-  backdrop-filter: blur(2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  position: relative;
 }
 
 select:focus {
-  background: rgba(255,255,255,0.85);
-  border-color: #08306b;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+  border-color: #667eea;
+  box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+  transform: translateY(-1px);
+}
+
+select:hover {
+  border-color: rgba(102, 126, 234, 0.5);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
 }
 
 button {
-  background: #0d47a1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #fff;
   border: none;
-  border-radius: 8px;
-  padding: 12px 28px;
-  font-size: 1rem;
+  border-radius: 12px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.5px;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s;
 }
 
 button:hover {
-  background: #08306b;
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+  transform: translateY(-2px);
+}
+
+button:hover::before {
+  left: 100%;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+  transform: translateY(-2px);
 }
 
 /* === Botões de Ação (Favoritos, Coração etc.) === */
 .coracao-btn,
-.favoritos-btn {
-  background: #fff;
-  border: 2px solid #222;
+.favoritos-btn,
+.copiar-btn,
+.tags-btn {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border: 2px solid rgba(102, 126, 234, 0.6);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: border 0.2s, background 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 0;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.coracao-btn::before,
+.favoritos-btn::before,
+.copiar-btn::before,
+.tags-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.3) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.coracao-btn:hover::before,
+.favoritos-btn:hover::before,
+.copiar-btn:hover::before,
+.tags-btn:hover::before {
+  opacity: 1;
+}
+
+.coracao-btn:hover,
+.favoritos-btn:hover,
+.copiar-btn:hover,
+.tags-btn:hover {
+  border-color: rgba(146, 254, 157, 0.8);
+  box-shadow: 0 6px 25px rgba(146, 254, 157, 0.4);
+  transform: translateY(-2px) scale(1.05);
 }
 
 .coracao-btn {
-  width: 48px;
-  height: 48px;
-  margin-left: 8px;
+  width: 36px;
+  height: 36px;
+  margin-left: 6px;
 }
 
-.favoritos-btn {
-  width: 40px;
-  height: 40px;
-  margin-left: 8px;
+.tags-btn {
+  width: 32px;
+  height: 32px;
+  margin-left: 6px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border: 2px solid rgba(102, 126, 234, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+  position: relative;
+  overflow: hidden;
 }
 
 .coracao-btn svg,
-.favoritos-btn svg {
-  stroke: #222;
+.favoritos-btn svg,
+.copiar-btn svg {
+  stroke: #667eea;
   fill: none;
-  transition: fill 0.2s, stroke 0.2s;
+  transition: all 0.3s;
+  filter: drop-shadow(0 0 5px rgba(102, 126, 234, 0.5));
+}
+
+#iconeJogoDaVelha {
+  color: #667eea !important;
+  text-shadow: 0 0 5px rgba(102, 126, 234, 0.5) !important;
+  transition: all 0.3s !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  line-height: 1 !important;
+}
+
+.coracao-btn:hover svg,
+.favoritos-btn:hover svg,
+.copiar-btn:hover svg {
+  stroke: #92fe9d;
+  filter: drop-shadow(0 0 10px rgba(146, 254, 157, 0.8));
+}
+
+.tags-btn:hover #iconeJogoDaVelha {
+  color: #92fe9d !important;
+  text-shadow: 0 0 10px rgba(146, 254, 157, 0.8) !important;
 }
 
 .coracao-btn.favorito svg {
-  fill: #e53935;
-  stroke: #e53935;
+  fill: #ff6b6b;
+  stroke: #ff6b6b;
+  filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.8));
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); }
+  50% { box-shadow: 0 6px 25px rgba(146, 254, 157, 0.5); }
+  100% { box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); }
+}
+
+@keyframes neonBorder {
+  0% { border-color: rgba(102, 126, 234, 0.6); }
+  50% { border-color: rgba(146, 254, 157, 0.8); }
+  100% { border-color: rgba(102, 126, 234, 0.6); }
+}
+
+/* Animação especial para botões ativos */
+.bottom-botoes button:active {
+  animation: glow 0.3s ease-in-out;
+}
+
+.coracao-btn:active,
+.favoritos-btn:active,
+.copiar-btn:active,
+.tags-btn:active {
+  animation: neonBorder 0.5s ease-in-out;
 }
 
 .favoritos-btn.ativo svg {
-  fill: #ff9800;
-  stroke: #ff9800;
+  fill: #ffd93d;
+  stroke: #ffd93d;
+  filter: drop-shadow(0 0 10px rgba(255, 217, 61, 0.8));
+  animation: pulse 2s infinite;
 }
 
 .coracao-btn:focus {
@@ -1306,4 +1542,66 @@ div[style*="background: rgba"].hidden {
     visibility: hidden !important;
     opacity: 0 !important;
   }
+}
+
+/* Estilos para botões de navegação baseados no modelo dos selects */
+.botao-navegacao {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 12px !important;
+  border-radius: 12px !important;
+  border: 2px solid transparent !important;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%) !important;
+  font-size: 0.7rem !important;
+  color: #667eea !important;
+  font-weight: 600 !important;
+  outline: none !important;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  backdrop-filter: blur(10px) !important;
+  position: relative !important;
+  cursor: pointer !important;
+  text-align: center !important;
+}
+
+.botao-navegacao:focus {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%) !important;
+  border-color: #667eea !important;
+  box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4) !important;
+  transform: translateY(-1px) !important;
+}
+
+.botao-navegacao:hover {
+  border-color: rgba(102, 126, 234, 0.5) !important;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3) !important;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%) !important;
+  transform: translateY(-1px) !important;
+}
+
+.botao-navegacao:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3) !important;
+}
+
+/* Modo escuro para botões de navegação */
+body.dark-mode .botao-navegacao {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 255, 255, 0.1) 100%) !important;
+  color: #00d4ff !important;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2) !important;
+}
+
+body.dark-mode .botao-navegacao:focus {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.2) 0%, rgba(0, 255, 255, 0.2) 100%) !important;
+  border-color: #00d4ff !important;
+  box-shadow: 0 6px 25px rgba(0, 212, 255, 0.4) !important;
+}
+
+body.dark-mode .botao-navegacao:hover {
+  border-color: rgba(0, 212, 255, 0.5) !important;
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.3) !important;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(0, 255, 255, 0.15) 100%) !important;
+}
+
+body.dark-mode .botao-navegacao:active {
+  box-shadow: 0 3px 10px rgba(0, 212, 255, 0.3) !important;
 }
