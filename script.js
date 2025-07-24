@@ -13,7 +13,6 @@ function bloquearApp() {
     }
   });
 }
-
 function desbloquearApp() {
   document.querySelectorAll('button,select,input,textarea').forEach(el => {
     el.disabled = false;
