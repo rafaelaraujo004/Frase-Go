@@ -172,15 +172,15 @@ function inicializarEventListeners() {
     console.log('Adicionando event listener ao botão convidado');
     btnConvidado.addEventListener('click', function() {
       console.log('Botão convidado clicado');
-      // Marca usuário como convidado
-      localStorage.setItem('usuario_convidado', 'true');
       // Fecha todos os modais e desbloqueia o app para uso como convidado
       const modalLogin = document.getElementById('modalLogin');
       const modalCadastro = document.getElementById('modalCadastro');
       const modalEsqueciSenha = document.getElementById('modalEsqueciSenha');
+      
       if (modalLogin) modalLogin.style.display = 'none';
       if (modalCadastro) modalCadastro.style.display = 'none';
       if (modalEsqueciSenha) modalEsqueciSenha.style.display = 'none';
+      
       desbloquearApp();
     });
   } else {
