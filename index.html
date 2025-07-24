@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Montserrat:400,700|Lato:400,700|Inter:400,700|Open+Sans:400,700|Space+Mono:400,700|Fira+Sans:400,700|Work+Sans:400,700|Poppins:400,700|Merriweather:400,700|Quicksand:400,700&display=swap" rel="stylesheet">
     <!-- Adicione o script da biblioteca html2canvas aqui -->
-<link rel="manifest" href="manifest.json" />    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <link rel="manifest" href="manifest.json" />
 </head>
-<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0d0d0d">
 <meta name="description" content="Frase Go - Encontre inspiração diária com frases motivacionais, de amor, amizade e muito mais. Personalize com temas e fontes exclusivas.">
 <body>
@@ -847,6 +847,34 @@
                     opacity: 1 !important;
                     z-index: 99999999 !important;
                   }
+                  
+                  /* Estilo para botão favorito quando ativo */
+                  .coracao-btn.favorito svg path {
+                    fill: #e53935 !important;
+                    stroke: #c62828 !important;
+                  }
+                  
+                  .coracao-btn.favorito {
+                    transform: scale(1.1);
+                    transition: transform 0.3s ease;
+                  }
+                  
+                  .coracao-btn {
+                    transition: transform 0.3s ease;
+                  }
+                  
+                  /* Animação quando favorita */
+                  .coracao-btn.favorito {
+                    animation: heartBeat 0.6s ease-in-out;
+                  }
+                  
+                  @keyframes heartBeat {
+                    0% { transform: scale(1); }
+                    25% { transform: scale(1.2); }
+                    50% { transform: scale(1.1); }
+                    75% { transform: scale(1.15); }
+                    100% { transform: scale(1.1); }
+                  }
                 </style>
             <!-- Sidebar Usuário -->
             <div id="sidebarUsuarioOverlay">
@@ -891,8 +919,6 @@
                     <button class="btn-imagem" id="btnOpacidadeImagem">🔍 Opacidade</button>
                   </div>
                   
-                  <!-- Botão de teste -->
-                  <button class="btn-imagem" id="btnTestarGaleria" style="width: 100%; margin-top: 8px; margin-bottom: 150px; background: #2196f3; color: white;">🔄 Recarregar Galeria</button>
                 </div>
               </div>
             </div>
@@ -990,12 +1016,610 @@
         </div>
     </div>
     <div id="tagsModal" style="display:none;position:fixed;z-index:1000;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.25);align-items:center;justify-content:center;overflow-y:auto;padding:20px;box-sizing:border-box;">
-        <div class="tags-content" style="background:#fff;padding:1rem 1.2rem 16rem 1.2rem;border-radius:1.2rem;max-width:95vw;width:400px;max-height:calc(100vh + 10cm);overflow-y:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:thin;box-shadow:0 2px 16px #0002;display:flex;flex-direction:column;align-items:center;">
-            <h2 style="margin-bottom:1rem;">Sugestões de Tags</h2>
-            <div id="tagsLacunas" style="width:100%;display:flex;flex-direction:column;gap:1.2rem;"></div>
-            <button class="fechar-modal" id="fecharTags" style="margin-top:1.5rem;">Fechar</button>
+        <div class="tags-content" style="background:#fff;padding:1rem 1.2rem 2rem 1.2rem;border-radius:1.2rem;max-width:95vw;width:450px;max-height:calc(90vh);overflow-y:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:thin;box-shadow:0 2px 16px #0002;display:flex;flex-direction:column;align-items:center;">
+            <h2 style="margin-bottom:1rem;color:#1976d2;font-family:'Montserrat',Arial,sans-serif;">📱 Tags para Instagram</h2>
+            
+            <!-- Quadrantes Rápidos baseados no Tema -->
+            <div style="width:100%;margin-bottom:1.5rem;">
+                <h3 style="color:#ff6b35;margin-bottom:0.8rem;font-size:1rem;text-align:center;">🎯 Quadrantes Rápidos - Tema: <span id="temaAtual">Carregando...</span></h3>
+                <div id="quadrantesContainer" style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:1rem;">
+                    
+                    <!-- Quadrante 1 -->
+                    <div class="quadrante" data-quadrante="1" style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;padding:12px;border-radius:12px;cursor:pointer;transition:all 0.3s;text-align:center;">
+                        <div style="font-size:0.85rem;font-weight:600;margin-bottom:4px;">📈 Engajamento</div>
+                        <div style="font-size:0.7rem;opacity:0.9;" id="quadrante1Tags">5 tags</div>
+                    </div>
+                    
+                    <!-- Quadrante 2 -->
+                    <div class="quadrante" data-quadrante="2" style="background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);color:white;padding:12px;border-radius:12px;cursor:pointer;transition:all 0.3s;text-align:center;">
+                        <div style="font-size:0.85rem;font-weight:600;margin-bottom:4px;">🎯 Específicas</div>
+                        <div style="font-size:0.7rem;opacity:0.9;" id="quadrante2Tags">5 tags</div>
+                    </div>
+                    
+                    <!-- Quadrante 3 -->
+                    <div class="quadrante" data-quadrante="3" style="background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%);color:white;padding:12px;border-radius:12px;cursor:pointer;transition:all 0.3s;text-align:center;">
+                        <div style="font-size:0.85rem;font-weight:600;margin-bottom:4px;">🌟 Populares</div>
+                        <div style="font-size:0.7rem;opacity:0.9;" id="quadrante3Tags">5 tags</div>
+                    </div>
+                    
+                    <!-- Quadrante 4 -->
+                    <div class="quadrante" data-quadrante="4" style="background:linear-gradient(135deg,#43e97b 0%,#38f9d7 100%);color:white;padding:12px;border-radius:12px;cursor:pointer;transition:all 0.3s;text-align:center;">
+                        <div style="font-size:0.85rem;font-weight:600;margin-bottom:4px;">🔥 Trending</div>
+                        <div style="font-size:0.7rem;opacity:0.9;" id="quadrante4Tags">5 tags</div>
+                    </div>
+                    
+                </div>
+                <div style="text-align:center;font-size:0.8rem;color:#666;margin-bottom:1rem;">
+                    💡 Clique em um quadrante para copiar 5 tags relacionadas ao seu tema
+                </div>
+            </div>
+            
+            <!-- Seletor de Categoria -->
+            <div style="width:100%;margin-bottom:1.5rem;">
+                <label for="categoriaSelect" style="display:block;margin-bottom:0.5rem;font-weight:600;color:#333;">Escolha a categoria:</label>
+                <select id="categoriaSelect" style="width:100%;padding:10px;border-radius:8px;border:2px solid #e0e0e0;font-size:0.9rem;background:#fff;">
+                    <option value="motivacional">🚀 Motivacional & Inspiração</option>
+                    <option value="amor">💕 Amor & Relacionamentos</option>
+                    <option value="lifestyle">✨ Lifestyle & Bem-estar</option>
+                    <option value="negocio">💼 Negócios & Empreendedorismo</option>
+                    <option value="fitness">💪 Fitness & Saúde</option>
+                    <option value="viagem">✈️ Viagem & Aventura</option>
+                    <option value="tecnologia">💻 Tecnologia & Inovação</option>
+                    <option value="arte">🎨 Arte & Criatividade</option>
+                    <option value="culinaria">🍳 Culinária & Gastronomia</option>
+                    <option value="moda">👗 Moda & Estilo</option>
+                    <option value="musica">🎵 Música & Entretenimento</option>
+                    <option value="natureza">🌿 Natureza & Sustentabilidade</option>
+                </select>
+            </div>
+
+            <!-- Container das Tags -->
+            <div id="tagsContainer" style="width:100%;display:flex;flex-direction:column;gap:1rem;">
+                
+                <!-- Tags Motivacionais -->
+                <div id="tagsMotivacional" class="tags-category" style="display:block;">
+                    <h3 style="color:#ff6b35;margin-bottom:0.8rem;font-size:1rem;">🚀 Tags Motivacionais</h3>
+                    <div class="tags-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:1rem;">
+                        <span class="tag-item">#motivacao</span>
+                        <span class="tag-item">#inspiracao</span>
+                        <span class="tag-item">#sucesso</span>
+                        <span class="tag-item">#foco</span>
+                        <span class="tag-item">#determinacao</span>
+                        <span class="tag-item">#metas</span>
+                        <span class="tag-item">#conquista</span>
+                        <span class="tag-item">#superacao</span>
+                        <span class="tag-item">#mindset</span>
+                        <span class="tag-item">#crescimento</span>
+                        <span class="tag-item">#disciplina</span>
+                        <span class="tag-item">#persistencia</span>
+                        <span class="tag-item">#empoderamento</span>
+                        <span class="tag-item">#autoestima</span>
+                        <span class="tag-item">#confianca</span>
+                        <span class="tag-item">#positividade</span>
+                        <span class="tag-item">#energia</span>
+                        <span class="tag-item">#proposito</span>
+                        <span class="tag-item">#sonhos</span>
+                        <span class="tag-item">#realizacao</span>
+                    </div>
+                </div>
+
+                <!-- Tags de Amor -->
+                <div id="tagsAmor" class="tags-category" style="display:none;">
+                    <h3 style="color:#e91e63;margin-bottom:0.8rem;font-size:1rem;">💕 Tags de Amor</h3>
+                    <div class="tags-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:1rem;">
+                        <span class="tag-item">#amor</span>
+                        <span class="tag-item">#relacionamento</span>
+                        <span class="tag-item">#namoro</span>
+                        <span class="tag-item">#casal</span>
+                        <span class="tag-item">#romance</span>
+                        <span class="tag-item">#paixao</span>
+                        <span class="tag-item">#carinho</span>
+                        <span class="tag-item">#cumplicidade</span>
+                        <span class="tag-item">#saudade</span>
+                        <span class="tag-item">#felicidade</span>
+                        <span class="tag-item">#juntos</span>
+                        <span class="tag-item">#parceria</span>
+                        <span class="tag-item">#companheirismo</span>
+                        <span class="tag-item">#apoio</span>
+                        <span class="tag-item">#confianca</span>
+                        <span class="tag-item">#respeito</span>
+                        <span class="tag-item">#dedicacao</span>
+                        <span class="tag-item">#cuidado</span>
+                        <span class="tag-item">#compreensao</span>
+                        <span class="tag-item">#eternidade</span>
+                    </div>
+                </div>
+
+                <!-- Tags de Lifestyle -->
+                <div id="tagsLifestyle" class="tags-category" style="display:none;">
+                    <h3 style="color:#9c27b0;margin-bottom:0.8rem;font-size:1rem;">✨ Tags de Lifestyle</h3>
+                    <div class="tags-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:1rem;">
+                        <span class="tag-item">#lifestyle</span>
+                        <span class="tag-item">#bemestar</span>
+                        <span class="tag-item">#autocuidado</span>
+                        <span class="tag-item">#equilibrio</span>
+                        <span class="tag-item">#paz</span>
+                        <span class="tag-item">#gratidao</span>
+                        <span class="tag-item">#presente</span>
+                        <span class="tag-item">#momentos</span>
+                        <span class="tag-item">#reflexao</span>
+                        <span class="tag-item">#sabedoria</span>
+                        <span class="tag-item">#serenidade</span>
+                        <span class="tag-item">#mindfulness</span>
+                        <span class="tag-item">#simplicidade</span>
+                        <span class="tag-item">#leveza</span>
+                        <span class="tag-item">#harmonia</span>
+                        <span class="tag-item">#natureza</span>
+                        <span class="tag-item">#contemplacao</span>
+                        <span class="tag-item">#introspeccao</span>
+                        <span class="tag-item">#filosofia</span>
+                        <span class="tag-item">#conhecimento</span>
+                    </div>
+                </div>
+
+                <!-- Tags de Negócios -->
+                <div id="tagsNegocio" class="tags-category" style="display:none;">
+                    <h3 style="color:#ff9800;margin-bottom:0.8rem;font-size:1rem;">💼 Tags de Negócios</h3>
+                    <div class="tags-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:1rem;">
+                        <span class="tag-item">#empreendedorismo</span>
+                        <span class="tag-item">#negocio</span>
+                        <span class="tag-item">#startup</span>
+                        <span class="tag-item">#inovacao</span>
+                        <span class="tag-item">#lideranca</span>
+                        <span class="tag-item">#marketing</span>
+                        <span class="tag-item">#vendas</span>
+                        <span class="tag-item">#produtividade</span>
+                        <span class="tag-item">#estrategia</span>
+                        <span class="tag-item">#resultados</span>
+                        <span class="tag-item">#crescimento</span>
+                        <span class="tag-item">#investimento</span>
+                        <span class="tag-item">#financas</span>
+                        <span class="tag-item">#economia</span>
+                        <span class="tag-item">#networking</span>
+                        <span class="tag-item">#carreira</span>
+                        <span class="tag-item">#profissional</span>
+                        <span class="tag-item">#desenvolvimento</span>
+                        <span class="tag-item">#oportunidade</span>
+                        <span class="tag-item">#sucesso</span>
+                    </div>
+                </div>
+
+                <!-- Tags de Fitness -->
+                <div id="tagsFitness" class="tags-category" style="display:none;">
+                    <h3 style="color:#4caf50;margin-bottom:0.8rem;font-size:1rem;">💪 Tags de Fitness</h3>
+                    <div class="tags-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:1rem;">
+                        <span class="tag-item">#fitness</span>
+                        <span class="tag-item">#treino</span>
+                        <span class="tag-item">#musculacao</span>
+                        <span class="tag-item">#academia</span>
+                        <span class="tag-item">#saude</span>
+                        <span class="tag-item">#bemestar</span>
+                        <span class="tag-item">#exercicio</span>
+                        <span class="tag-item">#cardio</span>
+                        <span class="tag-item">#forca</span>
+                        <span class="tag-item">#resistencia</span>
+                        <span class="tag-item">#hipertrofia</span>
+                        <span class="tag-item">#definicao</span>
+                        <span class="tag-item">#alimentacao</span>
+                        <span class="tag-item">#nutricao</span>
+                        <span class="tag-item">#dieta</span>
+                        <span class="tag-item">#proteina</span>
+                        <span class="tag-item">#suplemento</span>
+                        <span class="tag-item">#vidasaudavel</span>
+                        <span class="tag-item">#motivacao</span>
+                        <span class="tag-item">#determinacao</span>
+                    </div>
+                </div>
+
+                <!-- Tags de Viagem -->
+                <div id="tagsViagem" class="tags-category" style="display:none;">
+                    <h3 style="color:#2196f3;margin-bottom:0.8rem;font-size:1rem;">✈️ Tags de Viagem</h3>
+                    <div class="tags-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:1rem;">
+                        <span class="tag-item">#viagem</span>
+                        <span class="tag-item">#travel</span>
+                        <span class="tag-item">#destino</span>
+                        <span class="tag-item">#aventura</span>
+                        <span class="tag-item">#turismo</span>
+                        <span class="tag-item">#ferias</span>
+                        <span class="tag-item">#praia</span>
+                        <span class="tag-item">#montanha</span>
+                        <span class="tag-item">#cidade</span>
+                        <span class="tag-item">#cultura</span>
+                        <span class="tag-item">#historia</span>
+                        <span class="tag-item">#gastronomia</span>
+                        <span class="tag-item">#paisagem</span>
+                        <span class="tag-item">#fotografia</span>
+                        <span class="tag-item">#memories</span>
+                        <span class="tag-item">#wanderlust</span>
+                        <span class="tag-item">#explore</span>
+                        <span class="tag-item">#descobrir</span>
+                        <span class="tag-item">#mochilao</span>
+                        <span class="tag-item">#roadtrip</span>
+                    </div>
+                </div>
+
+                <!-- Tags de Tecnologia -->
+                <div id="tagsTecnologia" class="tags-category" style="display:none;">
+                    <h3 style="color:#673ab7;margin-bottom:0.8rem;font-size:1rem;">💻 Tags de Tecnologia</h3>
+                    <div class="tags-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:1rem;">
+                        <span class="tag-item">#tecnologia</span>
+                        <span class="tag-item">#tech</span>
+                        <span class="tag-item">#inovacao</span>
+                        <span class="tag-item">#digital</span>
+                        <span class="tag-item">#programacao</span>
+                        <span class="tag-item">#codigo</span>
+                        <span class="tag-item">#software</span>
+                        <span class="tag-item">#desenvolvimento</span>
+                        <span class="tag-item">#app</span>
+                        <span class="tag-item">#inteligencia</span>
+                        <span class="tag-item">#futuro</span>
+                        <span class="tag-item">#gadget</span>
+                        <span class="tag-item">#smartphone</span>
+                        <span class="tag-item">#internet</span>
+                        <span class="tag-item">#automacao</span>
+                        <span class="tag-item">#robotica</span>
+                        <span class="tag-item">#dados</span>
+                        <span class="tag-item">#ciencia</span>
+                        <span class="tag-item">#pesquisa</span>
+                        <span class="tag-item">#descoberta</span>
+                    </div>
+                </div>
+
+                <!-- Tags de Arte -->
+                <div id="tagsArte" class="tags-category" style="display:none;">
+                    <h3 style="color:#e91e63;margin-bottom:0.8rem;font-size:1rem;">🎨 Tags de Arte</h3>
+                    <div class="tags-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:1rem;">
+                        <span class="tag-item">#arte</span>
+                        <span class="tag-item">#art</span>
+                        <span class="tag-item">#criatividade</span>
+                        <span class="tag-item">#pintura</span>
+                        <span class="tag-item">#desenho</span>
+                        <span class="tag-item">#escultura</span>
+                        <span class="tag-item">#design</span>
+                        <span class="tag-item">#ilustracao</span>
+                        <span class="tag-item">#fotografia</span>
+                        <span class="tag-item">#cores</span>
+                        <span class="tag-item">#inspiracao</span>
+                        <span class="tag-item">#expressao</span>
+                        <span class="tag-item">#cultura</span>
+                        <span class="tag-item">#galeria</span>
+                        <span class="tag-item">#exposicao</span>
+                        <span class="tag-item">#artista</span>
+                        <span class="tag-item">#criacao</span>
+                        <span class="tag-item">#imaginacao</span>
+                        <span class="tag-item">#estetica</span>
+                        <span class="tag-item">#beleza</span>
+                    </div>
+                </div>
+
+                <!-- Tags de Culinária -->
+                <div id="tagsCulinaria" class="tags-category" style="display:none;">
+                    <h3 style="color:#ff5722;margin-bottom:0.8rem;font-size:1rem;">🍳 Tags de Culinária</h3>
+                    <div class="tags-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:1rem;">
+                        <span class="tag-item">#culinaria</span>
+                        <span class="tag-item">#comida</span>
+                        <span class="tag-item">#receita</span>
+                        <span class="tag-item">#gastronomia</span>
+                        <span class="tag-item">#chef</span>
+                        <span class="tag-item">#cozinha</span>
+                        <span class="tag-item">#sabor</span>
+                        <span class="tag-item">#delicia</span>
+                        <span class="tag-item">#ingredientes</span>
+                        <span class="tag-item">#tempero</span>
+                        <span class="tag-item">#prato</span>
+                        <span class="tag-item">#jantar</span>
+                        <span class="tag-item">#almoco</span>
+                        <span class="tag-item">#sobremesa</span>
+                        <span class="tag-item">#cafe</span>
+                        <span class="tag-item">#doce</span>
+                        <span class="tag-item">#salgado</span>
+                        <span class="tag-item">#vegetariano</span>
+                        <span class="tag-item">#vegano</span>
+                        <span class="tag-item">#saudavel</span>
+                    </div>
+                </div>
+
+                <!-- Tags de Moda -->
+                <div id="tagsModa" class="tags-category" style="display:none;">
+                    <h3 style="color:#9c27b0;margin-bottom:0.8rem;font-size:1rem;">👗 Tags de Moda</h3>
+                    <div class="tags-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:1rem;">
+                        <span class="tag-item">#moda</span>
+                        <span class="tag-item">#fashion</span>
+                        <span class="tag-item">#estilo</span>
+                        <span class="tag-item">#look</span>
+                        <span class="tag-item">#outfit</span>
+                        <span class="tag-item">#tendencia</span>
+                        <span class="tag-item">#elegancia</span>
+                        <span class="tag-item">#beleza</span>
+                        <span class="tag-item">#acessorio</span>
+                        <span class="tag-item">#sapato</span>
+                        <span class="tag-item">#bolsa</span>
+                        <span class="tag-item">#roupa</span>
+                        <span class="tag-item">#vestido</span>
+                        <span class="tag-item">#casual</span>
+                        <span class="tag-item">#formal</span>
+                        <span class="tag-item">#vintage</span>
+                        <span class="tag-item">#moderno</span>
+                        <span class="tag-item">#chique</span>
+                        <span class="tag-item">#glamour</span>
+                        <span class="tag-item">#personalidade</span>
+                    </div>
+                </div>
+
+                <!-- Tags de Música -->
+                <div id="tagsMusica" class="tags-category" style="display:none;">
+                    <h3 style="color:#f44336;margin-bottom:0.8rem;font-size:1rem;">🎵 Tags de Música</h3>
+                    <div class="tags-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:1rem;">
+                        <span class="tag-item">#musica</span>
+                        <span class="tag-item">#music</span>
+                        <span class="tag-item">#cancao</span>
+                        <span class="tag-item">#melodia</span>
+                        <span class="tag-item">#ritmo</span>
+                        <span class="tag-item">#harmonia</span>
+                        <span class="tag-item">#artista</span>
+                        <span class="tag-item">#cantor</span>
+                        <span class="tag-item">#instrumento</span>
+                        <span class="tag-item">#show</span>
+                        <span class="tag-item">#concerto</span>
+                        <span class="tag-item">#festival</span>
+                        <span class="tag-item">#rock</span>
+                        <span class="tag-item">#pop</span>
+                        <span class="tag-item">#sertanejo</span>
+                        <span class="tag-item">#mpb</span>
+                        <span class="tag-item">#samba</span>
+                        <span class="tag-item">#forró</span>
+                        <span class="tag-item">#eletronica</span>
+                        <span class="tag-item">#playlist</span>
+                    </div>
+                </div>
+
+                <!-- Tags de Natureza -->
+                <div id="tagsNatureza" class="tags-category" style="display:none;">
+                    <h3 style="color:#4caf50;margin-bottom:0.8rem;font-size:1rem;">🌿 Tags de Natureza</h3>
+                    <div class="tags-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:1rem;">
+                        <span class="tag-item">#natureza</span>
+                        <span class="tag-item">#nature</span>
+                        <span class="tag-item">#verde</span>
+                        <span class="tag-item">#sustentabilidade</span>
+                        <span class="tag-item">#ecologia</span>
+                        <span class="tag-item">#ambiente</span>
+                        <span class="tag-item">#planeta</span>
+                        <span class="tag-item">#terra</span>
+                        <span class="tag-item">#floresta</span>
+                        <span class="tag-item">#arvore</span>
+                        <span class="tag-item">#plantas</span>
+                        <span class="tag-item">#jardim</span>
+                        <span class="tag-item">#flores</span>
+                        <span class="tag-item">#ar puro</span>
+                        <span class="tag-item">#paz</span>
+                        <span class="tag-item">#tranquilidade</span>
+                        <span class="tag-item">#paisagem</span>
+                        <span class="tag-item">#vida</span>
+                        <span class="tag-item">#harmonia</span>
+                        <span class="tag-item">#preservacao</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Área de Tags Selecionadas -->
+            <div style="width:100%;margin-top:1.5rem;">
+                <h4 style="margin-bottom:0.8rem;color:#333;font-size:0.95rem;">📋 Tags Selecionadas:</h4>
+                <textarea id="tagsSelecionadas" readonly placeholder="Clique nas tags acima para selecioná-las..." style="width:100%;height:80px;padding:10px;border:2px solid #e0e0e0;border-radius:8px;resize:none;font-family:monospace;font-size:0.85rem;background:#f9f9f9;"></textarea>
+                <div style="display:flex;gap:0.5rem;margin-top:0.8rem;">
+                    <button id="btnCopiarTags" style="flex:1;padding:8px;background:#4caf50;color:white;border:none;border-radius:6px;cursor:pointer;font-size:0.9rem;">📋 Copiar Tags</button>
+                    <button id="btnLimparTags" style="flex:1;padding:8px;background:#f44336;color:white;border:none;border-radius:6px;cursor:pointer;font-size:0.9rem;">🗑️ Limpar</button>
+                </div>
+            </div>
+
+            <button class="fechar-modal" id="fecharTags" style="margin-top:1.5rem;padding:10px 20px;background:#666;color:white;border:none;border-radius:8px;cursor:pointer;">✕ Fechar</button>
         </div>
     </div>
+
+    <style>
+        .tag-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            user-select: none;
+            border: 2px solid transparent;
+        }
+        
+        .tag-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            border-color: rgba(255,255,255,0.3);
+        }
+        
+        .tag-item.selected {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+            transform: scale(1.05);
+        }
+        
+        .tag-item:active {
+            transform: scale(0.95);
+        }
+        
+        /* Dark mode para tags */
+        body.dark-mode .tag-item {
+            background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+        
+        body.dark-mode .tag-item:hover {
+            border-color: rgba(0, 212, 255, 0.6);
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+        }
+        
+        body.dark-mode .tag-item.selected {
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            color: #000;
+        }
+        
+        /* Estilos para quadrantes */
+        .quadrante:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .quadrante:active {
+            transform: scale(0.98);
+        }
+        
+        .quadrante.copiado {
+            animation: pulseSuccess 0.6s ease-in-out;
+        }
+        
+        @keyframes pulseSuccess {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(76, 175, 80, 0.6); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Dark mode para quadrantes */
+        body.dark-mode .quadrante {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        body.dark-mode .quadrante:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        /* Estilos para ações dos favoritos */
+        .favoritos-lista {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 400px;
+            overflow-y: auto;
+            border-radius: 8px;
+        }
+        
+        .favorito-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            background: #fff;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .favorito-item:hover {
+            background: #f8fafc;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: translateY(-1px);
+        }
+        
+        .favorito-texto {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.4;
+            color: #333;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+        
+        .favorito-acoes {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .btn-acao-favorito {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            width: 32px;
+            height: 32px;
+        }
+        
+        .btn-acao-favorito:hover {
+            background: rgba(0,0,0,0.05);
+            transform: scale(1.1);
+        }
+        
+        .btn-copiar-fav:hover {
+            background: rgba(25, 118, 210, 0.1);
+        }
+        
+        .btn-editar-fav:hover {
+            background: rgba(255, 152, 0, 0.1);
+        }
+        
+        .btn-remover-fav:hover {
+            background: rgba(229, 57, 53, 0.1);
+        }
+        
+        .btn-acao-favorito svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Dark mode para favoritos */
+        body.dark-mode .favorito-item {
+            background: #2a2a32;
+            border-bottom-color: #444;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .favorito-item:hover {
+            background: #3a3a42;
+        }
+        
+        body.dark-mode .favorito-texto {
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .btn-acao-favorito:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        /* Responsividade para favoritos */
+        @media (max-width: 480px) {
+            .favorito-item {
+                padding: 10px 12px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .favorito-texto {
+                margin-right: 0;
+                margin-bottom: 8px;
+                font-size: 13px;
+            }
+            
+            .favorito-acoes {
+                align-self: flex-end;
+                gap: 6px;
+            }
+            
+            .btn-acao-favorito {
+                width: 28px;
+                height: 28px;
+            }
+            
+            .btn-acao-favorito svg {
+                width: 16px;
+                height: 16px;
+            }
+        }
+    </style>
     <div id="favoritosModal">
         <div class="favoritos-content">
             <div class="favoritos-header">
@@ -1629,79 +2253,6 @@ function updateBgWatermark() {
 temaSelect.addEventListener('change', updateBgWatermark);
 updateBgWatermark();
 
-document.getElementById('btnPrint').addEventListener('click', function () {
-    const fraseBox = document.querySelector('.frase-box');
-    
-    // Elementos a ocultar temporariamente - TODOS OS BOTÕES E CONTROLES
-    const elementosOcultos = [
-        '#btnPrint',
-        '#btnTags',
-        '#btnFavoritos',
-        '#btnCopiarFrase',
-        '#btnFavoritar',
-        '#btnDarkModeNovo',
-        '#voltarFrase',
-        '#novaFrase',
-        '#btnMenuUsuario',
-        '.top-bar',
-        '.controls',
-        '.mid-bar',
-        '.botoes-interativos',
-        '.bottom-botoes',
-        '.botoes',
-        '#temaSelect',
-        '#fonteSelect',
-        '.tags-btn',
-        '.copiar-btn',
-        '.coracao-btn',
-        '.favoritos-btn',
-        '.botao-navegacao'
-    ];
-    
-    // Esconde os elementos
-    elementosOcultos.forEach(sel => {
-        const el = document.querySelector(sel);
-        if (el) el.style.display = 'none';
-    });
-
-    // Aguarda um pouquinho antes de capturar
-    setTimeout(() => {
-        html2canvas(fraseBox).then(function (canvas) {
-            const tema = document.getElementById('temaSelect').value;
-            const data = new Date();
-            const nomeArquivo = `frase-${tema}-${data.getFullYear()}-${(data.getMonth()+1).toString().padStart(2, '0')}-${data.getDate().toString().padStart(2, '0')}.png`;
-
-            const link = document.createElement('a');
-            link.download = nomeArquivo;
-            link.href = canvas.toDataURL();
-            link.click();
-
-            // Restaura os elementos
-            elementosOcultos.forEach(sel => {
-                const el = document.querySelector(sel);
-                if (el) {
-                    // Restaura display específico para diferentes tipos de elementos
-                    if (sel.includes('.top-bar') || sel.includes('.controls') || sel.includes('.mid-bar') || sel.includes('.botoes-interativos') || sel.includes('.bottom-botoes') || sel.includes('.botoes')) {
-                        el.style.display = 'flex';
-                    } else {
-                        el.style.display = '';
-                    }
-                }
-            });
-        });
-    }, 200); // tempo para aplicar os hides corretamente
-});
-
-    // Seleciona a área da frase-box para exportar como imagem
-    const fraseBox = document.querySelector('.frase-box');
-    // Usa html2canvas para capturar a área
-    html2canvas(fraseBox).then(function(canvas) {
-        // Cria um link para download da imagem
-        const link = document.createElement('a');
-        link.download = 'frase.png';
-        link.href = canvas.toDataURL();
-        link.click();
-    });
 </script><script>
 // ==== CONTROLE DE PREMIUM E USO DIÁRIO (UNIFICADO) ====
 
@@ -2200,6 +2751,21 @@ document.addEventListener('DOMContentLoaded', function() {
         tagsModal.style.display = 'flex';
         tagsModal.style.alignItems = 'center';
         tagsModal.style.justifyContent = 'center';
+        
+        // Inicializar funcionalidade das tags
+        setTimeout(() => {
+          inicializarTags();
+          atualizarQuadrantes();
+          
+          // Event listeners para quadrantes
+          document.querySelectorAll('.quadrante').forEach(quadrante => {
+            quadrante.addEventListener('click', function() {
+              const numero = parseInt(this.dataset.quadrante);
+              copiarQuadrante(numero);
+            });
+          });
+          
+        }, 100);
       });
       console.log('✅ Botão Tags inicializado');
     }
@@ -2207,6 +2773,301 @@ document.addEventListener('DOMContentLoaded', function() {
     if (fecharTags) {
       fecharTags.addEventListener('click', function() {
         tagsModal.style.display = 'none';
+      });
+    }
+
+    // === FUNCIONALIDADE COMPLETA DAS TAGS ===
+    const categoriaSelect = document.getElementById('categoriaSelect');
+    const tagsSelecionadas = document.getElementById('tagsSelecionadas');
+    const btnCopiarTags = document.getElementById('btnCopiarTags');
+    const btnLimparTags = document.getElementById('btnLimparTags');
+    let tagsEscolhidas = [];
+
+    // === SISTEMA DE QUADRANTES BASEADO NO TEMA ===
+    const quadrantesTags = {
+      'motivacional': {
+        engajamento: ['#motivacao', '#inspiracao', '#foco', '#determinacao', '#sucesso'],
+        especificas: ['#superacao', '#conquista', '#metas', '#disciplina', '#mindset'],
+        populares: ['#motivacional', '#inspiracao', '#positividade', '#energia', '#proposito'],
+        trending: ['#mindsetpositivo', '#foconoshoje', '#sempreemfrente', '#vaiquevai', '#conquistaseusonho']
+      },
+      'amor': {
+        engajamento: ['#amor', '#paixao', '#relacionamento', '#namoro', '#casal'],
+        especificas: ['#romance', '#carinho', '#cumplicidade', '#saudade', '#felicidade'],
+        populares: ['#amordalinha', '#juntos', '#parceria', '#companheirismo', '#apoio'],
+        trending: ['#amorreal', '#relacionamentosaudavel', '#amorproprio', '#vidaadois', '#casalfeliz']
+      },
+      'amizade': {
+        engajamento: ['#amizade', '#amigos', '#parceria', '#lealdade', '#cumplicidade'],
+        especificas: ['#amizadeverdadeira', '#companheirismo', '#apoio', '#confianca', '#diversao'],
+        populares: ['#friendship', '#friends', '#melhoresamigos', '#amigosverdadeiros', '#uniao'],
+        trending: ['#amizadesincera', '#amigospravida', '#momentosamigos', '#risosamigos', '#apoiomutuo']
+      },
+      'felicidade': {
+        engajamento: ['#felicidade', '#alegria', '#sorriso', '#positividade', '#bem-estar'],
+        especificas: ['#momentosfelizes', '#gratidao', '#paz', '#serenidade', '#leveza'],
+        populares: ['#happiness', '#joy', '#smile', '#goodvibes', '#positive'],
+        trending: ['#viverfeliz', '#momentomagico', '#energiaboa', '#sorriasempre', '#felicidadesimples']
+      },
+      'superação': {
+        engajamento: ['#superacao', '#forca', '#coragem', '#resistencia', '#vitoria'],
+        especificas: ['#desafios', '#obstaculos', '#persistencia', '#determinacao', '#crescimento'],
+        populares: ['#nunca desista', '#vaievencer', '#forcainterior', '#superese', '#conquistar'],
+        trending: ['#superacaopessoal', '#forcamental', '#vencerdesafios', '#resiliente', '#guerreiro']
+      },
+      'gratidao': {
+        engajamento: ['#gratidao', '#agradecimento', '#reconhecimento', '#presente', '#bencaos'],
+        especificas: ['#grato', '#thankful', '#blessed', '#agradecer', '#valorizar'],
+        populares: ['#grateful', '#obrigado', '#bencdecido', '#reconhecer', '#appreciar'],
+        trending: ['#gratidaodiaria', '#momentograto', '#abencoadosempre', '#valorizeoque tem', '#gratidaoeamor']
+      },
+      'reflexao': {
+        engajamento: ['#reflexao', '#pensamentos', '#sabedoria', '#filosofia', '#conhecimento'],
+        especificas: ['#introspeccao', '#meditacao', '#contemplacao', '#autoconhecimento', '#consciencia'],
+        populares: ['#reflect', '#wisdom', '#thoughts', '#mindfulness', '#peace'],
+        trending: ['#reflexaodiaria', '#pensarpositivo', '#sabedoriadevida', '#momentoreflexivo', '#autoanalise']
+      },
+      'sucesso': {
+        engajamento: ['#sucesso', '#vitoria', '#conquista', '#realizacao', '#objetivo'],
+        especificas: ['#metas', '#planejamento', '#estrategia', '#resultado', '#performance'],
+        populares: ['#success', '#winner', '#achievement', '#goals', '#victory'],
+        trending: ['#sucessopessoal', '#metasalcancadas', '#vitoriaconquistada', '#resultadopositivo', '#sucessogarantido']
+      },
+      'familia': {
+        engajamento: ['#familia', '#family', '#uniao', '#amor', '#carinho'],
+        especificas: ['#lacosfamiliares', '#pais', '#filhos', '#irmaos', '#avos'],
+        populares: ['#familiafeliz', '#familialinda', '#amordefamilia', '#familylife', '#togetherness'],
+        trending: ['#familiaabencaoada', '#familiaetudo', '#lacoseterno', '#familiaunida', '#amorinfamiliar']
+      },
+      'inspiração': {
+        engajamento: ['#inspiracao', '#motivacao', '#esperanca', '#sonhos', '#proposito'],
+        especificas: ['#inspire', '#motivate', '#hope', '#dreams', '#purpose'],
+        populares: ['#inspiration', '#motivated', '#hopeful', '#dreamer', '#inspiring'],
+        trending: ['#inspiracaodiaria', '#motivacaopura', '#sonheemgrande', '#inspirese', '#sejainspiracao']
+      },
+      'versiculo': {
+        engajamento: ['#fe', '#esperanca', '#deus', '#biblia', '#oracao'],
+        especificas: ['#versiculo', '#palavra', '#sagrada', '#cristo', '#jesus'],
+        populares: ['#faith', '#blessed', '#god', '#bible', '#prayer'],
+        trending: ['#palavradivina', '#deusnocomando', '#feemacao', '#bencarodosenhor', '#deusefiel']
+      }
+    };
+
+    function atualizarQuadrantes() {
+      const temaAtual = document.getElementById('temaSelect')?.value || 'motivacional';
+      const temaSpan = document.getElementById('temaAtual');
+      
+      if (temaSpan) {
+        const temas = {
+          'motivacional': 'Motivacional',
+          'amor': 'Amor', 
+          'amizade': 'Amizade',
+          'felicidade': 'Felicidade',
+          'superação': 'Superação',
+          'gratidao': 'Gratidão',
+          'reflexao': 'Reflexão',
+          'sucesso': 'Sucesso',
+          'familia': 'Família',
+          'inspiração': 'Inspiração',
+          'versiculo': 'Versículo Bíblico'
+        };
+        temaSpan.textContent = temas[temaAtual] || 'Motivacional';
+      }
+
+      // Atualizar preview das tags nos quadrantes
+      const tagsDoTema = quadrantesTags[temaAtual] || quadrantesTags['motivacional'];
+      
+      document.getElementById('quadrante1Tags').textContent = tagsDoTema.engajamento.slice(0,3).join(' ') + '...';
+      document.getElementById('quadrante2Tags').textContent = tagsDoTema.especificas.slice(0,3).join(' ') + '...';
+      document.getElementById('quadrante3Tags').textContent = tagsDoTema.populares.slice(0,3).join(' ') + '...';
+      document.getElementById('quadrante4Tags').textContent = tagsDoTema.trending.slice(0,3).join(' ') + '...';
+    }
+
+    function copiarQuadrante(numeroQuadrante) {
+      const temaAtual = document.getElementById('temaSelect')?.value || 'motivacional';
+      const tagsDoTema = quadrantesTags[temaAtual] || quadrantesTags['motivacional'];
+      
+      let tagsParaCopiar = [];
+      switch(numeroQuadrante) {
+        case 1: tagsParaCopiar = tagsDoTema.engajamento; break;
+        case 2: tagsParaCopiar = tagsDoTema.especificas; break;
+        case 3: tagsParaCopiar = tagsDoTema.populares; break;
+        case 4: tagsParaCopiar = tagsDoTema.trending; break;
+      }
+      
+      const textoTags = tagsParaCopiar.join(' ');
+      
+      navigator.clipboard.writeText(textoTags).then(() => {
+        // Feedback visual
+        const quadrante = document.querySelector(`[data-quadrante="${numeroQuadrante}"]`);
+        quadrante.classList.add('copiado');
+        
+        const originalText = quadrante.querySelector('div:first-child').textContent;
+        quadrante.querySelector('div:first-child').textContent = '✅ Copiado!';
+        
+        setTimeout(() => {
+          quadrante.classList.remove('copiado');
+          quadrante.querySelector('div:first-child').textContent = originalText;
+        }, 2000);
+        
+        alert(`✅ ${tagsParaCopiar.length} tags copiadas para área de transferência!\n\n${textoTags}`);
+        
+      }).catch(err => {
+        console.error('Erro ao copiar:', err);
+        // Fallback
+        const textarea = document.createElement('textarea');
+        textarea.value = textoTags;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert(`✅ ${tagsParaCopiar.length} tags copiadas!\n\n${textoTags}`);
+      });
+    }
+
+    // Mudança de categoria
+    if (categoriaSelect) {
+      categoriaSelect.addEventListener('change', function() {
+        const categoria = this.value;
+        
+        // Esconder todas as categorias
+        document.querySelectorAll('.tags-category').forEach(cat => {
+          cat.style.display = 'none';
+        });
+        
+        // Mostrar categoria selecionada
+        const categoriaAtiva = document.getElementById('tags' + categoria.charAt(0).toUpperCase() + categoria.slice(1));
+        if (categoriaAtiva) {
+          categoriaAtiva.style.display = 'block';
+        }
+        
+        console.log('📂 Categoria alterada para:', categoria);
+      });
+    }
+
+    // Funcionalidade de seleção de tags
+    function inicializarTags() {
+      document.querySelectorAll('.tag-item').forEach(tag => {
+        tag.addEventListener('click', function() {
+          const tagTexto = this.textContent;
+          
+          if (this.classList.contains('selected')) {
+            // Desselecionar tag
+            this.classList.remove('selected');
+            tagsEscolhidas = tagsEscolhidas.filter(t => t !== tagTexto);
+          } else {
+            // Selecionar tag (máximo 30 tags)
+            if (tagsEscolhidas.length < 30) {
+              this.classList.add('selected');
+              tagsEscolhidas.push(tagTexto);
+            } else {
+              alert('⚠️ Máximo de 30 tags permitidas!');
+              return;
+            }
+          }
+          
+          // Atualizar textarea
+          if (tagsSelecionadas) {
+            tagsSelecionadas.value = tagsEscolhidas.join(' ');
+          }
+          
+          console.log('🏷️ Tags selecionadas:', tagsEscolhidas.length);
+        });
+      });
+    }
+
+    // Copiar tags
+    if (btnCopiarTags) {
+      btnCopiarTags.addEventListener('click', function() {
+        if (tagsEscolhidas.length === 0) {
+          alert('⚠️ Selecione algumas tags primeiro!');
+          return;
+        }
+        
+        const textoTags = tagsEscolhidas.join(' ');
+        
+        navigator.clipboard.writeText(textoTags).then(() => {
+          alert(`✅ ${tagsEscolhidas.length} tags copiadas para a área de transferência!`);
+          
+          // Animação visual
+          this.style.background = '#4caf50';
+          this.textContent = '✅ Copiado!';
+          
+          setTimeout(() => {
+            this.style.background = '#4caf50';
+            this.textContent = '📋 Copiar Tags';
+          }, 2000);
+          
+        }).catch(err => {
+          console.error('Erro ao copiar:', err);
+          
+          // Fallback para navegadores antigos
+          const textarea = document.createElement('textarea');
+          textarea.value = textoTags;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+          
+          alert(`✅ ${tagsEscolhidas.length} tags copiadas!`);
+        });
+      });
+    }
+
+    // Limpar tags
+    if (btnLimparTags) {
+      btnLimparTags.addEventListener('click', function() {
+        if (tagsEscolhidas.length === 0) {
+          alert('⚠️ Nenhuma tag para limpar!');
+          return;
+        }
+        
+        // Confirmar limpeza
+        if (confirm(`🗑️ Tem certeza que deseja limpar ${tagsEscolhidas.length} tags selecionadas?`)) {
+          // Remover seleção visual
+          document.querySelectorAll('.tag-item.selected').forEach(tag => {
+            tag.classList.remove('selected');
+          });
+          
+          // Limpar array e textarea
+          tagsEscolhidas = [];
+          if (tagsSelecionadas) {
+            tagsSelecionadas.value = '';
+          }
+          
+          // Animação visual
+          this.style.background = '#f44336';
+          this.textContent = '✅ Limpo!';
+          
+          setTimeout(() => {
+            this.style.background = '#f44336';
+            this.textContent = '🗑️ Limpar';
+          }, 1500);
+          
+          console.log('🗑️ Tags limpas');
+        }
+      });
+    }
+
+    // Fechar modal ao clicar fora
+    if (tagsModal) {
+      tagsModal.addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.style.display = 'none';
+        }
+      });
+    }
+
+    console.log('🎉 Sistema de tags Instagram inicializado!');
+    
+    // === LISTENER PARA MUDANÇA DE TEMA (ATUALIZAR QUADRANTES) ===
+    const temaSelectElement = document.getElementById('temaSelect');
+    if (temaSelectElement) {
+      temaSelectElement.addEventListener('change', function() {
+        console.log('🎨 Tema alterado, atualizando quadrantes...');
+        setTimeout(() => {
+          atualizarQuadrantes();
+        }, 100);
       });
     }
     
@@ -2265,10 +3126,250 @@ document.addEventListener('DOMContentLoaded', function() {
           if (favoritos.length === 0) {
             favoritosLista.innerHTML = '<li style="text-align:center;color:#666;">Nenhuma frase favoritada ainda.</li>';
           } else {
-            favoritos.forEach(fav => {
+            favoritos.forEach((fav, index) => {
               const li = document.createElement('li');
-              li.style.cssText = 'padding:10px;border-bottom:1px solid #eee;';
-              li.textContent = fav.frase;
+              li.className = 'favorito-item';
+              
+              // Criar elemento para o texto da frase
+              const textoDiv = document.createElement('div');
+              textoDiv.className = 'favorito-texto';
+              textoDiv.textContent = fav.frase;
+              
+              // Criar container para as ações
+              const acoesDiv = document.createElement('div');
+              acoesDiv.className = 'favorito-acoes';
+              
+              // Botão Copiar
+              const btnCopiar = document.createElement('button');
+              btnCopiar.className = 'btn-acao-favorito btn-copiar-fav';
+              btnCopiar.title = 'Copiar frase';
+              btnCopiar.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1976d2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+              `;
+              btnCopiar.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navigator.clipboard.writeText(fav.frase).then(() => {
+                  btnCopiar.innerHTML = `
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20,6 9,17 4,12"></polyline>
+                    </svg>
+                  `;
+                  setTimeout(() => {
+                    btnCopiar.innerHTML = `
+                      <svg viewBox="0 0 24 24" fill="none" stroke="#1976d2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                      </svg>
+                    `;
+                  }, 1000);
+                });
+              });
+              
+              // Botão Editar
+              const btnEditar = document.createElement('button');
+              btnEditar.className = 'btn-acao-favorito btn-editar-fav';
+              btnEditar.title = 'Editar frase';
+              btnEditar.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="#ff9800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+              `;
+              btnEditar.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
+                // Fechar modal de favoritos
+                favoritosModal.classList.remove('ativo');
+                
+                // Transformar a área da frase em editável
+                const fraseSpan = document.getElementById('fraseApp');
+                const autorSpan = document.getElementById('autorFraseApp');
+                
+                if (fraseSpan) {
+                  // Criar textarea para edição
+                  const editContainer = document.createElement('div');
+                  editContainer.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    background: rgba(0, 0, 0, 0.8);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 999999999;
+                    padding: 20px;
+                    box-sizing: border-box;
+                  `;
+                  
+                  const editBox = document.createElement('div');
+                  editBox.style.cssText = `
+                    background: white;
+                    border-radius: 15px;
+                    padding: 25px;
+                    width: 90%;
+                    max-width: 500px;
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                  `;
+                  
+                  const titulo = document.createElement('h3');
+                  titulo.textContent = 'Editar Frase';
+                  titulo.style.cssText = `
+                    margin: 0 0 15px 0;
+                    color: #333;
+                    font-family: 'Inter', Arial, sans-serif;
+                    text-align: center;
+                  `;
+                  
+                  const textarea = document.createElement('textarea');
+                  textarea.value = fav.frase;
+                  textarea.style.cssText = `
+                    width: 100%;
+                    height: 120px;
+                    padding: 15px;
+                    border: 2px solid #e0e0e0;
+                    border-radius: 10px;
+                    font-family: 'Space Mono', monospace;
+                    font-size: 14px;
+                    resize: vertical;
+                    outline: none;
+                    box-sizing: border-box;
+                  `;
+                  textarea.focus();
+                  textarea.select();
+                  
+                  const botoesDiv = document.createElement('div');
+                  botoesDiv.style.cssText = `
+                    display: flex;
+                    gap: 10px;
+                    margin-top: 15px;
+                    justify-content: flex-end;
+                  `;
+                  
+                  const btnCancelar = document.createElement('button');
+                  btnCancelar.textContent = 'Cancelar';
+                  btnCancelar.style.cssText = `
+                    padding: 10px 20px;
+                    border: 2px solid #ccc;
+                    background: white;
+                    color: #666;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-family: 'Inter', Arial, sans-serif;
+                  `;
+                  
+                  const btnSalvar = document.createElement('button');
+                  btnSalvar.textContent = 'Salvar';
+                  btnSalvar.style.cssText = `
+                    padding: 10px 20px;
+                    border: none;
+                    background: #1976d2;
+                    color: white;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-family: 'Inter', Arial, sans-serif;
+                  `;
+                  
+                  // Eventos dos botões
+                  btnCancelar.addEventListener('click', () => {
+                    document.body.removeChild(editContainer);
+                  });
+                  
+                  btnSalvar.addEventListener('click', () => {
+                    const novaFrase = textarea.value.trim();
+                    if (novaFrase !== '' && novaFrase !== fav.frase) {
+                      // Atualizar favorito
+                      favoritos[index].frase = novaFrase;
+                      localStorage.setItem('favoritosAppFrases', JSON.stringify(favoritos));
+                      
+                      // Atualizar frase no app principal
+                      fraseSpan.textContent = novaFrase;
+                      if (autorSpan && fav.autor) {
+                        autorSpan.textContent = fav.autor;
+                      }
+                    }
+                    document.body.removeChild(editContainer);
+                  });
+                  
+                  // Tecla ESC para cancelar
+                  document.addEventListener('keydown', function escHandler(e) {
+                    if (e.key === 'Escape') {
+                      document.body.removeChild(editContainer);
+                      document.removeEventListener('keydown', escHandler);
+                    }
+                  });
+                  
+                  // Ctrl+Enter para salvar
+                  textarea.addEventListener('keydown', (e) => {
+                    if (e.ctrlKey && e.key === 'Enter') {
+                      btnSalvar.click();
+                    }
+                  });
+                  
+                  // Montar interface
+                  botoesDiv.appendChild(btnCancelar);
+                  botoesDiv.appendChild(btnSalvar);
+                  editBox.appendChild(titulo);
+                  editBox.appendChild(textarea);
+                  editBox.appendChild(botoesDiv);
+                  editContainer.appendChild(editBox);
+                  document.body.appendChild(editContainer);
+                }
+              });
+              
+              // Botão Remover
+              const btnRemover = document.createElement('button');
+              btnRemover.className = 'btn-acao-favorito btn-remover-fav';
+              btnRemover.title = 'Remover favorito';
+              btnRemover.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="#e53935" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="3,6 5,6 21,6"></polyline>
+                  <path d="M19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"></path>
+                  <line x1="10" y1="11" x2="10" y2="17"></line>
+                  <line x1="14" y1="11" x2="14" y2="17"></line>
+                </svg>
+              `;
+              btnRemover.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (confirm('Tem certeza que deseja remover esta frase dos favoritos?')) {
+                  // Remover favorito
+                  favoritos.splice(index, 1);
+                  localStorage.setItem('favoritosAppFrases', JSON.stringify(favoritos));
+                  
+                  // Recarregar lista
+                  btnFavoritos.click();
+                  setTimeout(() => btnFavoritos.click(), 100);
+                }
+              });
+              
+              // Adicionar click na frase para copiar para o app principal
+              textoDiv.addEventListener('click', () => {
+                // Fechar modal de favoritos
+                favoritosModal.classList.remove('ativo');
+                
+                // Exibir frase no app principal
+                const fraseSpan = document.getElementById('fraseApp');
+                const autorSpan = document.getElementById('autorFraseApp');
+                
+                if (fraseSpan) {
+                  fraseSpan.textContent = fav.frase;
+                }
+                if (autorSpan && fav.autor) {
+                  autorSpan.textContent = fav.autor;
+                }
+              });
+              
+              // Montar estrutura
+              acoesDiv.appendChild(btnCopiar);
+              acoesDiv.appendChild(btnEditar);
+              acoesDiv.appendChild(btnRemover);
+              
+              li.appendChild(textoDiv);
+              li.appendChild(acoesDiv);
               favoritosLista.appendChild(li);
             });
           }

@@ -1213,13 +1213,24 @@ if (btnFavoritar) {
         const fraseAtual = fraseDiv.textContent;
         const fonteAtual = fonteSelect.value;
         const jaFavoritado = favoritos.some(fav => fav.frase === fraseAtual && fav.fonte === fonteAtual);
+        
         if (jaFavoritado) {
             favoritos = favoritos.filter(fav => !(fav.frase === fraseAtual && fav.fonte === fonteAtual));
+            btnFavoritar.classList.remove('favorito');
         } else {
             favoritos.push({ frase: fraseAtual, fonte: fonteAtual });
+            btnFavoritar.classList.add('favorito');
+            
+            // Adiciona uma pequena animação de feedback
+            btnFavoritar.style.transform = 'scale(1.3)';
+            setTimeout(() => {
+                btnFavoritar.style.transform = '';
+            }, 200);
         }
+        
         localStorage.setItem('favoritosAppFrases', JSON.stringify(favoritos));
         atualizarCoracao();
+        
         if (favoritosModal && favoritosModal.classList.contains('ativo')) {
             renderizarFavoritos();
         }
@@ -1392,88 +1403,37 @@ btnDarkMode?.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
 });
 
-// Print da área principal
-const btnPrint = document.getElementById('btnPrint');
-btnPrint?.addEventListener('click', () => {
-    const fraseBox = document.querySelector('.frase-box');
-    if (!fraseBox) return;
-
-    const seletorOcultos = [
-        '#btnPrint',
-        '#btnTags',
-        '#btnFavoritos',
-        '#btnCopiarFrase',
-        '#btnFavoritar',
-        '#btnDarkMode',
-        '#voltarFrase',
-        '#novaFrase',
-        '#temaSelect',
-        '#fonteSelect',
-        '.frase-actions'
-    ];
-
-    const elementosOcultados = [];
-    seletorOcultos.forEach(sel => {
-        const el = document.querySelector(sel);
-        if (el) {
-            elementosOcultados.push({ el, display: el.style.display });
-            el.style.display = 'none';
-        }
-    });
-
-    setTimeout(() => {
-        html2canvas(fraseBox, {
-            backgroundColor: null,
-            useCORS: true,
-            scale: 2
-        }).then(canvas => {
-            const tema = document.getElementById('temaSelect')?.value || 'frase';
-            const data = new Date();
-            const nomeArquivo = `frase-${tema}-${data.toISOString().slice(0,10)}.png`;
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-            if (isIOS) {
-                // Exibe a imagem em tela cheia e instrução para salvar
-                const overlay = document.createElement('div');
-                overlay.style.position = 'fixed';
-                overlay.style.top = 0;
-                overlay.style.left = 0;
-                overlay.style.width = '100vw';
-                overlay.style.height = '100vh';
-                overlay.style.background = 'rgba(0,0,0,0.85)';
-                overlay.style.display = 'flex';
-                overlay.style.flexDirection = 'column';
-                overlay.style.alignItems = 'center';
-                overlay.style.justifyContent = 'center';
-                overlay.style.zIndex = 9999;
-                overlay.style.padding = '2rem 1rem 1rem 1rem';
-
-                const img = document.createElement('img');
-                img.src = canvas.toDataURL();
-                img.style.maxWidth = '90vw';
-                img.style.maxHeight = '60vh';
-                img.style.borderRadius = '1.2rem';
-                img.style.boxShadow = '0 0 24px #0008';
-
-                const msg = document.createElement('div');
-                msg.innerHTML = '<span style="color:#fff;font-size:1.2rem;line-height:1.5;display:block;text-align:center;margin-bottom:1rem;">Para salvar a imagem na sua galeria, toque e segure a imagem e escolha <b>"Adicionar a Fotos"</b>.<br><br><small style="color:#ccc;font-size:0.95rem;">Toque fora da imagem para fechar.</small></span>';
-
-                overlay.appendChild(img);
-                overlay.appendChild(msg);
-                document.body.appendChild(overlay);
-                overlay.addEventListener('click', function(e) {
-                    if (e.target === overlay) overlay.remove();
-                });
-            } else {
+// Print da área principal - garantir que o botão existe ao adicionar o evento
+document.addEventListener('DOMContentLoaded', function() {
+    const btnPrint = document.getElementById('btnPrint');
+    if (btnPrint) {
+        btnPrint.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof html2canvas === 'undefined') {
+                alert('Erro: Biblioteca de captura de imagem não carregada. Recarregue a página.');
+                return;
+            }
+            // Captura a tela inteira do body
+            html2canvas(document.body, {
+                backgroundColor: null,
+                useCORS: true,
+                scale: 2
+            }).then(canvas => {
+                const data = new Date();
+                const nomeArquivo = `print-frasego-${data.getFullYear()}-${(data.getMonth()+1)}-${data.getDate()}-${data.getHours()}${data.getMinutes()}${data.getSeconds()}.png`;
                 const link = document.createElement('a');
                 link.download = nomeArquivo;
-                link.href = canvas.toDataURL();
+                link.href = canvas.toDataURL('image/png', 1.0);
+                document.body.appendChild(link);
                 link.click();
-            }
-            elementosOcultados.forEach(({ el, display }) => {
-                el.style.display = display;
+                document.body.removeChild(link);
+            }).catch(error => {
+                alert('Erro ao gerar a imagem. Tente novamente.');
+                console.error('Erro ao gerar imagem:', error);
             });
         });
-    }, 300);
+    }
 });
 
 // Copiar frase principal
