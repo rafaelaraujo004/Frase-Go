@@ -751,6 +751,134 @@ const frases = {
     "O medo é temporário, o arrependimento é para sempre.",
     "Faça acontecer, não espere acontecer.",
     "Você pode muito mais do que pensa.",
+    "Toda jornada começa com o primeiro passo.",
+    "O limite é você quem coloca.",
+    "Acredite no processo, confie no resultado.",
+    "A única barreira real é aquela que você aceita.",
+    "Levante mais forte a cada queda.",
+    "Foque no progresso, não na perfeição.",
+    "O sucesso é para quem nunca desiste.",
+    "Não tenha medo de recomeçar.",
+    "A vitória é para quem persiste.",
+    "Cada desafio é uma lição disfarçada.",
+    "Seu esforço vai valer a pena.",
+    "Motivação nasce da ação.",
+    "A mente é seu maior aliado ou inimigo.",
+    "Você é capaz de tudo que imaginar.",
+    "Ação e foco são armas poderosas.",
+    "Sua força está dentro de você.",
+    "Fracasso é só um degrau para o sucesso.",
+    "O trabalho duro supera o talento quando o talento não trabalha duro.",
+    "Sonhe grande, trabalhe duro, realize mais.",
+    "Seja protagonista da sua história.",
+    "A mudança começa em você.",
+    "A persistência vence a resistência.",
+    "Nunca subestime seu potencial.",
+    "A melhor preparação é a prática constante.",
+    "Transforme obstáculos em oportunidades.",
+    "O maior investimento é em você mesmo.",
+    "Faça o que precisa ser feito, mesmo quando não quer.",
+    "Grandes conquistas exigem grandes esforços.",
+    "A motivação é a faísca, a disciplina é o fogo.",
+    "Não pare até se orgulhar.",
+    "Atitude determina a sua altitude.",
+    "A determinação é a chave do sucesso.",
+    "Acredite no impossível e faça acontecer.",
+    "Seu maior rival é você mesmo.",
+    "Mude seus pensamentos para mudar sua vida.",
+    "O sucesso começa na mente.",
+    "Cada dia é uma nova oportunidade.",
+    "O esforço contínuo traz resultados duradouros.",
+    "Tenha foco, força e fé.",
+    "A vida recompensa os corajosos.",
+    "Faça mais do que o esperado.",
+    "Não desista até se sentir orgulhoso.",
+    "Transforme seus sonhos em realidade.",
+    "Seja a melhor versão de si mesmo.",
+    "O futuro é construído hoje.",
+    "Você tem tudo para vencer."
+    ],
+    amor: [
+         "O amor é a resposta para tudo.",
+    "Amar é enxergar o outro com o coração.",
+    "O amor verdadeiro não se desgasta.",
+    "Onde há amor, há vida.",
+    "O amor transforma o mundo.",
+    // +50 frases extras:
+    "Amar é encontrar no outro a extensão da sua alma.",
+    "O amor não se mede, se sente.",
+    "Amor é o alimento da alma.",
+    "O amor cura feridas invisíveis.",
+    "Amar é aceitar as imperfeições.",
+    "O amor verdadeiro é liberdade e respeito.",
+    "No amor, pequenos gestos fazem grandes diferenças.",
+    "Amor é a base da felicidade.",
+    "Amar é dar sem esperar nada em troca.",
+    "O amor fortalece os corações.",
+    "O amor é o maior presente que podemos dar.",
+    "Amar é aprender e crescer juntos.",
+    "O amor é paciente, o amor é gentil.",
+    "Amor é luz nos dias escuros.",
+    "Quem ama de verdade nunca está sozinho.",
+    "Amor é compreender sem julgar.",
+    "O amor é poesia em movimento.",
+    "Amor é o elo que une vidas.",
+    "Amar é estar presente, mesmo na distância.",
+    "O amor transforma o ordinário em extraordinário.",
+    "Amor é cuidar sem sufocar.",
+    "O verdadeiro amor inspira liberdade.",
+    "Amar é confiar e ser confiável.",
+    "O amor supera qualquer obstáculo.",
+    "Amor é compartilhar sonhos e esperanças.",
+    "O amor é um refúgio seguro.",
+    "Amar é sorrir com o coração.",
+    "Amor é a linguagem universal.",
+    "O amor não se explica, se vive.",
+    "Amar é ter coragem para ser vulnerável.",
+    "O amor é fonte de paz interior.",
+    "Amor é sentir o outro mesmo quando distante.",
+    "O amor floresce na sinceridade.",
+    "Amar é um ato de coragem diária.",
+    "O amor é o sol que aquece a alma.",
+    "Amar é o mais belo gesto de generosidade.",
+    "O amor verdadeiro respeita o tempo e o espaço.",
+    "Amor é mais que palavras, é atitude.",
+    "Amar é encontrar um lar no coração do outro.",
+    "O amor é uma viagem sem destino final.",
+    "Amar é querer o melhor para o outro.",
+    "O amor constrói pontes e derruba muros.",
+    "Amar é uma escolha que se renova a cada dia.",
+    "O amor não tem limites nem fronteiras.",
+    "Amar é sentir-se completo no outro.",
+    "O amor é um presente que recebemos e damos.",
+    "Amor é a essência da vida.",
+    "Amar é abraçar a alma do outro.",
+    "O amor é a maior força do universo."
+    ],
+    amizade: [
+        "Amigos tornam os momentos especiais.",
+    "A amizade é o conforto de saber que existe alguém por você.",
+    "Amizade verdadeira é para sempre.",
+    "Rir com amigos é o melhor remédio.",
+    "Amigos são a família que escolhemos.",
+    // +50 frases extras:
+    "A verdadeira amizade é um tesouro eterno.",
+    "Amigos são luz nos dias mais sombrios.",
+    "Na amizade, a sinceridade é o maior presente.",
+    "Amizade é um porto seguro para a alma.",
+    "Os amigos são a família da alma.",
+    "Amizade é dar sem esperar nada em troca.",
+    "Amigos tornam a jornada da vida mais leve.",
+    "A amizade é a base da confiança.",
+    "Amigos verdadeiros são raros e preciosos.",
+    "Amizade é cultivar carinho e respeito.",
+    "A amizade ultrapassa tempo e distância.",
+    "Com amigos, os momentos simples viram especiais.",
+    "A amizade é um laço que o tempo não desfaz.",
+    "Amigos são os irmãos que a vida nos dá.",
+    "A amizade verdadeira é feita de apoio e cumplicidade.",
+    "Amigos são reflexos da nossa própria alma.",
+    "A amizade é um presente que devemos cuidar.",
     "Amigos escutam o que o coração diz sem palavras.",
     "Amizade é saber que você nunca está sozinho.",
     "Os melhores amigos são aqueles que nos fazem crescer.",
@@ -1438,24 +1566,30 @@ btnDarkMode?.addEventListener('click', () => {
 // Print da área principal - garantir que o botão existe ao adicionar o evento
 document.addEventListener('DOMContentLoaded', function() {
     var btnPrint = document.getElementById('btnPrint');
-    if (!btnPrint) return;
+    if (!btnPrint) {
+        alert('Botão salvar não encontrado no DOM!');
+        return;
+    }
     btnPrint.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
+        alert('Clique detectado no botão salvar!');
         if (typeof html2canvas === 'undefined') {
-            alert('Erro: Biblioteca de captura de imagem não carregada. Recarregue a página.');
+            alert('Erro: Biblioteca html2canvas NÃO carregada. O botão não pode funcionar.');
             return;
         }
         var fraseBox = document.querySelector('.frase-box');
         if (!fraseBox) {
-            alert('Erro: Área da frase não encontrada.');
+            alert('Erro: Área da frase (.frase-box) não encontrada!');
             return;
         }
+        alert('Iniciando captura da área da frase...');
         html2canvas(fraseBox, {
             backgroundColor: null,
             useCORS: true,
             scale: 2
         }).then(function(canvas) {
+            alert('Imagem gerada! Iniciando download...');
             var data = new Date();
             var nomeArquivo = 'frase-' + data.getFullYear() + '-' + (data.getMonth()+1) + '-' + data.getDate() + '-' + data.getHours() + data.getMinutes() + data.getSeconds() + '.png';
             var link = document.createElement('a');
@@ -1464,8 +1598,9 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+            alert('Download concluído!');
         }).catch(function(error) {
-            alert('Erro ao gerar a imagem. Tente novamente.');
+            alert('Erro ao gerar a imagem. Veja o console para detalhes.');
             console.error('Erro ao gerar imagem:', error);
         });
     });
@@ -1805,484 +1940,349 @@ const imagensPorTema = {
     ]
 };
 
-// Elementos de imagem de fundo
-let galeriaTemas, uploadImagem, btnRemoverImagem, btnOpacidadeImagem, imagemFundo, imagemFundoContainer;
+const fontes = {
+    'Roboto': 'Roboto, sans-serif',
+    'Montserrat': 'Montserrat, sans-serif',
+    'Lato': 'Lato, sans-serif',
+    'Inter': 'Inter, sans-serif',
+    'Open Sans': 'Open Sans, sans-serif',
+    'Space Mono': 'Space Mono, monospace'
+};
 
-// Variáveis de controle
-let opacidadeAtual = 0.3;
-let imagemAtual = null;
-
-// Função para inicializar elementos DOM
-function inicializarElementosImagem() {
-    try {
-        galeriaTemas = document.getElementById('galeriaTemas');
-        uploadImagem = document.getElementById('uploadImagem');
-        btnRemoverImagem = document.getElementById('btnRemoverImagem');
-        btnOpacidadeImagem = document.getElementById('btnOpacidadeImagem');
-        imagemFundo = document.getElementById('imagemFundo');
-        imagemFundoContainer = document.getElementById('imagemFundoContainer');
-        
-        console.log('Elementos de imagem inicializados:', {
-            galeriaTemas: !!galeriaTemas,
-            uploadImagem: !!uploadImagem,
-            btnRemoverImagem: !!btnRemoverImagem,
-            btnOpacidadeImagem: !!btnOpacidadeImagem,
-            imagemFundo: !!imagemFundo,
-            imagemFundoContainer: !!imagemFundoContainer
-        });
-        
-        return true;
-    } catch (error) {
-        console.error('Erro ao inicializar elementos de imagem:', error);
-        return false;
-    }
+let favoritos = JSON.parse(localStorage.getItem('favoritosAppFrases') || '[]');
+if (favoritos.length && typeof favoritos[0] === 'string') {
+    favoritos = favoritos.map(f => ({ frase: f, fonte: 'Roboto' }));
+    localStorage.setItem('favoritosAppFrases', JSON.stringify(favoritos));
 }
+let historico = [];
+let indiceHistorico = -1;
 
-// Inicializar funcionalidades de imagem
-function inicializarImagensFundo() {
-    console.log('Iniciando funcionalidades de imagem de fundo...');
-    
-    // Reinitializar elementos DOM
-    if (!inicializarElementosImagem()) {
-        console.warn('Alguns elementos de imagem não foram encontrados. Tentando novamente em 1s...');
-        setTimeout(inicializarImagensFundo, 1000);
-        return;
+function mostrarFrase(nova = true) {
+    const tema = temaSelect.value;
+    const frasesTema = frases[tema];
+    if (nova) {
+        if (historico.length === frasesTema.length && indiceHistorico === historico.length - 1) {
+            historico = [];
+            indiceHistorico = -1;
+        }
+        let frase;
+        let tentativas = 0;
+        do {
+            frase = frasesTema[Math.floor(Math.random() * frasesTema.length)];
+            tentativas++;
+        } while (historico.includes(frase) && tentativas < 20);
+        historico = historico.slice(0, indiceHistorico + 1);
+        historico.push(frase);
+        indiceHistorico++;
     }
-    
-    if (!galeriaTemas) {
-        console.error('Galeria de temas não encontrada');
-        return;
-    }
-    
-    try {
-        // Forçar visibilidade da galeria
-        galeriaTemas.style.display = 'grid';
-        galeriaTemas.style.visibility = 'visible';
-        galeriaTemas.style.opacity = '1';
-        galeriaTemas.style.gridTemplateColumns = 'repeat(auto-fit, minmax(70px, 1fr))';
-        galeriaTemas.style.gap = '12px';
-        
-        console.log('Galeria de temas configurada');
-        
-        // Carregar imagens do tema inicial
-        carregarImagensTema('motivacional');
-        
-        // Event listeners
-        const temaSelectElement = document.getElementById('temaSelect');
-        if (temaSelectElement) {
-            temaSelectElement.addEventListener('change', function() {
-                const tema = this.value;
-                console.log('Tema alterado para:', tema);
-                carregarImagensTema(tema);
-            });
-        }
-        
-        if (uploadImagem) {
-            uploadImagem.addEventListener('change', function(e) {
-                const arquivo = e.target.files[0];
-                if (arquivo) {
-                    console.log('Arquivo selecionado:', arquivo.name);
-                    
-                    // Verificar tipo de arquivo
-                    if (!arquivo.type.startsWith('image/')) {
-                        alert('❌ Por favor, selecione apenas arquivos de imagem!');
-                        return;
-                    }
-                    
-                    // Verificar tamanho (max 5MB)
-                    if (arquivo.size > 5 * 1024 * 1024) {
-                        alert('❌ Imagem muito grande! Máximo 5MB permitido.');
-                        return;
-                    }
-                    
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        console.log('Imagem carregada com sucesso');
-                        aplicarImagemFundo(e.target.result);
-                        imagemAtual = e.target.result;
-                        
-                        // Feedback visual
-                        mostrarFeedback('📤 Imagem personalizada aplicada!', '#4caf50');
-                    };
-                    reader.onerror = function() {
-                        console.error('Erro ao ler arquivo');
-                        alert('❌ Erro ao carregar a imagem. Tente novamente.');
-                    };
-                    reader.readAsDataURL(arquivo);
-                }
-            });
-        }
-        
-        if (btnRemoverImagem) {
-            btnRemoverImagem.addEventListener('click', function() {
-                console.log('Removendo imagem de fundo');
-                removerImagemFundo();
-            });
-        }
-        
-        if (btnOpacidadeImagem) {
-            btnOpacidadeImagem.addEventListener('click', function() {
-                console.log('Alterando opacidade');
-                alterarOpacidade();
-            });
-        }
-        
-        // Botão de teste para recarregar galeria
-        const btnTestarGaleria = document.getElementById('btnTestarGaleria');
-        if (btnTestarGaleria) {
-            btnTestarGaleria.addEventListener('click', function() {
-                console.log('Recarregando galeria...');
-                const temaAtual = document.getElementById('temaSelect')?.value || 'motivacional';
-                carregarImagensTema(temaAtual);
-                
-                // Feedback
-                this.textContent = '✅ Recarregado!';
-                setTimeout(() => {
-                    this.textContent = '🔄 Recarregar Galeria';
-                }, 1500);
-            });
-        }
-        
-        console.log('Funcionalidades de imagem inicializadas com sucesso');
-        
-    } catch (error) {
-        console.error('Erro durante inicialização das imagens:', error);
-    }
-}
-
-// Função para mostrar feedback visual
-function mostrarFeedback(mensagem, cor = '#4caf50') {
-    const feedback = document.createElement('div');
-    feedback.textContent = mensagem;
-    feedback.style.cssText = `
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: ${cor};
-        color: white;
-        padding: 12px 20px;
-        border-radius: 25px;
-        font-size: 14px;
-        font-weight: 500;
-        z-index: 999999;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        animation: slideInFeedback 0.3s ease-out;
-    `;
-    
-    // Adicionar animação CSS
-    if (!document.getElementById('feedback-styles')) {
-        const style = document.createElement('style');
-        style.id = 'feedback-styles';
-        style.textContent = `
-            @keyframes slideInFeedback {
-                from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-                to { opacity: 1; transform: translateX(-50%) translateY(0); }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-    
-    document.body.appendChild(feedback);
-    
+    fraseDiv.textContent = historico[indiceHistorico];
     setTimeout(() => {
-        feedback.style.animation = 'slideInFeedback 0.3s ease-out reverse';
-        setTimeout(() => feedback.remove(), 300);
-    }, 2500);
+        atualizarCoracao();
+        atualizarBotoes();
+    }, 0);
+}
+function atualizarCoracao() {
+    if (!btnFavoritar) return;
+    const fraseAtual = fraseDiv.textContent;
+    const fonteAtual = fonteSelect.value;
+    if (favoritos.some(fav => fav.frase === fraseAtual && fav.fonte === fonteAtual)) {
+        btnFavoritar.classList.add('favorito');
+    } else {
+        btnFavoritar.classList.remove('favorito');
+    }
 }
 
-// Carregar imagens por tema com tratamento de erro melhorado
-function carregarImagensTema(tema) {
-    console.log('Carregando imagens para tema:', tema);
-    
-    if (!galeriaTemas) {
-        console.error('Galeria não encontrada');
-        return;
-    }
-    
-    // Normalizar nome do tema
-    let temaNormalizado = tema.toLowerCase();
-    if (temaNormalizado === 'inspiração') temaNormalizado = 'inspiracao';
-    if (temaNormalizado === 'superação') temaNormalizado = 'superacao';
-    if (temaNormalizado === 'gratidão') temaNormalizado = 'gratidao';
-    if (temaNormalizado === 'reflexão') temaNormalizado = 'reflexao';
-    if (temaNormalizado === 'família') temaNormalizado = 'familia';
-    if (temaNormalizado === 'versículo bíblico') temaNormalizado = 'versiculo';
-    
-    const imagens = imagensPorTema[temaNormalizado];
-    if (!imagens) {
-        console.warn('Tema não encontrado:', temaNormalizado, 'Usando motivacional');
-        carregarImagensTema('motivacional');
-        return;
-    }
-    
-    // Mostrar loading
-    galeriaTemas.innerHTML = `
-        <div style="
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 30px 20px;
-            color: #666;
-            font-size: 14px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        ">
-            <div style="
-                width: 40px;
-                height: 40px;
-                border: 3px solid #e0e0e0;
-                border-top: 3px solid #1976d2;
-                border-radius: 50%;
-                animation: spin 1s linear infinite;
-            "></div>
-            <span>Carregando imagens do tema "${tema}"...</span>
-        </div>
-    `;
-    
-    // Adicionar animação de loading se não existir
-    if (!document.getElementById('loading-spin-styles')) {
-        const style = document.createElement('style');
-        style.id = 'loading-spin-styles';
-        style.textContent = `
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-    
-    // Carregar imagens após um pequeno delay
-    setTimeout(() => {
-        galeriaTemas.innerHTML = '';
-        let imagensCarregadas = 0;
-        let imagensComErro = 0;
+if (btnFavoritar) {
+    btnFavoritar.addEventListener('click', () => {
+        const fraseAtual = fraseDiv.textContent;
+        const fonteAtual = fonteSelect.value;
+        const jaFavoritado = favoritos.some(fav => fav.frase === fraseAtual && fav.fonte === fonteAtual);
         
-        imagens.forEach((urlImagem, index) => {
-            const container = document.createElement('div');
-            container.style.cssText = `
-                position: relative;
-                width: 100%;
-                height: 70px;
-                background: #f5f5f5;
-                border-radius: 10px;
-                overflow: hidden;
-                cursor: pointer;
-                border: 2px solid transparent;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            `;
+        if (jaFavoritado) {
+            favoritos = favoritos.filter(fav => !(fav.frase === fraseAtual && fav.fonte === fonteAtual));
+            btnFavoritar.classList.remove('favorito');
+        } else {
+            favoritos.push({ frase: fraseAtual, fonte: fonteAtual });
+            btnFavoritar.classList.add('favorito');
             
-            const img = document.createElement('img');
-            img.src = urlImagem;
-            img.className = 'imagem-tema';
-            img.alt = `Imagem ${index + 1} do tema ${tema}`;
-            img.style.cssText = `
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                display: block;
-                opacity: 0;
-                transition: opacity 0.5s ease;
-            `;
-            
-            // Loading placeholder
-            const placeholder = document.createElement('div');
-            placeholder.style.cssText = `
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                font-size: 28px;
-                color: #bbb;
-                transition: all 0.3s;
-            `;
-            placeholder.textContent = '🖼️';
-            
-            container.appendChild(placeholder);
-            container.appendChild(img);
-            
-            // Timeout para imagens que demoram muito
-            const timeout = setTimeout(() => {
-                if (img.style.opacity === '0') {
-                    console.warn('Timeout na imagem:', urlImagem);
-                    placeholder.textContent = '⏱️';
-                    placeholder.style.color = '#ff9800';
-                    imagensComErro++;
-                    verificarCarregamentoCompleto();
-                }
-            }, 10000); // 10 segundos timeout
-            
-            // Quando a imagem carregar
-            img.onload = function() {
-                clearTimeout(timeout);
-                img.style.opacity = '1';
-                placeholder.style.display = 'none';
-                imagensCarregadas++;
-                console.log(`Imagem ${index + 1} carregada:`, urlImagem);
-                verificarCarregamentoCompleto();
-            };
-            
-            // Se a imagem falhar ao carregar
-            img.onerror = function() {
-                clearTimeout(timeout);
-                console.error('Erro ao carregar imagem:', urlImagem);
-                placeholder.textContent = '❌';
-                placeholder.style.color = '#e53935';
-                placeholder.style.fontSize = '20px';
-                imagensComErro++;
-                verificarCarregamentoCompleto();
-            };
-            
-            // Click handler
-            container.onclick = function() {
-                if (img.style.opacity === '1') {
-                    selecionarImagemTema(this, urlImagem);
-                }
-            };
-            
-            // Hover effects
-            container.onmouseenter = function() {
-                if (img.style.opacity === '1') {
-                    this.style.borderColor = '#1976d2';
-                    this.style.transform = 'scale(1.05)';
-                    this.style.boxShadow = '0 4px 20px rgba(25,118,210,0.3)';
-                }
-            };
-            
-            container.onmouseleave = function() {
-                if (!this.classList.contains('selecionada')) {
-                    this.style.borderColor = 'transparent';
-                    this.style.transform = 'scale(1)';
-                    this.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
-                }
-            };
-            
-            galeriaTemas.appendChild(container);
-        });
-        
-        function verificarCarregamentoCompleto() {
-            const total = imagens.length;
-            const processadas = imagensCarregadas + imagensComErro;
-            
-            if (processadas === total) {
-                console.log(`Carregamento completo - Sucesso: ${imagensCarregadas}, Erro: ${imagensComErro}`);
-                if (imagensComErro > 0) {
-                    mostrarFeedback(`⚠️ ${imagensComErro} imagem(ns) falharam ao carregar`, '#ff9800');
-                }
-                if (imagensCarregadas > 0) {
-                    mostrarFeedback(`✅ ${imagensCarregadas} imagem(ns) carregadas para "${tema}"`, '#4caf50');
-                }
-            }
+            // Adiciona uma pequena animação de feedback
+            btnFavoritar.style.transform = 'scale(1.3)';
+            setTimeout(() => {
+                btnFavoritar.style.transform = '';
+            }, 200);
         }
         
-// Selecionar imagem do tema
-// Selecionar imagem do tema
-function selecionarImagemTema(elemento, urlImagem) {
-    console.log('Selecionando imagem:', urlImagem);
-    
-    // Remove seleção anterior
-    document.querySelectorAll('.galeria-temas > div').forEach(container => {
-        container.classList.remove('selecionada');
-        container.style.borderColor = 'transparent';
-        container.style.transform = 'scale(1)';
-        container.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+        localStorage.setItem('favoritosAppFrases', JSON.stringify(favoritos));
+        atualizarCoracao();
+        
+        if (favoritosModal && favoritosModal.classList.contains('ativo')) {
+            renderizarFavoritos();
+        }
     });
-    
-    // Adiciona seleção ao container clicado
-    elemento.classList.add('selecionada');
-    elemento.style.borderColor = '#1976d2';
-    elemento.style.boxShadow = '0 0 0 2px #1976d2, 0 4px 20px rgba(25,118,210,0.3)';
-    elemento.style.transform = 'scale(1.02)';
-    
-    // Aplica a imagem como fundo
-    aplicarImagemFundo(urlImagem);
-    imagemAtual = urlImagem;
-    
-    // Feedback visual
-    mostrarFeedback('✅ Imagem aplicada com sucesso!', '#4caf50');
 }
 
-// Aplicar imagem de fundo com tratamento de erro
-function aplicarImagemFundo(urlImagem) {
-    console.log('Aplicando imagem de fundo:', urlImagem);
-    
-    if (!imagemFundo) {
-        console.error('Elemento imagemFundo não encontrado');
-        mostrarFeedback('❌ Erro: elemento de imagem não encontrado', '#f44336');
-        return;
-    }
-    
-    try {
-        // Criar uma nova imagem para testar se carrega
-        const testeImg = new Image();
-        
-        testeImg.onload = function() {
-            console.log('Imagem validada, aplicando ao fundo');
-            imagemFundo.src = urlImagem;
-            imagemFundo.style.opacity = opacidadeAtual;
-            
-            // Salvar no localStorage
-            localStorage.setItem('imagemFundo', urlImagem);
-            localStorage.setItem('opacidadeImagem', opacidadeAtual);
-            
-            console.log('Imagem de fundo aplicada com sucesso');
-        };
-        
-        testeImg.onerror = function() {
-            console.error('Erro ao carregar imagem:', urlImagem);
-            mostrarFeedback('❌ Erro ao carregar a imagem', '#f44336');
-        };
-        
-        testeImg.src = urlImagem;
-        
-    } catch (error) {
-        console.error('Erro ao aplicar imagem de fundo:', error);
-        mostrarFeedback('❌ Erro ao aplicar imagem', '#f44336');
-    }
+if (btnFavoritos) {
+    btnFavoritos.addEventListener('click', () => {
+        btnFavoritos.classList.add('ativo');
+        abrirFavoritosModal();
+    });
 }
 
-// Remover imagem de fundo
-function removerImagemFundo() {
-    console.log('Removendo imagem de fundo');
-    
-    if (!imagemFundo) {
-        console.error('Elemento imagemFundo não encontrado');
+function abrirFavoritosModal() {
+    if (!favoritosModal) return;
+    favoritosModal.classList.add('ativo');
+    renderizarFavoritos();
+}
+
+function fecharFavoritosModal() {
+    if (!favoritosModal) return;
+    favoritosModal.classList.remove('ativo');
+    btnFavoritos.classList.remove('ativo');
+}
+
+if (fecharFavoritos) {
+    fecharFavoritos.addEventListener('click', fecharFavoritosModal);
+}
+
+function renderizarFavoritos() {
+    if (!favoritosLista) return;
+    favoritosLista.innerHTML = '';
+    const btnRemoverTodosFavs = document.getElementById('btnRemoverTodosFavs');
+    if (!favoritos.length) {
+        favoritosLista.innerHTML = '<li>Nenhuma frase favoritada ainda.</li>';
+        if (btnRemoverTodosFavs) btnRemoverTodosFavs.style.visibility = 'hidden';
         return;
+    } else {
+        if (btnRemoverTodosFavs) btnRemoverTodosFavs.style.visibility = 'visible';
     }
-    
-    try {
-        imagemFundo.src = '';
-        imagemFundo.style.opacity = 0;
-        imagemAtual = null;
-        
-        // Remove seleção das imagens
-        document.querySelectorAll('.galeria-temas > div').forEach(container => {
-            container.classList.remove('selecionada');
-            container.style.borderColor = 'transparent';
-            container.style.transform = 'scale(1)';
-            container.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+    favoritos.forEach((fav, idx) => {
+        const li = document.createElement('li');
+        li.style.display = 'flex';
+        li.style.alignItems = 'center';
+        li.style.justifyContent = 'space-between';
+        const span = document.createElement('span');
+        span.textContent = fav.frase;
+        span.style.fontFamily = fontes[fav.fonte] || 'Roboto, sans-serif';
+        li.appendChild(span);
+        const btnCopiar = document.createElement('button');
+        btnCopiar.className = 'copiar-fav-btn';
+        btnCopiar.title = 'Copiar frase';
+        btnCopiar.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+        btnCopiar.addEventListener('click', () => {
+            copiarTextoComFonte(fav.frase, fav.fonte);
         });
-        
-        // Remove do localStorage
-        localStorage.removeItem('imagemFundo');
-        localStorage.removeItem('opacidadeImagem');
-        
-        // Feedback visual
-        mostrarFeedback('🗑️ Imagem de fundo removida', '#f44336');
-        
-    } catch (error) {
-        console.error('Erro ao remover imagem:', error);
+        li.appendChild(btnCopiar);
+        const btnEditar = document.createElement('button');
+        btnEditar.className = 'copiar-fav-btn';
+        btnEditar.title = 'Editar frase';
+        btnEditar.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1976d2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19.5 3 21l1.5-4L16.5 3.5z"/></svg>`;
+        btnEditar.addEventListener('click', () => {
+            fecharFavoritosModal();
+            fraseDiv.textContent = fav.frase;
+            fonteSelect.value = fav.fonte;
+            mudarFonte();
+            atualizarCoracao();
+        });
+        li.appendChild(btnEditar);
+        const btnRemover = document.createElement('button');
+        btnRemover.className = 'remover-fav-btn';
+        btnRemover.title = 'Remover dos favoritos';
+        btnRemover.innerHTML = `<svg viewBox="0 0 64 64" fill="none" stroke="#e53935" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M32 56s-20-13.6-20-28A12 12 0 0 1 32 16a12 12 0 0 1 20 12c0 14.4-20 28-20 28z"/>
+</svg>`;
+        btnRemover.addEventListener('click', () => {
+            if (confirm('Remover esta frase dos favoritos?')) {
+                const realIdx = favoritos.findIndex(f => f.frase === fav.frase && f.fonte === fav.fonte);
+                if (realIdx !== -1) {
+                    favoritos.splice(realIdx, 1);
+                    localStorage.setItem('favoritosAppFrases', JSON.stringify(favoritos));
+                    renderizarFavoritos();
+                    atualizarCoracao();
+                }
+            }
+        });
+        li.appendChild(btnRemover);
+        favoritosLista.appendChild(li);
+    });
+}
+// Remover todos os favoritos (confirmação só uma vez)
+const btnRemoverTodosFavs = document.getElementById('btnRemoverTodosFavs');
+if (btnRemoverTodosFavs) {
+    btnRemoverTodosFavs.replaceWith(btnRemoverTodosFavs.cloneNode(true));
+    const novoBtnRemoverTodosFavs = document.getElementById('btnRemoverTodosFavs');
+    novoBtnRemoverTodosFavs.addEventListener('click', () => {
+        if (confirm('Tem certeza que deseja remover todos os favoritos?')) {
+            favoritos = [];
+            localStorage.setItem('favoritosAppFrases', JSON.stringify(favoritos));
+            renderizarFavoritos();
+            atualizarCoracao();
+        }
+    });
+}
+
+function voltarFrase() {
+    if (indiceHistorico > 0) {
+        indiceHistorico--;
+        fraseDiv.textContent = historico[indiceHistorico];
+        atualizarBotoes();
     }
 }
 
-// Alterar opacidade
-function alterarOpacidade() {
-    if (!imagemFundo || !imagemAtual) {
-        mostrarFeedback('❌ Nenhuma imagem de fundo ativa', '#ff9800');
+function atualizarBotoes() {
+    voltarFraseBtn.disabled = indiceHistorico <= 0;
+}
+
+function mudarFonte() {
+    const fonte = fonteSelect.value;
+    fraseDiv.style.fontFamily = fontes[fonte];
+}
+
+temaSelect.addEventListener('change', () => {
+    historico = [];
+    indiceHistorico = -1;
+    mostrarFrase();
+});
+fonteSelect.addEventListener('change', mudarFonte);
+novaFraseBtn.addEventListener('click', () => mostrarFrase(true));
+voltarFraseBtn.addEventListener('click', voltarFrase);
+
+// --- Marca d'água temática ---
+const bgWatermark = document.querySelector('.bg-watermark');
+var temaSelectWatermark = window.temaSelect || document.getElementById('temaSelect');
+
+const watermarks = {
+  motivacional: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">💪</text></svg>')`,
+  amor: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">❤️</text></svg>')`,
+  amizade: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">🤝</text></svg>')`,
+  felicidade: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">😃</text></svg>')`,
+  superacao: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">🏆</text></svg>')`,
+  gratidao: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">🙏</text></svg>')`,
+  reflexao: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">💭</text></svg>')`,
+  sucesso: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">📈</text></svg>')`,
+  familia: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">👨‍👩‍👧‍👦</text></svg>')`,
+  inspiracao: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">💡</text></svg>')`,
+  default: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">✨</text></svg>')`,
+};
+function atualizarMarcaDagua() {
+  if (!bgWatermark || !temaSelectWatermark) return;
+  const tema = temaSelectWatermark.value;
+  bgWatermark.style.backgroundImage = watermarks[tema] || watermarks['default'];
+}
+if (temaSelectWatermark) {
+  temaSelectWatermark.addEventListener('change', atualizarMarcaDagua);
+  window.addEventListener('DOMContentLoaded', atualizarMarcaDagua);
+  atualizarMarcaDagua();
+}
+
+// Inicialização
+document.addEventListener('DOMContentLoaded', () => {
+    mostrarFrase();
+    mudarFonte();
+    atualizarCoracao();
+});
+
+// Ativar modo escuro
+const btnDarkMode = document.getElementById('btnDarkMode');
+btnDarkMode?.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+});
+
+// Print da área principal - garantir que o botão existe ao adicionar o evento
+document.addEventListener('DOMContentLoaded', function() {
+    var btnPrint = document.getElementById('btnPrint');
+    if (!btnPrint) {
+        alert('Botão salvar não encontrado no DOM!');
         return;
+    }
+    btnPrint.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        alert('Clique detectado no botão salvar!');
+        if (typeof html2canvas === 'undefined') {
+            alert('Erro: Biblioteca html2canvas NÃO carregada. O botão não pode funcionar.');
+            return;
+        }
+        var fraseBox = document.querySelector('.frase-box');
+        if (!fraseBox) {
+            alert('Erro: Área da frase (.frase-box) não encontrada!');
+            return;
+        }
+        alert('Iniciando captura da área da frase...');
+        html2canvas(fraseBox, {
+            backgroundColor: null,
+            useCORS: true,
+            scale: 2
+        }).then(function(canvas) {
+            alert('Imagem gerada! Iniciando download...');
+            var data = new Date();
+            var nomeArquivo = 'frase-' + data.getFullYear() + '-' + (data.getMonth()+1) + '-' + data.getDate() + '-' + data.getHours() + data.getMinutes() + data.getSeconds() + '.png';
+            var link = document.createElement('a');
+            link.download = nomeArquivo;
+            link.href = canvas.toDataURL('image/png', 1.0);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            alert('Download concluído!');
+        }).catch(function(error) {
+            alert('Erro ao gerar a imagem. Veja o console para detalhes.');
+            console.error('Erro ao gerar imagem:', error);
+        });
+    });
+});
+
+// Copiar frase principal
+const btnCopiarFrase = document.getElementById('btnCopiarFrase');
+if (btnCopiarFrase) {
+    btnCopiarFrase.addEventListener('click', () => {
+        const frase = fraseDiv.textContent;
+        if (!frase) return;
+        const el = document.createElement('textarea');
+        el.value = frase;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        alert('Frase copiada para a área de transferência!');
+    });
+}
+
+;
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/service-worker.js')
+      .then(reg => console.log('[FraseGo] SW registrado:', reg.scope))
+      .catch(err => console.error('[FraseGo] Erro ao registrar SW:', err));
+  });
+}
+
+// --- RESTRIÇÕES PARA NÃO PREMIUM ---
+function aplicarRestricoesPremiumScript() {
+    // Bloqueia temas premium
+    const temasPremium = ['inspiração', 'sucesso', 'gratidao'];
+    if (temaSelect) {
+        [...temaSelect.options].forEach(opt => {
+            if (temasPremium.includes(opt.value)) {
+                if (!isPremium()) {
+                    opt.disabled = true;
+                    opt.classList.add('premium');
+                    if (!opt.textContent.includes('(Premium)')) opt.textContent += ' (Premium)';
+                } else {
+                    opt.disabled = false;
+                    opt.classList.remove('premium');
+                    opt.textContent = opt.textContent.replace(' (Premium)', '');
+                }
+            } else {
+                opt.disabled = false;
+                opt.classList.remove('premium');
+                opt.textContent = opt.textContent.replace(' (Premium)', '');
+            }
+        });
+        // Impede seleção via JS
+        if (!isPremium() && temasPremium.includes(temaSelect.value)) {
+            temaSelect.value = 'motivacional';
+        }
+        // Impede seleção via teclado
     }
     
     try {

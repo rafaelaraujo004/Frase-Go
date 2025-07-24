@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Montserrat:400,700|Lato:400,700|Inter:400,700|Open+Sans:400,700|Space+Mono:400,700|Fira+Sans:400,700|Work+Sans:400,700|Poppins:400,700|Merriweather:400,700|Quicksand:400,700&display=swap" rel="stylesheet">
     <!-- Adicione o script da biblioteca html2canvas aqui -->
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <!-- Biblioteca alternativa para casos especiais -->
+    <script src="https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/dist/dom-to-image.min.js"></script>
     <link rel="manifest" href="manifest.json" />
 </head>
 <meta name="theme-color" content="#0d0d0d">
@@ -61,11 +63,14 @@
     <div class="container" style="width:100vw;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;padding:0;">
         <div class="frase-box" style="width:100%;max-width:485px;min-width:320px;min-height:calc(420px + 2cm);max-height:calc(98vh + 3cm);background:#fff;border-radius:1.1rem;padding:1.1rem 1.1rem 0.7rem 1.1rem;box-shadow:0 2px 12px #0001;display:flex;flex-direction:column;align-items:center;overflow:hidden;position:relative;justify-content:flex-start;gap:0;">
             <!-- Botão de três linhas (menu usuário) -->
-            <button id="btnMenuUsuario" title="Opções de usuário" style="position:absolute;top:14px;right:14px;background:#fff;border:none;cursor:pointer;z-index:5;padding:4px;border-radius:6px;width:28px;height:24px;display:flex;align-items:center;justify-content:center;">
-              <span style="display:block;width:16px;height:12px;position:relative;">
-                <span class="menu-bar" style="display:block;position:absolute;left:0;top:0;width:100%;height:1.5px;border-radius:1px;"></span>
-                <span class="menu-bar" style="display:block;position:absolute;left:0;top:5px;width:100%;height:1.5px;border-radius:1px;"></span>
-                <span class="menu-bar" style="display:block;position:absolute;left:0;top:10px;width:100%;height:1.5px;border-radius:1px;"></span>
+            <button id="btnMenuUsuario" title="👤 Perfil & Imagens de Fundo" style="position:absolute;top:14px;right:14px;background:linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);border:2px solid rgba(59, 130, 246, 0.2);cursor:pointer;z-index:5;padding:6px;border-radius:10px;width:32px;height:28px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(59, 130, 246, 0.15);transition:all 0.3s ease;backdrop-filter:blur(10px);"
+              onmouseenter="this.style.background='linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)'; this.style.transform='scale(1.1)'; this.querySelector('span').style.transform='rotate(90deg)';"
+              onmouseleave="this.style.background='linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)'; this.style.transform='scale(1)'; this.querySelector('span').style.transform='rotate(0deg)';"
+            >
+              <span style="display:block;width:18px;height:14px;position:relative;transition:all 0.3s ease;">
+                <span class="menu-bar" style="display:block;position:absolute;left:0;top:0;width:100%;height:2px;border-radius:1px;background:#3b82f6;"></span>
+                <span class="menu-bar" style="display:block;position:absolute;left:0;top:6px;width:100%;height:2px;border-radius:1px;background:#3b82f6;"></span>
+                <span class="menu-bar" style="display:block;position:absolute;left:0;top:12px;width:100%;height:2px;border-radius:1px;background:#3b82f6;"></span>
               </span>
             </button>
             <!-- NOVA CAIXA DE TEXTO ESTILO ANEXO (fixa, 4cm abaixo do topo) -->
@@ -118,14 +123,52 @@
                   }
                   /* Visibilidade do botão 3 pontos no modo dark */
                   #btnMenuUsuario .menu-bar {
-                    background: #23232b;
-                    transition: background 0.3s;
+                    background: #3b82f6;
+                    transition: all 0.3s ease;
                   }
+                  
+                  #btnMenuUsuario:hover .menu-bar {
+                    background: #ffffff;
+                  }
+                  
                   body.dark-mode #btnMenuUsuario {
-                    background: #23232b !important;
+                    background: linear-gradient(135deg, #23232b 0%, #1e1e26 100%) !important;
+                    border-color: rgba(139, 92, 246, 0.3) !important;
                   }
                   body.dark-mode #btnMenuUsuario .menu-bar {
-                    background: #fff !important;
+                    background: #8b5cf6 !important;
+                  }
+                  
+                  body.dark-mode #btnMenuUsuario:hover .menu-bar {
+                    background: #ffffff !important;
+                  }
+                  
+                  /* Tooltip explicativo para o botão */
+                  #btnMenuUsuario::after {
+                    content: "👤 Perfil & 🖼️ Imagens";
+                    position: absolute;
+                    top: 100%;
+                    right: 0;
+                    background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(30,41,59,0.95) 100%);
+                    color: white;
+                    padding: 8px 12px;
+                    border-radius: 8px;
+                    font-size: 11px;
+                    font-weight: 600;
+                    white-space: nowrap;
+                    opacity: 0;
+                    transform: translateY(-10px);
+                    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    pointer-events: none;
+                    z-index: 1000;
+                    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255,255,255,0.1);
+                  }
+                  
+                  #btnMenuUsuario:hover::after {
+                    opacity: 1;
+                    transform: translateY(5px);
                   }
                   #twitterTextBox {
                     display: flex !important;
@@ -189,64 +232,74 @@
                     left: 0;
                     width: 100vw;
                     height: 100vh;
-                    background: rgba(0, 0, 0, 0.85);
-                    backdrop-filter: blur(8px);
+                    background: linear-gradient(135deg, 
+                      rgba(0, 0, 0, 0.4) 0%, 
+                      rgba(59, 130, 246, 0.15) 50%, 
+                      rgba(139, 92, 246, 0.2) 100%);
+                    backdrop-filter: blur(16px) saturate(1.8);
                     z-index: 9999999;
                     justify-content: center;
-                    align-items: flex-start;
-                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    align-items: center;
+                    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                     overflow-y: auto;
-                    padding: 10px;
-                    padding-top: calc(20px - 3cm);
+                    padding: 0;
                     box-sizing: border-box;
                   }
                   #sidebarUsuario {
                     position: relative;
-                    width: 75vw;
-                    max-width: 320px;
-                    min-width: 280px;
-                    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-                    border-radius: 16px;
+                    width: 90vw;
+                    max-width: 450px;
+                    min-width: 350px;
+                    height: calc(100vh - 40px);
+                    max-height: calc(100vh - 40px);
+                    background: linear-gradient(145deg, 
+                      rgba(255, 255, 255, 0.95) 0%, 
+                      rgba(248, 250, 252, 0.9) 50%,
+                      rgba(241, 245, 249, 0.95) 100%);
+                    border-radius: 24px;
                     box-shadow: 
-                      0 20px 40px -10px rgba(0, 0, 0, 0.4),
-                      0 0 0 1px rgba(255, 255, 255, 0.9),
-                      inset 0 1px 0 rgba(255, 255, 255, 0.9);
-                    padding: 0.8rem 1.4rem 13.4rem 1.4rem;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    gap: 1rem;
-                    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                    border: 1px solid rgba(226, 232, 240, 0.8);
-                    transform: scale(0.95);
+                      0 32px 64px -12px rgba(0, 0, 0, 0.25),
+                      0 0 0 1px rgba(255, 255, 255, 0.8),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+                      0 8px 32px rgba(59, 130, 246, 0.15);
+                    border: 1px solid rgba(226, 232, 240, 0.6);
+                    transform: scale(0.9) translateY(-20px);
                     opacity: 0;
-                    margin: 0 auto;
-                    max-height: calc(100vh + 22cm);
+                    margin: 20px auto;
                     overflow-y: auto;
                     scroll-behavior: smooth;
                     -webkit-overflow-scrolling: touch;
                     scrollbar-width: thin;
                     z-index: 99999999;
+                    backdrop-filter: blur(20px) saturate(1.8);
+                    padding: 1.5rem 2rem 12rem 2rem;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 1.2rem;
+                    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                   }
                   
                   /* === BARRA DE ROLAGEM CUSTOMIZADA === */
                   #sidebarUsuario::-webkit-scrollbar {
-                    width: 8px;
+                    width: 6px;
                   }
                   
                   #sidebarUsuario::-webkit-scrollbar-track {
-                    background: rgba(226, 232, 240, 0.3);
-                    border-radius: 4px;
+                    background: rgba(226, 232, 240, 0.2);
+                    border-radius: 10px;
                   }
                   
                   #sidebarUsuario::-webkit-scrollbar-thumb {
-                    background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
-                    border-radius: 4px;
-                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
+                    border-radius: 10px;
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                   }
                   
                   #sidebarUsuario::-webkit-scrollbar-thumb:hover {
-                    background: linear-gradient(135deg, #1565c0 0%, #1976d2 100%);
+                    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #0891b2 100%);
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
                   }
                   
                   /* === CONTROLES DE NAVEGAÇÃO DA ROLAGEM === */
@@ -262,25 +315,32 @@
                   }
                   
                   .scroll-btn {
-                    width: 32px;
-                    height: 32px;
-                    background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+                    width: 36px;
+                    height: 36px;
+                    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
                     border: none;
-                    border-radius: 8px;
+                    border-radius: 12px;
                     color: white;
                     cursor: pointer;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    font-size: 14px;
+                    font-size: 16px;
                     font-weight: bold;
-                    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
-                    transition: all 0.2s ease;
+                    box-shadow: 
+                      0 4px 12px rgba(59, 130, 246, 0.4),
+                      0 2px 4px rgba(0, 0, 0, 0.1),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+                    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    backdrop-filter: blur(10px);
                   }
                   
                   .scroll-btn:hover {
-                    transform: scale(1.1);
-                    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.4);
+                    transform: scale(1.15) translateY(-2px);
+                    box-shadow: 
+                      0 8px 25px rgba(59, 130, 246, 0.6),
+                      0 4px 12px rgba(139, 92, 246, 0.3);
+                    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #0891b2 100%);
                   }
                   
                   .scroll-btn:active {
@@ -289,83 +349,139 @@
                   
                   .scroll-position-indicator {
                     position: absolute;
-                    right: 50px;
+                    right: 54px;
                     top: 50%;
                     transform: translateY(-50%);
-                    background: rgba(25, 118, 210, 0.9);
+                    background: linear-gradient(135deg, rgba(59, 130, 246, 0.95) 0%, rgba(139, 92, 246, 0.95) 100%);
                     color: white;
-                    padding: 4px 8px;
-                    border-radius: 12px;
-                    font-size: 10px;
+                    padding: 8px 12px;
+                    border-radius: 16px;
+                    font-size: 11px;
                     font-weight: 600;
                     opacity: 0;
-                    transition: opacity 0.3s ease;
+                    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                     z-index: 999999999;
                     pointer-events: none;
+                    backdrop-filter: blur(10px);
+                    box-shadow: 
+                      0 4px 12px rgba(59, 130, 246, 0.3),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
                   }
                   
                   .scroll-position-indicator.visible {
                     opacity: 1;
                   }
                   #sidebarUsuario.open {
-                    animation: slideInSidebar 0.4s ease-out;
+                    animation: modernSlideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                   }
-                  @keyframes slideInSidebar {
-                    from { opacity: 0; transform: scale(0.9) translateY(-20px); }
-                    to { opacity: 1; transform: scale(1) translateY(0); }
+                  @keyframes modernSlideIn {
+                    0% { 
+                      opacity: 0; 
+                      transform: scale(0.85) translateY(-40px) rotateX(15deg);
+                      filter: blur(10px);
+                    }
+                    50% {
+                      opacity: 0.8;
+                      transform: scale(0.95) translateY(-10px) rotateX(5deg);
+                      filter: blur(2px);
+                    }
+                    100% { 
+                      opacity: 1; 
+                      transform: scale(1) translateY(0) rotateX(0deg);
+                      filter: blur(0px);
+                    }
+                  }
+                  
+                  /* Micro animação de entrada para elementos */
+                  @keyframes elementFadeIn {
+                    0% { opacity: 0; transform: translateY(10px); }
+                    100% { opacity: 1; transform: translateY(0); }
+                  }
+                  
+                  #sidebarUsuario.open > * {
+                    animation: elementFadeIn 0.4s ease-out;
+                    animation-delay: calc(0.1s * var(--index, 0));
                   }
                   #sidebarUsuario .fecharSidebar {
-                    background: rgba(71, 85, 105, 0.1);
-                    color: #475569;
-                    border: none;
-                    font-size: 1.3rem;
+                    background: linear-gradient(135deg, 
+                      rgba(248, 113, 113, 0.1) 0%, 
+                      rgba(239, 68, 68, 0.15) 100%);
+                    color: #ef4444;
+                    border: 1px solid rgba(239, 68, 68, 0.2);
+                    font-size: 1.4rem;
                     position: absolute;
-                    top: 12px;
-                    right: 14px;
+                    top: 16px;
+                    right: 18px;
                     cursor: pointer;
-                    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-                    width: 30px;
-                    height: 30px;
-                    border-radius: 10px;
+                    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 12px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     z-index: 999999999;
-                    font-weight: 300;
-                    backdrop-filter: blur(10px);
-                    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+                    font-weight: 400;
+                    backdrop-filter: blur(10px) saturate(1.8);
+                    box-shadow: 
+                      0 4px 12px rgba(239, 68, 68, 0.15),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.3);
                   }
                   #sidebarUsuario .fecharSidebar:hover {
-                    background: rgba(239, 68, 68, 0.15);
-                    color: #ef4444;
+                    background: linear-gradient(135deg, 
+                      rgba(239, 68, 68, 0.15) 0%, 
+                      rgba(220, 38, 38, 0.2) 100%);
+                    color: #dc2626;
                     transform: scale(1.1) rotate(90deg);
-                    box-shadow: 0 5px 16px rgba(239, 68, 68, 0.3);
+                    box-shadow: 
+                      0 8px 25px rgba(239, 68, 68, 0.4),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+                    border-color: rgba(239, 68, 68, 0.4);
                   }
                   #sidebarUsuario h2 {
-                    font-size: 1.2rem;
-                    background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+                    font-size: 1.3rem;
+                    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                     background-clip: text;
-                    margin: 0.4rem 0 0.8rem 0;
-                    font-family: 'Montserrat', Arial, sans-serif;
+                    margin: 0.6rem 0 1rem 0;
+                    font-family: 'Inter', 'SF Pro Display', system-ui, sans-serif;
                     font-weight: 700;
                     letter-spacing: -0.02em;
                     text-align: center;
                     position: relative;
                     z-index: 999999999;
+                    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                   }
 
                   #sidebarUsuario h2::after {
                     content: '';
                     position: absolute;
-                    bottom: -6px;
+                    bottom: -8px;
                     left: 50%;
                     transform: translateX(-50%);
-                    width: 48px;
-                    height: 2px;
-                    background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+                    width: 60px;
+                    height: 3px;
+                    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
                     border-radius: 2px;
+                    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+                  }
+                  
+                  /* Efeito de brilho no título */
+                  #sidebarUsuario h2::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+                    transition: left 0.5s;
+                  }
+                  
+                  #sidebarUsuario:hover h2::before {
+                    left: 100%;
                   }
                   
                   #sidebarUsuario label {
@@ -382,69 +498,117 @@
                   }
                   #sidebarUsuario input {
                     width: 100%;
-                    padding: 0.8rem 1rem;
-                    border-radius: 12px;
-                    border: 2px solid #e2e8f0;
-                    font-size: 0.85rem;
+                    padding: 1rem 1.2rem;
+                    border-radius: 16px;
+                    border: 2px solid rgba(226, 232, 240, 0.8);
+                    font-size: 0.9rem;
                     outline: none;
-                    margin-bottom: 0.8rem;
+                    margin-bottom: 1rem;
                     background: rgba(255, 255, 255, 0.9);
                     color: #1e293b;
                     font-family: 'Inter', Arial, sans-serif;
                     box-shadow: 
-                      0 1px 3px rgba(0, 0, 0, 0.1),
+                      0 2px 8px rgba(0, 0, 0, 0.06),
                       inset 0 1px 0 rgba(255, 255, 255, 0.9);
-                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                     z-index: 999999999;
                     position: relative;
                     box-sizing: border-box;
-                    backdrop-filter: blur(10px);
+                    backdrop-filter: blur(10px) saturate(1.8);
                   }
                   #sidebarUsuario input:focus {
-                    border: 2px solid #1976d2;
+                    border: 2px solid #3b82f6;
                     box-shadow: 
-                      0 0 0 3px rgba(25, 118, 210, 0.1),
-                      0 3px 12px rgba(25, 118, 210, 0.15);
-                    transform: translateY(-1px);
+                      0 0 0 4px rgba(59, 130, 246, 0.1),
+                      0 8px 25px rgba(59, 130, 246, 0.15),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+                    transform: translateY(-2px) scale(1.01);
+                    background: rgba(255, 255, 255, 0.95);
                   }
+                  
+                  /* Efeito de placeholder moderno */
+                  #sidebarUsuario input::placeholder {
+                    color: #94a3b8;
+                    transition: color 0.3s ease;
+                  }
+                  
+                  #sidebarUsuario input:focus::placeholder {
+                    color: #cbd5e1;
+                  }
+                  
                   #sidebarUsuario button {
-                    background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+                    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 50%, #2563eb 100%);
                     color: #fff;
                     border: none;
-                    padding: 0.8rem 1.2rem;
-                    border-radius: 12px;
+                    padding: 1rem 1.5rem;
+                    border-radius: 16px;
                     cursor: pointer;
-                    font-size: 0.85rem;
+                    font-size: 0.9rem;
                     font-weight: 600;
-                    margin-top: 0.4rem;
+                    margin-top: 0.8rem;
                     box-shadow: 
-                      0 3px 12px rgba(25, 118, 210, 0.35),
-                      0 2px 4px rgba(0, 0, 0, 0.1);
-                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                      0 4px 20px rgba(59, 130, 246, 0.25),
+                      0 2px 8px rgba(0, 0, 0, 0.1),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                     width: 100%;
                     font-family: 'Inter', Arial, sans-serif;
-                    letter-spacing: 0.01em;
+                    letter-spacing: 0.02em;
                     position: relative;
                     overflow: hidden;
                     z-index: 999999999;
-                  }
-                  #sidebarUsuario button:hover {
-                    background: linear-gradient(135deg,#1565c0 0%,#1976d2 100%);
-                    transform: translateY(-1px);
-                    box-shadow: 0 5px 14px rgba(25,118,210,0.4);
+                    backdrop-filter: blur(10px);
                   }
                   
-                  /* Botão Salvar Informações - destaque especial MÁXIMO */
+                  /* Efeito shimmer nos botões */
+                  #sidebarUsuario button::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+                    transition: left 0.6s ease;
+                  }
+                  
+                  #sidebarUsuario button:hover::before {
+                    left: 100%;
+                  }
+                  
+                  #sidebarUsuario button:hover {
+                    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
+                    transform: translateY(-3px) scale(1.02);
+                    box-shadow: 
+                      0 8px 30px rgba(59, 130, 246, 0.35),
+                      0 4px 15px rgba(0, 0, 0, 0.15),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+                  }
+                  
+                  /* Botão Salvar Informações - destaque especial premium */
                   #btnSalvarUsuario {
                     position: relative !important;
                     z-index: 99999999999 !important;
+                    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #6d28d9 100%) !important;
+                    box-shadow: 
+                      0 6px 25px rgba(139, 92, 246, 0.4),
+                      0 2px 10px rgba(0, 0, 0, 0.1),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
                     transform: translateZ(2000px) !important;
                     will-change: transform !important;
                   }
+                  
+                  #btnSalvarUsuario::before {
+                    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent) !important;
+                  }
+                  
                   #btnSalvarUsuario:hover {
-                    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%) !important;
-                    transform: translateY(-3px) scale(1.03) translateZ(3000px) !important;
-                    box-shadow: 0 12px 35px rgba(33,150,243,0.8) !important;
+                    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 50%, #5b21b6 100%) !important;
+                    transform: translateY(-4px) scale(1.05) translateZ(3000px) !important;
+                    box-shadow: 
+                      0 15px 40px rgba(139, 92, 246, 0.6),
+                      0 8px 20px rgba(0, 0, 0, 0.2),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
                     z-index: 99999999999 !important;
                   }
                   
@@ -467,12 +631,80 @@
                     transform-style: preserve-3d !important;
                   }
                   
-                  /* Estilos para controles de imagem de fundo */
+                  /* Estilos modernos para listas na sidebar */
+                  #sidebarUsuario ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 1rem 0;
+                  }
+                  
+                  #sidebarUsuario li {
+                    background: rgba(255, 255, 255, 0.7);
+                    backdrop-filter: blur(12px) saturate(1.8);
+                    margin-bottom: 0.8rem;
+                    padding: 1rem;
+                    border-radius: 12px;
+                    border: 1px solid rgba(226, 232, 240, 0.8);
+                    box-shadow: 
+                      0 2px 8px rgba(0, 0, 0, 0.06),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+                    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    position: relative;
+                    overflow: hidden;
+                  }
+                  
+                  #sidebarUsuario li:hover {
+                    transform: translateY(-2px) scale(1.01);
+                    background: rgba(255, 255, 255, 0.85);
+                    box-shadow: 
+                      0 6px 20px rgba(0, 0, 0, 0.1),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.95);
+                    border-color: rgba(59, 130, 246, 0.3);
+                  }
+                  
+                  #sidebarUsuario li::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                    width: 3px;
+                    background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+                    transform: scaleY(0);
+                    transition: transform 0.3s ease;
+                    border-radius: 0 2px 2px 0;
+                  }
+                  
+                  #sidebarUsuario li:hover::before {
+                    transform: scaleY(1);
+                  }
+                  
+                  /* Estilos modernos para controles de imagem de fundo */
                   .imagem-controles {
                     width: 100%;
-                    border-top: 1px solid #e5e7eb;
-                    padding-top: 1rem;
-                    margin-top: 1rem;
+                    border-top: 2px solid rgba(139, 92, 246, 0.2);
+                    padding-top: 1.5rem;
+                    margin-top: 1.5rem;
+                    background: rgba(248, 250, 252, 0.5);
+                    border-radius: 12px;
+                    padding: 1.5rem 1rem;
+                    backdrop-filter: blur(8px);
+                    position: relative;
+                    display: block !important;
+                    visibility: visible !important;
+                    opacity: 1 !important;
+                  }
+                  
+                  .imagem-controles::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 40px;
+                    height: 3px;
+                    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+                    border-radius: 2px;
                   }
                   
                   .imagem-controles h3 {
@@ -485,35 +717,89 @@
                   }
                   
                   .galeria-temas {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-                    gap: 12px;
+                    display: grid !important;
+                    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+                    gap: 14px;
                     margin-bottom: 1rem;
-                    max-height: 250px;
+                    max-height: 280px;
                     overflow-y: auto;
-                    padding: 8px;
+                    padding: 12px;
                     border-radius: 12px;
-                    background: #f8f9fa;
-                    border: 1px solid #e5e7eb;
+                    background: linear-gradient(135deg, #f8fafb 0%, #f1f5f9 100%);
+                    border: 1px solid rgba(226, 232, 240, 0.8);
+                    scrollbar-width: thin;
+                    scrollbar-color: #3b82f6 #f0f0f0;
+                    backdrop-filter: blur(10px);
+                    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+                    visibility: visible !important;
+                    opacity: 1 !important;
+                  }
+                  
+                  /* Melhor visualização no desktop com preview expandido */
+                  @media (min-width: 768px) {
+                    .galeria-temas {
+                      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+                      gap: 18px;
+                      max-height: 380px;
+                      padding: 20px;
+                      position: relative;
+                    }
+                  }
+                  
+                  @media (min-width: 1024px) {
+                    .galeria-temas {
+                      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                      gap: 20px;
+                      max-height: 420px;
+                      padding: 24px;
+                    }
                   }
                   
                   .imagem-tema {
                     width: 100%;
-                    height: 80px;
+                    height: 85px;
                     object-fit: cover;
-                    border-radius: 8px;
+                    border-radius: 12px;
                     cursor: pointer;
-                    border: 3px solid transparent;
-                    transition: all 0.3s ease;
+                    border: 2px solid transparent;
+                    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                     display: block !important;
                     opacity: 1 !important;
                     visibility: visible !important;
-                    background: #f0f0f0;
-                    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+                    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+                    box-shadow: 
+                      0 4px 12px rgba(0,0,0,0.08),
+                      0 1px 3px rgba(0,0,0,0.05),
+                      inset 0 1px 0 rgba(255,255,255,0.7);
                     position: relative;
                     overflow: hidden;
+                    image-rendering: -webkit-optimize-contrast;
+                    image-rendering: crisp-edges;
+                    will-change: transform, box-shadow;
+                    min-height: 85px;
+                    max-width: 100%;
                   }
                   
+                  /* Melhor qualidade e preview no desktop */
+                  @media (min-width: 768px) {
+                    .imagem-tema {
+                      height: 100px;
+                      border-radius: 14px;
+                      box-shadow: 
+                        0 6px 20px rgba(0,0,0,0.12),
+                        0 2px 6px rgba(0,0,0,0.08),
+                        inset 0 1px 0 rgba(255,255,255,0.8);
+                    }
+                  }
+                  
+                  @media (min-width: 1024px) {
+                    .imagem-tema {
+                      height: 110px;
+                      border-radius: 16px;
+                    }
+                  }
+                  
+                  /* Efeito de brilho e shimmer melhorado */
                   .imagem-tema::before {
                     content: '';
                     position: absolute;
@@ -521,92 +807,270 @@
                     left: 0;
                     right: 0;
                     bottom: 0;
-                    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
-                    transform: translateX(-100%);
-                    transition: transform 0.6s;
+                    background: linear-gradient(
+                      45deg, 
+                      transparent 25%, 
+                      rgba(255,255,255,0.2) 40%, 
+                      rgba(255,255,255,0.4) 50%, 
+                      rgba(255,255,255,0.2) 60%, 
+                      transparent 75%
+                    );
+                    transform: translateX(-120%);
+                    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    z-index: 2;
+                    border-radius: inherit;
                   }
                   
                   .imagem-tema:hover::before {
-                    transform: translateX(100%);
+                    transform: translateX(120%);
                   }
                   
-                  .imagem-tema:hover {
-                    border-color: #1976d2;
-                    transform: scale(1.08) translateY(-2px);
-                    box-shadow: 0 8px 25px rgba(25,118,210,0.4);
-                    z-index: 10;
-                    position: relative;
-                  }
-                  
-                  .imagem-tema.selecionada {
-                    border-color: #1976d2;
-                    box-shadow: 0 0 0 2px #1976d2, 0 8px 20px rgba(25,118,210,0.4);
-                    transform: scale(1.05);
-                  }
-                  
-                  /* Preview melhorado com tooltip */
-                  .imagem-tema {
-                    position: relative;
-                  }
-                  
+                  /* Fallback melhorado para imagens que não carregam */
                   .imagem-tema::after {
-                    content: attr(alt);
-                    position: absolute;
-                    bottom: -30px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    background: rgba(0,0,0,0.8);
-                    color: white;
-                    padding: 4px 8px;
-                    border-radius: 4px;
-                    font-size: 11px;
-                    white-space: nowrap;
-                    opacity: 0;
-                    pointer-events: none;
-                    transition: opacity 0.3s;
-                    z-index: 1000;
-                  }
-                  
-                  .imagem-tema:hover::after {
-                    opacity: 1;
-                  }
-                  
-                  /* Fallback para imagens que não carregam */
-                  .imagem-tema::before {
-                    content: "🖼️";
+                    content: '';
                     position: absolute;
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
-                    font-size: 24px;
-                    color: #666;
+                    font-size: 28px;
+                    color: #94a3b8;
                     z-index: 1;
                     opacity: 0;
-                    transition: opacity 0.3s;
+                    transition: all 0.3s ease;
+                    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
                   }
                   
-                  .imagem-tema[src=""], .imagem-tema:not([src]) {
-                    background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
-                  }
-                  
-                  .imagem-tema[src=""]:before, .imagem-tema:not([src]):before {
+                  .imagem-tema[src=""]::after,
+                  .imagem-tema:not([src])::after {
+                    content: "🖼️";
                     opacity: 1;
                   }
                   
-                  /* Loading state para imagens */
+                  /* Preview expandido otimizado para desktop */
+                  .imagem-tema:hover {
+                    border-color: #3b82f6;
+                    transform: scale(1.08) translateY(-3px);
+                    box-shadow: 
+                      0 12px 40px rgba(59, 130, 246, 0.25),
+                      0 4px 20px rgba(0,0,0,0.1),
+                      0 0 0 1px rgba(59, 130, 246, 0.2),
+                      inset 0 1px 0 rgba(255,255,255,0.9);
+                    z-index: 20;
+                    position: relative;
+                  }
+                  
+                  /* Efeitos expandidos para desktop */
+                  @media (min-width: 768px) {
+                    .imagem-tema:hover {
+                      transform: scale(1.12) translateY(-5px);
+                      box-shadow: 
+                        0 20px 60px rgba(59, 130, 246, 0.3),
+                        0 8px 30px rgba(0,0,0,0.15),
+                        0 0 0 2px rgba(59, 130, 246, 0.3),
+                        inset 0 1px 0 rgba(255,255,255,0.95);
+                      border-width: 3px;
+                    }
+                  }
+                  
+                  @media (min-width: 1024px) {
+                    .imagem-tema:hover {
+                      transform: scale(1.15) translateY(-6px);
+                      box-shadow: 
+                        0 25px 80px rgba(59, 130, 246, 0.35),
+                        0 10px 40px rgba(0,0,0,0.2),
+                        0 0 0 3px rgba(59, 130, 246, 0.4),
+                        inset 0 2px 0 rgba(255,255,255,0.95);
+                    }
+                  }
+                  
+                  /* Preview tooltip melhorado com informações da imagem */
+                  .imagem-tema[alt]:hover::after {
+                    content: attr(alt);
+                    position: absolute;
+                    bottom: -45px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(30,41,59,0.95) 100%);
+                    color: white;
+                    padding: 10px 14px;
+                    border-radius: 10px;
+                    font-size: 12px;
+                    font-weight: 600;
+                    white-space: nowrap;
+                    opacity: 1;
+                    pointer-events: none;
+                    z-index: 1000;
+                    box-shadow: 
+                      0 8px 32px rgba(0,0,0,0.3),
+                      0 2px 8px rgba(0,0,0,0.15),
+                      inset 0 1px 0 rgba(255,255,255,0.1);
+                    border: 1px solid rgba(255,255,255,0.1);
+                    backdrop-filter: blur(10px);
+                    animation: tooltipFadeIn 0.3s ease-out;
+                  }
+                  
+                  @keyframes tooltipFadeIn {
+                    0% { 
+                      opacity: 0; 
+                      transform: translateX(-50%) translateY(10px) scale(0.9); 
+                    }
+                    100% { 
+                      opacity: 1; 
+                      transform: translateX(-50%) translateY(0) scale(1); 
+                    }
+                  }
+                  
+                  /* Preview tooltip para desktop com mais informações */
+                  @media (min-width: 768px) {
+                    .imagem-tema[alt]:hover::after {
+                      bottom: -50px;
+                      font-size: 13px;
+                      padding: 12px 16px;
+                      border-radius: 12px;
+                      max-width: 200px;
+                      white-space: normal;
+                      text-align: center;
+                      line-height: 1.3;
+                    }
+                  }
+                  
+                  .imagem-tema.selecionada {
+                    border-color: #3b82f6;
+                    box-shadow: 
+                      0 0 0 3px rgba(59, 130, 246, 0.3),
+                      0 8px 25px rgba(59, 130, 246, 0.4),
+                      inset 0 1px 0 rgba(255,255,255,0.9);
+                    transform: scale(1.05);
+                    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+                  }
+                  
+                  /* Carregamento natural e progressivo das imagens */
                   .imagem-tema {
-                    background-image: linear-gradient(90deg, #f0f0f0 0px, #e0e0e0 40px, #f0f0f0 80px);
-                    background-size: 200px;
-                    animation: loading 1.5s infinite;
+                    image-rendering: -webkit-optimize-contrast;
+                    image-rendering: crisp-edges;
+                    image-rendering: optimizeSpeed;
+                  }
+                  
+                  /* Estado de carregamento melhorado com skeleton */
+                  .imagem-tema:not([data-loaded="true"]) {
+                    background: linear-gradient(
+                      90deg,
+                      #f1f5f9 0%,
+                      #e2e8f0 20%,
+                      #f8fafc 40%,
+                      #e2e8f0 60%,
+                      #f1f5f9 80%,
+                      #f1f5f9 100%
+                    );
+                    background-size: 400px 100%;
+                    animation: shimmerLoading 1.8s ease-in-out infinite;
+                    position: relative;
+                  }
+                  
+                  .imagem-tema:not([data-loaded="true"])::before {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 32px;
+                    height: 32px;
+                    border: 3px solid #e2e8f0;
+                    border-top: 3px solid #3b82f6;
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                    z-index: 3;
                   }
                   
                   .imagem-tema[data-loaded="true"] {
                     animation: none;
+                    background-image: none;
                   }
                   
-                  @keyframes loading {
-                    0% { background-position: -200px 0; }
-                    100% { background-position: 200px 0; }
+                  .imagem-tema[data-loaded="true"]::before {
+                    display: none;
+                  }
+                  
+                  @keyframes shimmerLoading {
+                    0% { background-position: -400px 0; }
+                    100% { background-position: 400px 0; }
+                  }
+                  
+                  @keyframes spin {
+                    0% { transform: translate(-50%, -50%) rotate(0deg); }
+                    100% { transform: translate(-50%, -50%) rotate(360deg); }
+                  }
+                  
+                  /* Fallback para imagens que falham no carregamento */
+                  .imagem-tema[src=""], 
+                  .imagem-tema:not([src]),
+                  .imagem-tema[data-error="true"] {
+                    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  }
+                  
+                  .imagem-tema[src=""]::after,
+                  .imagem-tema:not([src])::after,
+                  .imagem-tema[data-error="true"]::after {
+                    content: "🖼️";
+                    font-size: 32px;
+                    opacity: 0.6;
+                    z-index: 1;
+                  }
+                  
+                  /* Efeito fade-in suave quando a imagem carrega */
+                  .imagem-tema[data-loaded="true"] {
+                    animation: fadeInImage 0.6s ease-out;
+                  }
+                  
+                  @keyframes fadeInImage {
+                    0% { 
+                      opacity: 0; 
+                      transform: scale(0.95);
+                      filter: blur(4px);
+                    }
+                    100% { 
+                      opacity: 1; 
+                      transform: scale(1);
+                      filter: blur(0px);
+                    }
+                  }
+                  
+                  /* Preview expandido para desktop com zoom */
+                  @media (min-width: 1024px) {
+                    .galeria-temas {
+                      perspective: 1000px;
+                    }
+                    
+                    .imagem-tema:hover {
+                      transform: scale(1.18) translateY(-8px) rotateY(2deg);
+                      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    }
+                    
+                    /* Efeito de reflexo para desktop */
+                    .imagem-tema::after {
+                      content: '';
+                      position: absolute;
+                      bottom: -20%;
+                      left: 0;
+                      right: 0;
+                      height: 20%;
+                      background: linear-gradient(
+                        to bottom,
+                        rgba(255,255,255,0.1) 0%,
+                        transparent 100%
+                      );
+                      transform: scaleY(-1);
+                      opacity: 0;
+                      transition: opacity 0.3s ease;
+                      z-index: -1;
+                    }
+                    
+                    .imagem-tema:hover::after {
+                      opacity: 0.3;
+                    }
                   }
                   
                   .upload-area {
@@ -719,18 +1183,18 @@
                   /* Responsividade para tablets e dispositivos médios */
                   @media (max-width: 768px) {
                     #sidebarUsuarioOverlay {
-                      align-items: flex-start;
-                      padding: 10px;
-                      padding-top: 15px;
+                      align-items: center;
+                      padding: 0;
                     }
                     #sidebarUsuario {
-                      width: 92vw;
-                      max-width: 450px;
-                      min-width: 300px;
-                      padding: 1rem 1.5rem 16.3rem 1.5rem;
-                      margin: 0 auto;
-                      max-height: calc(100vh + 10cm);
-                      border-radius: 18px;
+                      width: 95vw;
+                      max-width: none;
+                      min-width: 320px;
+                      height: calc(100vh - 20px);
+                      max-height: calc(100vh - 20px);
+                      padding: 1.5rem 1.8rem 12rem 1.8rem;
+                      margin: 10px auto;
+                      border-radius: 20px;
                     }
                     #sidebarUsuario h2 {
                       font-size: 1.25rem;
@@ -755,21 +1219,21 @@
                   /* Responsividade para dispositivos móveis (iPhone, Samsung, etc.) */
                   @media (max-width: 500px) {
                     #sidebarUsuarioOverlay {
-                      align-items: flex-start !important;
+                      align-items: center !important;
                       justify-content: center !important;
-                      padding: 5px;
-                      padding-top: 10px;
+                      padding: 0;
                       z-index: 9999999;
                       display: flex !important;
                     }
                     #sidebarUsuario {
-                      width: 96vw;
+                      width: 98vw;
                       max-width: none;
                       min-width: 0;
-                      padding: 1rem 1.6rem 17.2rem 1.6rem;
-                      border-radius: 20px;
-                      margin: auto;
-                      max-height: calc(100vh + 10cm);
+                      height: calc(100vh - 10px);
+                      max-height: calc(100vh - 10px);
+                      padding: 1.2rem 1.8rem 12rem 1.8rem;
+                      border-radius: 16px;
+                      margin: 5px auto;
                       box-shadow: 
                         0 30px 60px -12px rgba(0, 0, 0, 0.5),
                         0 0 0 1px rgba(255, 255, 255, 0.9);
@@ -820,17 +1284,17 @@
                   /* Responsividade para dispositivos muito pequenos */
                   @media (max-width: 380px) {
                     #sidebarUsuarioOverlay {
-                      align-items: flex-start;
+                      align-items: center;
                       justify-content: center;
-                      padding: 3px;
-                      padding-top: 5px;
+                      padding: 0;
                     }
                     #sidebarUsuario {
-                      width: 98vw;
-                      padding: 0.8rem 1.4rem 17.4rem 1.4rem;
-                      margin: 0 auto;
-                      border-radius: 18px;
-                      max-height: calc(100vh + 10cm);
+                      width: 99vw;
+                      height: calc(100vh - 5px);
+                      max-height: calc(100vh - 5px);
+                      padding: 1rem 1.6rem 12rem 1.6rem;
+                      margin: 2.5px auto;
+                      border-radius: 12px;
                     }
                     #sidebarUsuario h2 {
                       font-size: 1.2rem;
@@ -954,6 +1418,133 @@
                     75% { transform: scale(1.15); }
                     100% { transform: scale(1.1); }
                   }
+                  
+                  /* === ESTILOS PARA A NOVA LOGO MODERNA === */
+                  .top-bar-center svg {
+                    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    cursor: pointer;
+                    transform-origin: center;
+                  }
+                  
+                  .top-bar-center svg:hover {
+                    transform: scale(1.05);
+                    filter: drop-shadow(0 8px 32px rgba(59,130,246,0.4)) brightness(1.05);
+                  }
+                  
+                  /* Animação moderna para a logo */
+                  @keyframes modernPulse {
+                    0%, 100% { 
+                      filter: drop-shadow(0 4px 16px rgba(59,130,246,0.25));
+                    }
+                    50% { 
+                      filter: drop-shadow(0 6px 24px rgba(139,92,246,0.35)) brightness(1.02);
+                    }
+                  }
+                  
+                  .top-bar-center svg:hover {
+                    animation: modernPulse 2s ease-in-out infinite;
+                  }
+                  
+                  /* Efeito glassmorphism no hover */
+                  @keyframes glassShimmer {
+                    0% { opacity: 0.6; }
+                    50% { opacity: 0.8; }
+                    100% { opacity: 0.6; }
+                  }
+                  
+                  /* Responsividade moderna */
+                  @media (max-width: 768px) {
+                    .top-bar-center svg {
+                      width: 200px;
+                      height: 50px;
+                    }
+                  }
+                  
+                  @media (max-width: 480px) {
+                    .top-bar-center svg {
+                      width: 180px;
+                      height: 45px;
+                    }
+                    .top-bar-center {
+                      left: 50% !important;
+                      transform: translateX(-50%) !important;
+                    }
+                  }
+                  
+                  @media (max-width: 380px) {
+                    .top-bar-center svg {
+                      width: 160px;
+                      height: 40px;
+                    }
+                  }
+                  
+                  /* Modo dark para a logo moderna */
+                  body.dark-mode .top-bar-center svg {
+                    filter: drop-shadow(0 6px 20px rgba(139,92,246,0.4)) brightness(1.1) contrast(1.1);
+                  }
+                  
+                  body.dark-mode .top-bar-center svg:hover {
+                    filter: drop-shadow(0 8px 32px rgba(139,92,246,0.6)) drop-shadow(0 0 16px rgba(59,130,246,0.3)) brightness(1.15);
+                  }
+                  
+                  /* Elementos de gradiente adaptáveis ao modo dark */
+                  body.dark-mode .top-bar-center svg defs stop[style*="#1e293b"] {
+                    stop-color: #e2e8f0;
+                  }
+                  
+                  body.dark-mode .top-bar-center svg defs stop[style*="#3730a3"] {
+                    stop-color: #a78bfa;
+                  }
+                  
+                  body.dark-mode .top-bar-center svg text[fill*="#64748b"] {
+                    fill: #94a3b8 !important;
+                  }
+                  
+                  /* Animação de entrada moderna */
+                  @keyframes modernEntrance {
+                    0% {
+                      opacity: 0;
+                      transform: translateX(-50%) translateY(-30px) scale(0.8) perspective(1000px) rotateX(45deg);
+                      filter: blur(10px);
+                    }
+                    50% {
+                      opacity: 0.8;
+                      transform: translateX(-50%) translateY(-5px) scale(0.95) perspective(1000px) rotateX(5deg);
+                      filter: blur(2px);
+                    }
+                    100% {
+                      opacity: 1;
+                      transform: translateX(-50%) translateY(0) scale(1) perspective(1000px) rotateX(0deg);
+                      filter: blur(0px);
+                    }
+                  }
+                  
+                  .top-bar-center {
+                    animation: modernEntrance 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    perspective: 1000px;
+                  }
+                  
+                  /* Micro-interações modernas */
+                  .top-bar-center svg g {
+                    transition: transform 0.3s ease;
+                  }
+                  
+                  .top-bar-center:hover svg g:first-of-type {
+                    transform: translate(8px, 8px) scale(1.02);
+                  }
+                  
+                  /* Efeito de paralaxe sutil */
+                  @keyframes subtleFloat {
+                    0%, 100% { transform: translateY(0px); }
+                    50% { transform: translateY(-2px); }
+                  }
+                  
+                  .top-bar-center svg {
+                    animation: subtleFloat 6s ease-in-out infinite;
+                  }
+                  
+                  /* Tipografia moderna carregada */
+                  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
                 </style>
             <!-- Sidebar Usuário -->
             <div id="sidebarUsuarioOverlay">
@@ -973,17 +1564,26 @@
                   
                   <!-- Galeria de imagens por tema -->
                   <div class="galeria-temas" id="galeriaTemas">
-                    <!-- Imagens de fundo pré-carregadas com preview melhorado -->
-                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=1" alt="Natureza 1" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
-                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=2" alt="Natureza 2" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
-                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=3" alt="Paisagem 1" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
-                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=4" alt="Paisagem 2" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
-                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=5" alt="Abstratas 1" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
-                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=6" alt="Abstratas 2" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
-                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=7" alt="Cores 1" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
-                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=8" alt="Cores 2" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
-                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=9" alt="Texturas 1" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
-                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=10" alt="Texturas 2" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    <!-- Imagens de fundo otimizadas para carregamento rápido -->
+                    <img class="imagem-tema" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&auto=format&q=80" alt="Montanha" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    
+                    <img class="imagem-tema" src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop&auto=format&q=80" alt="Floresta" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    
+                    <img class="imagem-tema" src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=300&fit=crop&auto=format&q=80" alt="Oceano" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    
+                    <img class="imagem-tema" src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop&auto=format&q=80" alt="Lago" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    
+                    <img class="imagem-tema" src="https://images.unsplash.com/photo-1495616811223-4d98c6e9c869?w=400&h=300&fit=crop&auto=format&q=80" alt="Por do Sol" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    
+                    <img class="imagem-tema" src="https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=400&h=300&fit=crop&auto=format&q=80" alt="Céu Estrelado" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    
+                    <img class="imagem-tema" src="https://images.unsplash.com/photo-1500829243541-74b677fecc30?w=400&h=300&fit=crop&auto=format&q=80" alt="Campo" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    
+                    <img class="imagem-tema" src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=300&fit=crop&auto=format&q=80" alt="Cidade" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    
+                    <img class="imagem-tema" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=300&fit=crop&auto=format&q=80" alt="Praia" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    
+                    <img class="imagem-tema" src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=400&h=300&fit=crop&auto=format&q=80" alt="Deserto" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
                   </div>
                   
                   <!-- Upload de imagem personalizada -->
@@ -1015,11 +1615,23 @@
             <!-- Top bar: salvar imagem, darkmode, favoritos -->
             <div class="top-bar" style="width:100%;padding:0rem 0 0.5rem 0;display:flex;flex-direction:row;align-items:flex-start;justify-content:space-between;z-index:1;position:relative;">
                 <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0.2rem;position:relative;">
-                  <button id="btnPrint" title="Salvar imagem para postagem" style="background:none;border:none;cursor:pointer;padding:0.2rem 0.4rem 0 0.4rem;">
+                  <button id="btnPrint" title="📱 Salvar apenas o card da frase" style="background:none;border:none;cursor:pointer;padding:0.2rem 0.4rem 0 0.4rem;">
                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 12v2a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4v-2"/>
                         <polyline points="16 6 12 2 8 6"/>
                         <line x1="12" y1="2" x2="12" y2="15"/>
+                     </svg>
+                  </button>
+                  <button id="btnPrintFull" title="📱 Salvar tela completa" style="background:none;border:none;cursor:pointer;padding:0.2rem 0.4rem 0 0.4rem;">
+                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                        <line x1="7" y1="2" x2="7" y2="22"></line>
+                        <line x1="17" y1="2" x2="17" y2="22"></line>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <line x1="2" y1="7" x2="7" y2="7"></line>
+                        <line x1="2" y1="17" x2="7" y2="17"></line>
+                        <line x1="17" y1="17" x2="22" y2="17"></line>
+                        <line x1="17" y1="7" x2="22" y2="7"></line>
                      </svg>
                   </button>
                   <button id="btnDarkModeNovo" title="Modo escuro" style="background:none;border:none;cursor:pointer;padding:0.2rem 0.4rem 0 0.4rem;">
@@ -1028,13 +1640,117 @@
                       </svg>
                   </button>
                 </div>
-                <div class="top-bar-center" style="position:absolute;top:0;left:calc(50% + 1cm);transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.10rem;z-index:1;">
-                    <svg width="215" height="50" viewBox="0 0 270 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:1.2rem;">
-                        <rect x="8" y="4" width="38" height="46" rx="8" fill="#0d47a1" stroke="#0d47a1" stroke-width="2"/>
-                        <rect x="16" y="12" width="22" height="22" rx="6" fill="#fff"/>
-                        <rect x="24" y="38" width="6" height="2" rx="1" fill="#fff"/>
-                        <circle cx="27" cy="44" r="2" fill="#fff"/>
-                        <text x="58" y="36" fill="#0d47a1" font-size="32" font-family="Montserrat, Arial, sans-serif" font-weight="bold">FraseGo</text>
+                <div class="top-bar-center" style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.10rem;z-index:1;">
+                    <svg width="240" height="60" viewBox="0 0 280 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:1.2rem;filter:drop-shadow(0 4px 16px rgba(59,130,246,0.25));">
+                        <!-- Definições de gradientes modernos -->
+                        <defs>
+                            <!-- Gradiente principal moderno -->
+                            <linearGradient id="modernGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+                            </linearGradient>
+                            
+                            <!-- Gradiente para texto -->
+                            <linearGradient id="textModernGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#1e293b;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#3730a3;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+                            </linearGradient>
+                            
+                            <!-- Gradiente accent -->
+                            <linearGradient id="accentModernGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#ef4444;stop-opacity:1" />
+                            </linearGradient>
+                            
+                            <!-- Gradiente glassmorphism -->
+                            <linearGradient id="glassGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.8" />
+                                <stop offset="100%" style="stop-color:#f8fafc;stop-opacity:0.4" />
+                            </linearGradient>
+                            
+                            <!-- Filtros modernos -->
+                            <filter id="modernShadow" x="-50%" y="-50%" width="200%" height="200%">
+                                <feGaussianBlur stdDeviation="4" result="blur"/>
+                                <feOffset dx="0" dy="2" result="offset"/>
+                                <feFlood stop-color="#3b82f6" stop-opacity="0.15"/>
+                                <feComposite in2="offset" operator="in"/>
+                                <feMerge>
+                                    <feMergeNode/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                            
+                            <filter id="glowEffect">
+                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                <feMerge> 
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        
+                        <!-- Container principal moderno -->
+                        <g transform="translate(8, 8)">
+                            <!-- Forma base moderna com cantos arredondados -->
+                            <rect x="0" y="0" width="52" height="52" rx="16" fill="url(#modernGradient)" filter="url(#modernShadow)"/>
+                            
+                            <!-- Camada glassmorphism -->
+                            <rect x="2" y="2" width="48" height="48" rx="14" fill="url(#glassGradient)" opacity="0.6"/>
+                            
+                            <!-- Elemento central - ícone de mensagem moderno -->
+                            <rect x="12" y="18" width="28" height="18" rx="9" fill="#ffffff" opacity="0.95"/>
+                            
+                            <!-- Indicador de atividade -->
+                            <circle cx="38" cy="16" r="4" fill="url(#accentModernGradient)"/>
+                            <circle cx="38" cy="16" r="2" fill="#ffffff"/>
+                            
+                            <!-- Linhas de texto estilizadas -->
+                            <rect x="16" y="22" width="20" height="2" rx="1" fill="url(#modernGradient)" opacity="0.7"/>
+                            <rect x="16" y="26" width="16" height="2" rx="1" fill="url(#modernGradient)" opacity="0.5"/>
+                            <rect x="16" y="30" width="18" height="2" rx="1" fill="url(#modernGradient)" opacity="0.6"/>
+                            
+                            <!-- Elementos decorativos modernos -->
+                            <circle cx="8" cy="8" r="2" fill="#ffffff" opacity="0.4"/>
+                            <circle cx="44" cy="44" r="1.5" fill="#ffffff" opacity="0.3"/>
+                        </g>
+                        
+                        <!-- Texto principal com tipografia moderna -->
+                        <text x="70" y="42" fill="url(#textModernGradient)" font-size="34" font-family="'Inter', 'SF Pro Display', 'Segoe UI', system-ui, sans-serif" font-weight="700" letter-spacing="-1px">
+                            Frase
+                        </text>
+                        
+                        <!-- "Go" com destaque moderno -->
+                        <text x="170" y="42" fill="url(#accentModernGradient)" font-size="34" font-family="'Inter', 'SF Pro Display', 'Segoe UI', system-ui, sans-serif" font-weight="700" letter-spacing="-1px">
+                            Go
+                        </text>
+                        
+                        <!-- Linha decorativa moderna -->
+                        <rect x="70" y="48" width="130" height="1" fill="url(#modernGradient)" opacity="0.3" rx="0.5"/>
+                        
+                        <!-- Tagline atualizada -->
+                        <text x="72" y="60" fill="#64748b" font-size="8" font-family="'Inter', system-ui, sans-serif" font-weight="500" letter-spacing="1.5px" opacity="0.8">
+                            CRIE • INSPIRE • COMPARTILHE
+                        </text>
+                        
+                        <!-- Elementos decorativos flutuantes -->
+                        <g opacity="0.6">
+                            <circle cx="245" cy="15" r="3" fill="url(#modernGradient)" opacity="0.4">
+                                <animate attributeName="cy" values="15;12;15" dur="3s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="250" cy="25" r="2" fill="url(#accentModernGradient)" opacity="0.5">
+                                <animate attributeName="r" values="2;3;2" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="255" cy="35" r="1.5" fill="#06b6d4" opacity="0.4">
+                                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2.5s" repeatCount="indefinite"/>
+                            </circle>
+                        </g>
+                        
+                        <!-- Versão badge pequena -->
+                        <text x="225" y="60" fill="#94a3b8" font-size="6" font-family="'Inter', monospace" font-weight="400" opacity="0.5">
+                            v2.0
+                        </text>
                     </svg>
                 </div>
                 <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.3rem;">
@@ -2712,10 +3428,16 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
 // ==== CONTROLE DE IMAGENS DE FUNDO ====
 function selecionarImagemFundo(urlImagem) {
+  console.log('🖼️ Selecionando imagem de fundo:', urlImagem);
+  
   const imagemFundo = document.getElementById('imagemFundo');
   const imagemFundoContainer = document.getElementById('imagemFundoContainer');
   
   if (imagemFundo && imagemFundoContainer) {
+    // Mostrar feedback visual
+    const imagemSelecionada = event.target;
+    
+    // Aplicar imagem
     imagemFundo.src = urlImagem;
     imagemFundo.style.opacity = '0.4';
     imagemFundoContainer.style.display = 'block';
@@ -2727,16 +3449,135 @@ function selecionarImagemFundo(urlImagem) {
     document.querySelectorAll('.imagem-tema').forEach(img => {
       img.classList.remove('selecionada');
     });
-    event.target.classList.add('selecionada');
     
-    console.log('Imagem de fundo aplicada:', urlImagem);
+    if (imagemSelecionada) {
+      imagemSelecionada.classList.add('selecionada');
+    }
+    
+    // Feedback visual melhorado
+    if (imagemSelecionada) {
+      const originalTransform = imagemSelecionada.style.transform;
+      imagemSelecionada.style.transform = 'scale(1.1)';
+      imagemSelecionada.style.boxShadow = '0 0 0 3px #3b82f6, 0 8px 25px rgba(59, 130, 246, 0.4)';
+      
+      setTimeout(() => {
+        imagemSelecionada.style.transform = originalTransform;
+      }, 300);
+    }
+    
+    // Notificação de sucesso
+    mostrarNotificacao('✅ Imagem de fundo aplicada!', 'success');
+    
+    console.log('✅ Imagem de fundo aplicada:', urlImagem);
+  } else {
+    console.error('❌ Elementos de imagem de fundo não encontrados');
+    mostrarNotificacao('❌ Erro ao aplicar imagem de fundo', 'error');
   }
+}
+
+// Função para mostrar notificações
+function mostrarNotificacao(mensagem, tipo = 'info') {
+  const notificacao = document.createElement('div');
+  notificacao.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: ${tipo === 'success' ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)' : 
+                 tipo === 'error' ? 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)' : 
+                 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)'};
+    color: white;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    z-index: 999999;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+  `;
+  notificacao.textContent = mensagem;
+  
+  document.body.appendChild(notificacao);
+  
+  // Animar entrada
+  setTimeout(() => {
+    notificacao.style.opacity = '1';
+    notificacao.style.transform = 'translateX(0)';
+  }, 100);
+  
+  // Remover após 3 segundos
+  setTimeout(() => {
+    notificacao.style.opacity = '0';
+    notificacao.style.transform = 'translateX(100%)';
+    
+    setTimeout(() => {
+      document.body.removeChild(notificacao);
+    }, 300);
+  }, 3000);
 }
 
 // Carregar imagem salva ao inicializar
 document.addEventListener('DOMContentLoaded', function() {
+  console.log('🎯 Inicializando sistema de imagens de fundo...');
+  
+  // Garantir que as imagens estejam visíveis
+  const galeria = document.querySelector('.galeria-temas');
+  const imagensControles = document.querySelector('.imagem-controles');
+  
+  if (galeria) {
+    galeria.style.display = 'grid';
+    galeria.style.visibility = 'visible';
+    galeria.style.opacity = '1';
+    console.log('✅ Galeria de temas visível');
+  }
+  
+  if (imagensControles) {
+    imagensControles.style.display = 'block';
+    imagensControles.style.visibility = 'visible';
+    imagensControles.style.opacity = '1';
+    console.log('✅ Controles de imagem visíveis');
+  }
+  
+  // Forçar carregamento das imagens
+  const imagensTema = document.querySelectorAll('.imagem-tema');
+  console.log(`🖼️ Encontradas ${imagensTema.length} imagens na galeria`);
+  
+  imagensTema.forEach((img, index) => {
+    // Garantir visibilidade
+    img.style.display = 'block';
+    img.style.visibility = 'visible';
+    img.style.opacity = '1';
+    
+    // Adicionar listeners de carregamento
+    img.addEventListener('load', function() {
+      this.setAttribute('data-loaded', 'true');
+      console.log(`✅ Imagem ${index + 1} carregada:`, this.alt);
+    });
+    
+    img.addEventListener('error', function() {
+      console.warn(`❌ Erro ao carregar imagem ${index + 1}:`, this.src);
+      this.style.display = 'block'; // Manter visível mesmo com erro
+    });
+    
+    // Forçar recarregamento se necessário
+    if (img.complete && img.naturalHeight === 0) {
+      console.log(`🔄 Recarregando imagem ${index + 1}:`, img.alt);
+      const srcOriginal = img.src;
+      img.src = '';
+      setTimeout(() => {
+        img.src = srcOriginal;
+      }, 100);
+    }
+  });
+  
+  // Carregar imagem salva
   const imagemSalva = localStorage.getItem('imagemFundoSelecionada');
   if (imagemSalva) {
+    console.log('🔄 Restaurando imagem salva:', imagemSalva);
+    
     const imagemFundo = document.getElementById('imagemFundo');
     const imagemFundoContainer = document.getElementById('imagemFundoContainer');
     
@@ -2749,10 +3590,13 @@ document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.imagem-tema').forEach(img => {
         if (img.src === imagemSalva) {
           img.classList.add('selecionada');
+          console.log('✅ Imagem marcada como selecionada:', img.alt);
         }
       });
     }
   }
+  
+  console.log('🎉 Sistema de imagens de fundo inicializado!');
 });
 
 // Remover imagem de fundo
@@ -2780,6 +3624,557 @@ document.addEventListener('DOMContentLoaded', function() {
   if (btnRemover) {
     btnRemover.addEventListener('click', removerImagemFundo);
   }
+});
+</script>
+
+<!-- === SCRIPT SIMPLES PARA CARREGAMENTO IMEDIATO DAS IMAGENS === -->
+<script>
+// ==== CARREGAMENTO IMEDIATO E GARANTIDO DAS IMAGENS ====
+(function() {
+  'use strict';
+  
+  console.log('🚀 Iniciando carregamento imediato das imagens...');
+  
+  function carregarImagemImediatamente() {
+    const todasImagens = document.querySelectorAll('.imagem-tema');
+    console.log('🔍 Encontradas', todasImagens.length, 'imagens para carregar');
+    
+    if (todasImagens.length === 0) {
+      console.warn('⚠️ Nenhuma imagem encontrada!');
+      return;
+    }
+    
+    todasImagens.forEach((img, index) => {
+      // Delay escalonado para não sobrecarregar
+      setTimeout(() => {
+        console.log(`📸 Carregando imagem ${index + 1}/${todasImagens.length}:`, img.src);
+        
+        // Forçar carregamento da imagem
+        const novaImg = new Image();
+        novaImg.crossOrigin = 'anonymous';
+        
+        novaImg.onload = function() {
+          console.log('✅ Imagem carregada:', img.alt || img.src.split('/').pop());
+          img.dataset.loaded = 'true';
+          img.style.opacity = '1';
+          img.style.filter = 'none';
+        };
+        
+        novaImg.onerror = function() {
+          console.warn('❌ Erro ao carregar:', img.alt || img.src.split('/').pop());
+          // Tentar URL reduzida
+          const urlReduzida = img.src.replace('w=400&h=300', 'w=200&h=150');
+          if (urlReduzida !== img.src) {
+            img.src = urlReduzida;
+          }
+        };
+        
+        // Iniciar carregamento
+        novaImg.src = img.src;
+        
+        // Mostrar que está carregando
+        img.style.opacity = '0.7';
+        img.style.filter = 'blur(1px)';
+        
+      }, index * 50); // 50ms entre cada imagem
+    });
+  }
+  
+  // Executar quando o DOM estiver pronto
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', carregarImagemImediatamente);
+  } else {
+    carregarImagemImediatamente();
+  }
+  
+  // Também executar quando a janela carregar completamente
+  window.addEventListener('load', function() {
+    setTimeout(carregarImagemImediatamente, 100);
+  });
+  
+  console.log('✅ Sistema de carregamento imediato configurado!');
+})();
+</script>
+
+<script>
+// ==== CARREGAMENTO FORÇADO E ROBUSTO DAS IMAGENS ====
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('🖼️ Inicializando sistema de carregamento forçado de imagens...');
+  
+  // Função para forçar o carregamento de uma imagem
+  function forcarCarregamentoImagem(img) {
+    if (img.dataset.loaded === 'true') return Promise.resolve();
+    
+    return new Promise((resolve, reject) => {
+      console.log('📸 Forçando carregamento da imagem:', img.src);
+      
+      // Mostrar indicador de carregamento
+      img.style.opacity = '0.3';
+      img.style.filter = 'blur(2px)';
+      
+      // Criar nova instância para garantir carregamento
+      const novaImagem = new Image();
+      
+      // Configurar CORS para Unsplash
+      novaImagem.crossOrigin = 'anonymous';
+      
+      novaImagem.onload = function() {
+        console.log('✅ Imagem carregada com sucesso:', img.src);
+        
+        // Aplicar imagem carregada
+        img.src = novaImagem.src;
+        img.dataset.loaded = 'true';
+        img.removeAttribute('data-error');
+        
+        // Remover indicador de carregamento com transição suave
+        img.style.transition = 'all 0.3s ease';
+        img.style.opacity = '1';
+        img.style.filter = 'blur(0px)';
+        
+        resolve();
+      };
+      
+      novaImagem.onerror = function() {
+        console.warn('❌ Erro ao carregar imagem:', img.src);
+        
+        // Tentar URL alternativa
+        const urlAlternativa = img.src.replace('w=400&h=300', 'w=300&h=200');
+        if (urlAlternativa !== img.src) {
+          console.log('🔄 Tentando URL alternativa:', urlAlternativa);
+          img.src = urlAlternativa;
+          forcarCarregamentoImagem(img).then(resolve).catch(reject);
+        } else {
+          img.dataset.error = 'true';
+          img.style.opacity = '0.1';
+          img.style.filter = 'grayscale(100%)';
+          reject(new Error('Falha ao carregar imagem'));
+        }
+      };
+      
+      // Iniciar carregamento com timeout
+      setTimeout(() => {
+        novaImagem.src = img.src;
+      }, 50);
+      
+      // Timeout de segurança
+      setTimeout(() => {
+        if (img.dataset.loaded !== 'true') {
+          console.warn('⏰ Timeout ao carregar imagem:', img.src);
+          reject(new Error('Timeout no carregamento'));
+        }
+      }, 10000);
+    });
+  }
+  
+  // Função para carregar todas as imagens em lotes
+  async function carregarTodasAsImagens() {
+    const imagensTema = document.querySelectorAll('.imagem-tema');
+    console.log('🔍 Encontradas', imagensTema.length, 'imagens para carregar');
+    
+    if (imagensTema.length === 0) {
+      console.warn('⚠️ Nenhuma imagem encontrada com classe .imagem-tema');
+      return;
+    }
+    
+    // Carregar em lotes de 3 para não sobrecarregar
+    const loteSize = 3;
+    for (let i = 0; i < imagensTema.length; i += loteSize) {
+      const lote = Array.from(imagensTema).slice(i, i + loteSize);
+      
+      console.log(`📦 Carregando lote ${Math.floor(i/loteSize) + 1}:`, lote.length, 'imagens');
+      
+      // Carregar lote em paralelo
+      const promessasLote = lote.map(img => 
+        forcarCarregamentoImagem(img).catch(error => {
+          console.warn('⚠️ Erro no lote:', error.message);
+          return null; // Continuar mesmo com erro
+        })
+      );
+      
+      await Promise.allSettled(promessasLote);
+      
+      // Pequena pausa entre lotes
+      await new Promise(resolve => setTimeout(resolve, 200));
+    }
+    
+    console.log('🎉 Carregamento de imagens concluído!');
+  }
+  
+  // Função para verificar e recarregar imagens com erro
+  function verificarImagensComErro() {
+    const imagensComErro = document.querySelectorAll('.imagem-tema[data-error="true"]');
+    
+    if (imagensComErro.length > 0) {
+      console.log('🔄 Tentando recarregar', imagensComErro.length, 'imagens com erro...');
+      
+      imagensComErro.forEach(img => {
+        img.removeAttribute('data-error');
+        img.removeAttribute('data-loaded');
+        forcarCarregamentoImagem(img).catch(() => {
+          console.warn('💥 Falha definitiva ao carregar:', img.src);
+        });
+      });
+    }
+  }
+  
+  // Função para mostrar estatísticas de carregamento
+  function mostrarEstatisticas() {
+    const totalImagens = document.querySelectorAll('.imagem-tema').length;
+    const imagensCarregadas = document.querySelectorAll('.imagem-tema[data-loaded="true"]').length;
+    const imagensComErro = document.querySelectorAll('.imagem-tema[data-error="true"]').length;
+    
+    console.log('📊 Estatísticas de carregamento:');
+    console.log(`  • Total: ${totalImagens} imagens`);
+    console.log(`  • Carregadas: ${imagensCarregadas} (${Math.round(imagensCarregadas/totalImagens*100)}%)`);
+    console.log(`  • Com erro: ${imagensComErro}`);
+    
+    // Mostrar no console as imagens que falharam
+    if (imagensComErro > 0) {
+      const urlsComErro = Array.from(document.querySelectorAll('.imagem-tema[data-error="true"]'))
+        .map(img => img.src);
+      console.warn('❌ URLs com erro:', urlsComErro);
+    }
+  }
+  
+  // Iniciar carregamento imediatamente
+  console.log('🚀 Iniciando carregamento forçado das imagens...');
+  carregarTodasAsImagens().then(() => {
+    mostrarEstatisticas();
+    
+    // Verificar novamente após 3 segundos
+    setTimeout(() => {
+      verificarImagensComErro();
+      setTimeout(mostrarEstatisticas, 2000);
+    }, 3000);
+  });
+  
+  // Verificação periódica (a cada 10 segundos)
+  setInterval(() => {
+    const imagensNaoCarregadas = document.querySelectorAll('.imagem-tema:not([data-loaded="true"]):not([data-error="true"])');
+    if (imagensNaoCarregadas.length > 0) {
+      console.log('🔄 Carregando', imagensNaoCarregadas.length, 'imagens pendentes...');
+      imagensNaoCarregadas.forEach(img => forcarCarregamentoImagem(img));
+    }
+  }, 10000);
+  
+  // Tentar carregar imagens quando a galeria ficar visível
+  const galeriaObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        console.log('👁️ Galeria ficou visível, forçando carregamento...');
+        setTimeout(carregarTodasAsImagens, 100);
+        galeriaObserver.unobserve(entry.target);
+      }
+    });
+  });
+  
+  // Observar galeria de temas
+  const galeriaTemas = document.querySelector('.galeria-temas');
+  if (galeriaTemas) {
+    galeriaObserver.observe(galeriaTemas);
+  }
+  
+  console.log('✅ Sistema de carregamento forçado inicializado!');
+  
+  // === BOTÃO DE DEBUG PARA TESTAR CARREGAMENTO ===
+  const btnDebugImagens = document.createElement('button');
+  btnDebugImagens.textContent = '🖼️ Debug Imagens';
+  btnDebugImagens.style.cssText = `
+    position: fixed;
+    bottom: 60px;
+    right: 12px;
+    padding: 6px 12px;
+    font-size: 11px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 9998;
+    box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
+    transition: all 0.3s ease;
+    font-weight: 600;
+  `;
+  
+  btnDebugImagens.addEventListener('click', function() {
+    console.log('🔍 === DEBUG DE IMAGENS ===');
+    mostrarEstatisticas();
+    
+    // Forçar recarregamento de todas as imagens
+    const todasImagens = document.querySelectorAll('.imagem-tema');
+    todasImagens.forEach(img => {
+      img.removeAttribute('data-loaded');
+      img.removeAttribute('data-error');
+    });
+    
+    console.log('🔄 Recarregando todas as imagens...');
+    carregarTodasAsImagens();
+  });
+  
+  btnDebugImagens.addEventListener('mouseenter', function() {
+    this.style.boxShadow = '0 4px 15px rgba(29, 78, 216, 0.5)';
+  });
+  
+  btnDebugImagens.addEventListener('mouseleave', function() {
+    this.style.boxShadow = '0 2px 10px rgba(59, 130, 246, 0.3)';
+  });
+  
+  document.body.appendChild(btnDebugImagens);
+  
+  // Remover botão após 30 segundos
+  setTimeout(() => {
+    if (btnDebugImagens.parentElement) {
+      btnDebugImagens.remove();
+    }
+  }, 30000);
+});
+</script>
+
+<script>
+// ==== CARREGAMENTO NATURAL E PREVIEW MELHORADO PARA DESKTOP ====
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('🖼️ Inicializando sistema de preview avançado de imagens...');
+  
+  // Verificar se as imagens já foram carregadas pelo sistema anterior
+  const imagensCarregadas = document.querySelectorAll('.imagem-tema[data-loaded="true"]').length;
+  const totalImagens = document.querySelectorAll('.imagem-tema').length;
+  
+  console.log(`📊 Status atual: ${imagensCarregadas}/${totalImagens} imagens carregadas`);
+  
+  // Só usar o sistema antigo se o novo não funcionou
+  if (imagensCarregadas < totalImagens * 0.5) {
+    console.log('🔄 Sistema de carregamento forçado não carregou suficientes imagens, usando sistema backup...');
+    
+    // Intersection Observer para carregamento lazy das imagens
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          carregarImagemNaturalmente(img);
+          observer.unobserve(img);
+        }
+      });
+    }, {
+      rootMargin: '50px 0px',
+      threshold: 0.1
+    });
+    
+    // Função para carregamento natural das imagens
+    function carregarImagemNaturalmente(img) {
+      if (img.dataset.loaded === 'true') return;
+      
+      console.log('📸 Carregando imagem (backup):', img.src || img.dataset.src);
+      
+      // Criar nova instância para carregamento
+      const novaImagem = new Image();
+      
+      // Configurar carregamento
+      novaImagem.onload = function() {
+        console.log('✅ Imagem carregada com sucesso (backup):', img.src);
+        
+        // Aplicar imagem com fade-in suave
+        img.src = novaImagem.src;
+        img.dataset.loaded = 'true';
+        img.removeAttribute('data-error');
+        
+        // Adicionar efeito de fade-in
+        setTimeout(() => {
+          img.style.opacity = '1';
+          img.style.filter = 'blur(0px)';
+        }, 50);
+      };
+      
+      novaImagem.onerror = function() {
+        console.warn('❌ Erro ao carregar imagem (backup):', img.src);
+        img.dataset.error = 'true';
+        img.dataset.loaded = 'false';
+      };
+      
+      // Iniciar carregamento
+      novaImagem.src = img.src || img.dataset.src;
+    }
+    
+    // Configurar observador para imagens não carregadas
+    const imagensNaoCarregadas = document.querySelectorAll('.imagem-tema:not([data-loaded="true"])');
+    imagensNaoCarregadas.forEach(img => {
+      if (img.src) {
+        imageObserver.observe(img);
+      }
+    });
+    
+    // Precarregar imagens visíveis
+    function precarregarImagensVisiveis() {
+      const imagensVisiveis = document.querySelectorAll('.imagem-tema:not([data-loaded="true"])');
+      
+      imagensVisiveis.forEach((img, index) => {
+        setTimeout(() => {
+          if (img.getBoundingClientRect().top < window.innerHeight + 100) {
+            carregarImagemNaturalmente(img);
+          }
+        }, index * 100); // Escalonar carregamento
+      });
+    }
+    
+    // Precarregar após um tempo
+    setTimeout(precarregarImagensVisiveis, 500);
+  } else {
+    console.log('✅ Sistema de carregamento forçado funcionou bem, usando apenas preview!');
+  }
+  
+  // Preview expandido para desktop (sempre ativo)
+  function adicionarPreviewExpandido() {
+    const imagensTema = document.querySelectorAll('.imagem-tema');
+    
+    imagensTema.forEach(img => {
+      // Preview expandido no hover (apenas desktop)
+      if (window.innerWidth >= 768) {
+        let previewModal = null;
+        
+        img.addEventListener('mouseenter', function(e) {
+          // Criar preview modal apenas se não existir
+          if (!previewModal) {
+            previewModal = criarPreviewModal(img);
+            document.body.appendChild(previewModal);
+          }
+          
+          // Posicionar e mostrar
+          posicionarPreviewModal(previewModal, e);
+          previewModal.style.opacity = '1';
+          previewModal.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+        
+        img.addEventListener('mouseleave', function() {
+          if (previewModal) {
+            previewModal.style.opacity = '0';
+            previewModal.style.transform = 'translate(-50%, -50%) scale(0.9)';
+            
+            setTimeout(() => {
+              if (previewModal && previewModal.parentNode) {
+                previewModal.parentNode.removeChild(previewModal);
+                previewModal = null;
+              }
+            }, 300);
+          }
+        });
+        
+        img.addEventListener('mousemove', function(e) {
+          if (previewModal) {
+            posicionarPreviewModal(previewModal, e);
+          }
+        });
+      }
+    });
+  }
+  
+  // Criar modal de preview
+  function criarPreviewModal(imgOriginal) {
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+      position: fixed;
+      z-index: 999999;
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform: translate(-50%, -50%) scale(0.9);
+      filter: drop-shadow(0 25px 50px rgba(0,0,0,0.3));
+    `;
+    
+    const img = document.createElement('img');
+    img.src = imgOriginal.src;
+    img.style.cssText = `
+      width: 200px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 3px solid rgba(59, 130, 246, 0.8);
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      box-shadow: 
+        0 20px 40px rgba(0,0,0,0.2),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+    `;
+    
+    // Adicionar informações da imagem
+    const info = document.createElement('div');
+    info.style.cssText = `
+      position: absolute;
+      bottom: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(30,41,59,0.95) 100%);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+    `;
+    info.textContent = imgOriginal.alt || 'Imagem de fundo';
+    
+    modal.appendChild(img);
+    modal.appendChild(info);
+    
+    return modal;
+  }
+  
+  // Posicionar modal de preview
+  function posicionarPreviewModal(modal, event) {
+    const rect = modal.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    
+    let x = event.clientX;
+    let y = event.clientY - 100; // Offset para cima
+    
+    // Ajustar para não sair da tela
+    if (x + 100 > viewportWidth) x = viewportWidth - 120;
+    if (x - 100 < 0) x = 120;
+    if (y - 75 < 0) y = 100;
+    if (y + 100 > viewportHeight) y = viewportHeight - 120;
+    
+    modal.style.left = x + 'px';
+    modal.style.top = y + 'px';
+  }
+  
+  // Otimização para diferentes tamanhos de tela
+  function otimizarParaTela() {
+    const isDesktop = window.innerWidth >= 1024;
+    const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+    const isMobile = window.innerWidth < 768;
+    
+    const galeria = document.querySelector('.galeria-temas');
+    if (galeria) {
+      if (isDesktop) {
+        galeria.style.maxHeight = '450px';
+      } else if (isTablet) {
+        galeria.style.maxHeight = '380px';
+      } else {
+        galeria.style.maxHeight = '320px';
+      }
+    }
+  }
+  
+  // Inicializar sistema
+  adicionarPreviewExpandido();
+  otimizarParaTela();
+  
+  // Reotimizar quando a tela for redimensionada
+  window.addEventListener('resize', function() {
+    otimizarParaTela();
+    
+    // Reinicializar preview se mudou para desktop
+    if (window.innerWidth >= 768) {
+      adicionarPreviewExpandido();
+    }
+  });
+  
+  console.log('✅ Sistema de preview avançado inicializado!');
+  console.log('🎯 Funcionalidades ativas:');
+  console.log('  • Carregamento robusto das imagens');
+  console.log('  • Preview expandido no desktop');
+  console.log('  • Otimização automática por tela');
+  console.log('  • Sistema de fallback para carregamento');
 });
 </script>
 
@@ -3707,3 +5102,1078 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log('🔧 Atalhos: Ctrl+Home (topo) | Ctrl+End (final)');
 });
 </script>
+
+<!-- === SISTEMA COMPLETO DE SALVAMENTO DE IMAGEM === -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('🖼️ Inicializando sistema de salvamento de imagem...');
+  
+  const btnPrint = document.getElementById('btnPrint');
+  let currentEvent = null; // Variável para capturar o evento atual
+  
+  if (!btnPrint) {
+    console.error('❌ Botão de print não encontrado!');
+    return;
+  }
+  
+  // === FUNÇÃO PARA CAPTURA DA TELA COMPLETA ===
+  async function capturarTelaCompleta() {
+    try {
+      console.log('📸 Iniciando captura da tela completa...');
+      
+      // Verificar se é dispositivo móvel e mostrar instruções
+      if (isMobileDevice()) {
+        const continuarCaptura = await mostrarInstrucoesSmartphone();
+        if (!continuarCaptura) {
+          console.log('⚠️ Captura cancelada pelo usuário');
+          return;
+        }
+      }
+      
+      // Mostrar indicador de carregamento
+      mostrarIndicadorCarregamento('Capturando tela completa...', btnPrintFull);
+      
+      // Capturar toda a área visível da janela
+      const elementoCaptura = document.body;
+      
+      if (!elementoCaptura) {
+        throw new Error('Elemento para captura não encontrado');
+      }
+      
+      // Preparar elemento para captura
+      await prepararElementoParaCaptura(elementoCaptura);
+      
+      // Configurações otimizadas para captura completa da tela
+      const opcoes = {
+        backgroundColor: '#ffffff',
+        allowTaint: true,
+        useCORS: true,
+        foreignObjectRendering: true,
+        imageTimeout: 20000,
+        logging: false,
+        width: window.innerWidth,
+        height: window.innerHeight,
+        scale: 1.5,
+        x: 0,
+        y: 0,
+        scrollX: window.scrollX || window.pageXOffset || 0,
+        scrollY: window.scrollY || window.pageYOffset || 0,
+        windowWidth: window.innerWidth,
+        windowHeight: window.innerHeight,
+        ignoreElements: function(element) {
+          return element.classList.contains('scroll-controls') ||
+                 element.classList.contains('scroll-position-indicator') ||
+                 element.id === 'sidebarUsuarioOverlay' ||
+                 element.id === 'tagsModal' ||
+                 element.id === 'favoritosModal';
+        }
+      };
+      
+      console.log('⚙️ Configurações de captura completa:', opcoes);
+      
+      // Tentar captura com html2canvas primeiro
+      let canvas;
+      try {
+        canvas = await html2canvas(elementoCaptura, opcoes);
+        console.log('✅ Captura completa realizada com html2canvas!');
+      } catch (html2canvasError) {
+        console.warn('⚠️ html2canvas falhou, tentando dom-to-image...', html2canvasError);
+        
+        // Fallback para dom-to-image
+        try {
+          const dataUrl = await domtoimage.toPng(elementoCaptura, {
+            quality: 1.0,
+            bgcolor: '#ffffff',
+            width: window.innerWidth,
+            height: window.innerHeight,
+            style: {
+              transform: 'scale(1.5)',
+              transformOrigin: 'top left'
+            }
+          });
+          
+          // Converter DataURL para Canvas
+          canvas = await dataUrlToCanvas(dataUrl);
+          console.log('✅ Captura completa realizada com dom-to-image!');
+        } catch (domToImageError) {
+          console.error('❌ dom-to-image também falhou:', domToImageError);
+          throw new Error('Ambas as bibliotecas de captura falharam. Tente recarregar a página.');
+        }
+      }
+      
+      // Processar e salvar imagem
+      await processarESalvarCanvas(canvas, 'completa');
+      
+    } catch (error) {
+      console.error('❌ Erro durante captura completa:', error);
+      mostrarErro(error.message);
+    } finally {
+      ocultarIndicadorCarregamento(btnPrintFull);
+    }
+  }
+
+  // === FUNÇÃO DE FALLBACK PARA CAPTURA ===
+  async function capturarComFallback(elemento) {
+    return new Promise((resolve, reject) => {
+      try {
+        const rect = elemento.getBoundingClientRect();
+        const canvas = document.createElement('canvas');
+        canvas.width = rect.width * 2; // Dobrar resolução
+        canvas.height = rect.height * 2;
+        
+        const ctx = canvas.getContext('2d');
+        ctx.scale(2, 2);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, rect.width, rect.height);
+        
+        // Renderizar o conteúdo do elemento usando DOM-to-Image como backup
+        if (typeof domtoimage !== 'undefined') {
+          domtoimage.toPng(elemento, {
+            quality: 1.0,
+            bgcolor: '#ffffff',
+            width: rect.width,
+            height: rect.height
+          }).then(dataUrl => {
+            const img = new Image();
+            img.onload = () => {
+              ctx.drawImage(img, 0, 0, rect.width, rect.height);
+              resolve(canvas);
+            };
+            img.onerror = () => reject(new Error('Falha ao carregar imagem do fallback'));
+            img.src = dataUrl;
+          }).catch(reject);
+        } else {
+          reject(new Error('Nenhuma biblioteca de captura disponível'));
+        }
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  // === VERIFICAR DEPENDÊNCIAS ===
+  function verificarDependencias() {
+    let temBiblioteca = false;
+    
+    if (typeof html2canvas !== 'undefined') {
+      console.log('✅ html2canvas carregado');
+      temBiblioteca = true;
+    } else {
+      console.warn('⚠️ html2canvas não está carregado');
+    }
+    
+    if (typeof domtoimage !== 'undefined') {
+      console.log('✅ dom-to-image carregado');
+      temBiblioteca = true;
+    } else {
+      console.warn('⚠️ dom-to-image não está carregado');
+    }
+    
+    if (!temBiblioteca) {
+      console.error('❌ Nenhuma biblioteca de captura carregada!');
+      mostrarErro('Bibliotecas de captura não carregadas. Recarregue a página.');
+      return false;
+    }
+    
+    return true;
+  }
+
+  // === FUNÇÃO PRINCIPAL DE CAPTURA E SALVAMENTO (APENAS CARD) ===
+  async function capturarESalvarImagem() {
+    try {
+      console.log('📸 Iniciando captura da imagem...');
+      
+      // Verificar se é dispositivo móvel e mostrar instruções
+      if (isMobileDevice()) {
+        const continuarCaptura = await mostrarInstrucoesSmartphone();
+        if (!continuarCaptura) {
+          console.log('⚠️ Captura cancelada pelo usuário');
+          return;
+        }
+      }
+      
+      // Mostrar indicador de carregamento
+      mostrarIndicadorCarregamento('Capturando card da frase...', btnPrint);
+      
+      // Capturar apenas a área da frase (card)
+      const elementoCaptura = document.getElementById('twitterTextBox') || document.querySelector('.frase-box');
+      
+      if (!elementoCaptura) {
+        throw new Error('Card da frase não encontrado para captura');
+      }
+      
+      console.log('🎯 Capturando apenas o card da frase:', elementoCaptura.id || elementoCaptura.className);
+      
+      // Preparar elemento para captura
+      await prepararElementoParaCaptura(elementoCaptura);
+      
+      // Obter dimensões do elemento
+      const rect = elementoCaptura.getBoundingClientRect();
+      
+      // Configurações otimizadas para captura apenas do card da frase
+      const opcoes = {
+        backgroundColor: '#ffffff', // Fundo branco sólido para melhor resultado
+        allowTaint: true,
+        useCORS: true,
+        foreignObjectRendering: false, // Melhor compatibilidade
+        imageTimeout: 30000,
+        logging: true, // Ativar logging para debug
+        width: rect.width,
+        height: rect.height,
+        scale: 2, // Alta qualidade para o card
+        x: 0,
+        y: 0,
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: rect.width,
+        windowHeight: rect.height,
+        ignoreElements: function(element) {
+          // Ignorar elementos que não fazem parte do card
+          return element.classList.contains('scroll-controls') ||
+                 element.classList.contains('scroll-position-indicator') ||
+                 element.id === 'sidebarUsuarioOverlay' ||
+                 element.id === 'tagsModal' ||
+                 element.id === 'favoritosModal' ||
+                 element.id === 'btnMenuUsuario' ||
+                 element.classList.contains('top-bar') ||
+                 element.classList.contains('controls') ||
+                 element.classList.contains('mid-bar') ||
+                 element.classList.contains('botoes-interativos');
+        }
+      };
+      
+      console.log('⚙️ Configurações de captura:', opcoes);
+      
+      // Tentar captura com html2canvas primeiro
+      let canvas;
+      try {
+        // Verificar se html2canvas está disponível
+        if (typeof html2canvas === 'undefined') {
+          console.warn('⚠️ html2canvas não está carregado');
+          throw new Error('html2canvas não está disponível');
+        }
+        
+        console.log('🎯 Tentando captura com html2canvas...');
+        canvas = await html2canvas(elementoCaptura, opcoes);
+        console.log('✅ Captura realizada com html2canvas!');
+      } catch (html2canvasError) {
+        console.warn('⚠️ html2canvas falhou:', html2canvasError.message);
+        
+        // Fallback para dom-to-image (também apenas o card)
+        try {
+          // Verificar se dom-to-image está disponível
+          if (typeof domtoimage === 'undefined') {
+            console.warn('⚠️ dom-to-image não está carregado');
+            throw new Error('dom-to-image não está disponível');
+          }
+          
+          console.log('🎯 Tentando captura com dom-to-image...');
+          const dataUrl = await domtoimage.toPng(elementoCaptura, {
+            quality: 1.0,
+            bgcolor: '#ffffff',
+            width: rect.width,
+            height: rect.height,
+            style: {
+              transform: 'scale(2)',
+              transformOrigin: 'top left'
+            }
+          });
+          
+          // Converter DataURL para Canvas
+          canvas = await dataUrlToCanvas(dataUrl);
+          console.log('✅ Captura realizada com dom-to-image!');
+        } catch (domToImageError) {
+          console.error('❌ dom-to-image também falhou:', domToImageError.message);
+          throw new Error(`Bibliotecas de captura falharam. 
+                          html2canvas: ${html2canvasError.message}
+                          dom-to-image: ${domToImageError.message}
+                          
+                          Soluções:
+                          1. Recarregue a página (Ctrl+F5)
+                          2. Verifique sua conexão com a internet
+                          3. Tente usar um navegador diferente`);
+        }
+      }
+      
+      // Processar e salvar imagem
+      await processarESalvarCanvas(canvas, 'card');
+      
+    } catch (error) {
+      console.error('❌ Erro durante captura:', error);
+      mostrarErro(error.message);
+    } finally {
+      ocultarIndicadorCarregamento(btnPrint);
+    }
+  }
+  
+  // === DETECTAR DISPOSITIVO MÓVEL ===
+  function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+           (window.innerWidth <= 768 && 'ontouchstart' in window);
+  }
+  
+  // === MOSTRAR INSTRUÇÕES PARA SMARTPHONE ===
+  function mostrarInstrucoesSmartphone() {
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    
+    let instrucoes = '';
+    
+    if (isAndroid) {
+      instrucoes = `
+        📱 <strong>Como salvar no Android:</strong><br><br>
+        1️⃣ Toque no botão de download que aparecerá<br>
+        2️⃣ A imagem será baixada para sua pasta "Downloads"<br>
+        3️⃣ Para mover para a Galeria:<br>
+        &nbsp;&nbsp;&nbsp;• Abra o app "Arquivos" ou "Gerenciador de arquivos"<br>
+        &nbsp;&nbsp;&nbsp;• Vá em "Downloads"<br>
+        &nbsp;&nbsp;&nbsp;• Toque na imagem e selecione "Mover para Galeria"<br><br>
+        <strong>OU</strong><br><br>
+        • Abra a Galeria → Álbuns → Downloads<br>
+        • Toque na imagem → Menu (⋮) → "Mover para álbum"
+      `;
+    } else if (isIOS) {
+      instrucoes = `
+        📱 <strong>Como salvar no iPhone/iPad:</strong><br><br>
+        1️⃣ Toque e <strong>segure</strong> na imagem quando ela aparecer<br>
+        2️⃣ Selecione "Salvar na Galeria de Fotos"<br>
+        3️⃣ A imagem será salva automaticamente no app Fotos<br><br>
+        <strong>OU</strong><br><br>
+        1️⃣ Toque no botão de compartilhar (□↗)<br>
+        2️⃣ Selecione "Salvar na Galeria"<br>
+        3️⃣ Confirme tocando em "Salvar Imagem"
+      `;
+    } else {
+      instrucoes = `
+        📱 <strong>Como salvar no smartphone:</strong><br><br>
+        1️⃣ Toque no botão de download<br>
+        2️⃣ A imagem será baixada para Downloads<br>
+        3️⃣ Abra sua Galeria de fotos<br>
+        4️⃣ Procure na pasta "Downloads" ou "Imagens baixadas"<br>
+        5️⃣ Mova a imagem para o álbum desejado
+      `;
+    }
+    
+    // Criar modal de instruções
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 99999999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+    `;
+    
+    const conteudo = document.createElement('div');
+    conteudo.style.cssText = `
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      border-radius: 20px;
+      padding: 25px 20px;
+      max-width: 90vw;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(59, 130, 246, 0.2);
+      position: relative;
+    `;
+    
+    conteudo.innerHTML = `
+      <div style="text-align: center; margin-bottom: 20px;">
+        <h3 style="margin: 0 0 15px 0; color: #1976d2; font-size: 1.2rem; font-weight: 700;">
+          📸 Imagem Capturada!
+        </h3>
+        <div style="text-align: left; line-height: 1.6; color: #334155; font-size: 0.95rem;">
+          ${instrucoes}
+        </div>
+      </div>
+      
+      <div style="display: flex; gap: 10px; margin-top: 25px;">
+        <button id="continuarDownload" style="
+          flex: 1;
+          background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+          color: white;
+          border: none;
+          padding: 12px 20px;
+          border-radius: 12px;
+          font-weight: 600;
+          cursor: pointer;
+          font-size: 0.9rem;
+        ">✅ Entendi, continuar</button>
+        
+        <button id="fecharInstrucoes" style="
+          flex: 1;
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+          color: white;
+          border: none;
+          padding: 12px 20px;
+          border-radius: 12px;
+          font-weight: 600;
+          cursor: pointer;
+          font-size: 0.9rem;
+        ">❌ Cancelar</button>
+      </div>
+    `;
+    
+    modal.appendChild(conteudo);
+    document.body.appendChild(modal);
+    
+    return new Promise((resolve) => {
+      document.getElementById('continuarDownload').addEventListener('click', () => {
+        document.body.removeChild(modal);
+        resolve(true);
+      });
+      
+      document.getElementById('fecharInstrucoes').addEventListener('click', () => {
+        document.body.removeChild(modal);
+        resolve(false);
+      });
+      
+      // Fechar ao clicar fora
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          document.body.removeChild(modal);
+          resolve(false);
+        }
+      });
+    });
+  }
+  
+  // === FUNÇÃO AUXILIAR PARA CONVERTER DATAURL PARA CANVAS ===
+  function dataUrlToCanvas(dataUrl) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        
+        resolve(canvas);
+      };
+      img.onerror = reject;
+      img.src = dataUrl;
+    });
+  }
+  
+  // === PREPARAR ELEMENTO PARA CAPTURA ===
+  async function prepararElementoParaCaptura(elemento) {
+    return new Promise((resolve) => {
+      console.log('🔧 Preparando elemento para captura...');
+      
+      // Aguardar carregamento de imagens
+      const imagens = elemento.querySelectorAll('img');
+      const promessasImagens = Array.from(imagens).map(img => {
+        return new Promise((resolveImg) => {
+          if (img.complete) {
+            resolveImg();
+          } else {
+            img.onload = () => resolveImg();
+            img.onerror = () => resolveImg(); // Continua mesmo se a imagem falhar
+            // Timeout para não travar indefinidamente
+            setTimeout(resolveImg, 3000);
+          }
+        });
+      });
+      
+      Promise.all(promessasImagens).then(() => {
+        console.log('✅ Todas as imagens carregadas');
+        
+        // Forçar renderização
+        elemento.style.transform = 'translateZ(0)';
+        elemento.offsetHeight; // Force reflow
+        
+        setTimeout(resolve, 100); // Aguardar renderização
+      });
+    });
+  }
+  
+  // === PROCESSAR E SALVAR CANVAS ===
+  async function processarESalvarCanvas(canvas, tipoCaptura = 'card') {
+    try {
+      console.log('🎨 Processando canvas...');
+      
+      // Otimizar qualidade da imagem
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      
+      // Permitir ao usuário escolher o formato
+      const formato = await escolherFormatoImagem();
+      
+      // Converter para blob com alta qualidade
+      const blob = await new Promise(resolve => {
+        if (formato === 'jpeg') {
+          canvas.toBlob(resolve, 'image/jpeg', 0.95); // Alta qualidade JPEG
+        } else {
+          canvas.toBlob(resolve, 'image/png', 1.0); // PNG sem compressão
+        }
+      });
+      
+      if (!blob) {
+        throw new Error('Falha ao converter canvas para blob');
+      }
+      
+      console.log('📊 Tamanho da imagem:', (blob.size / 1024 / 1024).toFixed(2) + ' MB');
+      console.log('📷 Formato escolhido:', formato.toUpperCase());
+      
+      // Gerar nome do arquivo personalizado com tema
+      const agora = new Date();
+      const timestamp = agora.toISOString().slice(0, 19).replace(/[:-]/g, '');
+      const extensao = formato === 'jpeg' ? 'jpg' : 'png';
+      
+      // Obter tema selecionado
+      const temaSelect = document.getElementById('temaSelect');
+      const temaSelecionado = temaSelect ? temaSelect.value : 'motivacional';
+      
+      // Limpar o nome do tema para usar no arquivo (remover caracteres especiais)
+      const temaNomeSeguro = temaSelecionado
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, '') // Remove caracteres especiais
+        .replace(/ç/g, 'c')        // Substitui ç por c
+        .replace(/ã/g, 'a')        // Substitui ã por a
+        .replace(/õ/g, 'o');       // Substitui õ por o
+      
+      const nomeArquivo = `frase${tipoCaptura === 'completa' ? '-completa' : ''}-${temaNomeSeguro}-${timestamp}.${extensao}`;
+      
+      console.log('🎨 Tema selecionado:', temaSelecionado);
+      console.log('📁 Nome do arquivo gerado:', nomeArquivo);
+      
+      // Salvar arquivo
+      await salvarArquivo(blob, nomeArquivo);
+      
+      // Sucesso
+      mostrarSucesso(nomeArquivo);
+      
+    } catch (error) {
+      console.error('❌ Erro ao processar canvas:', error);
+      throw error;
+    }
+  }
+  
+  // === ESCOLHER FORMATO DE IMAGEM ===
+  async function escolherFormatoImagem() {
+    return new Promise((resolve) => {
+      // Verificar se o usuário pressionou Shift+Click para JPEG
+      const usarJpeg = currentEvent && currentEvent.shiftKey;
+      
+      if (usarJpeg) {
+        console.log('📷 Formato JPEG selecionado (Shift+Click detectado)');
+      } else {
+        console.log('📷 Formato PNG selecionado (padrão)');
+      }
+      
+      resolve(usarJpeg ? 'jpeg' : 'png');
+    });
+  }
+  
+  // === SALVAR ARQUIVO ===
+  async function salvarArquivo(blob, nomeArquivo) {
+    try {
+      // Para dispositivos móveis, usar estratégia específica
+      if (isMobileDevice()) {
+        await salvarEmMobile(blob, nomeArquivo);
+        return;
+      }
+      
+      // Usar API moderna se disponível (desktop)
+      if (window.showSaveFilePicker) {
+        console.log('💾 Usando File System Access API...');
+        
+        const fileHandle = await window.showSaveFilePicker({
+          suggestedName: nomeArquivo,
+          types: [{
+            description: 'Imagens PNG',
+            accept: { 'image/png': ['.png'] }
+          }, {
+            description: 'Imagens JPEG',
+            accept: { 'image/jpeg': ['.jpg', '.jpeg'] }
+          }]
+        });
+        
+        const writable = await fileHandle.createWritable();
+        await writable.write(blob);
+        await writable.close();
+        
+        console.log('✅ Arquivo salvo com File System Access API');
+        
+      } else {
+        // Fallback para download tradicional (desktop)
+        await downloadTradicional(blob, nomeArquivo);
+      }
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        console.log('⚠️ Salvamento cancelado pelo usuário');
+        return;
+      }
+      console.error('❌ Erro ao salvar arquivo:', error);
+      throw error;
+    }
+  }
+  
+  // === SALVAMENTO ESPECÍFICO PARA MOBILE ===
+  async function salvarEmMobile(blob, nomeArquivo) {
+    console.log('� Salvando em dispositivo móvel...');
+    
+    try {
+      // Tentar Web Share API primeiro (iOS/Android modernos)
+      if (navigator.share && navigator.canShare) {
+        const file = new File([blob], nomeArquivo, { type: blob.type });
+        
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: 'FraseGo - Sua frase',
+            text: 'Imagem criada com FraseGo',
+            files: [file]
+          });
+          console.log('✅ Compartilhado via Web Share API');
+          return;
+        }
+      }
+      
+      // Fallback: criar link para download
+      await downloadTradicional(blob, nomeArquivo);
+      
+    } catch (error) {
+      console.warn('⚠️ Web Share falhou, usando download tradicional:', error);
+      await downloadTradicional(blob, nomeArquivo);
+    }
+  }
+  
+  // === DOWNLOAD TRADICIONAL ===
+  async function downloadTradicional(blob, nomeArquivo) {
+    console.log('💾 Usando download tradicional...');
+    
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = nomeArquivo;
+    link.style.display = 'none';
+    
+    // Para dispositivos móveis, abrir em nova aba também
+    if (isMobileDevice()) {
+      link.target = '_blank';
+    }
+    
+    // Adicionar ao DOM temporariamente
+    document.body.appendChild(link);
+    
+    // Simular clique para iniciar download
+    link.click();
+    
+    // Remover do DOM
+    document.body.removeChild(link);
+    
+    // Liberar memória após um tempo
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+      console.log('🧹 URL object liberado da memória');
+    }, 1000);
+    
+    console.log('✅ Download iniciado');
+  }
+  
+  // === INDICADORES VISUAIS ===
+  function mostrarIndicadorCarregamento(mensagem = 'Capturando imagem...', botao = btnPrint) {
+    // Atualizar ícone do botão
+    botao.innerHTML = `
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1976d2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 6v6l4 2"/>
+      </svg>
+    `;
+    botao.style.animation = 'spin 1s linear infinite';
+    botao.disabled = true;
+    botao.title = mensagem;
+    
+    // Adicionar CSS de animação se não existir
+    if (!document.querySelector('#spin-animation')) {
+      const style = document.createElement('style');
+      style.id = 'spin-animation';
+      style.textContent = `
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }
+  
+  function ocultarIndicadorCarregamento(botao = btnPrint) {
+    // Determinar qual ícone usar baseado no botão
+    const isFullButton = botao && botao.id === 'btnPrintFull';
+    
+    if (isFullButton) {
+      // Restaurar ícone do botão de captura completa
+      botao.innerHTML = `
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+          <line x1="7" y1="2" x2="7" y2="22"></line>
+          <line x1="17" y1="2" x2="17" y2="22"></line>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <line x1="2" y1="7" x2="7" y2="7"></line>
+          <line x1="2" y1="17" x2="7" y2="17"></line>
+          <line x1="17" y1="17" x2="22" y2="17"></line>
+          <line x1="17" y1="7" x2="22" y2="7"></line>
+        </svg>
+      `;
+      botao.title = 'Salvar tela completa';
+    } else {
+      // Restaurar ícone original do botão principal
+      botao.innerHTML = `
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 12v2a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4v-2"/>
+          <polyline points="16 6 12 2 8 6"/>
+          <line x1="12" y1="2" x2="12" y2="15"/>
+        </svg>
+      `;
+      botao.title = 'Salvar apenas o card da frase';
+    }
+    
+    botao.style.animation = '';
+    botao.disabled = false;
+  }
+  
+  function mostrarSucesso(nomeArquivo) {
+    // Feedback visual no botão
+    const originalIcon = btnPrint.innerHTML;
+    btnPrint.innerHTML = `
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    `;
+    btnPrint.style.transform = 'scale(1.1)';
+    
+    setTimeout(() => {
+      btnPrint.innerHTML = originalIcon;
+      btnPrint.style.transform = 'scale(1)';
+    }, 2000);
+    
+    // Extrair tema do nome do arquivo para exibição
+    const temaSelect = document.getElementById('temaSelect');
+    const temaSelecionado = temaSelect ? temaSelect.value : 'motivacional';
+    
+    console.log('🎉 Imagem salva com sucesso:', nomeArquivo);
+    console.log('🎨 Tema da imagem:', temaSelecionado);
+    
+    // Mostrar lembretes específicos para dispositivos móveis
+    if (isMobileDevice()) {
+      setTimeout(() => {
+        mostrarLembreteGaleria(nomeArquivo);
+      }, 1000);
+    }
+    
+    // Notificação opcional (se suportada)
+    if ('Notification' in window && Notification.permission === 'granted') {
+      new Notification('FraseGo', {
+        body: `Imagem ${temaSelecionado} salva: ${nomeArquivo}`,
+        icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%234CAF50"/><path d="M30 50l10 10 20-20" stroke="white" stroke-width="4" fill="none"/></svg>'
+      });
+    }
+  }
+  
+  function mostrarErro(mensagem) {
+    console.error('💥 Erro:', mensagem);
+    
+    // Feedback visual de erro
+    const originalIcon = btnPrint.innerHTML;
+    btnPrint.innerHTML = `
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F44336" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="15" y1="9" x2="9" y2="15"/>
+        <line x1="9" y1="9" x2="15" y2="15"/>
+      </svg>
+    `;
+    
+    setTimeout(() => {
+      btnPrint.innerHTML = originalIcon;
+    }, 3000);
+    
+    // Mostrar mensagem para o usuário
+    alert(`❌ Erro ao salvar imagem:\n\n${mensagem}\n\nTente novamente em alguns segundos.`);
+  }
+  
+  // === LEMBRETE PARA GALERIA ===
+  function mostrarLembreteGaleria(nomeArquivo) {
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    
+    // Obter tema para exibição
+    const temaSelect = document.getElementById('temaSelect');
+    const temaSelecionado = temaSelect ? temaSelect.value : 'motivacional';
+    const temaFormatado = temaSelecionado.charAt(0).toUpperCase() + temaSelecionado.slice(1);
+    
+    let mensagem = '';
+    
+    if (isAndroid) {
+      mensagem = `
+        ✅ <strong>Download concluído!</strong><br><br>
+        🎨 <strong>Tema:</strong> ${temaFormatado}<br>
+        📁 Sua imagem está em <strong>Downloads</strong><br><br>
+        🖼️ <strong>Para ver na Galeria:</strong><br>
+        • Abra a <strong>Galeria</strong><br>
+        • Toque em <strong>Álbuns</strong><br>
+        • Procure por <strong>Downloads</strong> ou <strong>Imagens baixadas</strong><br><br>
+        📱 <strong>Nome do arquivo:</strong><br>
+        <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem;">${nomeArquivo}</code>
+      `;
+    } else if (isIOS) {
+      mensagem = `
+        ✅ <strong>Imagem salva!</strong><br><br>
+        🎨 <strong>Tema:</strong> ${temaFormatado}<br><br>
+        📱 <strong>Toque e segure</strong> na imagem acima<br>
+        🖼️ Selecione <strong>"Salvar na Galeria de Fotos"</strong><br><br>
+        <strong>OU</strong><br><br>
+        📤 Toque no botão de <strong>compartilhar</strong> (□↗)<br>
+        💾 Selecione <strong>"Salvar Imagem"</strong>
+      `;
+    } else {
+      mensagem = `
+        ✅ <strong>Download concluído!</strong><br><br>
+        🎨 <strong>Tema:</strong> ${temaFormatado}<br>
+        📁 Verifique sua pasta <strong>Downloads</strong><br>
+        🖼️ Mova a imagem para sua <strong>Galeria</strong><br><br>
+        📱 <strong>Nome do arquivo:</strong><br>
+        <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem;">${nomeArquivo}</code>
+      `;
+    }
+    
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+      color: white;
+      padding: 20px 25px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(34, 197, 94, 0.3);
+      z-index: 99999999;
+      max-width: 90vw;
+      width: auto;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      animation: slideUpFade 0.5s ease-out;
+    `;
+    
+    modal.innerHTML = `
+      <div style="line-height: 1.5; font-size: 0.9rem;">
+        ${mensagem}
+      </div>
+      <button onclick="this.parentElement.remove()" style="
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 8px;
+        margin-top: 15px;
+        cursor: pointer;
+        font-weight: 600;
+        backdrop-filter: blur(5px);
+      ">📱 Entendi!</button>
+    `;
+    
+    // Adicionar animação CSS se não existir
+    if (!document.querySelector('#slideUpFade-animation')) {
+      const style = document.createElement('style');
+      style.id = 'slideUpFade-animation';
+      style.textContent = `
+        @keyframes slideUpFade {
+          from { 
+            opacity: 0; 
+            transform: translateX(-50%) translateY(100px) scale(0.9);
+          }
+          to { 
+            opacity: 1; 
+            transform: translateX(-50%) translateY(0) scale(1);
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+    
+    document.body.appendChild(modal);
+    
+    // Auto-remover após 10 segundos
+    setTimeout(() => {
+      if (modal.parentElement) {
+        modal.remove();
+      }
+    }, 10000);
+  }
+  
+  // === VERIFICAR DEPENDÊNCIAS ===
+  function verificarDependencias() {
+    let temBiblioteca = false;
+    
+    if (typeof html2canvas !== 'undefined') {
+      console.log('✅ html2canvas carregado:', html2canvas.version || 'versão desconhecida');
+      temBiblioteca = true;
+    } else {
+      console.warn('⚠️ html2canvas não está carregado');
+    }
+    
+    if (typeof domtoimage !== 'undefined') {
+      console.log('✅ dom-to-image carregado');
+      temBiblioteca = true;
+    } else {
+      console.warn('⚠️ dom-to-image não está carregado');
+    }
+    
+    if (!temBiblioteca) {
+      console.error('❌ Nenhuma biblioteca de captura carregada!');
+      mostrarErro('Bibliotecas de captura não carregadas. Recarregue a página.');
+      return false;
+    }
+    
+    return true;
+  }
+  
+  // === CONFIGURAR EVENT LISTENER ===
+  
+  btnPrint.addEventListener('click', async function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    currentEvent = e; // Armazenar o evento para usar na escolha de formato
+    
+    console.log('🖨️ Botão de captura do card clicado!');
+    
+    if (!verificarDependencias()) {
+      return;
+    }
+    
+    if (btnPrint.disabled) {
+      console.log('⚠️ Captura já em andamento...');
+      return;
+    }
+    
+    try {
+      await capturarESalvarImagem();
+    } catch (error) {
+      console.error('❌ Erro na captura:', error);
+      mostrarErro(error.message);
+    }
+  });
+
+  // === EVENTO PARA CAPTURA DA TELA COMPLETA ===
+  const btnPrintFull = document.getElementById('btnPrintFull');
+  if (btnPrintFull) {
+    btnPrintFull.addEventListener('click', async function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      currentEvent = e;
+      
+      console.log('🖨️ Botão de captura completa clicado!');
+      
+      if (!verificarDependencias()) {
+        return;
+      }
+      
+      if (btnPrintFull.disabled) {
+        console.log('⚠️ Captura já em andamento...');
+        return;
+      }
+      
+      try {
+        await capturarTelaCompleta();
+      } catch (error) {
+        console.error('❌ Erro na captura completa:', error);
+        mostrarErro(error.message);
+      }
+    });
+  }
+  
+  // === INICIALIZAÇÃO ===
+  console.log('✅ Sistema de salvamento de imagem inicializado!');
+  console.log('📋 Recursos disponíveis:');
+  console.log('  • html2canvas:', typeof html2canvas !== 'undefined' ? '✅' : '❌');
+  console.log('  • dom-to-image:', typeof domtoimage !== 'undefined' ? '✅' : '❌');
+  console.log('  • File System Access API:', 'showSaveFilePicker' in window ? '✅' : '❌');
+  console.log('  • Web Share API:', 'share' in navigator ? '✅' : '❌');
+  console.log('  • Notifications:', 'Notification' in window ? '✅' : '❌');
+  console.log('  • Dispositivo móvel:', isMobileDevice() ? '✅' : '❌');
+  
+  // Solicitar permissão para notificações (opcional)
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission().then(permission => {
+      console.log('🔔 Permissão de notificação:', permission);
+    });
+  }
+});
+</script>
+
+<!-- === SCRIPT DE INICIALIZAÇÃO FINAL === -->
+<script>
+// ==== GARANTIR INICIALIZAÇÃO CORRETA DOS BOTÕES ====
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('🔄 Inicializando funcionalidades dos botões...');
+  
+  // Garantir que todos os event listeners dos botões estão funcionando
+  setTimeout(() => {
+    const btnPrint = document.getElementById('btnPrint');
+    const btnDarkMode = document.getElementById('btnDarkModeNovo');
+    const btnFavoritar = document.getElementById('btnFavoritar');
+    const btnFavoritos = document.getElementById('btnFavoritos');
+    const btnCopiarFrase = document.getElementById('btnCopiarFrase');
+    const btnTags = document.getElementById('btnTags');
+    
+    console.log('🔍 Verificando botões encontrados:');
+    console.log('  • btnPrint:', btnPrint ? '✅' : '❌');
+    console.log('  • btnDarkMode:', btnDarkMode ? '✅' : '❌');
+    console.log('  • btnFavoritar:', btnFavoritar ? '✅' : '❌');
+    console.log('  • btnFavoritos:', btnFavoritos ? '✅' : '❌');
+    console.log('  • btnCopiarFrase:', btnCopiarFrase ? '✅' : '❌');
+    console.log('  • btnTags:', btnTags ? '✅' : '❌');
+    
+    // Marcar botões como inicializados
+    if (btnPrint && !btnPrint.hasAttribute('data-initialized')) {
+      console.log('✅ Inicializando botão Print');
+      btnPrint.setAttribute('data-initialized', 'true');
+    }
+    
+    if (btnDarkMode && !btnDarkMode.hasAttribute('data-initialized')) {
+      console.log('✅ Inicializando botão Dark Mode');
+      btnDarkMode.setAttribute('data-initialized', 'true');
+    }
+    
+    if (btnFavoritar && !btnFavoritar.hasAttribute('data-initialized')) {
+      console.log('✅ Inicializando botão Favoritar');
+      btnFavoritar.setAttribute('data-initialized', 'true');
+    }
+    
+    if (btnFavoritos && !btnFavoritos.hasAttribute('data-initialized')) {
+      console.log('✅ Inicializando botão Favoritos');
+      btnFavoritos.setAttribute('data-initialized', 'true');
+    }
+    
+    if (btnCopiarFrase && !btnCopiarFrase.hasAttribute('data-initialized')) {
+      console.log('✅ Inicializando botão Copiar Frase');
+      btnCopiarFrase.setAttribute('data-initialized', 'true');
+    }
+    
+    if (btnTags && !btnTags.hasAttribute('data-initialized')) {
+      console.log('✅ Inicializando botão Tags');
+      btnTags.setAttribute('data-initialized', 'true');
+    }
+    
+    console.log('✅ Todos os botões inicializados com sucesso!');
+  }, 100);
+});
+</script>
+
+</body>
+</html>
