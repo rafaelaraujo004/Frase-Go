@@ -181,7 +181,7 @@
                   body.dark-mode #autorFraseApp {
                     color: #e0e0e0 !important;
                   }
-                  /* Sidebar otimizada para melhor visibilidade e centralização - EXPANDIDA */
+                  /* Sidebar otimizada para melhor visibilidade e centralização */
                   #sidebarUsuarioOverlay {
                     display: none;
                     position: fixed;
@@ -189,44 +189,35 @@
                     left: 0;
                     width: 100vw;
                     height: 100vh;
-                    background: rgba(0, 0, 0, 0.85);
-                    backdrop-filter: blur(8px);
-                    z-index: 9999999;
+                    background: rgba(30,32,40,0.65);
+                    z-index: 999999;
                     justify-content: center;
-                    align-items: flex-start;
-                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    align-items: center;
+                    transition: background 0.3s;
                     overflow-y: auto;
-                    padding: 10px;
-                    padding-top: calc(20px - 3cm);
+                    padding: 15px;
                     box-sizing: border-box;
                   }
                   #sidebarUsuario {
                     position: relative;
-                    width: 90vw;
-                    max-width: 420px;
-                    min-width: 320px;
-                    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-                    border-radius: 20px;
-                    box-shadow: 
-                      0 25px 50px -12px rgba(0, 0, 0, 0.4),
-                      0 0 0 1px rgba(255, 255, 255, 0.9),
-                      inset 0 1px 0 rgba(255, 255, 255, 0.9);
-                    padding: 1rem 1.8rem 16.8rem 1.8rem;
+                    width: 75vw;
+                    max-width: 320px;
+                    min-width: 260px;
+                    background: #f9fafb;
+                    border-radius: 14px;
+                    box-shadow: 0 8px 32px 0 rgba(31,38,135,0.35);
+                    padding: 1.2rem 1.2rem 2.4rem 1.2rem;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    gap: 1.2rem;
-                    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                    border: 1px solid rgba(226, 232, 240, 0.8);
-                    transform: scale(0.95);
-                    opacity: 0;
+                    gap: 0.8rem;
+                    transition: box-shadow 0.3s, background 0.3s, transform 0.3s;
+                    border: 2px solid #e3eaf5;
+                    transform: scale(1);
                     margin: 0 auto;
-                    max-height: calc(100vh + 10cm);
+                    max-height: calc(98vh - 10px);
                     overflow-y: auto;
-                    scroll-behavior: smooth;
-                    -webkit-overflow-scrolling: touch;
-                    scrollbar-width: thin;
-                    z-index: 99999999;
+                    z-index: 1000000;
                   }
                   #sidebarUsuario.open {
                     animation: slideInSidebar 0.4s ease-out;
@@ -236,118 +227,88 @@
                     to { opacity: 1; transform: scale(1) translateY(0); }
                   }
                   #sidebarUsuario .fecharSidebar {
-                    background: rgba(71, 85, 105, 0.1);
-                    color: #475569;
+                    background: none;
+                    color: #666;
                     border: none;
-                    font-size: 1.6rem;
+                    font-size: 1.4rem;
                     position: absolute;
-                    top: 15px;
-                    right: 18px;
+                    top: 8px;
+                    right: 12px;
                     cursor: pointer;
-                    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-                    width: 38px;
-                    height: 38px;
-                    border-radius: 12px;
+                    transition: color 0.2s, transform 0.2s;
+                    width: 26px;
+                    height: 26px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    z-index: 999999999;
-                    font-weight: 300;
-                    backdrop-filter: blur(10px);
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                    z-index: 1000001;
                   }
                   #sidebarUsuario .fecharSidebar:hover {
-                    background: rgba(239, 68, 68, 0.15);
-                    color: #ef4444;
-                    transform: scale(1.1) rotate(90deg);
-                    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+                    color: #1976d2;
+                    transform: scale(1.1);
                   }
                   #sidebarUsuario h2 {
-                    font-size: 1.4rem;
-                    background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    background-clip: text;
-                    margin: 0.5rem 0 1rem 0;
+                    font-size: 1.15rem;
+                    color: #1976d2;
+                    margin-bottom: 0.4rem;
                     font-family: 'Montserrat', Arial, sans-serif;
                     font-weight: 700;
-                    letter-spacing: -0.02em;
+                    letter-spacing: 0.02em;
                     text-align: center;
+                    z-index: 100001;
                     position: relative;
-                    z-index: 999999999;
+                    white-space: nowrap;
+                    overflow: visible;
                   }
-
-                  #sidebarUsuario h2::after {
-                    content: '';
-                    position: absolute;
-                    bottom: -8px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    width: 60px;
-                    height: 3px;
-                    background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
-                    border-radius: 2px;
-                  }
-                  
                   #sidebarUsuario label {
-                    font-size: 0.95rem;
-                    color: #334155;
-                    margin-bottom: 0.5rem;
+                    font-size: 0.9rem;
+                    color: #333;
+                    margin-bottom: 0.3rem;
                     font-family: 'Inter', Arial, sans-serif;
-                    font-weight: 600;
+                    font-weight: 500;
                     align-self: flex-start;
                     width: 100%;
-                    letter-spacing: 0.01em;
-                    z-index: 999999999;
+                    z-index: 100001;
                     position: relative;
+                    white-space: nowrap;
+                    overflow: visible;
                   }
                   #sidebarUsuario input {
                     width: 100%;
-                    padding: 1rem 1.2rem;
-                    border-radius: 14px;
-                    border: 2px solid #e2e8f0;
-                    font-size: 0.95rem;
+                    padding: 0.7rem 0.9rem;
+                    border-radius: 9px;
+                    border: 2px solid #d1d5db;
+                    font-size: 0.9rem;
                     outline: none;
-                    margin-bottom: 1rem;
-                    background: rgba(255, 255, 255, 0.9);
-                    color: #1e293b;
+                    margin-bottom: 0.6rem;
+                    background: #ffffff;
+                    color: #333;
                     font-family: 'Inter', Arial, sans-serif;
-                    box-shadow: 
-                      0 1px 3px rgba(0, 0, 0, 0.1),
-                      inset 0 1px 0 rgba(255, 255, 255, 0.9);
-                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                    z-index: 999999999;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+                    transition: border 0.2s, box-shadow 0.2s;
+                    z-index: 100001;
                     position: relative;
                     box-sizing: border-box;
-                    backdrop-filter: blur(10px);
                   }
                   #sidebarUsuario input:focus {
                     border: 2px solid #1976d2;
-                    box-shadow: 
-                      0 0 0 4px rgba(25, 118, 210, 0.1),
-                      0 4px 14px rgba(25, 118, 210, 0.15);
-                    transform: translateY(-1px);
+                    box-shadow: 0 4px 12px rgba(25,118,210,0.15);
                   }
                   #sidebarUsuario button {
-                    background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+                    background: linear-gradient(135deg,#1976d2 0%,#42a5f5 100%);
                     color: #fff;
                     border: none;
-                    padding: 1rem 1.5rem;
-                    border-radius: 14px;
+                    padding: 0.65rem 1rem;
+                    border-radius: 9px;
                     cursor: pointer;
-                    font-size: 0.95rem;
+                    font-size: 0.9rem;
                     font-weight: 600;
-                    margin-top: 0.5rem;
-                    box-shadow: 
-                      0 4px 14px rgba(25, 118, 210, 0.35),
-                      0 2px 4px rgba(0, 0, 0, 0.1);
-                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    margin-top: 0.3rem;
+                    box-shadow: 0 3px 8px rgba(25,118,210,0.3);
+                    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
                     width: 100%;
-                    font-family: 'Inter', Arial, sans-serif;
-                    letter-spacing: 0.01em;
+                    z-index: 100001;
                     position: relative;
-                    overflow: hidden;
-                    z-index: 999999999;
                   }
                   #sidebarUsuario button:hover {
                     background: linear-gradient(135deg,#1565c0 0%,#1976d2 100%);
@@ -355,37 +316,16 @@
                     box-shadow: 0 5px 14px rgba(25,118,210,0.4);
                   }
                   
-                  /* Botão Salvar Informações - destaque especial MÁXIMO */
-                  #btnSalvarUsuario {
-                    position: relative !important;
-                    z-index: 99999999999 !important;
-                    transform: translateZ(2000px) !important;
-                    will-change: transform !important;
-                  }
+                  /* Botão Salvar Informações - destaque especial */
                   #btnSalvarUsuario:hover {
                     background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%) !important;
-                    transform: translateY(-3px) scale(1.03) translateZ(3000px) !important;
-                    box-shadow: 0 12px 35px rgba(33,150,243,0.8) !important;
-                    z-index: 99999999999 !important;
+                    transform: translateY(-2px) scale(1.02) !important;
+                    box-shadow: 0 8px 25px rgba(33,150,243,0.6) !important;
                   }
                   
                   #btnSalvarUsuario:active {
-                    transform: translateY(-1px) scale(1.01) translateZ(3000px) !important;
-                    box-shadow: 0 8px 25px rgba(33,150,243,0.7) !important;
-                    z-index: 99999999999 !important;
-                  }
-                  
-                  /* Garantir que o botão sempre apareça por cima */
-                  #btnSalvarUsuario {
-                    isolation: isolate !important;
-                    contain: layout style paint !important;
-                    will-change: transform, opacity !important;
-                    pointer-events: auto !important;
-                  }
-                  
-                  /* Criação de um contexto de empilhamento dedicado */
-                  #sidebarUsuario {
-                    transform-style: preserve-3d !important;
+                    transform: translateY(0px) scale(0.98) !important;
+                    box-shadow: 0 4px 15px rgba(33,150,243,0.5) !important;
                   }
                   
                   /* Estilos para controles de imagem de fundo */
@@ -640,22 +580,20 @@
                   /* Responsividade para tablets e dispositivos médios */
                   @media (max-width: 768px) {
                     #sidebarUsuarioOverlay {
-                      align-items: flex-start;
-                      padding: 10px;
-                      padding-top: 15px;
+                      align-items: center;
+                      padding: 15px;
                     }
                     #sidebarUsuario {
-                      width: 92vw;
-                      max-width: 450px;
+                      width: 85vw;
+                      max-width: 400px;
                       min-width: 300px;
-                      padding: 1rem 1.5rem 16.3rem 1.5rem;
+                      padding: 1.2rem 1.2rem 2.4rem 1.2rem;
                       margin: 0 auto;
-                      max-height: calc(100vh + 10cm);
-                      border-radius: 18px;
+                      max-height: 95vh;
                     }
                     #sidebarUsuario h2 {
-                      font-size: 1.25rem;
-                      margin-bottom: 0.6rem;
+                      font-size: 1.2rem;
+                      margin-bottom: 0.5rem;
                     }
                     #sidebarUsuario label {
                       font-size: 0.95rem;
@@ -667,9 +605,9 @@
                       margin-bottom: 0.7rem;
                     }
                     #sidebarUsuario button {
-                      padding: 0.8rem 1.2rem;
+                      padding: 0.7rem 1.1rem;
                       font-size: 0.95rem;
-                      margin-top: 0.5rem;
+                      margin-top: 0.4rem;
                     }
                   }
                   
@@ -678,23 +616,21 @@
                     #sidebarUsuarioOverlay {
                       align-items: flex-start !important;
                       justify-content: center !important;
-                      padding: 5px;
-                      padding-top: 10px;
-                      z-index: 9999999;
+                      padding: 8px;
+                      padding-top: calc(50vh - 44vh - 2cm);
+                      z-index: 999999;
                       display: flex !important;
                     }
                     #sidebarUsuario {
-                      width: 96vw;
+                      width: 94vw;
                       max-width: none;
                       min-width: 0;
-                      padding: 1rem 1.6rem 17.2rem 1.6rem;
-                      border-radius: 20px;
+                      padding: 1.4rem 1.4rem 3.0rem 1.4rem;
+                      border-radius: 18px;
                       margin: auto;
-                      max-height: calc(100vh + 10cm);
-                      box-shadow: 
-                        0 30px 60px -12px rgba(0, 0, 0, 0.5),
-                        0 0 0 1px rgba(255, 255, 255, 0.9);
-                      z-index: 99999999;
+                      max-height: 96vh;
+                      box-shadow: 0 12px 40px 0 rgba(31,38,135,0.4);
+                      z-index: 1000000;
                       position: relative;
                       transform: none;
                       top: auto;
@@ -702,94 +638,90 @@
                       right: auto;
                     }
                     #sidebarUsuario h2 {
-                      font-size: 1.3rem;
+                      font-size: 1.2rem;
                       white-space: normal;
-                      margin-bottom: 0.8rem;
+                      margin-bottom: 0.7rem;
                       line-height: 1.3;
                     }
                     #sidebarUsuario label {
-                      font-size: 1rem;
+                      font-size: 0.95rem;
                       white-space: normal;
-                      margin-bottom: 0.6rem;
+                      margin-bottom: 0.5rem;
                       line-height: 1.3;
                     }
                     #sidebarUsuario input {
-                      padding: 1rem 1.2rem;
-                      font-size: 1rem;
-                      margin-bottom: 1rem;
-                      border-radius: 14px;
+                      padding: 0.9rem 1.1rem;
+                      font-size: 0.95rem;
+                      margin-bottom: 0.9rem;
+                      border-radius: 12px;
                     }
                     #sidebarUsuario button {
-                      padding: 1rem 1.4rem;
-                      font-size: 1rem;
-                      margin-top: 0.8rem;
-                      border-radius: 14px;
-                      min-height: 48px;
+                      padding: 0.85rem 1.3rem;
+                      font-size: 0.95rem;
+                      margin-top: 0.6rem;
+                      border-radius: 12px;
+                      min-height: 44px;
                     }
                     #sidebarUsuario .fecharSidebar {
-                      font-size: 1.8rem;
-                      top: 15px;
-                      right: 20px;
-                      width: 40px;
-                      height: 40px;
-                      min-width: 48px;
-                      min-height: 48px;
-                      z-index: 999999999;
+                      font-size: 1.6rem;
+                      top: 12px;
+                      right: 18px;
+                      width: 36px;
+                      height: 36px;
+                      min-width: 44px;
+                      min-height: 44px;
+                      z-index: 1000001;
                     }
                   }
                   
                   /* Responsividade para dispositivos muito pequenos */
                   @media (max-width: 380px) {
                     #sidebarUsuarioOverlay {
-                      align-items: flex-start;
+                      align-items: center;
                       justify-content: center;
-                      padding: 3px;
-                      padding-top: 5px;
+                      padding: 8px;
                     }
                     #sidebarUsuario {
-                      width: 98vw;
-                      padding: 0.8rem 1.4rem 17.4rem 1.4rem;
+                      width: 96vw;
+                      padding: 1.2rem 1.2rem 2.8rem 1.2rem;
                       margin: 0 auto;
-                      border-radius: 18px;
-                      max-height: calc(100vh + 10cm);
+                      border-radius: 16px;
+                      max-height: 92vh;
                     }
                     #sidebarUsuario h2 {
-                      font-size: 1.2rem;
-                      margin-bottom: 0.7rem;
+                      font-size: 1.15rem;
+                      margin-bottom: 0.6rem;
                     }
                     #sidebarUsuario label {
-                      font-size: 0.9rem;
-                      margin-bottom: 0.4rem;
+                      font-size: 0.88rem;
+                      margin-bottom: 0.3rem;
                     }
                     #sidebarUsuario input {
-                      padding: 0.8rem 1rem;
-                      font-size: 0.9rem;
-                      margin-bottom: 0.7rem;
+                      padding: 0.75rem 0.9rem;
+                      font-size: 0.88rem;
+                      margin-bottom: 0.6rem;
                     }
                     #sidebarUsuario button {
-                      padding: 0.8rem 1.1rem;
-                      font-size: 0.9rem;
-                      margin-top: 0.5rem;
+                      padding: 0.75rem 1rem;
+                      font-size: 0.88rem;
+                      margin-top: 0.4rem;
                     }
                     #sidebarUsuario .fecharSidebar {
-                      font-size: 1.5rem;
-                      top: 10px;
-                      right: 15px;
-                      width: 32px;
-                      height: 32px;
+                      font-size: 1.3rem;
+                      top: 8px;
+                      right: 12px;
+                      width: 28px;
+                      height: 28px;
                     }
                   }
                   
                   /* Ajustes para orientação landscape em móveis */
                   @media (max-width: 768px) and (orientation: landscape) {
-                    #sidebarUsuarioOverlay {
-                      padding-top: 5px;
-                    }
                     #sidebarUsuario {
-                      width: 75vw;
-                      max-width: 400px;
-                      margin: 5px auto;
-                      max-height: calc(100vh + 8cm);
+                      width: 70vw;
+                      max-width: 350px;
+                      margin: 15px auto;
+                      max-height: calc(92vh - 15px);
                     }
                   }
                   
@@ -825,27 +757,13 @@
 
                   /* Força a rolagem do body quando a sidebar estiver aberta */
                   body.sidebar-usuario-aberta {
-                    overflow: hidden !important;
-                    height: 100vh !important;
-                    position: fixed !important;
-                    width: 100% !important;
+                    overflow-y: auto !important;
+                    height: auto !important;
+                    position: static !important;
                   }
 
                   #sidebarUsuarioOverlay {
                     -webkit-overflow-scrolling: touch;
-                    overscroll-behavior: contain;
-                  }
-                  
-                  /* Garantir que a sidebar sempre fique no topo */
-                  #sidebarUsuarioOverlay.show {
-                    display: flex !important;
-                    z-index: 9999999 !important;
-                  }
-                  
-                  #sidebarUsuario.open {
-                    transform: scale(1) !important;
-                    opacity: 1 !important;
-                    z-index: 99999999 !important;
                   }
                 </style>
             <!-- Sidebar Usuário -->
@@ -857,8 +775,7 @@
                 <input id="inputNomeUsuario" type="text" maxlength="20" placeholder="Seu nome" autocomplete="off" />
                 <label for="inputArrobaUsuario">Nome de usuário (@)</label>
                 <input id="inputArrobaUsuario" type="text" maxlength="20" placeholder="@" autocomplete="off" />
-                <button id="btnSalvarUsuario" style="position: relative !important; z-index: 99999999999 !important; background: linear-gradient(135deg, #2196f3 0%, #21cbf3 100%) !important; color: #fff !important; border: none !important; padding: 0.85rem 1.2rem !important; border-radius: 12px !important; cursor: pointer !important; font-size: 1rem !important; font-weight: 700 !important; margin-top: 0.4rem !important; margin-bottom: 0.6rem !important; box-shadow: 0 10px 30px rgba(33,150,243,0.6) !important; transition: all 0.3s ease !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; width: 100% !important; transform: translateZ(1000px) !important;">💾 Salvar Informações</button>
-                
+                <button id="btnSalvarUsuario" style="position: relative !important; z-index: 1000002 !important; background: linear-gradient(135deg, #2196f3 0%, #21cbf3 100%) !important; color: #fff !important; border: none !important; padding: 0.85rem 1.2rem !important; border-radius: 12px !important; cursor: pointer !important; font-size: 1rem !important; font-weight: 700 !important; margin-top: 0.4rem !important; margin-bottom: 0.6rem !important; box-shadow: 0 6px 20px rgba(33,150,243,0.4) !important; transition: all 0.3s ease !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; width: 100% !important;">💾 Salvar Informações</button>
                 
                 <!-- Controles de Imagem de Fundo -->
                 <div class="imagem-controles">
@@ -892,7 +809,7 @@
                   </div>
                   
                   <!-- Botão de teste -->
-                  <button class="btn-imagem" id="btnTestarGaleria" style="width: 100%; margin-top: 8px; margin-bottom: 150px; background: #2196f3; color: white;">🔄 Recarregar Galeria</button>
+                  <button class="btn-imagem" id="btnTestarGaleria" style="width: 100%; margin-top: 8px; background: #2196f3; color: white;">🔄 Recarregar Galeria</button>
                 </div>
               </div>
             </div>
@@ -989,8 +906,8 @@
             </div>
         </div>
     </div>
-    <div id="tagsModal" style="display:none;position:fixed;z-index:1000;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.25);align-items:center;justify-content:center;overflow-y:auto;padding:20px;box-sizing:border-box;">
-        <div class="tags-content" style="background:#fff;padding:1rem 1.2rem 16rem 1.2rem;border-radius:1.2rem;max-width:95vw;width:400px;max-height:calc(100vh + 10cm);overflow-y:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:thin;box-shadow:0 2px 16px #0002;display:flex;flex-direction:column;align-items:center;">
+    <div id="tagsModal" style="display:none;position:absolute;z-index:1000;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.25);align-items:center;justify-content:center;">
+        <div class="tags-content" style="background:#fff;padding:2rem 1.5rem;border-radius:1.2rem;max-width:95vw;width:400px;box-shadow:0 2px 16px #0002;display:flex;flex-direction:column;align-items:center;">
             <h2 style="margin-bottom:1rem;">Sugestões de Tags</h2>
             <div id="tagsLacunas" style="width:100%;display:flex;flex-direction:column;gap:1.2rem;"></div>
             <button class="fechar-modal" id="fecharTags" style="margin-top:1.5rem;">Fechar</button>
@@ -1632,7 +1549,7 @@ updateBgWatermark();
 document.getElementById('btnPrint').addEventListener('click', function () {
     const fraseBox = document.querySelector('.frase-box');
     
-    // Elementos a ocultar temporariamente - TODOS OS BOTÕES E CONTROLES
+    // Elementos a ocultar temporariamente
     const elementosOcultos = [
         '#btnPrint',
         '#btnTags',
@@ -1642,20 +1559,7 @@ document.getElementById('btnPrint').addEventListener('click', function () {
         '#btnDarkModeNovo',
         '#voltarFrase',
         '#novaFrase',
-        '#btnMenuUsuario',
-        '.top-bar',
-        '.controls',
-        '.mid-bar',
-        '.botoes-interativos',
-        '.bottom-botoes',
-        '.botoes',
-        '#temaSelect',
-        '#fonteSelect',
-        '.tags-btn',
-        '.copiar-btn',
-        '.coracao-btn',
-        '.favoritos-btn',
-        '.botao-navegacao'
+        '#btnMenuUsuario'
     ];
     
     // Esconde os elementos
@@ -1679,14 +1583,7 @@ document.getElementById('btnPrint').addEventListener('click', function () {
             // Restaura os elementos
             elementosOcultos.forEach(sel => {
                 const el = document.querySelector(sel);
-                if (el) {
-                    // Restaura display específico para diferentes tipos de elementos
-                    if (sel.includes('.top-bar') || sel.includes('.controls') || sel.includes('.mid-bar') || sel.includes('.botoes-interativos') || sel.includes('.bottom-botoes') || sel.includes('.botoes')) {
-                        el.style.display = 'flex';
-                    } else {
-                        el.style.display = '';
-                    }
-                }
+                if (el) el.style.display = '';
             });
         });
     }, 200); // tempo para aplicar os hides corretamente

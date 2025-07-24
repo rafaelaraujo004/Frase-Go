@@ -859,14 +859,11 @@ button:hover {
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.12);
-  padding: 15px 20px 420px 20px;
+  padding: 32px 24px;
   max-width: 400px;
   width: 90vw;
-  max-height: calc(100vh + 10cm);
+  max-height: 80vh;
   overflow-y: auto;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1137,8 +1134,6 @@ background: linear-gradient(135deg, #e0f0ff, #ffffff);
   justify-content: center;
   z-index: 9999;
   overflow-y: auto;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -1152,14 +1147,11 @@ background: linear-gradient(135deg, #e0f0ff, #ffffff);
 .modal-form {
   background: #fff;
   border-radius: 12px;
-  padding: 1rem 2rem 16rem 2rem;
+  padding: 2rem;
   max-width: 400px;
   width: 90%;
-  max-height: calc(100vh + 10cm);
+  max-height: 90vh;
   overflow-y: auto;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
@@ -1612,75 +1604,4 @@ body.dark-mode .botao-navegacao:hover {
 
 body.dark-mode .botao-navegacao:active {
   box-shadow: 0 3px 10px rgba(0, 212, 255, 0.3) !important;
-}
-
-/* === Melhorias Gerais de Rolagem para Modais e Sidebars === */
-.tags-content,
-.favoritos-content,
-#sidebarUsuario,
-.modal-form,
-.modal-overlay {
-  scroll-behavior: smooth !important;
-  -webkit-overflow-scrolling: touch !important;
-  scrollbar-width: thin !important;
-}
-
-/* Scrollbar personalizada para WebKit */
-.tags-content::-webkit-scrollbar,
-.favoritos-content::-webkit-scrollbar,
-#sidebarUsuario::-webkit-scrollbar,
-.modal-form::-webkit-scrollbar,
-.modal-overlay::-webkit-scrollbar {
-  width: 6px;
-}
-
-.tags-content::-webkit-scrollbar-track,
-.favoritos-content::-webkit-scrollbar-track,
-#sidebarUsuario::-webkit-scrollbar-track,
-.modal-form::-webkit-scrollbar-track,
-.modal-overlay::-webkit-scrollbar-track {
-  background: rgba(0,0,0,0.1);
-  border-radius: 3px;
-}
-
-.tags-content::-webkit-scrollbar-thumb,
-.favoritos-content::-webkit-scrollbar-thumb,
-#sidebarUsuario::-webkit-scrollbar-thumb,
-.modal-form::-webkit-scrollbar-thumb,
-.modal-overlay::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.3);
-  border-radius: 3px;
-}
-
-.tags-content::-webkit-scrollbar-thumb:hover,
-.favoritos-content::-webkit-scrollbar-thumb:hover,
-#sidebarUsuario::-webkit-scrollbar-thumb:hover,
-.modal-form::-webkit-scrollbar-thumb:hover,
-.modal-overlay::-webkit-scrollbar-thumb:hover {
-  background: rgba(0,0,0,0.5);
-}
-
-/* Modo escuro para scrollbars */
-body.dark-mode .tags-content::-webkit-scrollbar-track,
-body.dark-mode .favoritos-content::-webkit-scrollbar-track,
-body.dark-mode #sidebarUsuario::-webkit-scrollbar-track,
-body.dark-mode .modal-form::-webkit-scrollbar-track,
-body.dark-mode .modal-overlay::-webkit-scrollbar-track {
-  background: rgba(255,255,255,0.1);
-}
-
-body.dark-mode .tags-content::-webkit-scrollbar-thumb,
-body.dark-mode .favoritos-content::-webkit-scrollbar-thumb,
-body.dark-mode #sidebarUsuario::-webkit-scrollbar-thumb,
-body.dark-mode .modal-form::-webkit-scrollbar-thumb,
-body.dark-mode .modal-overlay::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.3);
-}
-
-body.dark-mode .tags-content::-webkit-scrollbar-thumb:hover,
-body.dark-mode .favoritos-content::-webkit-scrollbar-thumb:hover,
-body.dark-mode #sidebarUsuario::-webkit-scrollbar-thumb:hover,
-body.dark-mode .modal-form::-webkit-scrollbar-thumb:hover,
-body.dark-mode .modal-overlay::-webkit-scrollbar-thumb:hover {
-  background: rgba(255,255,255,0.5);
 }
