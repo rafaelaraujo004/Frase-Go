@@ -91,6 +91,29 @@ document.addEventListener('DOMContentLoaded', () => {
   
   console.log('Supabase carregado com sucesso');
   
+  // Configura listener para mudanças de autenticação
+  supabase.auth.onAuthStateChange((event, session) => {
+    console.log('Auth state changed:', event, session);
+    
+    if (event === 'SIGNED_IN') {
+      console.log('Usuário logado com sucesso');
+      desbloquearApp();
+      // Oculta todos os modais
+      const modalLogin = document.getElementById('modalLogin');
+      const modalCadastro = document.getElementById('modalCadastro');
+      const modalEsqueciSenha = document.getElementById('modalEsqueciSenha');
+      
+      if (modalLogin) modalLogin.style.display = 'none';
+      if (modalCadastro) modalCadastro.style.display = 'none';
+      if (modalEsqueciSenha) modalEsqueciSenha.style.display = 'none';
+    } else if (event === 'SIGNED_OUT') {
+      console.log('Usuário deslogado');
+      // Remove flag de convidado se existir
+      localStorage.removeItem('usuario_convidado');
+      checarSessao();
+    }
+  });
+  
   // Verifica se os elementos dos modais existem
   const modalLogin = document.getElementById('modalLogin');
   const formLogin = document.getElementById('formLogin');
@@ -153,12 +176,26 @@ function inicializarEventListeners() {
     btnGoogle.addEventListener('click', async function() {
       const erroDiv = document.getElementById('loginErro');
       try {
-        const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
-        if (error && erroDiv) {
-          erroDiv.textContent = 'Erro ao logar com Google: ' + error.message;
-          erroDiv.style.display = 'block';
+        console.log('Iniciando login com Google...');
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: window.location.origin
+          }
+        });
+        
+        if (error) {
+          console.error('Erro no login Google:', error);
+          if (erroDiv) {
+            erroDiv.textContent = 'Erro ao logar com Google: ' + error.message;
+            erroDiv.style.display = 'block';
+          }
+        } else {
+          console.log('Login Google iniciado com sucesso');
+          // O redirecionamento será automático
         }
       } catch (err) {
+        console.error('Erro inesperado no login Google:', err);
         if (erroDiv) {
           erroDiv.textContent = 'Erro inesperado: ' + err.message;
           erroDiv.style.display = 'block';
@@ -172,15 +209,15 @@ function inicializarEventListeners() {
     console.log('Adicionando event listener ao botão convidado');
     btnConvidado.addEventListener('click', function() {
       console.log('Botão convidado clicado');
+      // Marca usuário como convidado
+      localStorage.setItem('usuario_convidado', 'true');
       // Fecha todos os modais e desbloqueia o app para uso como convidado
       const modalLogin = document.getElementById('modalLogin');
       const modalCadastro = document.getElementById('modalCadastro');
       const modalEsqueciSenha = document.getElementById('modalEsqueciSenha');
-      
       if (modalLogin) modalLogin.style.display = 'none';
       if (modalCadastro) modalCadastro.style.display = 'none';
       if (modalEsqueciSenha) modalEsqueciSenha.style.display = 'none';
-      
       desbloquearApp();
     });
   } else {
@@ -1614,102 +1651,126 @@ if (novaFraseBtn) {
 
 // === FUNCIONALIDADES DE IMAGEM DE FUNDO ===
 
-// Banco de imagens por tema (10 imagens para cada tema)
+// Banco de imagens por tema (URLs corrigidas e sem duplicatas)
 const imagensPorTema = {
     motivacional: [
-        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1519452634265-7b808fcb13d0?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1464822759844-d150ad6cbedb?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1527266237111-a4989d028b4b?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop'
+        'https://picsum.photos/400/300?random=1',
+        'https://picsum.photos/400/300?random=2',
+        'https://picsum.photos/400/300?random=3',
+        'https://picsum.photos/400/300?random=4',
+        'https://picsum.photos/400/300?random=5',
+        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1519452634265-7b808fcb13d0?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1464822759844-d150ad6cbedb?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop&auto=format'
     ],
     amor: [
-        'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1500916434205-0c77489c6cf7?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1573164713619-24c711fe7878?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?w=400&h=300&fit=crop'
+        'https://picsum.photos/400/300?random=11',
+        'https://picsum.photos/400/300?random=12',
+        'https://picsum.photos/400/300?random=13',
+        'https://picsum.photos/400/300?random=14',
+        'https://picsum.photos/400/300?random=15',
+        'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1500916434205-0c77489c6cf7?w=400&h=300&fit=crop&auto=format'
     ],
     amizade: [
-        'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1511895426328-dc8714efa8cd?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1554887681-47d40ffaeaac?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1542596768-5d1d21f1cf98?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=300&fit=crop'
+        'https://picsum.photos/400/300?random=21',
+        'https://picsum.photos/400/300?random=22',
+        'https://picsum.photos/400/300?random=23',
+        'https://picsum.photos/400/300?random=24',
+        'https://picsum.photos/400/300?random=25',
+        'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1511895426328-dc8714efa8cd?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1554887681-47d40ffaeaac?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=300&fit=crop&auto=format'
     ],
     felicidade: [
-        'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop'
+        'https://picsum.photos/400/300?random=31',
+        'https://picsum.photos/400/300?random=32',
+        'https://picsum.photos/400/300?random=33',
+        'https://picsum.photos/400/300?random=34',
+        'https://picsum.photos/400/300?random=35',
+        'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=400&h=300&fit=crop&auto=format'
     ],
     superacao: [
-        'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1464822759844-d150ad6cbedb?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1527266237111-a4989d028b4b?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1519452634265-7b808fcb13d0?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1515896769750-31548aa180ed?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop'
+        'https://picsum.photos/400/300?random=41',
+        'https://picsum.photos/400/300?random=42',
+        'https://picsum.photos/400/300?random=43',
+        'https://picsum.photos/400/300?random=44',
+        'https://picsum.photos/400/300?random=45',
+        'https://images.unsplash.com/photo-1527266237111-a4989d028b4b?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1515896769750-31548aa180ed?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1519452634265-7b808fcb13d0?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1464822759844-d150ad6cbedb?w=400&h=300&fit=crop&auto=format'
     ],
     gratidao: [
-        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1464822759844-d150ad6cbedb?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop'
+        'https://picsum.photos/400/300?random=51',
+        'https://picsum.photos/400/300?random=52',
+        'https://picsum.photos/400/300?random=53',
+        'https://picsum.photos/400/300?random=54',
+        'https://picsum.photos/400/300?random=55',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400&h=300&fit=crop&auto=format'
     ],
     reflexao: [
-        'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1519452634265-7b808fcb13d0?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1464822759844-d150ad6cbedb?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=400&h=300&fit=crop'
+        'https://picsum.photos/400/300?random=61',
+        'https://picsum.photos/400/300?random=62',
+        'https://picsum.photos/400/300?random=63',
+        'https://picsum.photos/400/300?random=64',
+        'https://picsum.photos/400/300?random=65',
+        'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=400&h=300&fit=crop&auto=format'
     ],
     sucesso: [
-        'https://images.unsplash.com/photo-1527266237111-a4989d028b4b?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1519452634265-7b808fcb13d0?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1464822759844-d150ad6cbedb?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1515896769750-31548aa180ed?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop',
+        'https://picsum.photos/400/300?random=71',
+        'https://picsum.photos/400/300?random=72',
+        'https://picsum.photos/400/300?random=73',
+        'https://picsum.photos/400/300?random=74',
+        'https://picsum.photos/400/300?random=75',
+        'https://images.unsplash.com/photo-1527266237111-a4989d028b4b?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1515896769750-31548aa180ed?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop&auto=format'
+    ],
+    familia: [
+        'https://picsum.photos/400/300?random=81',
+        'https://picsum.photos/400/300?random=82',
+        'https://picsum.photos/400/300?random=83',
+        'https://picsum.photos/400/300?random=84',
+        'https://picsum.photos/400/300?random=85',
+        'https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1542596768-5d1d21f1cf98?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=300&fit=crop&auto=format'
+    ],
+    inspiracao: [
+        'https://picsum.photos/400/300?random=91',
+        'https://picsum.photos/400/300?random=92',
+        'https://picsum.photos/400/300?random=93',
+        'https://picsum.photos/400/300?random=94',
+        'https://picsum.photos/400/300?random=95',
+        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop&auto=format',
         'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop'
     ],
     familia: [
@@ -1733,182 +1794,412 @@ const imagensPorTema = {
         'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
         'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop',
         'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=400&h=300&fit=crop'
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&auto=format'
+    ],
+    versiculo: [
+        'https://picsum.photos/400/300?random=101',
+        'https://picsum.photos/400/300?random=102',
+        'https://picsum.photos/400/300?random=103',
+        'https://picsum.photos/400/300?random=104',
+        'https://picsum.photos/400/300?random=105',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=300&fit=crop&auto=format'
     ]
 };
 
 // Elementos de imagem de fundo
-const galeriaTemas = document.getElementById('galeriaTemas');
-const uploadImagem = document.getElementById('uploadImagem');
-const btnRemoverImagem = document.getElementById('btnRemoverImagem');
-const btnOpacidadeImagem = document.getElementById('btnOpacidadeImagem');
-const imagemFundo = document.getElementById('imagemFundo');
-const imagemFundoContainer = document.getElementById('imagemFundoContainer');
+let galeriaTemas, uploadImagem, btnRemoverImagem, btnOpacidadeImagem, imagemFundo, imagemFundoContainer;
 
 // Variáveis de controle
 let opacidadeAtual = 0.3;
 let imagemAtual = null;
 
-// Inicializar funcionalidades de imagem
-function inicializarImagensFundo() {
-    if (!galeriaTemas) return;
-    
-    // Forçar visibilidade da galeria
-    galeriaTemas.style.display = 'grid';
-    galeriaTemas.style.visibility = 'visible';
-    galeriaTemas.style.opacity = '1';
-    
-    // Carregar imagens do tema inicial
-    carregarImagensTema('motivacional');
-    
-    // Event listeners
-    const temaSelectElement = document.getElementById('temaSelect');
-    if (temaSelectElement) {
-        temaSelectElement.addEventListener('change', function() {
-            carregarImagensTema(this.value);
+// Função para inicializar elementos DOM
+function inicializarElementosImagem() {
+    try {
+        galeriaTemas = document.getElementById('galeriaTemas');
+        uploadImagem = document.getElementById('uploadImagem');
+        btnRemoverImagem = document.getElementById('btnRemoverImagem');
+        btnOpacidadeImagem = document.getElementById('btnOpacidadeImagem');
+        imagemFundo = document.getElementById('imagemFundo');
+        imagemFundoContainer = document.getElementById('imagemFundoContainer');
+        
+        console.log('Elementos de imagem inicializados:', {
+            galeriaTemas: !!galeriaTemas,
+            uploadImagem: !!uploadImagem,
+            btnRemoverImagem: !!btnRemoverImagem,
+            btnOpacidadeImagem: !!btnOpacidadeImagem,
+            imagemFundo: !!imagemFundo,
+            imagemFundoContainer: !!imagemFundoContainer
         });
-    }
-    
-    if (uploadImagem) {
-        uploadImagem.addEventListener('change', function(e) {
-            const arquivo = e.target.files[0];
-            if (arquivo) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    aplicarImagemFundo(e.target.result);
-                    imagemAtual = e.target.result;
-                };
-                reader.readAsDataURL(arquivo);
-            }
-        });
-    }
-    
-    if (btnRemoverImagem) {
-        btnRemoverImagem.addEventListener('click', function() {
-            removerImagemFundo();
-        });
-    }
-    
-    if (btnOpacidadeImagem) {
-        btnOpacidadeImagem.addEventListener('click', function() {
-            alterarOpacidade();
-        });
-    }
-    
-    // Botão de teste para recarregar galeria
-    const btnTestarGaleria = document.getElementById('btnTestarGaleria');
-    if (btnTestarGaleria) {
-        btnTestarGaleria.addEventListener('click', function() {
-            const temaAtual = document.getElementById('temaSelect')?.value || 'motivacional';
-            carregarImagensTema(temaAtual);
-            
-            // Feedback
-            this.textContent = '✅ Recarregado!';
-            setTimeout(() => {
-                this.textContent = '🔄 Recarregar Galeria';
-            }, 1500);
-        });
+        
+        return true;
+    } catch (error) {
+        console.error('Erro ao inicializar elementos de imagem:', error);
+        return false;
     }
 }
 
-// Carregar imagens por tema
+// Inicializar funcionalidades de imagem
+function inicializarImagensFundo() {
+    console.log('Iniciando funcionalidades de imagem de fundo...');
+    
+    // Reinitializar elementos DOM
+    if (!inicializarElementosImagem()) {
+        console.warn('Alguns elementos de imagem não foram encontrados. Tentando novamente em 1s...');
+        setTimeout(inicializarImagensFundo, 1000);
+        return;
+    }
+    
+    if (!galeriaTemas) {
+        console.error('Galeria de temas não encontrada');
+        return;
+    }
+    
+    try {
+        // Forçar visibilidade da galeria
+        galeriaTemas.style.display = 'grid';
+        galeriaTemas.style.visibility = 'visible';
+        galeriaTemas.style.opacity = '1';
+        galeriaTemas.style.gridTemplateColumns = 'repeat(auto-fit, minmax(70px, 1fr))';
+        galeriaTemas.style.gap = '12px';
+        
+        console.log('Galeria de temas configurada');
+        
+        // Carregar imagens do tema inicial
+        carregarImagensTema('motivacional');
+        
+        // Event listeners
+        const temaSelectElement = document.getElementById('temaSelect');
+        if (temaSelectElement) {
+            temaSelectElement.addEventListener('change', function() {
+                const tema = this.value;
+                console.log('Tema alterado para:', tema);
+                carregarImagensTema(tema);
+            });
+        }
+        
+        if (uploadImagem) {
+            uploadImagem.addEventListener('change', function(e) {
+                const arquivo = e.target.files[0];
+                if (arquivo) {
+                    console.log('Arquivo selecionado:', arquivo.name);
+                    
+                    // Verificar tipo de arquivo
+                    if (!arquivo.type.startsWith('image/')) {
+                        alert('❌ Por favor, selecione apenas arquivos de imagem!');
+                        return;
+                    }
+                    
+                    // Verificar tamanho (max 5MB)
+                    if (arquivo.size > 5 * 1024 * 1024) {
+                        alert('❌ Imagem muito grande! Máximo 5MB permitido.');
+                        return;
+                    }
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        console.log('Imagem carregada com sucesso');
+                        aplicarImagemFundo(e.target.result);
+                        imagemAtual = e.target.result;
+                        
+                        // Feedback visual
+                        mostrarFeedback('📤 Imagem personalizada aplicada!', '#4caf50');
+                    };
+                    reader.onerror = function() {
+                        console.error('Erro ao ler arquivo');
+                        alert('❌ Erro ao carregar a imagem. Tente novamente.');
+                    };
+                    reader.readAsDataURL(arquivo);
+                }
+            });
+        }
+        
+        if (btnRemoverImagem) {
+            btnRemoverImagem.addEventListener('click', function() {
+                console.log('Removendo imagem de fundo');
+                removerImagemFundo();
+            });
+        }
+        
+        if (btnOpacidadeImagem) {
+            btnOpacidadeImagem.addEventListener('click', function() {
+                console.log('Alterando opacidade');
+                alterarOpacidade();
+            });
+        }
+        
+        // Botão de teste para recarregar galeria
+        const btnTestarGaleria = document.getElementById('btnTestarGaleria');
+        if (btnTestarGaleria) {
+            btnTestarGaleria.addEventListener('click', function() {
+                console.log('Recarregando galeria...');
+                const temaAtual = document.getElementById('temaSelect')?.value || 'motivacional';
+                carregarImagensTema(temaAtual);
+                
+                // Feedback
+                this.textContent = '✅ Recarregado!';
+                setTimeout(() => {
+                    this.textContent = '🔄 Recarregar Galeria';
+                }, 1500);
+            });
+        }
+        
+        console.log('Funcionalidades de imagem inicializadas com sucesso');
+        
+    } catch (error) {
+        console.error('Erro durante inicialização das imagens:', error);
+    }
+}
+
+// Função para mostrar feedback visual
+function mostrarFeedback(mensagem, cor = '#4caf50') {
+    const feedback = document.createElement('div');
+    feedback.textContent = mensagem;
+    feedback.style.cssText = `
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: ${cor};
+        color: white;
+        padding: 12px 20px;
+        border-radius: 25px;
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 999999;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        animation: slideInFeedback 0.3s ease-out;
+    `;
+    
+    // Adicionar animação CSS
+    if (!document.getElementById('feedback-styles')) {
+        const style = document.createElement('style');
+        style.id = 'feedback-styles';
+        style.textContent = `
+            @keyframes slideInFeedback {
+                from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+                to { opacity: 1; transform: translateX(-50%) translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    document.body.appendChild(feedback);
+    
+    setTimeout(() => {
+        feedback.style.animation = 'slideInFeedback 0.3s ease-out reverse';
+        setTimeout(() => feedback.remove(), 300);
+    }, 2500);
+}
+
+// Carregar imagens por tema com tratamento de erro melhorado
 function carregarImagensTema(tema) {
-    if (!galeriaTemas || !imagensPorTema[tema]) return;
+    console.log('Carregando imagens para tema:', tema);
     
-    galeriaTemas.innerHTML = '<div style="text-align:center;padding:20px;color:#666;">Carregando imagens...</div>';
+    if (!galeriaTemas) {
+        console.error('Galeria não encontrada');
+        return;
+    }
     
-    // Limpar galeria primeiro
+    // Normalizar nome do tema
+    let temaNormalizado = tema.toLowerCase();
+    if (temaNormalizado === 'inspiração') temaNormalizado = 'inspiracao';
+    if (temaNormalizado === 'superação') temaNormalizado = 'superacao';
+    if (temaNormalizado === 'gratidão') temaNormalizado = 'gratidao';
+    if (temaNormalizado === 'reflexão') temaNormalizado = 'reflexao';
+    if (temaNormalizado === 'família') temaNormalizado = 'familia';
+    if (temaNormalizado === 'versículo bíblico') temaNormalizado = 'versiculo';
+    
+    const imagens = imagensPorTema[temaNormalizado];
+    if (!imagens) {
+        console.warn('Tema não encontrado:', temaNormalizado, 'Usando motivacional');
+        carregarImagensTema('motivacional');
+        return;
+    }
+    
+    // Mostrar loading
+    galeriaTemas.innerHTML = `
+        <div style="
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 30px 20px;
+            color: #666;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        ">
+            <div style="
+                width: 40px;
+                height: 40px;
+                border: 3px solid #e0e0e0;
+                border-top: 3px solid #1976d2;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            "></div>
+            <span>Carregando imagens do tema "${tema}"...</span>
+        </div>
+    `;
+    
+    // Adicionar animação de loading se não existir
+    if (!document.getElementById('loading-spin-styles')) {
+        const style = document.createElement('style');
+        style.id = 'loading-spin-styles';
+        style.textContent = `
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Carregar imagens após um pequeno delay
     setTimeout(() => {
         galeriaTemas.innerHTML = '';
+        let imagensCarregadas = 0;
+        let imagensComErro = 0;
         
-        imagensPorTema[tema].forEach((urlImagem, index) => {
+        imagens.forEach((urlImagem, index) => {
             const container = document.createElement('div');
-            container.style.position = 'relative';
-            container.style.width = '100%';
-            container.style.height = '60px';
-            container.style.backgroundColor = '#f0f0f0';
-            container.style.borderRadius = '6px';
-            container.style.overflow = 'hidden';
-            container.style.cursor = 'pointer';
-            container.style.border = '2px solid transparent';
-            container.style.transition = 'all 0.2s';
+            container.style.cssText = `
+                position: relative;
+                width: 100%;
+                height: 70px;
+                background: #f5f5f5;
+                border-radius: 10px;
+                overflow: hidden;
+                cursor: pointer;
+                border: 2px solid transparent;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            `;
             
             const img = document.createElement('img');
             img.src = urlImagem;
             img.className = 'imagem-tema';
             img.alt = `Imagem ${index + 1} do tema ${tema}`;
-            img.style.width = '100%';
-            img.style.height = '100%';
-            img.style.objectFit = 'cover';
-            img.style.display = 'block';
-            img.style.opacity = '0';
-            img.style.transition = 'opacity 0.3s';
+            img.style.cssText = `
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                opacity: 0;
+                transition: opacity 0.5s ease;
+            `;
             
             // Loading placeholder
             const placeholder = document.createElement('div');
-            placeholder.style.position = 'absolute';
-            placeholder.style.top = '50%';
-            placeholder.style.left = '50%';
-            placeholder.style.transform = 'translate(-50%, -50%)';
-            placeholder.style.fontSize = '24px';
+            placeholder.style.cssText = `
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 28px;
+                color: #bbb;
+                transition: all 0.3s;
+            `;
             placeholder.textContent = '🖼️';
-            placeholder.style.color = '#999';
             
             container.appendChild(placeholder);
             container.appendChild(img);
             
+            // Timeout para imagens que demoram muito
+            const timeout = setTimeout(() => {
+                if (img.style.opacity === '0') {
+                    console.warn('Timeout na imagem:', urlImagem);
+                    placeholder.textContent = '⏱️';
+                    placeholder.style.color = '#ff9800';
+                    imagensComErro++;
+                    verificarCarregamentoCompleto();
+                }
+            }, 10000); // 10 segundos timeout
+            
             // Quando a imagem carregar
             img.onload = function() {
+                clearTimeout(timeout);
                 img.style.opacity = '1';
                 placeholder.style.display = 'none';
+                imagensCarregadas++;
+                console.log(`Imagem ${index + 1} carregada:`, urlImagem);
+                verificarCarregamentoCompleto();
             };
             
             // Se a imagem falhar ao carregar
             img.onerror = function() {
+                clearTimeout(timeout);
+                console.error('Erro ao carregar imagem:', urlImagem);
                 placeholder.textContent = '❌';
                 placeholder.style.color = '#e53935';
+                placeholder.style.fontSize = '20px';
+                imagensComErro++;
+                verificarCarregamentoCompleto();
             };
             
             // Click handler
             container.onclick = function() {
-                selecionarImagemTema(this, urlImagem);
+                if (img.style.opacity === '1') {
+                    selecionarImagemTema(this, urlImagem);
+                }
             };
             
             // Hover effects
             container.onmouseenter = function() {
-                this.style.borderColor = '#1976d2';
-                this.style.transform = 'scale(1.05)';
-                this.style.boxShadow = '0 4px 8px rgba(0,0,0,0.15)';
+                if (img.style.opacity === '1') {
+                    this.style.borderColor = '#1976d2';
+                    this.style.transform = 'scale(1.05)';
+                    this.style.boxShadow = '0 4px 20px rgba(25,118,210,0.3)';
+                }
             };
             
             container.onmouseleave = function() {
                 if (!this.classList.contains('selecionada')) {
                     this.style.borderColor = 'transparent';
                     this.style.transform = 'scale(1)';
-                    this.style.boxShadow = 'none';
+                    this.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
                 }
             };
             
             galeriaTemas.appendChild(container);
         });
-    }, 100);
-}
-
+        
+        function verificarCarregamentoCompleto() {
+            const total = imagens.length;
+            const processadas = imagensCarregadas + imagensComErro;
+            
+            if (processadas === total) {
+                console.log(`Carregamento completo - Sucesso: ${imagensCarregadas}, Erro: ${imagensComErro}`);
+                if (imagensComErro > 0) {
+                    mostrarFeedback(`⚠️ ${imagensComErro} imagem(ns) falharam ao carregar`, '#ff9800');
+                }
+                if (imagensCarregadas > 0) {
+                    mostrarFeedback(`✅ ${imagensCarregadas} imagem(ns) carregadas para "${tema}"`, '#4caf50');
+                }
+            }
+        }
+        
+// Selecionar imagem do tema
 // Selecionar imagem do tema
 function selecionarImagemTema(elemento, urlImagem) {
+    console.log('Selecionando imagem:', urlImagem);
+    
     // Remove seleção anterior
     document.querySelectorAll('.galeria-temas > div').forEach(container => {
         container.classList.remove('selecionada');
         container.style.borderColor = 'transparent';
         container.style.transform = 'scale(1)';
-        container.style.boxShadow = 'none';
+        container.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
     });
     
     // Adiciona seleção ao container clicado
     elemento.classList.add('selecionada');
     elemento.style.borderColor = '#1976d2';
-    elemento.style.boxShadow = '0 0 0 1px #1976d2, 0 4px 8px rgba(25,118,210,0.3)';
+    elemento.style.boxShadow = '0 0 0 2px #1976d2, 0 4px 20px rgba(25,118,210,0.3)';
     elemento.style.transform = 'scale(1.02)';
     
     // Aplica a imagem como fundo
@@ -1916,123 +2207,163 @@ function selecionarImagemTema(elemento, urlImagem) {
     imagemAtual = urlImagem;
     
     // Feedback visual
-    const feedback = document.createElement('div');
-    feedback.textContent = '✅ Imagem aplicada!';
-    feedback.style.position = 'fixed';
-    feedback.style.top = '20px';
-    feedback.style.left = '50%';
-    feedback.style.transform = 'translateX(-50%)';
-    feedback.style.background = '#4caf50';
-    feedback.style.color = 'white';
-    feedback.style.padding = '8px 16px';
-    feedback.style.borderRadius = '20px';
-    feedback.style.fontSize = '14px';
-    feedback.style.zIndex = '999999';
-    feedback.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
-    
-    document.body.appendChild(feedback);
-    
-    setTimeout(() => {
-        feedback.remove();
-    }, 2000);
+    mostrarFeedback('✅ Imagem aplicada com sucesso!', '#4caf50');
 }
 
-// Aplicar imagem de fundo
+// Aplicar imagem de fundo com tratamento de erro
 function aplicarImagemFundo(urlImagem) {
-    if (!imagemFundo) return;
+    console.log('Aplicando imagem de fundo:', urlImagem);
     
-    imagemFundo.src = urlImagem;
-    imagemFundo.style.opacity = opacidadeAtual;
+    if (!imagemFundo) {
+        console.error('Elemento imagemFundo não encontrado');
+        mostrarFeedback('❌ Erro: elemento de imagem não encontrado', '#f44336');
+        return;
+    }
     
-    // Salvar no localStorage
-    localStorage.setItem('imagemFundo', urlImagem);
-    localStorage.setItem('opacidadeImagem', opacidadeAtual);
+    try {
+        // Criar uma nova imagem para testar se carrega
+        const testeImg = new Image();
+        
+        testeImg.onload = function() {
+            console.log('Imagem validada, aplicando ao fundo');
+            imagemFundo.src = urlImagem;
+            imagemFundo.style.opacity = opacidadeAtual;
+            
+            // Salvar no localStorage
+            localStorage.setItem('imagemFundo', urlImagem);
+            localStorage.setItem('opacidadeImagem', opacidadeAtual);
+            
+            console.log('Imagem de fundo aplicada com sucesso');
+        };
+        
+        testeImg.onerror = function() {
+            console.error('Erro ao carregar imagem:', urlImagem);
+            mostrarFeedback('❌ Erro ao carregar a imagem', '#f44336');
+        };
+        
+        testeImg.src = urlImagem;
+        
+    } catch (error) {
+        console.error('Erro ao aplicar imagem de fundo:', error);
+        mostrarFeedback('❌ Erro ao aplicar imagem', '#f44336');
+    }
 }
 
 // Remover imagem de fundo
 function removerImagemFundo() {
-    if (!imagemFundo) return;
+    console.log('Removendo imagem de fundo');
     
-    imagemFundo.src = '';
-    imagemFundo.style.opacity = 0;
-    imagemAtual = null;
+    if (!imagemFundo) {
+        console.error('Elemento imagemFundo não encontrado');
+        return;
+    }
     
-    // Remove seleção das imagens
-    document.querySelectorAll('.galeria-temas > div').forEach(container => {
-        container.classList.remove('selecionada');
-        container.style.borderColor = 'transparent';
-        container.style.transform = 'scale(1)';
-        container.style.boxShadow = 'none';
-    });
-    
-    // Remove do localStorage
-    localStorage.removeItem('imagemFundo');
-    localStorage.removeItem('opacidadeImagem');
-    
-    // Feedback visual
-    const feedback = document.createElement('div');
-    feedback.textContent = '🗑️ Imagem removida!';
-    feedback.style.position = 'fixed';
-    feedback.style.top = '20px';
-    feedback.style.left = '50%';
-    feedback.style.transform = 'translateX(-50%)';
-    feedback.style.background = '#f44336';
-    feedback.style.color = 'white';
-    feedback.style.padding = '8px 16px';
-    feedback.style.borderRadius = '20px';
-    feedback.style.fontSize = '14px';
-    feedback.style.zIndex = '999999';
-    feedback.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
-    
-    document.body.appendChild(feedback);
-    
-    setTimeout(() => {
-        feedback.remove();
-    }, 2000);
+    try {
+        imagemFundo.src = '';
+        imagemFundo.style.opacity = 0;
+        imagemAtual = null;
+        
+        // Remove seleção das imagens
+        document.querySelectorAll('.galeria-temas > div').forEach(container => {
+            container.classList.remove('selecionada');
+            container.style.borderColor = 'transparent';
+            container.style.transform = 'scale(1)';
+            container.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+        });
+        
+        // Remove do localStorage
+        localStorage.removeItem('imagemFundo');
+        localStorage.removeItem('opacidadeImagem');
+        
+        // Feedback visual
+        mostrarFeedback('🗑️ Imagem de fundo removida', '#f44336');
+        
+    } catch (error) {
+        console.error('Erro ao remover imagem:', error);
+    }
 }
 
 // Alterar opacidade
 function alterarOpacidade() {
-    if (!imagemFundo || !imagemAtual) return;
+    if (!imagemFundo || !imagemAtual) {
+        mostrarFeedback('❌ Nenhuma imagem de fundo ativa', '#ff9800');
+        return;
+    }
     
-    // Cicla entre 0.2, 0.3, 0.5, 0.7
-    const opacidades = [0.2, 0.3, 0.5, 0.7];
-    const indiceAtual = opacidades.indexOf(opacidadeAtual);
-    const proximoIndice = (indiceAtual + 1) % opacidades.length;
-    
-    opacidadeAtual = opacidades[proximoIndice];
-    imagemFundo.style.opacity = opacidadeAtual;
-    
-    // Salvar no localStorage
-    localStorage.setItem('opacidadeImagem', opacidadeAtual);
-    
-    // Feedback visual
-    btnOpacidadeImagem.textContent = `🔍 ${Math.round(opacidadeAtual * 100)}%`;
-    setTimeout(() => {
-        btnOpacidadeImagem.textContent = '🔍 Opacidade';
-    }, 1000);
+    try {
+        // Cicla entre 0.2, 0.3, 0.5, 0.7, 0.9
+        const opacidades = [0.2, 0.3, 0.5, 0.7, 0.9];
+        const indiceAtual = opacidades.indexOf(opacidadeAtual);
+        const proximoIndice = (indiceAtual + 1) % opacidades.length;
+        
+        opacidadeAtual = opacidades[proximoIndice];
+        imagemFundo.style.opacity = opacidadeAtual;
+        
+        // Salvar no localStorage
+        localStorage.setItem('opacidadeImagem', opacidadeAtual);
+        
+        // Feedback visual
+        const porcentagem = Math.round(opacidadeAtual * 100);
+        mostrarFeedback(`🔍 Opacidade: ${porcentagem}%`, '#2196f3');
+        
+        if (btnOpacidadeImagem) {
+            btnOpacidadeImagem.textContent = `🔍 ${porcentagem}%`;
+            setTimeout(() => {
+                btnOpacidadeImagem.textContent = '🔍 Opacidade';
+            }, 1500);
+        }
+        
+    } catch (error) {
+        console.error('Erro ao alterar opacidade:', error);
+    }
 }
 
 // Carregar configuração salva
 function carregarImagemSalva() {
-    const imagemSalva = localStorage.getItem('imagemFundo');
-    const opacidadeSalva = localStorage.getItem('opacidadeImagem');
+    console.log('Carregando configuração de imagem salva...');
     
-    if (imagemSalva) {
-        imagemAtual = imagemSalva;
-        if (opacidadeSalva) {
-            opacidadeAtual = parseFloat(opacidadeSalva);
+    try {
+        const imagemSalva = localStorage.getItem('imagemFundo');
+        const opacidadeSalva = localStorage.getItem('opacidadeImagem');
+        
+        if (imagemSalva) {
+            console.log('Imagem salva encontrada:', imagemSalva);
+            imagemAtual = imagemSalva;
+            
+            if (opacidadeSalva) {
+                opacidadeAtual = parseFloat(opacidadeSalva);
+                console.log('Opacidade salva:', opacidadeAtual);
+            }
+            
+            aplicarImagemFundo(imagemSalva);
+        } else {
+            console.log('Nenhuma imagem salva encontrada');
         }
-        aplicarImagemFundo(imagemSalva);
+    } catch (error) {
+        console.error('Erro ao carregar imagem salva:', error);
     }
 }
 
 // Inicializar quando o DOM carregar
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM carregado, iniciando sistema de imagens...');
+    
+    // Aguardar um pouco para garantir que todos os elementos estejam prontos
     setTimeout(() => {
         inicializarImagensFundo();
         carregarImagemSalva();
-    }, 100);
+    }, 500);
 });
 
-// ...existing code...
+// Também inicializar quando a sidebar for aberta
+document.addEventListener('click', function(e) {
+    if (e.target && e.target.id === 'btnMenuUsuario') {
+        // Pequeno delay para aguardar a sidebar abrir
+        setTimeout(() => {
+            if (!galeriaTemas) {
+                console.log('Reinicializando sistema de imagens...');
+                inicializarImagensFundo();
+            }
+        }, 100);
+    }
+});

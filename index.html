@@ -14,7 +14,7 @@
 <meta name="description" content="Frase Go - Encontre inspiração diária com frases motivacionais, de amor, amizade e muito mais. Personalize com temas e fontes exclusivas.">
 <body>
     <!-- Modal de Login -->
-    <div id="modalLogin" class="modal-overlay" style="display: none;">
+    <div id="modalLogin" class="modal-overlay">
       <form id="formLogin" class="modal-form" role="dialog" aria-labelledby="loginTitle" aria-describedby="loginDesc">
         <h2 id="loginTitle">Entrar</h2>
         <p id="loginDesc" class="sr-only">Faça login para acessar recursos exclusivos</p>
@@ -35,7 +35,7 @@
       </form>
     </div>
     <!-- Modal de cadastro -->
-    <div id="modalCadastro" class="modal-overlay" style="display: none;">
+    <div id="modalCadastro" class="modal-overlay">
       <form id="formCadastro" class="modal-form" role="dialog" aria-labelledby="cadastroTitle" aria-describedby="cadastroDesc">
         <h2 id="cadastroTitle">Criar Conta</h2>
         <p id="cadastroDesc" class="sr-only">Crie sua conta para salvar favoritos e acessar recursos exclusivos</p>
@@ -44,18 +44,6 @@
         <button type="submit">Cadastrar</button>
         <button type="button" id="btnVoltarLogin" class="modal-text-btn">Voltar ao login</button>
         <div id="cadastroErro" class="modal-error" role="alert"></div>
-      </form>
-    </div>
-    <!-- Modal de esqueci senha -->
-    <div id="modalEsqueciSenha" class="modal-overlay" style="display: none;">
-      <form id="formEsqueciSenha" class="modal-form" role="dialog" aria-labelledby="esqueciTitle" aria-describedby="esqueciDesc">
-        <h2 id="esqueciTitle">Recuperar Senha</h2>
-        <p id="esqueciDesc" class="sr-only">Digite seu e-mail para receber o link de recuperação</p>
-        <input id="esqueciEmail" type="email" placeholder="E-mail cadastrado" required aria-label="E-mail cadastrado">
-        <button type="submit">Enviar link de recuperação</button>
-        <button type="button" id="btnVoltarLogin2" class="modal-text-btn">Voltar ao login</button>
-        <div id="esqueciErro" class="modal-error" role="alert"></div>
-        <div id="esqueciSucesso" class="modal-success" role="status"></div>
       </form>
     </div>
     <!-- Modal de esqueci senha -->
@@ -73,11 +61,11 @@
     <div class="container" style="width:100vw;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;padding:0;">
         <div class="frase-box" style="width:100%;max-width:485px;min-width:320px;min-height:calc(420px + 2cm);max-height:calc(98vh + 3cm);background:#fff;border-radius:1.1rem;padding:1.1rem 1.1rem 0.7rem 1.1rem;box-shadow:0 2px 12px #0001;display:flex;flex-direction:column;align-items:center;overflow:hidden;position:relative;justify-content:flex-start;gap:0;">
             <!-- Botão de três linhas (menu usuário) -->
-            <button id="btnMenuUsuario" title="Opções de usuário" style="position:absolute;top:14px;right:14px;background:#fff;border:none;cursor:pointer;z-index:5;padding:6px 6px 6px 6px;border-radius:7px;width:38px;height:32px;display:flex;align-items:center;justify-content:center;">
-              <span style="display:block;width:26px;height:18px;position:relative;">
-                <span class="menu-bar" style="display:block;position:absolute;left:0;top:0;width:100%;height:3px;border-radius:2px;"></span>
-                <span class="menu-bar" style="display:block;position:absolute;left:0;top:7.5px;width:100%;height:3px;border-radius:2px;"></span>
-                <span class="menu-bar" style="display:block;position:absolute;left:0;top:15px;width:100%;height:3px;border-radius:2px;"></span>
+            <button id="btnMenuUsuario" title="Opções de usuário" style="position:absolute;top:14px;right:14px;background:#fff;border:none;cursor:pointer;z-index:5;padding:4px;border-radius:6px;width:28px;height:24px;display:flex;align-items:center;justify-content:center;">
+              <span style="display:block;width:16px;height:12px;position:relative;">
+                <span class="menu-bar" style="display:block;position:absolute;left:0;top:0;width:100%;height:1.5px;border-radius:1px;"></span>
+                <span class="menu-bar" style="display:block;position:absolute;left:0;top:5px;width:100%;height:1.5px;border-radius:1px;"></span>
+                <span class="menu-bar" style="display:block;position:absolute;left:0;top:10px;width:100%;height:1.5px;border-radius:1px;"></span>
               </span>
             </button>
             <!-- NOVA CAIXA DE TEXTO ESTILO ANEXO (fixa, 4cm abaixo do topo) -->
@@ -154,7 +142,7 @@
                   }
                   #nomeUsuario {
                     font-family: 'Montserrat', Arial, sans-serif;
-                    font-size: 1.08rem;
+                    font-size: 0.9rem;
                     font-weight: 400;
                     color: #222;
                     letter-spacing: 0.01em;
@@ -164,7 +152,7 @@
                   }
                   #arrobaUsuario {
                     font-family: 'Space Mono', monospace;
-                    font-size: 0.99rem;
+                    font-size: 0.87rem;
                     color: #555;
                     padding: 1px 7px 1px 4px;
                     line-height: 1.2;
@@ -193,7 +181,7 @@
                   body.dark-mode #autorFraseApp {
                     color: #e0e0e0 !important;
                   }
-                  /* Sidebar otimizada para melhor visibilidade e centralização */
+                  /* Sidebar otimizada para melhor visibilidade e centralização - EXPANDIDA */
                   #sidebarUsuarioOverlay {
                     display: none;
                     position: fixed;
@@ -201,35 +189,44 @@
                     left: 0;
                     width: 100vw;
                     height: 100vh;
-                    background: rgba(30,32,40,0.65);
-                    z-index: 999999;
+                    background: rgba(0, 0, 0, 0.85);
+                    backdrop-filter: blur(8px);
+                    z-index: 9999999;
                     justify-content: center;
-                    align-items: center;
-                    transition: background 0.3s;
+                    align-items: flex-start;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                     overflow-y: auto;
-                    padding: 15px;
+                    padding: 10px;
+                    padding-top: calc(20px - 3cm);
                     box-sizing: border-box;
                   }
                   #sidebarUsuario {
                     position: relative;
-                    width: 75vw;
-                    max-width: 320px;
-                    min-width: 260px;
-                    background: #f9fafb;
-                    border-radius: 14px;
-                    box-shadow: 0 8px 32px 0 rgba(31,38,135,0.35);
-                    padding: 1.4rem 1.2rem 1.2rem 1.2rem;
+                    width: 90vw;
+                    max-width: 420px;
+                    min-width: 320px;
+                    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+                    border-radius: 20px;
+                    box-shadow: 
+                      0 25px 50px -12px rgba(0, 0, 0, 0.4),
+                      0 0 0 1px rgba(255, 255, 255, 0.9),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+                    padding: 1rem 1.8rem 16.8rem 1.8rem;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    gap: 0.8rem;
-                    transition: box-shadow 0.3s, background 0.3s, transform 0.3s;
-                    border: 2px solid #e3eaf5;
-                    transform: scale(1);
+                    gap: 1.2rem;
+                    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                    border: 1px solid rgba(226, 232, 240, 0.8);
+                    transform: scale(0.95);
+                    opacity: 0;
                     margin: 0 auto;
-                    max-height: calc(90vh - 40px);
+                    max-height: calc(100vh + 10cm);
                     overflow-y: auto;
-                    z-index: 1000000;
+                    scroll-behavior: smooth;
+                    -webkit-overflow-scrolling: touch;
+                    scrollbar-width: thin;
+                    z-index: 99999999;
                   }
                   #sidebarUsuario.open {
                     animation: slideInSidebar 0.4s ease-out;
@@ -239,93 +236,156 @@
                     to { opacity: 1; transform: scale(1) translateY(0); }
                   }
                   #sidebarUsuario .fecharSidebar {
-                    background: none;
-                    color: #666;
+                    background: rgba(71, 85, 105, 0.1);
+                    color: #475569;
                     border: none;
-                    font-size: 1.4rem;
+                    font-size: 1.6rem;
                     position: absolute;
-                    top: 8px;
-                    right: 12px;
+                    top: 15px;
+                    right: 18px;
                     cursor: pointer;
-                    transition: color 0.2s, transform 0.2s;
-                    width: 26px;
-                    height: 26px;
+                    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+                    width: 38px;
+                    height: 38px;
+                    border-radius: 12px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    z-index: 1000001;
+                    z-index: 999999999;
+                    font-weight: 300;
+                    backdrop-filter: blur(10px);
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
                   }
                   #sidebarUsuario .fecharSidebar:hover {
-                    color: #1976d2;
-                    transform: scale(1.1);
+                    background: rgba(239, 68, 68, 0.15);
+                    color: #ef4444;
+                    transform: scale(1.1) rotate(90deg);
+                    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
                   }
                   #sidebarUsuario h2 {
-                    font-size: 1.15rem;
-                    color: #1976d2;
-                    margin-bottom: 0.4rem;
+                    font-size: 1.4rem;
+                    background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                    margin: 0.5rem 0 1rem 0;
                     font-family: 'Montserrat', Arial, sans-serif;
                     font-weight: 700;
-                    letter-spacing: 0.02em;
+                    letter-spacing: -0.02em;
                     text-align: center;
-                    z-index: 100001;
                     position: relative;
-                    white-space: nowrap;
-                    overflow: visible;
+                    z-index: 999999999;
                   }
+
+                  #sidebarUsuario h2::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -8px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 60px;
+                    height: 3px;
+                    background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+                    border-radius: 2px;
+                  }
+                  
                   #sidebarUsuario label {
-                    font-size: 0.9rem;
-                    color: #333;
-                    margin-bottom: 0.3rem;
+                    font-size: 0.95rem;
+                    color: #334155;
+                    margin-bottom: 0.5rem;
                     font-family: 'Inter', Arial, sans-serif;
-                    font-weight: 500;
+                    font-weight: 600;
                     align-self: flex-start;
                     width: 100%;
-                    z-index: 100001;
+                    letter-spacing: 0.01em;
+                    z-index: 999999999;
                     position: relative;
-                    white-space: nowrap;
-                    overflow: visible;
                   }
                   #sidebarUsuario input {
                     width: 100%;
-                    padding: 0.7rem 0.9rem;
-                    border-radius: 9px;
-                    border: 2px solid #d1d5db;
-                    font-size: 0.9rem;
+                    padding: 1rem 1.2rem;
+                    border-radius: 14px;
+                    border: 2px solid #e2e8f0;
+                    font-size: 0.95rem;
                     outline: none;
-                    margin-bottom: 0.6rem;
-                    background: #ffffff;
-                    color: #333;
+                    margin-bottom: 1rem;
+                    background: rgba(255, 255, 255, 0.9);
+                    color: #1e293b;
                     font-family: 'Inter', Arial, sans-serif;
-                    box-shadow: 0 2px 5px rgba(0,0,0,0.06);
-                    transition: border 0.2s, box-shadow 0.2s;
-                    z-index: 100001;
+                    box-shadow: 
+                      0 1px 3px rgba(0, 0, 0, 0.1),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    z-index: 999999999;
                     position: relative;
                     box-sizing: border-box;
+                    backdrop-filter: blur(10px);
                   }
                   #sidebarUsuario input:focus {
                     border: 2px solid #1976d2;
-                    box-shadow: 0 4px 12px rgba(25,118,210,0.15);
+                    box-shadow: 
+                      0 0 0 4px rgba(25, 118, 210, 0.1),
+                      0 4px 14px rgba(25, 118, 210, 0.15);
+                    transform: translateY(-1px);
                   }
                   #sidebarUsuario button {
-                    background: linear-gradient(135deg,#1976d2 0%,#42a5f5 100%);
+                    background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
                     color: #fff;
                     border: none;
-                    padding: 0.65rem 1rem;
-                    border-radius: 9px;
+                    padding: 1rem 1.5rem;
+                    border-radius: 14px;
                     cursor: pointer;
-                    font-size: 0.9rem;
+                    font-size: 0.95rem;
                     font-weight: 600;
-                    margin-top: 0.3rem;
-                    box-shadow: 0 3px 8px rgba(25,118,210,0.3);
-                    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+                    margin-top: 0.5rem;
+                    box-shadow: 
+                      0 4px 14px rgba(25, 118, 210, 0.35),
+                      0 2px 4px rgba(0, 0, 0, 0.1);
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                     width: 100%;
-                    z-index: 100001;
+                    font-family: 'Inter', Arial, sans-serif;
+                    letter-spacing: 0.01em;
                     position: relative;
+                    overflow: hidden;
+                    z-index: 999999999;
                   }
                   #sidebarUsuario button:hover {
                     background: linear-gradient(135deg,#1565c0 0%,#1976d2 100%);
                     transform: translateY(-1px);
                     box-shadow: 0 5px 14px rgba(25,118,210,0.4);
+                  }
+                  
+                  /* Botão Salvar Informações - destaque especial MÁXIMO */
+                  #btnSalvarUsuario {
+                    position: relative !important;
+                    z-index: 99999999999 !important;
+                    transform: translateZ(2000px) !important;
+                    will-change: transform !important;
+                  }
+                  #btnSalvarUsuario:hover {
+                    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%) !important;
+                    transform: translateY(-3px) scale(1.03) translateZ(3000px) !important;
+                    box-shadow: 0 12px 35px rgba(33,150,243,0.8) !important;
+                    z-index: 99999999999 !important;
+                  }
+                  
+                  #btnSalvarUsuario:active {
+                    transform: translateY(-1px) scale(1.01) translateZ(3000px) !important;
+                    box-shadow: 0 8px 25px rgba(33,150,243,0.7) !important;
+                    z-index: 99999999999 !important;
+                  }
+                  
+                  /* Garantir que o botão sempre apareça por cima */
+                  #btnSalvarUsuario {
+                    isolation: isolate !important;
+                    contain: layout style paint !important;
+                    will-change: transform, opacity !important;
+                    pointer-events: auto !important;
+                  }
+                  
+                  /* Criação de um contexto de empilhamento dedicado */
+                  #sidebarUsuario {
+                    transform-style: preserve-3d !important;
                   }
                   
                   /* Estilos para controles de imagem de fundo */
@@ -347,41 +407,89 @@
                   
                   .galeria-temas {
                     display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-                    gap: 8px;
+                    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+                    gap: 12px;
                     margin-bottom: 1rem;
-                    max-height: 200px;
+                    max-height: 250px;
                     overflow-y: auto;
-                    padding: 4px;
-                    border-radius: 8px;
+                    padding: 8px;
+                    border-radius: 12px;
                     background: #f8f9fa;
                     border: 1px solid #e5e7eb;
                   }
                   
                   .imagem-tema {
                     width: 100%;
-                    height: 60px;
+                    height: 80px;
                     object-fit: cover;
-                    border-radius: 6px;
+                    border-radius: 8px;
                     cursor: pointer;
-                    border: 2px solid transparent;
-                    transition: all 0.2s;
+                    border: 3px solid transparent;
+                    transition: all 0.3s ease;
                     display: block !important;
                     opacity: 1 !important;
                     visibility: visible !important;
                     background: #f0f0f0;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+                    position: relative;
+                    overflow: hidden;
+                  }
+                  
+                  .imagem-tema::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+                    transform: translateX(-100%);
+                    transition: transform 0.6s;
+                  }
+                  
+                  .imagem-tema:hover::before {
+                    transform: translateX(100%);
                   }
                   
                   .imagem-tema:hover {
                     border-color: #1976d2;
-                    transform: scale(1.05);
-                    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+                    transform: scale(1.08) translateY(-2px);
+                    box-shadow: 0 8px 25px rgba(25,118,210,0.4);
+                    z-index: 10;
+                    position: relative;
                   }
                   
                   .imagem-tema.selecionada {
                     border-color: #1976d2;
-                    box-shadow: 0 0 0 1px #1976d2, 0 4px 8px rgba(25,118,210,0.3);
+                    box-shadow: 0 0 0 2px #1976d2, 0 8px 20px rgba(25,118,210,0.4);
+                    transform: scale(1.05);
+                  }
+                  
+                  /* Preview melhorado com tooltip */
+                  .imagem-tema {
+                    position: relative;
+                  }
+                  
+                  .imagem-tema::after {
+                    content: attr(alt);
+                    position: absolute;
+                    bottom: -30px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: rgba(0,0,0,0.8);
+                    color: white;
+                    padding: 4px 8px;
+                    border-radius: 4px;
+                    font-size: 11px;
+                    white-space: nowrap;
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: opacity 0.3s;
+                    z-index: 1000;
+                  }
+                  
+                  .imagem-tema:hover::after {
+                    opacity: 1;
                   }
                   
                   /* Fallback para imagens que não carregam */
@@ -391,13 +499,35 @@
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
-                    font-size: 20px;
+                    font-size: 24px;
                     color: #666;
                     z-index: 1;
+                    opacity: 0;
+                    transition: opacity 0.3s;
                   }
                   
+                  .imagem-tema[src=""], .imagem-tema:not([src]) {
+                    background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+                  }
+                  
+                  .imagem-tema[src=""]:before, .imagem-tema:not([src]):before {
+                    opacity: 1;
+                  }
+                  
+                  /* Loading state para imagens */
                   .imagem-tema {
-                    position: relative;
+                    background-image: linear-gradient(90deg, #f0f0f0 0px, #e0e0e0 40px, #f0f0f0 80px);
+                    background-size: 200px;
+                    animation: loading 1.5s infinite;
+                  }
+                  
+                  .imagem-tema[data-loaded="true"] {
+                    animation: none;
+                  }
+                  
+                  @keyframes loading {
+                    0% { background-position: -200px 0; }
+                    100% { background-position: 200px 0; }
                   }
                   
                   .upload-area {
@@ -510,20 +640,22 @@
                   /* Responsividade para tablets e dispositivos médios */
                   @media (max-width: 768px) {
                     #sidebarUsuarioOverlay {
-                      align-items: center;
-                      padding: 15px;
+                      align-items: flex-start;
+                      padding: 10px;
+                      padding-top: 15px;
                     }
                     #sidebarUsuario {
-                      width: 85vw;
-                      max-width: 400px;
+                      width: 92vw;
+                      max-width: 450px;
                       min-width: 300px;
-                      padding: 1.5rem 1.2rem 1.3rem 1.2rem;
+                      padding: 1rem 1.5rem 16.3rem 1.5rem;
                       margin: 0 auto;
-                      max-height: 85vh;
+                      max-height: calc(100vh + 10cm);
+                      border-radius: 18px;
                     }
                     #sidebarUsuario h2 {
-                      font-size: 1.2rem;
-                      margin-bottom: 0.5rem;
+                      font-size: 1.25rem;
+                      margin-bottom: 0.6rem;
                     }
                     #sidebarUsuario label {
                       font-size: 0.95rem;
@@ -535,9 +667,9 @@
                       margin-bottom: 0.7rem;
                     }
                     #sidebarUsuario button {
-                      padding: 0.7rem 1.1rem;
+                      padding: 0.8rem 1.2rem;
                       font-size: 0.95rem;
-                      margin-top: 0.4rem;
+                      margin-top: 0.5rem;
                     }
                   }
                   
@@ -546,21 +678,23 @@
                     #sidebarUsuarioOverlay {
                       align-items: flex-start !important;
                       justify-content: center !important;
-                      padding: 8px;
-                      padding-top: calc(50vh - 44vh - 2cm);
-                      z-index: 999999;
+                      padding: 5px;
+                      padding-top: 10px;
+                      z-index: 9999999;
                       display: flex !important;
                     }
                     #sidebarUsuario {
-                      width: 94vw;
+                      width: 96vw;
                       max-width: none;
                       min-width: 0;
-                      padding: 1.8rem 1.4rem 1.6rem 1.4rem;
-                      border-radius: 18px;
+                      padding: 1rem 1.6rem 17.2rem 1.6rem;
+                      border-radius: 20px;
                       margin: auto;
-                      max-height: 88vh;
-                      box-shadow: 0 12px 40px 0 rgba(31,38,135,0.4);
-                      z-index: 1000000;
+                      max-height: calc(100vh + 10cm);
+                      box-shadow: 
+                        0 30px 60px -12px rgba(0, 0, 0, 0.5),
+                        0 0 0 1px rgba(255, 255, 255, 0.9);
+                      z-index: 99999999;
                       position: relative;
                       transform: none;
                       top: auto;
@@ -568,90 +702,94 @@
                       right: auto;
                     }
                     #sidebarUsuario h2 {
-                      font-size: 1.2rem;
+                      font-size: 1.3rem;
                       white-space: normal;
-                      margin-bottom: 0.7rem;
+                      margin-bottom: 0.8rem;
                       line-height: 1.3;
                     }
                     #sidebarUsuario label {
-                      font-size: 0.95rem;
+                      font-size: 1rem;
                       white-space: normal;
-                      margin-bottom: 0.5rem;
+                      margin-bottom: 0.6rem;
                       line-height: 1.3;
                     }
                     #sidebarUsuario input {
-                      padding: 0.9rem 1.1rem;
-                      font-size: 0.95rem;
-                      margin-bottom: 0.9rem;
-                      border-radius: 12px;
+                      padding: 1rem 1.2rem;
+                      font-size: 1rem;
+                      margin-bottom: 1rem;
+                      border-radius: 14px;
                     }
                     #sidebarUsuario button {
-                      padding: 0.85rem 1.3rem;
-                      font-size: 0.95rem;
-                      margin-top: 0.6rem;
-                      border-radius: 12px;
-                      min-height: 44px;
+                      padding: 1rem 1.4rem;
+                      font-size: 1rem;
+                      margin-top: 0.8rem;
+                      border-radius: 14px;
+                      min-height: 48px;
                     }
                     #sidebarUsuario .fecharSidebar {
-                      font-size: 1.6rem;
-                      top: 12px;
-                      right: 18px;
-                      width: 36px;
-                      height: 36px;
-                      min-width: 44px;
-                      min-height: 44px;
-                      z-index: 1000001;
+                      font-size: 1.8rem;
+                      top: 15px;
+                      right: 20px;
+                      width: 40px;
+                      height: 40px;
+                      min-width: 48px;
+                      min-height: 48px;
+                      z-index: 999999999;
                     }
                   }
                   
                   /* Responsividade para dispositivos muito pequenos */
                   @media (max-width: 380px) {
                     #sidebarUsuarioOverlay {
-                      align-items: center;
+                      align-items: flex-start;
                       justify-content: center;
-                      padding: 8px;
+                      padding: 3px;
+                      padding-top: 5px;
                     }
                     #sidebarUsuario {
-                      width: 96vw;
-                      padding: 1.6rem 1.2rem 1.4rem 1.2rem;
+                      width: 98vw;
+                      padding: 0.8rem 1.4rem 17.4rem 1.4rem;
                       margin: 0 auto;
-                      border-radius: 16px;
-                      max-height: 80vh;
+                      border-radius: 18px;
+                      max-height: calc(100vh + 10cm);
                     }
                     #sidebarUsuario h2 {
-                      font-size: 1.15rem;
-                      margin-bottom: 0.6rem;
+                      font-size: 1.2rem;
+                      margin-bottom: 0.7rem;
                     }
                     #sidebarUsuario label {
-                      font-size: 0.88rem;
-                      margin-bottom: 0.3rem;
+                      font-size: 0.9rem;
+                      margin-bottom: 0.4rem;
                     }
                     #sidebarUsuario input {
-                      padding: 0.75rem 0.9rem;
-                      font-size: 0.88rem;
-                      margin-bottom: 0.6rem;
+                      padding: 0.8rem 1rem;
+                      font-size: 0.9rem;
+                      margin-bottom: 0.7rem;
                     }
                     #sidebarUsuario button {
-                      padding: 0.75rem 1rem;
-                      font-size: 0.88rem;
-                      margin-top: 0.4rem;
+                      padding: 0.8rem 1.1rem;
+                      font-size: 0.9rem;
+                      margin-top: 0.5rem;
                     }
                     #sidebarUsuario .fecharSidebar {
-                      font-size: 1.3rem;
-                      top: 8px;
-                      right: 12px;
-                      width: 28px;
-                      height: 28px;
+                      font-size: 1.5rem;
+                      top: 10px;
+                      right: 15px;
+                      width: 32px;
+                      height: 32px;
                     }
                   }
                   
                   /* Ajustes para orientação landscape em móveis */
                   @media (max-width: 768px) and (orientation: landscape) {
+                    #sidebarUsuarioOverlay {
+                      padding-top: 5px;
+                    }
                     #sidebarUsuario {
-                      width: 70vw;
-                      max-width: 350px;
-                      margin: 15px auto;
-                      max-height: calc(85vh - 30px);
+                      width: 75vw;
+                      max-width: 400px;
+                      margin: 5px auto;
+                      max-height: calc(100vh + 8cm);
                     }
                   }
                   
@@ -687,13 +825,27 @@
 
                   /* Força a rolagem do body quando a sidebar estiver aberta */
                   body.sidebar-usuario-aberta {
-                    overflow-y: auto !important;
-                    height: auto !important;
-                    position: static !important;
+                    overflow: hidden !important;
+                    height: 100vh !important;
+                    position: fixed !important;
+                    width: 100% !important;
                   }
 
                   #sidebarUsuarioOverlay {
                     -webkit-overflow-scrolling: touch;
+                    overscroll-behavior: contain;
+                  }
+                  
+                  /* Garantir que a sidebar sempre fique no topo */
+                  #sidebarUsuarioOverlay.show {
+                    display: flex !important;
+                    z-index: 9999999 !important;
+                  }
+                  
+                  #sidebarUsuario.open {
+                    transform: scale(1) !important;
+                    opacity: 1 !important;
+                    z-index: 99999999 !important;
                   }
                 </style>
             <!-- Sidebar Usuário -->
@@ -705,7 +857,8 @@
                 <input id="inputNomeUsuario" type="text" maxlength="20" placeholder="Seu nome" autocomplete="off" />
                 <label for="inputArrobaUsuario">Nome de usuário (@)</label>
                 <input id="inputArrobaUsuario" type="text" maxlength="20" placeholder="@" autocomplete="off" />
-                <button id="btnSalvarUsuario">💾 Salvar Informações</button>
+                <button id="btnSalvarUsuario" style="position: relative !important; z-index: 99999999999 !important; background: linear-gradient(135deg, #2196f3 0%, #21cbf3 100%) !important; color: #fff !important; border: none !important; padding: 0.85rem 1.2rem !important; border-radius: 12px !important; cursor: pointer !important; font-size: 1rem !important; font-weight: 700 !important; margin-top: 0.4rem !important; margin-bottom: 0.6rem !important; box-shadow: 0 10px 30px rgba(33,150,243,0.6) !important; transition: all 0.3s ease !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; width: 100% !important; transform: translateZ(1000px) !important;">💾 Salvar Informações</button>
+                
                 
                 <!-- Controles de Imagem de Fundo -->
                 <div class="imagem-controles">
@@ -713,7 +866,17 @@
                   
                   <!-- Galeria de imagens por tema -->
                   <div class="galeria-temas" id="galeriaTemas">
-                    <!-- As imagens serão carregadas dinamicamente pelo JavaScript -->
+                    <!-- Imagens de fundo pré-carregadas com preview melhorado -->
+                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=1" alt="Natureza 1" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=2" alt="Natureza 2" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=3" alt="Paisagem 1" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=4" alt="Paisagem 2" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=5" alt="Abstratas 1" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=6" alt="Abstratas 2" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=7" alt="Cores 1" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=8" alt="Cores 2" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=9" alt="Texturas 1" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    <img class="imagem-tema" src="https://picsum.photos/400/300?random=10" alt="Texturas 2" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
                   </div>
                   
                   <!-- Upload de imagem personalizada -->
@@ -729,7 +892,7 @@
                   </div>
                   
                   <!-- Botão de teste -->
-                  <button class="btn-imagem" id="btnTestarGaleria" style="width: 100%; margin-top: 8px; background: #2196f3; color: white;">🔄 Recarregar Galeria</button>
+                  <button class="btn-imagem" id="btnTestarGaleria" style="width: 100%; margin-top: 8px; margin-bottom: 150px; background: #2196f3; color: white;">🔄 Recarregar Galeria</button>
                 </div>
               </div>
             </div>
@@ -826,8 +989,8 @@
             </div>
         </div>
     </div>
-    <div id="tagsModal" style="display:none;position:absolute;z-index:1000;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.25);align-items:center;justify-content:center;">
-        <div class="tags-content" style="background:#fff;padding:2rem 1.5rem;border-radius:1.2rem;max-width:95vw;width:400px;box-shadow:0 2px 16px #0002;display:flex;flex-direction:column;align-items:center;">
+    <div id="tagsModal" style="display:none;position:fixed;z-index:1000;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.25);align-items:center;justify-content:center;overflow-y:auto;padding:20px;box-sizing:border-box;">
+        <div class="tags-content" style="background:#fff;padding:1rem 1.2rem 16rem 1.2rem;border-radius:1.2rem;max-width:95vw;width:400px;max-height:calc(100vh + 10cm);overflow-y:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:thin;box-shadow:0 2px 16px #0002;display:flex;flex-direction:column;align-items:center;">
             <h2 style="margin-bottom:1rem;">Sugestões de Tags</h2>
             <div id="tagsLacunas" style="width:100%;display:flex;flex-direction:column;gap:1.2rem;"></div>
             <button class="fechar-modal" id="fecharTags" style="margin-top:1.5rem;">Fechar</button>
@@ -877,7 +1040,137 @@
 
     // Frases já existentes no projeto com autores
     const frasesComAutores = [
-      // ...existing code...
+      // Motivacionais (0-9)
+      { frase: "O sucesso é a soma de pequenos esforços repetidos dia após dia.", autor: "Robert Collier" },
+      { frase: "Acredite em si mesmo e chegará um dia em que os outros não terão outra escolha senão acreditar com você.", autor: "Cynthia Kersey" },
+      { frase: "A persistência é o caminho do êxito.", autor: "Charlie Chaplin" },
+      { frase: "Não espere por oportunidades extraordinárias. Agarre ocasiões comuns e torne-as grandes.", autor: "Orison Swett Marden" },
+      { frase: "A única maneira de fazer um excelente trabalho é amar o que você faz.", autor: "Steve Jobs" },
+      { frase: "O futuro pertence àqueles que acreditam na beleza de seus sonhos.", autor: "Eleanor Roosevelt" },
+      { frase: "Você é mais forte do que imagina, mais capaz do que sonha.", autor: "Desconhecido" },
+      { frase: "Grandes realizações requerem grande ambição.", autor: "Heráclito" },
+      { frase: "O que não me mata, me fortalece.", autor: "Friedrich Nietzsche" },
+      { frase: "A vida é 10% do que acontece com você e 90% de como você reage a isso.", autor: "Charles R. Swindoll" },
+      
+      // Amor (10-19)
+      { frase: "O amor é a única força capaz de transformar um inimigo em amigo.", autor: "Martin Luther King Jr." },
+      { frase: "Amar profundamente alguém lhe dá força. Ser amado profundamente por alguém lhe dá coragem.", autor: "Lao Tzu" },
+      { frase: "O amor não é apenas um sentimento, é uma decisão.", autor: "Stephen Covey" },
+      { frase: "No final, só três coisas importam: o quanto você amou, quão gentilmente você viveu e quão graciosamente você deixou ir as coisas.", autor: "Buda" },
+      { frase: "O amor verdadeiro nunca tem fim.", autor: "Desconhecido" },
+      { frase: "Onde há amor, há vida.", autor: "Mahatma Gandhi" },
+      { frase: "O amor é composto de uma única alma habitando dois corpos.", autor: "Aristóteles" },
+      { frase: "Amar é encontrar na felicidade do outro a própria felicidade.", autor: "Gottfried Leibniz" },
+      { frase: "O amor é a ponte entre duas almas.", autor: "Rumi" },
+      { frase: "Ser amado profundamente por alguém lhe dá força, enquanto amar alguém profundamente lhe dá coragem.", autor: "Lao Tzu" },
+      
+      // Amizade (20-29)
+      { frase: "A amizade é o único cimento que manterá o mundo unido.", autor: "Woodrow Wilson" },
+      { frase: "Um amigo é alguém que conhece a canção do seu coração e pode cantá-la de volta quando você esquece a letra.", autor: "Desconhecido" },
+      { frase: "A verdadeira amizade é uma planta de crescimento lento.", autor: "George Washington" },
+      { frase: "Os amigos são a família que escolhemos.", autor: "Desconhecido" },
+      { frase: "Um amigo verdadeiro é aquele que entra quando o resto do mundo sai.", autor: "Walter Winchell" },
+      { frase: "A amizade duplica as alegrias e divide as tristezas.", autor: "Francis Bacon" },
+      { frase: "Não há nada melhor do que um amigo, a menos que seja um amigo com chocolate.", autor: "Linda Grayson" },
+      { frase: "A amizade é a única flor que floresce em todas as estações.", autor: "Desconhecido" },
+      { frase: "Um bom amigo é como uma estrela, você nem sempre pode vê-lo, mas sabe que está sempre lá.", autor: "Desconhecido" },
+      { frase: "A amizade é o ingrediente mais importante na receita da vida.", autor: "Desconhecido" },
+      
+      // Felicidade (30-39)
+      { frase: "A felicidade não é algo pronto. Ela vem de suas próprias ações.", autor: "Dalai Lama" },
+      { frase: "Seja feliz pelo momento. Este momento é sua vida.", autor: "Omar Khayyam" },
+      { frase: "A felicidade é quando o que você pensa, o que você diz e o que você faz estão em harmonia.", autor: "Mahatma Gandhi" },
+      { frase: "A felicidade é a chave para o sucesso. Se você ama o que faz, será bem-sucedido.", autor: "Albert Schweitzer" },
+      { frase: "A verdadeira felicidade é gostar de si mesmo e gostar do que você faz.", autor: "Maya Angelou" },
+      { frase: "A felicidade é um estado mental. É uma escolha, uma questão de atitude.", autor: "Walt Disney" },
+      { frase: "A felicidade não depende do que você tem ou quem você é, depende apenas do que você pensa.", autor: "Buda" },
+      { frase: "As pessoas mais felizes não têm o melhor de tudo, elas fazem o melhor de tudo.", autor: "Desconhecido" },
+      { frase: "A felicidade é como uma borboleta: quanto mais você a persegue, mais ela se afasta.", autor: "Henry David Thoreau" },
+      { frase: "A felicidade é a única coisa que se multiplica quando compartilhada.", autor: "Albert Schweitzer" },
+      
+      // Superação (40-49)
+      { frase: "A força não vem da capacidade física. Vem de uma vontade indomável.", autor: "Mahatma Gandhi" },
+      { frase: "Você é mais corajoso do que acredita, mais forte do que parece e mais inteligente do que pensa.", autor: "A.A. Milne" },
+      { frase: "Não é o mais forte que sobrevive, nem o mais inteligente, mas o que melhor se adapta às mudanças.", autor: "Charles Darwin" },
+      { frase: "Cada obstáculo é uma oportunidade para crescer.", autor: "Desconhecido" },
+      { frase: "A vida não é sobre esperar a tempestade passar, é sobre aprender a dançar na chuva.", autor: "Vivian Greene" },
+      { frase: "As dificuldades preparam pessoas comuns para destinos extraordinários.", autor: "C.S. Lewis" },
+      { frase: "Você não pode voltar e mudar o início, mas pode começar onde está e mudar o final.", autor: "C.S. Lewis" },
+      { frase: "A coragem não é a ausência do medo, mas a ação apesar dele.", autor: "Nelson Mandela" },
+      { frase: "O sucesso é ir de fracasso em fracasso sem perder o entusiasmo.", autor: "Winston Churchill" },
+      { frase: "Seja você a mudança que quer ver no mundo.", autor: "Mahatma Gandhi" },
+      
+      // Gratidão (50-59)
+      { frase: "A gratidão transforma o que temos em suficiente.", autor: "Desconhecido" },
+      { frase: "Seja grato pelo que você tem; você acabará tendo mais.", autor: "Oprah Winfrey" },
+      { frase: "A gratidão é não apenas a maior das virtudes, mas a mãe de todas as outras.", autor: "Cícero" },
+      { frase: "Em tempos difíceis, a gratidão é especialmente importante.", autor: "John F. Kennedy" },
+      { frase: "A gratidão faz sentido do nosso passado, traz paz para hoje e cria uma visão para amanhã.", autor: "Melody Beattie" },
+      { frase: "Dê graças por um pouco e você encontrará muito.", autor: "Provérbio Africano" },
+      { frase: "A gratidão é a memória do coração.", autor: "Jean Baptiste Massieu" },
+      { frase: "Quando bebemos com gratidão, a água se torna vinho.", autor: "Rumi" },
+      { frase: "A gratidão é o vinho da alma. Vá em frente e embriague-se.", autor: "Rumi" },
+      { frase: "Um coração grato é um ímã para milagres.", autor: "Desconhecido" },
+      
+      // Reflexão (60-69)
+      { frase: "A vida é o que acontece enquanto você está ocupado fazendo outros planos.", autor: "John Lennon" },
+      { frase: "O que está atrás de nós e o que está à nossa frente são questões pequenas comparadas ao que está dentro de nós.", autor: "Ralph Waldo Emerson" },
+      { frase: "A única maneira de dar sentido à mudança é mergulhar nela, mover-se com ela e juntar-se à dança.", autor: "Alan Watts" },
+      { frase: "Ontem é história, amanhã é um mistério, hoje é um presente.", autor: "Eleanor Roosevelt" },
+      { frase: "A vida é como uma câmera. Foque no que é importante e você capturará perfeitamente.", autor: "Desconhecido" },
+      { frase: "Não conte os dias, faça os dias contarem.", autor: "Muhammad Ali" },
+      { frase: "A vida é uma jornada, não um destino.", autor: "Ralph Waldo Emerson" },
+      { frase: "O tempo é gratuito, mas é inestimável. Você não pode possuí-lo, mas pode usá-lo.", autor: "Harvey MacKay" },
+      { frase: "A vida é como um espelho: ela sorri de volta se você sorrir para ela.", autor: "Paz Loureiro" },
+      { frase: "Viva como se fosse morrer amanhã. Aprenda como se fosse viver para sempre.", autor: "Mahatma Gandhi" },
+      
+      // Sucesso (70-79)
+      { frase: "O sucesso é a realização progressiva de um ideal digno.", autor: "Earl Nightingale" },
+      { frase: "O sucesso não é final, o fracasso não é fatal: é a coragem de continuar que conta.", autor: "Winston Churchill" },
+      { frase: "O sucesso é onde a preparação e a oportunidade se encontram.", autor: "Bobby Unser" },
+      { frase: "Não meça o sucesso pela posição que alcançou na vida, mas pelos obstáculos que superou.", autor: "Booker T. Washington" },
+      { frase: "O sucesso é gostar de si mesmo, gostar do que faz e gostar de como faz.", autor: "Maya Angelou" },
+      { frase: "O sucesso é conseguir o que você quer. A felicidade é querer o que você consegue.", autor: "Dale Carnegie" },
+      { frase: "O único lugar onde o sucesso vem antes do trabalho é no dicionário.", autor: "Vidal Sassoon" },
+      { frase: "O sucesso é a habilidade de ir de fracasso em fracasso sem perder o entusiasmo.", autor: "Winston Churchill" },
+      { frase: "O verdadeiro sucesso é ser capaz de voltar para casa e ficar em paz consigo mesmo.", autor: "Jack Ma" },
+      { frase: "O sucesso não se mede pelo dinheiro, mas pelo impacto positivo que você causa.", autor: "Desconhecido" },
+      
+      // Família (80-89)
+      { frase: "A família é o coração de todas as coisas.", autor: "Desconhecido" },
+      { frase: "Família não é sempre sangue. São as pessoas em sua vida que querem você nela.", autor: "Desconhecido" },
+      { frase: "A família é onde a vida começa e o amor nunca termina.", autor: "Desconhecido" },
+      { frase: "O amor de uma família é a maior bênção da vida.", autor: "Desconhecido" },
+      { frase: "Uma família feliz é um céu antecipado.", autor: "George Bernard Shaw" },
+      { frase: "A família é a base de toda sociedade e o lugar onde as pessoas aprendem pela primeira vez os valores que as guiarão por toda a vida.", autor: "Papa João XXIII" },
+      { frase: "Família: onde a vida começa e o amor nunca acaba.", autor: "Desconhecido" },
+      { frase: "A coisa mais importante no mundo é a família e o amor.", autor: "John Wooden" },
+      { frase: "Família significa que ninguém fica para trás ou é esquecido.", autor: "David Ogden Stiers" },
+      { frase: "O lar é onde o amor habita, onde as memórias nascem, onde os amigos sempre pertencem e onde os risos nunca terminam.", autor: "Desconhecido" },
+      
+      // Inspiração (90-99)
+      { frase: "Se você pode sonhar, você pode fazer.", autor: "Walt Disney" },
+      { frase: "A melhor maneira de prever o futuro é criá-lo.", autor: "Peter Drucker" },
+      { frase: "Grandes sonhos começam com grandes sonhadores.", autor: "Harriet Tubman" },
+      { frase: "Acredite que você pode e você já está no meio do caminho.", autor: "Theodore Roosevelt" },
+      { frase: "O futuro pertence àqueles que acreditam na beleza de seus sonhos.", autor: "Eleanor Roosevelt" },
+      { frase: "Não limite seus desafios, desafie seus limites.", autor: "Desconhecido" },
+      { frase: "A inspiração existe, mas ela tem que encontrar você trabalhando.", autor: "Pablo Picasso" },
+      { frase: "Seja a mudança que você quer ver no mundo.", autor: "Mahatma Gandhi" },
+      { frase: "O único impossível é aquilo que você não tenta.", autor: "Desconhecido" },
+      { frase: "Sonhe grande e ouse falhar.", autor: "Norman Vaughan" },
+      
+      // Versículos Bíblicos (100-109)
+      { frase: "Tudo posso naquele que me fortalece.", autor: "Filipenses 4:13" },
+      { frase: "O Senhor é meu pastor, nada me faltará.", autor: "Salmos 23:1" },
+      { frase: "Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito.", autor: "João 3:16" },
+      { frase: "Entrega o teu caminho ao Senhor; confia nele, e ele tudo fará.", autor: "Salmos 37:5" },
+      { frase: "O amor é paciente, o amor é bondoso.", autor: "1 Coríntios 13:4" },
+      { frase: "Não temas, porque eu sou contigo; não te assombres, porque eu sou teu Deus.", autor: "Isaías 41:10" },
+      { frase: "Porque eu bem sei os pensamentos que tenho a vosso respeito, pensamentos de paz.", autor: "Jeremias 29:11" },
+      { frase: "Seja forte e corajoso! Não se apavore nem desanime, pois o Senhor estará com você.", autor: "Josué 1:9" },
+      { frase: "O Senhor te abençoe e te guarde.", autor: "Números 6:24" },
+      { frase: "Confie no Senhor de todo o seu coração e não se apoie em seu próprio entendimento.", autor: "Provérbios 3:5" }
     ];
 
     // Mapeamento de temas para as frases correspondentes
@@ -1339,7 +1632,7 @@ updateBgWatermark();
 document.getElementById('btnPrint').addEventListener('click', function () {
     const fraseBox = document.querySelector('.frase-box');
     
-    // Elementos a ocultar temporariamente
+    // Elementos a ocultar temporariamente - TODOS OS BOTÕES E CONTROLES
     const elementosOcultos = [
         '#btnPrint',
         '#btnTags',
@@ -1349,7 +1642,20 @@ document.getElementById('btnPrint').addEventListener('click', function () {
         '#btnDarkModeNovo',
         '#voltarFrase',
         '#novaFrase',
-        '#btnMenuUsuario'
+        '#btnMenuUsuario',
+        '.top-bar',
+        '.controls',
+        '.mid-bar',
+        '.botoes-interativos',
+        '.bottom-botoes',
+        '.botoes',
+        '#temaSelect',
+        '#fonteSelect',
+        '.tags-btn',
+        '.copiar-btn',
+        '.coracao-btn',
+        '.favoritos-btn',
+        '.botao-navegacao'
     ];
     
     // Esconde os elementos
@@ -1373,7 +1679,14 @@ document.getElementById('btnPrint').addEventListener('click', function () {
             // Restaura os elementos
             elementosOcultos.forEach(sel => {
                 const el = document.querySelector(sel);
-                if (el) el.style.display = '';
+                if (el) {
+                    // Restaura display específico para diferentes tipos de elementos
+                    if (sel.includes('.top-bar') || sel.includes('.controls') || sel.includes('.mid-bar') || sel.includes('.botoes-interativos') || sel.includes('.bottom-botoes') || sel.includes('.botoes')) {
+                        el.style.display = 'flex';
+                    } else {
+                        el.style.display = '';
+                    }
+                }
             });
         });
     }, 200); // tempo para aplicar os hides corretamente
@@ -1745,6 +2058,79 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('darkMode', 'true');
       }
     });
+  }
+});
+</script>
+<script>
+// ==== CONTROLE DE IMAGENS DE FUNDO ====
+function selecionarImagemFundo(urlImagem) {
+  const imagemFundo = document.getElementById('imagemFundo');
+  const imagemFundoContainer = document.getElementById('imagemFundoContainer');
+  
+  if (imagemFundo && imagemFundoContainer) {
+    imagemFundo.src = urlImagem;
+    imagemFundo.style.opacity = '0.4';
+    imagemFundoContainer.style.display = 'block';
+    
+    // Salva a imagem selecionada no localStorage
+    localStorage.setItem('imagemFundoSelecionada', urlImagem);
+    
+    // Remove seleção anterior e adiciona à atual
+    document.querySelectorAll('.imagem-tema').forEach(img => {
+      img.classList.remove('selecionada');
+    });
+    event.target.classList.add('selecionada');
+    
+    console.log('Imagem de fundo aplicada:', urlImagem);
+  }
+}
+
+// Carregar imagem salva ao inicializar
+document.addEventListener('DOMContentLoaded', function() {
+  const imagemSalva = localStorage.getItem('imagemFundoSelecionada');
+  if (imagemSalva) {
+    const imagemFundo = document.getElementById('imagemFundo');
+    const imagemFundoContainer = document.getElementById('imagemFundoContainer');
+    
+    if (imagemFundo && imagemFundoContainer) {
+      imagemFundo.src = imagemSalva;
+      imagemFundo.style.opacity = '0.4';
+      imagemFundoContainer.style.display = 'block';
+      
+      // Marca a imagem como selecionada na galeria
+      document.querySelectorAll('.imagem-tema').forEach(img => {
+        if (img.src === imagemSalva) {
+          img.classList.add('selecionada');
+        }
+      });
+    }
+  }
+});
+
+// Remover imagem de fundo
+function removerImagemFundo() {
+  const imagemFundo = document.getElementById('imagemFundo');
+  const imagemFundoContainer = document.getElementById('imagemFundoContainer');
+  
+  if (imagemFundo && imagemFundoContainer) {
+    imagemFundo.src = '';
+    imagemFundoContainer.style.display = 'none';
+    localStorage.removeItem('imagemFundoSelecionada');
+    
+    // Remove seleção de todas as imagens
+    document.querySelectorAll('.imagem-tema').forEach(img => {
+      img.classList.remove('selecionada');
+    });
+    
+    console.log('Imagem de fundo removida');
+  }
+}
+
+// Configurar botão de remover
+document.addEventListener('DOMContentLoaded', function() {
+  const btnRemover = document.getElementById('btnRemoverImagem');
+  if (btnRemover) {
+    btnRemover.addEventListener('click', removerImagemFundo);
   }
 });
 </script>
