@@ -1545,6 +1545,262 @@
                   
                   /* Tipografia moderna carregada */
                   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+                  
+                  /* === RESPONSIVIDADE DA SIDEBAR PARA MOBILE === */
+                  
+                  /* Tablets e telas médias (768px ou menos) */
+                  @media (max-width: 768px) {
+                    #sidebarUsuario {
+                      width: 85vw;
+                      max-width: 400px;
+                      min-width: 280px;
+                      height: calc(100vh - 60px);
+                      max-height: calc(100vh - 60px);
+                      margin: 30px auto;
+                      padding: 1.2rem 1.5rem 8rem 1.5rem;
+                    }
+                    
+                    #sidebarUsuarioOverlay {
+                      padding: 0 10px;
+                    }
+                  }
+                  
+                  /* Smartphones (480px ou menos) */
+                  @media (max-width: 480px) {
+                    #sidebarUsuario {
+                      width: 90vw;
+                      max-width: 340px;
+                      min-width: 260px;
+                      height: calc(100vh - 80px);
+                      max-height: calc(100vh - 80px);
+                      margin: 40px auto;
+                      padding: 1rem 1.2rem 6rem 1.2rem;
+                      border-radius: 20px;
+                      box-shadow: 
+                        0 20px 40px -8px rgba(0, 0, 0, 0.3),
+                        0 0 0 1px rgba(255, 255, 255, 0.8),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+                        0 4px 20px rgba(59, 130, 246, 0.15);
+                    }
+                    
+                    #sidebarUsuarioOverlay {
+                      padding: 0 5px;
+                    }
+                    
+                    #sidebarUsuario h2 {
+                      font-size: 1.1rem;
+                      margin-bottom: 1rem;
+                    }
+                    
+                    #sidebarUsuario label {
+                      font-size: 0.8rem;
+                      margin-bottom: 0.3rem;
+                    }
+                    
+                    #sidebarUsuario input {
+                      padding: 0.6rem 0.8rem;
+                      font-size: 0.85rem;
+                      border-radius: 8px;
+                    }
+                    
+                    #btnSalvarUsuario {
+                      padding: 0.7rem 1.2rem;
+                      font-size: 0.85rem;
+                      border-radius: 10px;
+                    }
+                    
+                    .galeria-temas {
+                      grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+                      gap: 10px;
+                      max-height: 200px;
+                      padding: 8px;
+                    }
+                    
+                    .imagem-tema {
+                      height: 65px;
+                      border-radius: 10px;
+                      min-height: 65px;
+                    }
+                  }
+                  
+                  /* Telas muito pequenas (360px ou menos) */
+                  @media (max-width: 360px) {
+                    #sidebarUsuario {
+                      width: 95vw;
+                      max-width: 320px;
+                      min-width: 240px;
+                      height: calc(100vh - 60px);
+                      max-height: calc(100vh - 60px);
+                      margin: 30px auto;
+                      padding: 0.8rem 1rem 5rem 1rem;
+                      border-radius: 16px;
+                    }
+                    
+                    #sidebarUsuarioOverlay {
+                      padding: 0 2px;
+                    }
+                    
+                    #sidebarUsuario h2 {
+                      font-size: 1rem;
+                      margin-bottom: 0.8rem;
+                    }
+                    
+                    #sidebarUsuario label {
+                      font-size: 0.75rem;
+                      margin-bottom: 0.25rem;
+                    }
+                    
+                    #sidebarUsuario input {
+                      padding: 0.5rem 0.7rem;
+                      font-size: 0.8rem;
+                      border-radius: 6px;
+                    }
+                    
+                    #btnSalvarUsuario {
+                      padding: 0.6rem 1rem;
+                      font-size: 0.8rem;
+                      border-radius: 8px;
+                    }
+                    
+                    .galeria-temas {
+                      grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+                      gap: 8px;
+                      max-height: 180px;
+                      padding: 6px;
+                    }
+                    
+                    .imagem-tema {
+                      height: 55px;
+                      border-radius: 8px;
+                      min-height: 55px;
+                    }
+                    
+                    .imagem-controles {
+                      padding: 1rem 0.5rem;
+                    }
+                    
+                    .imagem-controles h3 {
+                      font-size: 0.9rem;
+                      margin-bottom: 0.6rem;
+                    }
+                  }
+                  
+                  /* Modo paisagem em dispositivos móveis */
+                  @media (max-width: 768px) and (orientation: landscape) {
+                    #sidebarUsuario {
+                      height: calc(100vh - 40px);
+                      max-height: calc(100vh - 40px);
+                      margin: 20px auto;
+                      padding: 0.8rem 1.2rem 4rem 1.2rem;
+                    }
+                    
+                    .galeria-temas {
+                      max-height: 120px;
+                      grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+                      gap: 6px;
+                    }
+                    
+                    .imagem-tema {
+                      height: 45px;
+                      min-height: 45px;
+                    }
+                  }
+                  
+                  /* Centralização garantida para todos os tamanhos */
+                  @media (max-width: 768px) {
+                    #sidebarUsuarioOverlay {
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      padding-top: 0;
+                      padding-bottom: 0;
+                    }
+                    
+                    #sidebarUsuario {
+                      position: relative;
+                      margin: auto;
+                      left: auto;
+                      right: auto;
+                      top: auto;
+                      bottom: auto;
+                      transform: scale(0.9) translateY(-10px);
+                    }
+                    
+                    #sidebarUsuario.open {
+                      transform: scale(1) translateY(0);
+                    }
+                  }
+                  
+                  /* === OTIMIZAÇÕES PARA TOUCH/MOBILE === */
+                  @media (max-width: 768px) {
+                    /* Melhorar área de toque para botões */
+                    #sidebarUsuario button {
+                      min-height: 44px; /* Tamanho mínimo recomendado para touch */
+                      touch-action: manipulation;
+                    }
+                    
+                    #sidebarUsuario .fecharSidebar {
+                      min-width: 44px;
+                      min-height: 44px;
+                      padding: 10px;
+                    }
+                    
+                    /* Melhorar rolagem em dispositivos touch */
+                    #sidebarUsuario {
+                      -webkit-overflow-scrolling: touch;
+                      overscroll-behavior: contain;
+                    }
+                    
+                    .galeria-temas {
+                      -webkit-overflow-scrolling: touch;
+                      overscroll-behavior: contain;
+                      touch-action: pan-y;
+                    }
+                    
+                    /* Melhorar interação com imagens */
+                    .imagem-tema {
+                      touch-action: manipulation;
+                      -webkit-tap-highlight-color: transparent;
+                    }
+                    
+                    .imagem-tema:active {
+                      transform: scale(0.95);
+                      transition: transform 0.1s ease;
+                    }
+                  }
+                  
+                  /* === MELHORIAS VISUAIS PARA MOBILE === */
+                  @media (max-width: 480px) {
+                    /* Gradiente otimizado para telas pequenas */
+                    #sidebarUsuario {
+                      background: linear-gradient(145deg, 
+                        rgba(255, 255, 255, 0.98) 0%, 
+                        rgba(248, 250, 252, 0.95) 50%,
+                        rgba(241, 245, 249, 0.98) 100%);
+                      backdrop-filter: blur(20px) saturate(1.8);
+                    }
+                    
+                    /* Animações mais suaves em mobile */
+                    #sidebarUsuario,
+                    #sidebarUsuario * {
+                      transition-duration: 0.3s;
+                    }
+                    
+                    /* Reduzir sombras em telas pequenas para melhor performance */
+                    .imagem-tema {
+                      box-shadow: 
+                        0 2px 8px rgba(0,0,0,0.1),
+                        0 1px 3px rgba(0,0,0,0.06),
+                        inset 0 1px 0 rgba(255,255,255,0.7);
+                    }
+                    
+                    .imagem-tema:hover {
+                      box-shadow: 
+                        0 4px 12px rgba(0,0,0,0.15),
+                        0 2px 6px rgba(0,0,0,0.1),
+                        inset 0 1px 0 rgba(255,255,255,0.8);
+                    }
+                  }
                 </style>
             <!-- Sidebar Usuário -->
             <div id="sidebarUsuarioOverlay">
@@ -1620,18 +1876,6 @@
                         <path d="M4 12v2a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4v-2"/>
                         <polyline points="16 6 12 2 8 6"/>
                         <line x1="12" y1="2" x2="12" y2="15"/>
-                     </svg>
-                  </button>
-                  <button id="btnPrintFull" title="📱 Salvar tela completa" style="background:none;border:none;cursor:pointer;padding:0.2rem 0.4rem 0 0.4rem;">
-                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
-                        <line x1="7" y1="2" x2="7" y2="22"></line>
-                        <line x1="17" y1="2" x2="17" y2="22"></line>
-                        <line x1="2" y1="12" x2="22" y2="12"></line>
-                        <line x1="2" y1="7" x2="7" y2="7"></line>
-                        <line x1="2" y1="17" x2="7" y2="17"></line>
-                        <line x1="17" y1="17" x2="22" y2="17"></line>
-                        <line x1="17" y1="7" x2="22" y2="7"></line>
                      </svg>
                   </button>
                   <button id="btnDarkModeNovo" title="Modo escuro" style="background:none;border:none;cursor:pointer;padding:0.2rem 0.4rem 0 0.4rem;">
@@ -2945,8 +3189,45 @@ if (btnSalvarUsuario) {
       }
     }
     
+    // Função de debug para forçar exibição do login
+    window.forcarExibicaoLogin = function() {
+      console.log('🔍 Forçando exibição do modal de login...');
+      
+      // Remove flag de convidado se existir
+      localStorage.removeItem('usuario_convidado');
+      
+      // Força exibição do modal
+      const modalLogin = document.getElementById('modalLogin');
+      if (modalLogin) {
+        modalLogin.style.display = 'flex';
+        modalLogin.classList.add('ativo');
+        console.log('✅ Modal de login forçado a aparecer');
+      } else {
+        console.error('❌ Modal de login não encontrado no DOM');
+      }
+    };
+    
     // Event listeners para botões de modal
     document.addEventListener('DOMContentLoaded', function() {
+      
+      console.log('🚀 Inicializando sistema de modais...');
+      
+      // Verificar se os modais existem
+      const modalLogin = document.getElementById('modalLogin');
+      const modalCadastro = document.getElementById('modalCadastro');
+      const modalEsqueciSenha = document.getElementById('modalEsqueciSenha');
+      
+      console.log('📋 Status dos modais:');
+      console.log('  • modalLogin:', modalLogin ? '✅ Encontrado' : '❌ Não encontrado');
+      console.log('  • modalCadastro:', modalCadastro ? '✅ Encontrado' : '❌ Não encontrado');
+      console.log('  • modalEsqueciSenha:', modalEsqueciSenha ? '✅ Encontrado' : '❌ Não encontrado');
+      
+      // Se não há modalLogin, exibir erro
+      if (!modalLogin) {
+        console.error('❌ ERRO CRÍTICO: Modal de login não encontrado no DOM!');
+        alert('❌ Erro: Modal de login não encontrado. Verifique o HTML.');
+        return;
+      }
       
       // Event listeners para fechar modais
       document.addEventListener('click', function(e) {
@@ -2989,6 +3270,30 @@ if (btnSalvarUsuario) {
           testarModal('modalEsqueciSenha');
         };
       }
+      
+      // Adicionar botão de teste para debug (apenas em desenvolvimento)
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === '') {
+        const btnTesteLogin = document.createElement('button');
+        btnTesteLogin.textContent = '🔧 Teste Login';
+        btnTesteLogin.style.cssText = `
+          position: fixed;
+          top: 10px;
+          left: 10px;
+          background: #ff6b6b;
+          color: white;
+          border: none;
+          padding: 8px 12px;
+          border-radius: 6px;
+          cursor: pointer;
+          z-index: 99999;
+          font-size: 12px;
+        `;
+        btnTesteLogin.onclick = () => window.forcarExibicaoLogin();
+        document.body.appendChild(btnTesteLogin);
+        console.log('🔧 Botão de teste de login adicionado');
+      }
+      
+      console.log('✅ Sistema de modais inicializado com sucesso');
     });
     </script>
     <script>
@@ -3875,58 +4180,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   console.log('✅ Sistema de carregamento forçado inicializado!');
-  
-  // === BOTÃO DE DEBUG PARA TESTAR CARREGAMENTO ===
-  const btnDebugImagens = document.createElement('button');
-  btnDebugImagens.textContent = '🖼️ Debug Imagens';
-  btnDebugImagens.style.cssText = `
-    position: fixed;
-    bottom: 60px;
-    right: 12px;
-    padding: 6px 12px;
-    font-size: 11px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-    color: white;
-    border: none;
-    cursor: pointer;
-    z-index: 9998;
-    box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
-    transition: all 0.3s ease;
-    font-weight: 600;
-  `;
-  
-  btnDebugImagens.addEventListener('click', function() {
-    console.log('🔍 === DEBUG DE IMAGENS ===');
-    mostrarEstatisticas();
-    
-    // Forçar recarregamento de todas as imagens
-    const todasImagens = document.querySelectorAll('.imagem-tema');
-    todasImagens.forEach(img => {
-      img.removeAttribute('data-loaded');
-      img.removeAttribute('data-error');
-    });
-    
-    console.log('🔄 Recarregando todas as imagens...');
-    carregarTodasAsImagens();
-  });
-  
-  btnDebugImagens.addEventListener('mouseenter', function() {
-    this.style.boxShadow = '0 4px 15px rgba(29, 78, 216, 0.5)';
-  });
-  
-  btnDebugImagens.addEventListener('mouseleave', function() {
-    this.style.boxShadow = '0 2px 10px rgba(59, 130, 246, 0.3)';
-  });
-  
-  document.body.appendChild(btnDebugImagens);
-  
-  // Remover botão após 30 segundos
-  setTimeout(() => {
-    if (btnDebugImagens.parentElement) {
-      btnDebugImagens.remove();
-    }
-  }, 30000);
 });
 </script>
 
@@ -5116,102 +5369,6 @@ document.addEventListener('DOMContentLoaded', function() {
     return;
   }
   
-  // === FUNÇÃO PARA CAPTURA DA TELA COMPLETA ===
-  async function capturarTelaCompleta() {
-    try {
-      console.log('📸 Iniciando captura da tela completa...');
-      
-      // Verificar se é dispositivo móvel e mostrar instruções
-      if (isMobileDevice()) {
-        const continuarCaptura = await mostrarInstrucoesSmartphone();
-        if (!continuarCaptura) {
-          console.log('⚠️ Captura cancelada pelo usuário');
-          return;
-        }
-      }
-      
-      // Mostrar indicador de carregamento
-      mostrarIndicadorCarregamento('Capturando tela completa...', btnPrintFull);
-      
-      // Capturar toda a área visível da janela
-      const elementoCaptura = document.body;
-      
-      if (!elementoCaptura) {
-        throw new Error('Elemento para captura não encontrado');
-      }
-      
-      // Preparar elemento para captura
-      await prepararElementoParaCaptura(elementoCaptura);
-      
-      // Configurações otimizadas para captura completa da tela
-      const opcoes = {
-        backgroundColor: '#ffffff',
-        allowTaint: true,
-        useCORS: true,
-        foreignObjectRendering: true,
-        imageTimeout: 20000,
-        logging: false,
-        width: window.innerWidth,
-        height: window.innerHeight,
-        scale: 1.5,
-        x: 0,
-        y: 0,
-        scrollX: window.scrollX || window.pageXOffset || 0,
-        scrollY: window.scrollY || window.pageYOffset || 0,
-        windowWidth: window.innerWidth,
-        windowHeight: window.innerHeight,
-        ignoreElements: function(element) {
-          return element.classList.contains('scroll-controls') ||
-                 element.classList.contains('scroll-position-indicator') ||
-                 element.id === 'sidebarUsuarioOverlay' ||
-                 element.id === 'tagsModal' ||
-                 element.id === 'favoritosModal';
-        }
-      };
-      
-      console.log('⚙️ Configurações de captura completa:', opcoes);
-      
-      // Tentar captura com html2canvas primeiro
-      let canvas;
-      try {
-        canvas = await html2canvas(elementoCaptura, opcoes);
-        console.log('✅ Captura completa realizada com html2canvas!');
-      } catch (html2canvasError) {
-        console.warn('⚠️ html2canvas falhou, tentando dom-to-image...', html2canvasError);
-        
-        // Fallback para dom-to-image
-        try {
-          const dataUrl = await domtoimage.toPng(elementoCaptura, {
-            quality: 1.0,
-            bgcolor: '#ffffff',
-            width: window.innerWidth,
-            height: window.innerHeight,
-            style: {
-              transform: 'scale(1.5)',
-              transformOrigin: 'top left'
-            }
-          });
-          
-          // Converter DataURL para Canvas
-          canvas = await dataUrlToCanvas(dataUrl);
-          console.log('✅ Captura completa realizada com dom-to-image!');
-        } catch (domToImageError) {
-          console.error('❌ dom-to-image também falhou:', domToImageError);
-          throw new Error('Ambas as bibliotecas de captura falharam. Tente recarregar a página.');
-        }
-      }
-      
-      // Processar e salvar imagem
-      await processarESalvarCanvas(canvas, 'completa');
-      
-    } catch (error) {
-      console.error('❌ Erro durante captura completa:', error);
-      mostrarErro(error.message);
-    } finally {
-      ocultarIndicadorCarregamento(btnPrintFull);
-    }
-  }
-
   // === FUNÇÃO DE FALLBACK PARA CAPTURA ===
   async function capturarComFallback(elemento) {
     return new Promise((resolve, reject) => {
@@ -5295,14 +5452,14 @@ document.addEventListener('DOMContentLoaded', function() {
       // Mostrar indicador de carregamento
       mostrarIndicadorCarregamento('Capturando card da frase...', btnPrint);
       
-      // Capturar apenas a área da frase (card)
-      const elementoCaptura = document.getElementById('twitterTextBox') || document.querySelector('.frase-box');
+      // Capturar apenas a área da frase (card principal com fundo)
+      const elementoCaptura = document.querySelector('.frase-box') || document.getElementById('twitterTextBox');
       
       if (!elementoCaptura) {
         throw new Error('Card da frase não encontrado para captura');
       }
       
-      console.log('🎯 Capturando apenas o card da frase:', elementoCaptura.id || elementoCaptura.className);
+      console.log('🎯 Capturando área otimizada da frase:', elementoCaptura.id || elementoCaptura.className);
       
       // Preparar elemento para captura
       await prepararElementoParaCaptura(elementoCaptura);
@@ -5310,17 +5467,17 @@ document.addEventListener('DOMContentLoaded', function() {
       // Obter dimensões do elemento
       const rect = elementoCaptura.getBoundingClientRect();
       
-      // Configurações otimizadas para captura apenas do card da frase
+      // Configurações otimizadas para captura da área da frase
       const opcoes = {
-        backgroundColor: '#ffffff', // Fundo branco sólido para melhor resultado
+        backgroundColor: '#ffffff', // Fundo branco para melhor resultado
         allowTaint: true,
         useCORS: true,
         foreignObjectRendering: false, // Melhor compatibilidade
-        imageTimeout: 30000,
-        logging: true, // Ativar logging para debug
+        imageTimeout: 15000,
+        logging: false, // Desativar logging para performance
         width: rect.width,
         height: rect.height,
-        scale: 2, // Alta qualidade para o card
+        scale: 3, // Máxima qualidade para a frase
         x: 0,
         y: 0,
         scrollX: 0,
@@ -5328,10 +5485,11 @@ document.addEventListener('DOMContentLoaded', function() {
         windowWidth: rect.width,
         windowHeight: rect.height,
         ignoreElements: function(element) {
-          // Ignorar elementos que não fazem parte do card
+          // Ignorar elementos desnecessários na captura
           return element.classList.contains('scroll-controls') ||
                  element.classList.contains('scroll-position-indicator') ||
                  element.id === 'sidebarUsuarioOverlay' ||
+                 element.id === 'sidebarUsuario' ||
                  element.id === 'tagsModal' ||
                  element.id === 'favoritosModal' ||
                  element.id === 'btnMenuUsuario' ||
@@ -5421,36 +5579,45 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (isAndroid) {
       instrucoes = `
-        📱 <strong>Como salvar no Android:</strong><br><br>
+        📱 <strong>Como salvar sua frase motivacional no Android:</strong><br><br>
         1️⃣ Toque no botão de download que aparecerá<br>
-        2️⃣ A imagem será baixada para sua pasta "Downloads"<br>
-        3️⃣ Para mover para a Galeria:<br>
-        &nbsp;&nbsp;&nbsp;• Abra o app "Arquivos" ou "Gerenciador de arquivos"<br>
-        &nbsp;&nbsp;&nbsp;• Vá em "Downloads"<br>
-        &nbsp;&nbsp;&nbsp;• Toque na imagem e selecione "Mover para Galeria"<br><br>
-        <strong>OU</strong><br><br>
-        • Abra a Galeria → Álbuns → Downloads<br>
-        • Toque na imagem → Menu (⋮) → "Mover para álbum"
+        2️⃣ A imagem da sua frase será salva em "Downloads"<br>
+        3️⃣ <strong>Para compartilhar no WhatsApp/Instagram:</strong><br>
+        &nbsp;&nbsp;&nbsp;• Abra WhatsApp → Anexar → Galeria → Downloads<br>
+        &nbsp;&nbsp;&nbsp;• Ou Instagram → Novo Post → Galeria → Downloads<br><br>
+        4️⃣ <strong>Para organizar na Galeria:</strong><br>
+        &nbsp;&nbsp;&nbsp;• Abra "Galeria" → "Álbuns" → "Downloads"<br>
+        &nbsp;&nbsp;&nbsp;• Toque na frase → Menu (⋮) → "Mover para álbum"<br>
+        &nbsp;&nbsp;&nbsp;• Crie uma pasta "Frases Motivacionais"<br><br>
+        💡 <strong>Dica:</strong> Sua frase ficará pronta para posts e stories!
       `;
     } else if (isIOS) {
       instrucoes = `
-        📱 <strong>Como salvar no iPhone/iPad:</strong><br><br>
-        1️⃣ Toque e <strong>segure</strong> na imagem quando ela aparecer<br>
-        2️⃣ Selecione "Salvar na Galeria de Fotos"<br>
-        3️⃣ A imagem será salva automaticamente no app Fotos<br><br>
-        <strong>OU</strong><br><br>
-        1️⃣ Toque no botão de compartilhar (□↗)<br>
-        2️⃣ Selecione "Salvar na Galeria"<br>
-        3️⃣ Confirme tocando em "Salvar Imagem"
+        📱 <strong>Como salvar sua frase motivacional no iPhone/iPad:</strong><br><br>
+        1️⃣ Toque e <strong>segure</strong> na imagem da frase<br>
+        2️⃣ Selecione <strong>"Salvar nas Fotos"</strong><br>
+        3️⃣ Sua frase será salva automaticamente no app Fotos<br><br>
+        📤 <strong>Para compartilhar rapidamente:</strong><br>
+        &nbsp;&nbsp;&nbsp;• Stories do Instagram: Fotos → Sua frase → Compartilhar → Instagram<br>
+        &nbsp;&nbsp;&nbsp;• WhatsApp: Fotos → Sua frase → Compartilhar → WhatsApp<br>
+        &nbsp;&nbsp;&nbsp;• Facebook: Fotos → Sua frase → Compartilhar → Facebook<br><br>
+        📁 <strong>Para organizar:</strong><br>
+        &nbsp;&nbsp;&nbsp;• Crie um álbum "Frases & Motivação"<br>
+        &nbsp;&nbsp;&nbsp;• Fotos → Álbuns → "+" → Nome: "Frases Motivacionais"<br><br>
+        💡 <strong>Dica:</strong> Use como wallpaper ou papel de parede motivacional!
       `;
     } else {
       instrucoes = `
-        📱 <strong>Como salvar no smartphone:</strong><br><br>
-        1️⃣ Toque no botão de download<br>
-        2️⃣ A imagem será baixada para Downloads<br>
+        📱 <strong>Como salvar sua frase motivacional:</strong><br><br>
+        1️⃣ Toque no botão de download que aparecerá<br>
+        2️⃣ A imagem da sua frase será salva em "Downloads"<br>
         3️⃣ Abra sua Galeria de fotos<br>
-        4️⃣ Procure na pasta "Downloads" ou "Imagens baixadas"<br>
-        5️⃣ Mova a imagem para o álbum desejado
+        4️⃣ Procure na pasta "Downloads" ou "Imagens baixadas"<br><br>
+        📤 <strong>Para compartilhar:</strong><br>
+        &nbsp;&nbsp;&nbsp;• WhatsApp: Anexar → Galeria → Downloads<br>
+        &nbsp;&nbsp;&nbsp;• Instagram: Novo Post → Galeria → Downloads<br>
+        &nbsp;&nbsp;&nbsp;• Facebook: Criar Post → Adicionar Foto<br><br>
+        💡 <strong>Dica:</strong> Organize em uma pasta "Frases Motivacionais" para fácil acesso!
       `;
     }
     
@@ -5488,7 +5655,7 @@ document.addEventListener('DOMContentLoaded', function() {
     conteudo.innerHTML = `
       <div style="text-align: center; margin-bottom: 20px;">
         <h3 style="margin: 0 0 15px 0; color: #1976d2; font-size: 1.2rem; font-weight: 700;">
-          📸 Imagem Capturada!
+          ✨ Sua Frase Motivacional foi Criada!
         </h3>
         <div style="text-align: left; line-height: 1.6; color: #334155; font-size: 0.95rem;">
           ${instrucoes}
@@ -5506,11 +5673,11 @@ document.addEventListener('DOMContentLoaded', function() {
           font-weight: 600;
           cursor: pointer;
           font-size: 0.9rem;
-        ">✅ Entendi, continuar</button>
+        ">🚀 Salvar Minha Frase!</button>
         
         <button id="fecharInstrucoes" style="
           flex: 1;
-          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+          background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
           color: white;
           border: none;
           padding: 12px 20px;
@@ -5518,7 +5685,7 @@ document.addEventListener('DOMContentLoaded', function() {
           font-weight: 600;
           cursor: pointer;
           font-size: 0.9rem;
-        ">❌ Cancelar</button>
+        ">↩️ Voltar</button>
       </div>
     `;
     
@@ -5810,35 +5977,15 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   function ocultarIndicadorCarregamento(botao = btnPrint) {
-    // Determinar qual ícone usar baseado no botão
-    const isFullButton = botao && botao.id === 'btnPrintFull';
-    
-    if (isFullButton) {
-      // Restaurar ícone do botão de captura completa
-      botao.innerHTML = `
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
-          <line x1="7" y1="2" x2="7" y2="22"></line>
-          <line x1="17" y1="2" x2="17" y2="22"></line>
-          <line x1="2" y1="12" x2="22" y2="12"></line>
-          <line x1="2" y1="7" x2="7" y2="7"></line>
-          <line x1="2" y1="17" x2="7" y2="17"></line>
-          <line x1="17" y1="17" x2="22" y2="17"></line>
-          <line x1="17" y1="7" x2="22" y2="7"></line>
-        </svg>
-      `;
-      botao.title = 'Salvar tela completa';
-    } else {
-      // Restaurar ícone original do botão principal
-      botao.innerHTML = `
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 12v2a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4v-2"/>
-          <polyline points="16 6 12 2 8 6"/>
-          <line x1="12" y1="2" x2="12" y2="15"/>
-        </svg>
-      `;
-      botao.title = 'Salvar apenas o card da frase';
-    }
+    // Restaurar ícone original do botão principal
+    botao.innerHTML = `
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 12v2a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4v-2"/>
+        <polyline points="16 6 12 2 8 6"/>
+        <line x1="12" y1="2" x2="12" y2="15"/>
+      </svg>
+    `;
+    botao.title = 'Salvar frase como imagem';
     
     botao.style.animation = '';
     botao.disabled = false;
@@ -5875,8 +6022,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Notificação opcional (se suportada)
     if ('Notification' in window && Notification.permission === 'granted') {
-      new Notification('FraseGo', {
-        body: `Imagem ${temaSelecionado} salva: ${nomeArquivo}`,
+      new Notification('FraseGo ✨', {
+        body: `🎉 Sua frase ${temaSelecionado} foi salva! Pronta para inspirar!`,
         icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%234CAF50"/><path d="M30 50l10 10 20-20" stroke="white" stroke-width="4" fill="none"/></svg>'
       });
     }
@@ -5900,7 +6047,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 3000);
     
     // Mostrar mensagem para o usuário
-    alert(`❌ Erro ao salvar imagem:\n\n${mensagem}\n\nTente novamente em alguns segundos.`);
+    alert(`😔 Ops! Algo deu errado ao salvar sua frase...\n\n${mensagem}\n\n🔄 Tente novamente em alguns segundos.\n💡 Dica: Verifique sua conexão com a internet!`);
   }
   
   // === LEMBRETE PARA GALERIA ===
@@ -5917,34 +6064,47 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (isAndroid) {
       mensagem = `
-        ✅ <strong>Download concluído!</strong><br><br>
+        🎉 <strong>Sua frase motivacional foi salva!</strong><br><br>
         🎨 <strong>Tema:</strong> ${temaFormatado}<br>
-        📁 Sua imagem está em <strong>Downloads</strong><br><br>
-        🖼️ <strong>Para ver na Galeria:</strong><br>
-        • Abra a <strong>Galeria</strong><br>
-        • Toque em <strong>Álbuns</strong><br>
-        • Procure por <strong>Downloads</strong> ou <strong>Imagens baixadas</strong><br><br>
-        📱 <strong>Nome do arquivo:</strong><br>
+        📁 Localização: <strong>Downloads</strong><br><br>
+        � <strong>Pronta para compartilhar:</strong><br>
+        • <strong>WhatsApp:</strong> Anexar → Galeria → Downloads<br>
+        • <strong>Instagram Stories:</strong> Sua frase → Compartilhar<br>
+        • <strong>Status do WhatsApp:</strong> Câmera → Galeria<br><br>
+        📱 <strong>Para organizar melhor:</strong><br>
+        • Crie uma pasta "Frases Motivacionais"<br>
+        • Galeria → Álbuns → Downloads → Mover<br><br>
+        � <strong>Arquivo:</strong><br>
         <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem;">${nomeArquivo}</code>
       `;
     } else if (isIOS) {
       mensagem = `
-        ✅ <strong>Imagem salva!</strong><br><br>
+        🎉 <strong>Sua frase motivacional está pronta!</strong><br><br>
         🎨 <strong>Tema:</strong> ${temaFormatado}<br><br>
-        📱 <strong>Toque e segure</strong> na imagem acima<br>
-        🖼️ Selecione <strong>"Salvar na Galeria de Fotos"</strong><br><br>
-        <strong>OU</strong><br><br>
-        📤 Toque no botão de <strong>compartilhar</strong> (□↗)<br>
-        💾 Selecione <strong>"Salvar Imagem"</strong>
-      `;
+        📱 <strong>Para salvar:</strong> Toque e segure na imagem acima<br>
+        � Escolha <strong>"Salvar nas Fotos"</strong><br><br>
+        📤 <strong>Compartilhamento rápido:</strong><br>
+        • <strong>Instagram Stories:</strong> Fotos → Sua frase → Compartilhar<br>
+        • <strong>WhatsApp:</strong> Status ou conversa → Compartilhar<br>
+        • <strong>Facebook:</strong> Posts ou Stories<br><br>
+        🎯 <strong>Dicas especiais:</strong><br>
+        • Use como papel de parede motivacional<br>
+        • Crie um álbum "Motivação Diária"<br>
+        • Compartilhe para inspirar outros!
     } else {
       mensagem = `
-        ✅ <strong>Download concluído!</strong><br><br>
+        🎉 <strong>Sua frase motivacional foi criada!</strong><br><br>
         🎨 <strong>Tema:</strong> ${temaFormatado}<br>
-        📁 Verifique sua pasta <strong>Downloads</strong><br>
-        🖼️ Mova a imagem para sua <strong>Galeria</strong><br><br>
-        📱 <strong>Nome do arquivo:</strong><br>
+        📁 Localização: Pasta <strong>Downloads</strong><br><br>
+        � <strong>Pronta para usar em:</strong><br>
+        • Redes sociais (Instagram, Facebook, Twitter)<br>
+        • Status do WhatsApp<br>
+        • Papel de parede motivacional<br>
+        • Impressão para quadro ou adesivo<br><br>
+        💡 <strong>Dica:</strong> Organize em uma pasta "Frases & Motivação"<br><br>
+        � <strong>Arquivo salvo:</strong><br>
         <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem;">${nomeArquivo}</code>
+      `;<code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem;">${nomeArquivo}</code>
       `;
     }
     
@@ -5982,7 +6142,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cursor: pointer;
         font-weight: 600;
         backdrop-filter: blur(5px);
-      ">📱 Entendi!</button>
+      ">� Compartilhar Agora!</button>
     `;
     
     // Adicionar animação CSS se não existir
@@ -6068,35 +6228,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // === EVENTO PARA CAPTURA DA TELA COMPLETA ===
-  const btnPrintFull = document.getElementById('btnPrintFull');
-  if (btnPrintFull) {
-    btnPrintFull.addEventListener('click', async function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      
-      currentEvent = e;
-      
-      console.log('🖨️ Botão de captura completa clicado!');
-      
-      if (!verificarDependencias()) {
-        return;
-      }
-      
-      if (btnPrintFull.disabled) {
-        console.log('⚠️ Captura já em andamento...');
-        return;
-      }
-      
-      try {
-        await capturarTelaCompleta();
-      } catch (error) {
-        console.error('❌ Erro na captura completa:', error);
-        mostrarErro(error.message);
-      }
-    });
-  }
-  
   // === INICIALIZAÇÃO ===
   console.log('✅ Sistema de salvamento de imagem inicializado!');
   console.log('📋 Recursos disponíveis:');

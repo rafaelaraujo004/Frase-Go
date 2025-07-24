@@ -21,7 +21,10 @@ function desbloquearApp() {
 
 function mostrarModal(id) {
   // Oculta todos os modais
-  document.querySelectorAll('#modalLogin,#modalCadastro,#modalEsqueciSenha').forEach(m => m.style.display = 'none');
+  document.querySelectorAll('#modalLogin,#modalCadastro,#modalEsqueciSenha').forEach(m => {
+    m.style.display = 'none';
+    m.classList.remove('ativo');
+  });
   
   // Limpa mensagens de erro e sucesso
   document.querySelectorAll('.modal-error, .modal-success').forEach(el => {
@@ -36,6 +39,10 @@ function mostrarModal(id) {
       input.value = '';
     });
     modal.style.display = 'flex';
+    modal.classList.add('ativo');
+    console.log(`Modal ${id} exibido com sucesso`);
+  } else {
+    console.error(`Modal ${id} não encontrado`);
   }
 }
 
@@ -54,7 +61,10 @@ async function checarSessao() {
       } else {
         desbloquearApp();
         const modalLogin = document.getElementById('modalLogin');
-        if (modalLogin) modalLogin.style.display = 'none';
+        if (modalLogin) {
+          modalLogin.style.display = 'none';
+          modalLogin.classList.remove('ativo');
+        }
       }
     } else {
       console.log('Usuário logado, desbloqueando app');
@@ -76,60 +86,98 @@ async function checarSessao() {
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM carregado, inicializando autenticação...');
   
-  // Inicializa os elementos de erro como ocultos
-  document.querySelectorAll('.modal-error, .modal-success').forEach(el => {
-    el.style.display = 'none';
-  });
-  
-  // Verifica se o Supabase foi carregado
-  if (typeof window.supabase === 'undefined') {
-    console.error('Supabase não foi carregado. Verifique se o script do Supabase está incluído.');
-    // Em caso de erro, permite acesso como convidado
-    desbloquearApp();
-    return;
-  }
-  
-  console.log('Supabase carregado com sucesso');
-  
-  // Configura listener para mudanças de autenticação
-  supabase.auth.onAuthStateChange((event, session) => {
-    console.log('Auth state changed:', event, session);
+  // Adicionar delay para garantir que todos os elementos sejam renderizados
+  setTimeout(() => {
+    console.log('🔍 Verificando elementos do DOM após delay...');
     
-    if (event === 'SIGNED_IN') {
-      console.log('Usuário logado com sucesso');
-      desbloquearApp();
-      // Oculta todos os modais
-      const modalLogin = document.getElementById('modalLogin');
-      const modalCadastro = document.getElementById('modalCadastro');
-      const modalEsqueciSenha = document.getElementById('modalEsqueciSenha');
-      
-      if (modalLogin) modalLogin.style.display = 'none';
-      if (modalCadastro) modalCadastro.style.display = 'none';
-      if (modalEsqueciSenha) modalEsqueciSenha.style.display = 'none';
-    } else if (event === 'SIGNED_OUT') {
-      console.log('Usuário deslogado');
-      // Remove flag de convidado se existir
-      localStorage.removeItem('usuario_convidado');
-      checarSessao();
+    // Verificar se os modais existem
+    const modalLogin = document.getElementById('modalLogin');
+    const modalCadastro = document.getElementById('modalCadastro');
+    const modalEsqueciSenha = document.getElementById('modalEsqueciSenha');
+    
+    console.log('📋 Status dos modais no script.js:');
+    console.log('  • modalLogin:', modalLogin ? '✅ Encontrado' : '❌ Não encontrado');
+    console.log('  • modalCadastro:', modalCadastro ? '✅ Encontrado' : '❌ Não encontrado');
+    console.log('  • modalEsqueciSenha:', modalEsqueciSenha ? '✅ Encontrado' : '❌ Não encontrado');
+    
+    // Se modalLogin não existe, exibir erro detalhado
+    if (!modalLogin) {
+      console.error('❌ ERRO CRÍTICO: Modal de login não encontrado!');
+      console.error('📋 Todos os elementos encontrados no DOM:');
+      const allElements = document.querySelectorAll('[id]');
+      allElements.forEach(el => {
+        if (el.id.includes('modal') || el.id.includes('login') || el.id.includes('Login')) {
+          console.log('  🔍 Elemento relacionado:', el.id, el.tagName);
+        }
+      });
+      return;
     }
-  });
-  
-  // Verifica se os elementos dos modais existem
-  const modalLogin = document.getElementById('modalLogin');
-  const formLogin = document.getElementById('formLogin');
-  const btnConvidado = document.getElementById('btnConvidado');
-  
-  console.log('Elementos encontrados:', {
-    modalLogin: !!modalLogin,
-    formLogin: !!formLogin,
-    btnConvidado: !!btnConvidado
-  });
-  
-  // Adiciona todos os event listeners aqui
-  inicializarEventListeners();
-  
-  // Verifica a sessão do usuário
-  checarSessao();
+    
+    // Inicializa os elementos de erro como ocultos
+    document.querySelectorAll('.modal-error, .modal-success').forEach(el => {
+      el.style.display = 'none';
+    });
+    
+    // Verifica se o Supabase foi carregado
+    if (typeof window.supabase === 'undefined') {
+      console.error('Supabase não foi carregado. Verifique se o script do Supabase está incluído.');
+      // Em caso de erro, permite acesso como convidado
+      desbloquearApp();
+      return;
+    }
+    
+    console.log('Supabase carregado com sucesso');
+    
+    // Configura listener para mudanças de autenticação
+    supabase.auth.onAuthStateChange((event, session) => {
+      console.log('Auth state changed:', event, session);
+      
+      if (event === 'SIGNED_IN') {
+        console.log('Usuário logado com sucesso');
+        desbloquearApp();
+        // Oculta todos os modais
+        const modalLogin = document.getElementById('modalLogin');
+        const modalCadastro = document.getElementById('modalCadastro');
+        const modalEsqueciSenha = document.getElementById('modalEsqueciSenha');
+        
+        if (modalLogin) {
+          modalLogin.style.display = 'none';
+          modalLogin.classList.remove('ativo');
+        }
+        if (modalCadastro) {
+          modalCadastro.style.display = 'none';
+          modalCadastro.classList.remove('ativo');
+        }
+        if (modalEsqueciSenha) {
+          modalEsqueciSenha.style.display = 'none';
+          modalEsqueciSenha.classList.remove('ativo');
+        }
+      } else if (event === 'SIGNED_OUT') {
+        console.log('Usuário deslogado');
+        // Remove flag de convidado se existir
+        localStorage.removeItem('usuario_convidado');
+        checarSessao();
+      }
+    });
+    
+    // Verifica se os elementos dos modais existem
+    const modalLoginCheck = document.getElementById('modalLogin');
+    const formLogin = document.getElementById('formLogin');
+    const btnConvidado = document.getElementById('btnConvidado');
+    
+    console.log('Elementos encontrados:', {
+      modalLogin: !!modalLoginCheck,
+      formLogin: !!formLogin,
+      btnConvidado: !!btnConvidado
+    });
+    
+    // Adiciona todos os event listeners aqui
+    inicializarEventListeners();
+    
+    // Verifica a sessão do usuário
+    checarSessao();
+    
+  }, 100); // Delay de 100ms para garantir renderização
 });
 
 function inicializarEventListeners() {
