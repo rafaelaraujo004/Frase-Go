@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Download</title>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <div id="content" style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-family: Arial; border-radius: 10px; margin: 20px;">
+        <h1>Frase de Teste</h1>
+        <p>Esta é uma frase motivacional de teste para verificar o download.</p>
+    </div>
+    
+    <button id="btnDownload" style="margin: 20px; padding: 10px 20px; font-size: 16px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        ⬇️ Download da Frase
+    </button>
+
+    <script>
+        console.log('🚀 Teste de download carregado');
+        
+        document.getElementById('btnDownload').addEventListener('click', async function() {
+            console.log('📸 Botão clicado - iniciando captura');
+            
+            try {
+                const elemento = document.getElementById('content');
+                console.log('🎯 Elemento encontrado:', elemento);
+                
+                const canvas = await html2canvas(elemento, {
+                    backgroundColor: '#ffffff',
+                    scale: 2,
+                    logging: true
+                });
+                
+                console.log('✅ Canvas criado:', canvas);
+                
+                // Converter para blob
+                canvas.toBlob(function(blob) {
+                    console.log('💾 Blob criado:', blob);
+                    
+                    // Criar link de download
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'teste-frase.png';
+                    link.style.display = 'none';
+                    
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    URL.revokeObjectURL(url);
+                    console.log('✅ Download concluído!');
+                    
+                }, 'image/png', 1.0);
+                
+            } catch (error) {
+                console.error('❌ Erro:', error);
+                alert('Erro: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
