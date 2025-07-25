@@ -73,6 +73,51 @@
                 <span class="menu-bar" style="display:block;position:absolute;left:0;top:12px;width:100%;height:2px;border-radius:1px;background:#3b82f6;"></span>
               </span>
             </button>
+            <!-- Botão de download da imagem do card -->
+            <button id="btnDownloadCard" title="💾 Baixar imagem do card" style="position:absolute;top:14px;left:14px;background:linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);border:2px solid rgba(59, 130, 246, 0.2);cursor:pointer;z-index:5;padding:6px;border-radius:10px;width:32px;height:28px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(59, 130, 246, 0.15);transition:all 0.3s ease;backdrop-filter:blur(10px);"
+              onmouseenter="this.style.background='linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)'; this.style.transform='scale(1.1)'; this.querySelector('svg').style.transform='translateY(-1px)';"
+              onmouseleave="this.style.background='linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)'; this.style.transform='scale(1)'; this.querySelector('svg').style.transform='translateY(0px)';"
+              onclick="
+                var card = document.getElementById('twitterTextBox');
+                
+                // Criar marca d'água discreta da logo Frase Go
+                var watermark = document.createElement('div');
+                watermark.innerHTML = 'Frase Go';
+                watermark.style.cssText = 'position:absolute;bottom:8px;right:12px;font-family:Montserrat,Arial,sans-serif;font-size:10px;font-weight:500;color:rgba(255,255,255,0.35);text-shadow:0 1px 2px rgba(0,0,0,0.2);z-index:999;letter-spacing:0.3px;pointer-events:none;background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(139,92,246,0.08));padding:2px 6px;border-radius:8px;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.08);opacity:0.7;';
+                
+                // Adicionar marca d'água temporariamente ao card
+                card.appendChild(watermark);
+                
+                // Gerar imagem com marca d'água
+                html2canvas(card, {
+                  backgroundColor: null, 
+                  useCORS: true, 
+                  scale: 2, 
+                  allowTaint: true, 
+                  logging: false
+                }).then(function(canvas) {
+                  // Remover marca d'água após captura
+                  card.removeChild(watermark);
+                  
+                  // Download da imagem
+                  var link = document.createElement('a'); 
+                  link.download = 'frase-go-card.png'; 
+                  link.href = canvas.toDataURL('image/png'); 
+                  link.click();
+                }).catch(function(error) {
+                  // Remover marca d'água em caso de erro
+                  if (card.contains(watermark)) {
+                    card.removeChild(watermark);
+                  }
+                  console.error('Erro ao gerar imagem:', error);
+                  alert('Erro ao gerar imagem. Tente novamente.');
+                });
+              "
+            >
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style="transition:all 0.3s ease;">
+                <path d="M9 2v10m0 0l-3-3m3 3l3-3M3 13v1a2 2 0 002 2h8a2 2 0 002-2v-1" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
             <!-- NOVA CAIXA DE TEXTO ESTILO ANEXO (fixa, 4cm abaixo do topo) -->
             <div id="twitterTextBox" style="background:rgba(90,90,105,0.78);border-radius:17px;box-shadow:0 8px 29px 0 rgba(31,38,135,0.18);position:absolute;top:4cm;left:50%;transform:translateX(-50%);width:262px;max-width:calc(90vw - 2cm);min-width:182px;min-height:36px;max-height:294px;padding:25px 32px 25px 32px;display:flex;flex-direction:column;align-items:center;overflow:visible;transition:background 0.5s;border: 1.5px solid rgba(13,71,161,0.4);z-index:1;">
                 <!-- Imagem de fundo -->
@@ -135,12 +180,68 @@
                     background: linear-gradient(135deg, #23232b 0%, #1e1e26 100%) !important;
                     border-color: rgba(139, 92, 246, 0.3) !important;
                   }
+                  /* Descer o botão darkmode 2cm para baixo */
+                  #btnDarkMode {
+                    position: relative;
+                    top: -8cm;
+                  }
                   body.dark-mode #btnMenuUsuario .menu-bar {
                     background: #8b5cf6 !important;
                   }
                   
                   body.dark-mode #btnMenuUsuario:hover .menu-bar {
                     background: #ffffff !important;
+                  }
+                  
+                  /* Estilos para o botão de download - seguindo padrão do menu usuário */
+                  #btnDownloadCard svg path {
+                    stroke: #3b82f6;
+                    transition: all 0.3s ease;
+                  }
+                  
+                  #btnDownloadCard:hover svg path {
+                    stroke: #ffffff;
+                  }
+                  
+                  body.dark-mode #btnDownloadCard {
+                    background: linear-gradient(135deg, #23232b 0%, #1e1e26 100%) !important;
+                    border-color: rgba(139, 92, 246, 0.3) !important;
+                  }
+                  
+                  body.dark-mode #btnDownloadCard svg path {
+                    stroke: #8b5cf6 !important;
+                  }
+                  
+                  body.dark-mode #btnDownloadCard:hover svg path {
+                    stroke: #ffffff !important;
+                  }
+                  
+                  /* Tooltip para o botão de download */
+                  #btnDownloadCard::after {
+                    content: "💾 Baixar Card";
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(30,41,59,0.95) 100%);
+                    color: white;
+                    padding: 8px 12px;
+                    border-radius: 8px;
+                    font-size: 11px;
+                    font-weight: 600;
+                    white-space: nowrap;
+                    opacity: 0;
+                    transform: translateY(-10px);
+                    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    pointer-events: none;
+                    z-index: 1000;
+                    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255,255,255,0.1);
+                  }
+                  
+                  #btnDownloadCard:hover::after {
+                    opacity: 1;
+                    transform: translateY(5px);
                   }
                   
                   /* Tooltip explicativo para o botão */
@@ -1801,6 +1902,11 @@
                         inset 0 1px 0 rgba(255,255,255,0.8);
                     }
                   }
+                  /* Descer o botão darkmode novo 4cm para baixo */
+                  #btnDarkModeNovo {
+                    position: relative;
+                    top: 4cm;
+                  }
                 </style>
             <!-- Sidebar Usuário -->
             <div id="sidebarUsuarioOverlay">
@@ -1871,14 +1977,13 @@
             <!-- Top bar: salvar imagem, darkmode, favoritos -->
             <div class="top-bar" style="width:100%;padding:0rem 0 0.5rem 0;display:flex;flex-direction:row;align-items:flex-start;justify-content:space-between;z-index:1;position:relative;">
                 <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0.2rem;position:relative;">
-                  <button id="btnPrint" title="📱 Salvar apenas o card da frase" style="background:none;border:none;cursor:pointer;padding:0.2rem 0.4rem 0 0.4rem;">
-                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 12v2a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4v-2"/>
-                        <polyline points="16 6 12 2 8 6"/>
-                        <line x1="12" y1="2" x2="12" y2="15"/>
-                     </svg>
-                  </button>
-                  <button id="btnDarkModeNovo" title="Modo escuro" style="background:none;border:none;cursor:pointer;padding:0.2rem 0.4rem 0 0.4rem;">
+                  <div style="display:flex;align-items:center;gap:0.3rem;">
+                    <button id="btnDarkModeNovo" title="Modo escuro" style="background:none;border:none;cursor:pointer;padding:0.2rem 0.4rem 0 0.4rem;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+                        </svg>
+                    </button>
+                  </div>
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                           <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
                       </svg>
@@ -2681,7 +2786,19 @@
         <div class="favoritos-content">
             <div class="favoritos-header">
                 <h2>Favoritos</h2>
-                <button id="btnRemoverTodosFavs" class="remover-todos-btn" title="Remover todos os favoritos">
+                <button id="btnRemoverTodosFavs" class="remover-todos-btn" title="Remover todos os favoritos" onclick="
+                  if (confirm('🗑️ Tem certeza que deseja remover TODOS os favoritos?')) {
+                    localStorage.setItem('favoritosAppFrases', '[]');
+                    document.getElementById('favoritosLista').innerHTML = '<li style=&quot;text-align:center;color:#666;&quot;>Nenhuma frase favoritada ainda.</li>';
+                    this.style.visibility = 'hidden';
+                    alert('✅ Todos os favoritos foram removidos!');
+                    // Atualizar botão de coração se estiver visível
+                    const btnFavoritar = document.getElementById('btnFavoritar');
+                    if (btnFavoritar) {
+                      btnFavoritar.classList.remove('favorito');
+                    }
+                  }
+                ">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e53935" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="6" width="18" height="13" rx="2"/>
                         <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
@@ -5356,27 +5473,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- === SISTEMA COMPLETO DE SALVAMENTO DE IMAGEM === -->
+<!-- === SCRIPT DE INICIALIZAÇÃO FINAL === -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('🖼️ Inicializando sistema de salvamento de imagem...');
-  
-  const btnPrint = document.getElementById('btnPrint');
-  let currentEvent = null; // Variável para capturar o evento atual
-  
-  if (!btnPrint) {
-    console.error('❌ Botão de print não encontrado!');
-    return;
-  }
-  
-  // === FUNÇÃO DE FALLBACK PARA CAPTURA ===
-  async function capturarComFallback(elemento) {
-    return new Promise((resolve, reject) => {
-      try {
-        const rect = elemento.getBoundingClientRect();
-        const canvas = document.createElement('canvas');
-        canvas.width = rect.width * 2; // Dobrar resolução
-        canvas.height = rect.height * 2;
         
         const ctx = canvas.getContext('2d');
         ctx.scale(2, 2);
@@ -6089,22 +6187,21 @@ document.addEventListener('DOMContentLoaded', function() {
         • <strong>Facebook:</strong> Posts ou Stories<br><br>
         🎯 <strong>Dicas especiais:</strong><br>
         • Use como papel de parede motivacional<br>
-        • Crie um álbum "Motivação Diária"<br>
-        • Compartilhe para inspirar outros!
+        • Crie um álbum "Motivação Diária"<br />
+        • Compartilhe para inspirar outros!<br />
     } else {
       mensagem = `
-        🎉 <strong>Sua frase motivacional foi criada!</strong><br><br>
-        🎨 <strong>Tema:</strong> ${temaFormatado}<br>
-        📁 Localização: Pasta <strong>Downloads</strong><br><br>
-        � <strong>Pronta para usar em:</strong><br>
-        • Redes sociais (Instagram, Facebook, Twitter)<br>
-        • Status do WhatsApp<br>
-        • Papel de parede motivacional<br>
-        • Impressão para quadro ou adesivo<br><br>
-        💡 <strong>Dica:</strong> Organize em uma pasta "Frases & Motivação"<br><br>
-        � <strong>Arquivo salvo:</strong><br>
+        🎉 <strong>Sua frase motivacional foi criada!</strong><br /><br />
+        🎨 <strong>Tema:</strong> ${temaFormatado}<br />
+        📁 Localização: Pasta <strong>Downloads</strong><br /><br />
+        💾 <strong>Pronta para usar em:</strong><br />
+        • Redes sociais (Instagram, Facebook, Twitter)<br />
+        • Status do WhatsApp<br />
+        • Papel de parede motivacional<br />
+        • Impressão para quadro ou adesivo<br /><br />
+        💡 <strong>Dica:</strong> Organize em uma pasta "Frases & Motivação"<br /><br />
+        💾 <strong>Arquivo salvo:</strong><br />
         <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem;">${nomeArquivo}</code>
-      `;<code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem;">${nomeArquivo}</code>
       `;
     }
     
@@ -6203,28 +6300,87 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // === CONFIGURAR EVENT LISTENER ===
   
+  // Teste simples primeiro
   btnPrint.addEventListener('click', async function(e) {
     e.preventDefault();
     e.stopPropagation();
     
-    currentEvent = e; // Armazenar o evento para usar na escolha de formato
-    
-    console.log('🖨️ Botão de captura do card clicado!');
-    
-    if (!verificarDependencias()) {
-      return;
-    }
-    
-    if (btnPrint.disabled) {
-      console.log('⚠️ Captura já em andamento...');
-      return;
-    }
+    console.log('🖨️ Botão clicado - iniciando captura...');
     
     try {
-      await capturarESalvarImagem();
+      // Elementos para captura
+      const elementoCaptura = document.querySelector('.frase-box') || document.getElementById('twitterTextBox');
+      
+      if (!elementoCaptura) {
+        alert('❌ Erro: Card da frase não encontrado!');
+        return;
+      }
+      
+      // Verificar se html2canvas está disponível
+      if (typeof html2canvas === 'undefined') {
+        alert('❌ Erro: Biblioteca html2canvas não carregada. Recarregue a página.');
+        return;
+      }
+      
+      console.log('✅ Elemento encontrado:', elementoCaptura.className || elementoCaptura.id);
+      console.log('✅ html2canvas disponível');
+      
+      // Mostrar loading
+      btnPrint.innerHTML = '⏳';
+      btnPrint.disabled = true;
+      
+      // Capturar com html2canvas (versão simples)
+      const canvas = await html2canvas(elementoCaptura, {
+        backgroundColor: '#ffffff',
+        useCORS: true,
+        allowTaint: true,
+        scale: 2,
+        logging: false
+      });
+      
+      console.log('✅ Canvas gerado:', canvas.width + 'x' + canvas.height);
+      
+      // Converter para download
+      const dataURL = canvas.toDataURL('image/png', 1.0);
+      
+      // Criar link de download
+      const link = document.createElement('a');
+      link.download = 'frase-motivacional-' + Date.now() + '.png';
+      link.href = dataURL;
+      
+      // Executar download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      console.log('✅ Download iniciado!');
+      
+      // Feedback de sucesso
+      btnPrint.innerHTML = '✅';
+      setTimeout(() => {
+        btnPrint.innerHTML = `
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 12v2a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4v-2"/>
+            <polyline points="16 6 12 2 8 6"/>
+            <line x1="12" y1="2" x2="12" y2="15"/>
+          </svg>
+        `;
+        btnPrint.disabled = false;
+      }, 2000);
+      
     } catch (error) {
       console.error('❌ Erro na captura:', error);
-      mostrarErro(error.message);
+      alert('❌ Erro ao salvar imagem: ' + error.message);
+      
+      // Restaurar botão
+      btnPrint.innerHTML = `
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 12v2a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4v-2"/>
+          <polyline points="16 6 12 2 8 6"/>
+          <line x1="12" y1="2" x2="12" y2="15"/>
+        </svg>
+      `;
+      btnPrint.disabled = false;
     }
   });
 
@@ -6305,6 +6461,5 @@ document.addEventListener('DOMContentLoaded', function() {
   }, 100);
 });
 </script>
-
 </body>
 </html>

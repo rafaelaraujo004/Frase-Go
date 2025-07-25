@@ -1540,6 +1540,8 @@ if (btnRemoverTodosFavs) {
             localStorage.setItem('favoritosAppFrases', JSON.stringify(favoritos));
             renderizarFavoritos();
             atualizarCoracao();
+            // Feedback visual
+            alert('Todos os favoritos foram removidos!');
         }
     });
 }
