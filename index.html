@@ -84,46 +84,8 @@
                   return;
                 }
                 
-                var card = document.getElementById('twitterTextBox');
-                
-                // Criar marca d'água discreta da logo Frase Go
-                var watermark = document.createElement('div');
-                watermark.innerHTML = 'Frase Go';
-                watermark.style.cssText = 'position:absolute;bottom:8px;right:12px;font-family:Montserrat,Arial,sans-serif;font-size:10px;font-weight:500;color:rgba(255,255,255,0.35);text-shadow:0 1px 2px rgba(0,0,0,0.2);z-index:999;letter-spacing:0.3px;pointer-events:none;background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(139,92,246,0.08));padding:2px 6px;border-radius:8px;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.08);opacity:0.7;';
-                
-                // Adicionar marca d'água temporariamente ao card
-                card.appendChild(watermark);
-                
-                // Gerar imagem com marca d'água
-                html2canvas(card, {
-                  backgroundColor: null, 
-                  useCORS: true, 
-                  scale: 2, 
-                  allowTaint: true, 
-                  logging: false
-                }).then(function(canvas) {
-                  // Remover marca d'água após captura
-                  card.removeChild(watermark);
-                  
-                  // Registrar o download
-                  registrarDownload();
-                  
-                  // Download da imagem
-                  var link = document.createElement('a'); 
-                  link.download = 'frase-go-card.png'; 
-                  link.href = canvas.toDataURL('image/png'); 
-                  link.click();
-                  
-                  // Atualizar estado visual do botão se necessário
-                  aplicarRestricoesPremium();
-                }).catch(function(error) {
-                  // Remover marca d'água em caso de erro
-                  if (card.contains(watermark)) {
-                    card.removeChild(watermark);
-                  }
-                  console.error('Erro ao gerar imagem:', error);
-                  alert('Erro ao gerar imagem. Tente novamente.');
-                });
+                // Mostrar modal de opções de download
+                mostrarModalDownload();
               "
             >
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style="transition:all 0.3s ease;">
@@ -2843,6 +2805,108 @@
             <button class="fechar-modal" id="fecharFavoritos">Fechar</button>
         </div>
     </div>
+
+    <!-- Modal de Download -->
+    <div id="downloadModal" style="display:none;position:fixed;z-index:1000;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;overflow-y:auto;padding:20px;box-sizing:border-box;">
+        <div class="download-content" style="background:#fff;padding:2rem;border-radius:1.5rem;max-width:95vw;width:400px;box-shadow:0 10px 40px rgba(0,0,0,0.3);display:flex;flex-direction:column;align-items:center;text-align:center;">
+            <h2 style="margin:0 0 1.5rem 0;color:#333;font-size:1.5rem;">📥 Como deseja baixar?</h2>
+            
+            <div style="width:100%;display:flex;flex-direction:column;gap:1rem;">
+                <!-- Opção Download Normal -->
+                <button id="downloadNormal" style="
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    border: none;
+                    border-radius: 12px;
+                    padding: 15px 20px;
+                    font-size: 1rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 10px;
+                " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(102, 126, 234, 0.4)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.3)'">
+                    💾 Download Normal
+                    <small style="display:block;opacity:0.8;font-size:0.8rem;font-weight:400;">Salva na pasta Downloads</small>
+                </button>
+
+                <!-- Opção Salvar em Fotos (Mobile) -->
+                <button id="salvarFotos" style="
+                    background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+                    color: white;
+                    border: none;
+                    border-radius: 12px;
+                    padding: 15px 20px;
+                    font-size: 1rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 10px;
+                    flex-direction: column;
+                " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(34, 197, 94, 0.4)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 15px rgba(34, 197, 94, 0.3)'">
+                    📱 Salvar em Fotos
+                    <small style="display:block;opacity:0.8;font-size:0.8rem;font-weight:400;">Para Android/iOS - Galeria de Fotos</small>
+                </button>
+            </div>
+
+            <button id="fecharDownloadModal" style="
+                background: #6b7280;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                padding: 10px 20px;
+                margin-top: 1.5rem;
+                cursor: pointer;
+                font-size: 0.9rem;
+            ">Cancelar</button>
+        </div>
+    </div>
+
+    <style>
+        /* Estilos para modo escuro do modal de download */
+        body.dark-mode #downloadModal {
+            background: rgba(0, 0, 0, 0.7) !important;
+        }
+
+        body.dark-mode .download-content {
+            background: #23272b !important;
+            color: #eee !important;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important;
+        }
+
+        body.dark-mode .download-content h2 {
+            color: #fff !important;
+        }
+
+        body.dark-mode #fecharDownloadModal {
+            background: #444 !important;
+            color: #eee !important;
+        }
+
+        body.dark-mode #fecharDownloadModal:hover {
+            background: #555 !important;
+        }
+
+        /* Responsividade */
+        @media (max-width: 480px) {
+            .download-content {
+                width: 95vw !important;
+                padding: 1.5rem !important;
+            }
+            
+            .download-content h2 {
+                font-size: 1.3rem !important;
+            }
+        }
+    </style>
+
     <!-- Botão Postagens removido -->
     <!-- Supabase JS SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7/dist/umd/supabase.min.js"></script>
@@ -3089,6 +3153,241 @@
     // Vincular aos botões
     document.getElementById('novaFrase')?.addEventListener('click', mostrarProximaFrase);
     document.getElementById('voltarFrase')?.addEventListener('click', mostrarFraseAnterior);
+
+    // === MODAL DE DOWNLOAD ===
+    function mostrarModalDownload() {
+        const modal = document.getElementById('downloadModal');
+        if (modal) {
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    function fecharModalDownload() {
+        const modal = document.getElementById('downloadModal');
+        if (modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    function realizarDownload(tipoDownload) {
+        const card = document.getElementById('twitterTextBox');
+        
+        // Obter tema selecionado
+        const temaSelect = document.getElementById('temaSelect');
+        let tema = 'Motivacional';
+        if (temaSelect && temaSelect.value) {
+            tema = temaSelect.value.charAt(0).toUpperCase() + temaSelect.value.slice(1);
+        }
+        const nomeArquivo = `FraseGo-${tema}.png`;
+        
+        // Criar marca d'água apenas para usuários não premium
+        let watermark = null;
+        if (!isPremium()) {
+            watermark = document.createElement('div');
+            watermark.innerHTML = 'Frase Go';
+            watermark.style.cssText = 'position:absolute;bottom:8px;right:12px;font-family:Montserrat,Arial,sans-serif;font-size:10px;font-weight:500;color:rgba(255,255,255,0.35);text-shadow:0 1px 2px rgba(0,0,0,0.2);z-index:999;letter-spacing:0.3px;pointer-events:none;background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(139,92,246,0.08));padding:2px 6px;border-radius:8px;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.08);opacity:0.7;';
+            
+            // Adicionar marca d'água temporariamente ao card
+            card.appendChild(watermark);
+        }
+        
+        // Gerar imagem com marca d'água
+        html2canvas(card, {
+            backgroundColor: null, 
+            useCORS: true, 
+            scale: 2, 
+            allowTaint: true, 
+            logging: false
+        }).then(function(canvas) {
+            // Remover marca d'água após captura (apenas se foi adicionada)
+            if (watermark && card.contains(watermark)) {
+                card.removeChild(watermark);
+            }
+            
+            // Registrar o download
+            registrarDownload();
+            
+            if (tipoDownload === 'normal') {
+                // Download normal (pasta Downloads)
+                const link = document.createElement('a'); 
+                link.download = nomeArquivo; 
+                link.href = canvas.toDataURL('image/png'); 
+                link.click();
+                
+                if (isPremium()) {
+                    mostrarMensagemSucesso('📥 Imagem salva na pasta Downloads sem marca d\'água! ⭐ Premium');
+                } else {
+                    mostrarMensagemSucesso('📥 Imagem salva na pasta Downloads!');
+                }
+            } else if (tipoDownload === 'fotos') {
+                // Salvar em fotos (mobile)
+                salvarEmFotos(canvas, nomeArquivo);
+            }
+            
+            // Fechar modal
+            fecharModalDownload();
+            
+            // Atualizar estado visual do botão se necessário
+            aplicarRestricoesPremium();
+        }).catch(function(error) {
+            // Remover marca d'água em caso de erro (apenas se foi adicionada)
+            if (watermark && card.contains(watermark)) {
+                card.removeChild(watermark);
+            }
+            console.error('Erro ao gerar imagem:', error);
+            alert('Erro ao gerar imagem. Tente novamente.');
+            fecharModalDownload();
+        });
+    }
+
+    function salvarEmFotos(canvas, nomeArquivo) {
+        const isAndroid = /Android/i.test(navigator.userAgent);
+        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        
+        if (isAndroid || isIOS) {
+            // Para dispositivos móveis, usar Web Share API se disponível
+            if (navigator.share && navigator.canShare) {
+                canvas.toBlob(function(blob) {
+                    const file = new File([blob], nomeArquivo, { type: 'image/png' });
+                    
+                    if (navigator.canShare({ files: [file] })) {
+                        navigator.share({
+                            title: 'Frase Motivacional',
+                            text: 'Compartilhe sua frase motivacional!',
+                            files: [file]
+                        }).then(() => {
+                            if (isPremium()) {
+                                mostrarMensagemSucesso('📱 Use "Salvar em Fotos" - sem marca d\'água! ⭐ Premium');
+                            } else {
+                                mostrarMensagemSucesso('📱 Use "Salvar em Fotos" no menu de compartilhamento!');
+                            }
+                        }).catch((error) => {
+                            console.log('Erro no compartilhamento:', error);
+                            downloadFallback(canvas, nomeArquivo);
+                        });
+                    } else {
+                        downloadFallback(canvas, nomeArquivo);
+                    }
+                });
+            } else {
+                downloadFallback(canvas, nomeArquivo);
+            }
+        } else {
+            // Para desktop, fazer download normal
+            downloadFallback(canvas, nomeArquivo);
+        }
+    }
+
+    function downloadFallback(canvas, nomeArquivo) {
+        // Download tradicional como fallback
+        const link = document.createElement('a');
+        link.download = nomeArquivo || 'FraseGo-Motivacional.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        
+        const isAndroid = /Android/i.test(navigator.userAgent);
+        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        
+        if (isAndroid) {
+            if (isPremium()) {
+                mostrarMensagemSucesso('📱 Imagem baixada sem marca d\'água! Vá em Galeria → Downloads. ⭐ Premium');
+            } else {
+                mostrarMensagemSucesso('📱 Imagem baixada! Vá em Galeria → Downloads para encontrá-la e mover para Fotos.');
+            }
+        } else if (isIOS) {
+            if (isPremium()) {
+                mostrarMensagemSucesso('📱 Imagem baixada sem marca d\'água! Toque e segure para "Salvar nas Fotos". ⭐ Premium');
+            } else {
+                mostrarMensagemSucesso('📱 Imagem baixada! Toque e segure na imagem para "Salvar nas Fotos".');
+            }
+        } else {
+            if (isPremium()) {
+                mostrarMensagemSucesso('💾 Imagem salva na pasta Downloads sem marca d\'água! ⭐ Premium');
+            } else {
+                mostrarMensagemSucesso('💾 Imagem salva na pasta Downloads!');
+            }
+        }
+    }
+
+    function mostrarMensagemSucesso(mensagem) {
+        // Criar modal de sucesso
+        const modal = document.createElement('div');
+        modal.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(34, 197, 94, 0.4);
+            z-index: 99999;
+            max-width: 90vw;
+            text-align: center;
+            font-weight: 500;
+            animation: slideUp 0.3s ease-out;
+        `;
+        
+        modal.innerHTML = mensagem;
+        document.body.appendChild(modal);
+        
+        // Remover após 4 segundos
+        setTimeout(() => {
+            if (modal.parentElement) {
+                modal.style.animation = 'slideDown 0.3s ease-in forwards';
+                setTimeout(() => modal.remove(), 300);
+            }
+        }, 4000);
+        
+        // Adicionar animações se não existirem
+        if (!document.querySelector('#downloadAnimations')) {
+            const style = document.createElement('style');
+            style.id = 'downloadAnimations';
+            style.textContent = `
+                @keyframes slideUp {
+                    from { opacity: 0; transform: translateX(-50%) translateY(100px); }
+                    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+                }
+                @keyframes slideDown {
+                    from { opacity: 1; transform: translateX(-50%) translateY(0); }
+                    to { opacity: 0; transform: translateX(-50%) translateY(100px); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+
+    // Event listeners para o modal de download
+    document.addEventListener('DOMContentLoaded', function() {
+        const downloadNormal = document.getElementById('downloadNormal');
+        const salvarFotos = document.getElementById('salvarFotos');
+        const fecharModal = document.getElementById('fecharDownloadModal');
+        const modal = document.getElementById('downloadModal');
+
+        if (downloadNormal) {
+            downloadNormal.addEventListener('click', () => realizarDownload('normal'));
+        }
+
+        if (salvarFotos) {
+            salvarFotos.addEventListener('click', () => realizarDownload('fotos'));
+        }
+
+        if (fecharModal) {
+            fecharModal.addEventListener('click', fecharModalDownload);
+        }
+
+        // Fechar modal clicando fora dele
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    fecharModalDownload();
+                }
+            });
+        }
+    });
     </script>
     <script>
     // Sidebar Usuário - lógica
@@ -6214,129 +6513,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mostrar mensagem para o usuário
     alert(`😔 Ops! Algo deu errado ao salvar sua frase...\n\n${mensagem}\n\n🔄 Tente novamente em alguns segundos.\n💡 Dica: Verifique sua conexão com a internet!`);
   }
-        <strong>Pronta para compartilhar:</strong><br>
-        • <strong>WhatsApp:</strong> Anexar → Galeria → Downloads<br>
-        • <strong>Instagram Stories:</strong> Sua frase → Compartilhar<br>
-        • <strong>Status do WhatsApp:</strong> Câmera → Galeria<br><br>
-    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-    
-    // Obter tema para exibição
-    const temaSelect = document.getElementById('temaSelect');
-    const temaSelecionado = temaSelect ? temaSelect.value : 'motivacional';
-    const temaFormatado = temaSelecionado.charAt(0).toUpperCase() + temaSelecionado.slice(1);
-    
-    let mensagem = '';
-    
-    if (isAndroid) {
-      mensagem = `
-        🎉 <strong>Sua frase motivacional foi salva!</strong><br><br>
-        🎨 <strong>Tema:</strong> ${temaFormatado}<br>
-        <strong>Pronta para usar em:</strong><br />
-        • <strong>WhatsApp:</strong> Status ou conversa → Compartilhar<br>
-        • <strong>Facebook:</strong> Posts ou Stories<br><br>
-        • <strong>Instagram Stories:</strong> Sua frase → Compartilhar<br>
-        • <strong>Status do WhatsApp:</strong> Câmera → Galeria<br><br>
-        📱 <strong>Para organizar melhor:</strong><br>
-        • Crie uma pasta "Frases Motivacionais"<br>
-        • Galeria → Álbuns → Downloads → Mover<br><br>
-        💾 <strong>Arquivo:</strong><br>
-        <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem;">${nomeArquivo}</code>
-      `;
-    } else if (isIOS) {
-      mensagem = `
-        🎉 <strong>Sua frase motivacional está pronta!</strong><br><br>
-        🎨 <strong>Tema:</strong> ${temaFormatado}<br><br>
-        📱 <strong>Para salvar:</strong> Toque e segure na imagem acima<br>
-        � Escolha <strong>"Salvar nas Fotos"</strong><br><br>
-        📤 <strong>Compartilhamento rápido:</strong><br>
-        &#128190; <strong>Pronta para usar em:</strong><br />
-        • <strong>WhatsApp:</strong> Status ou conversa → Compartilhar<br>
-        • <strong>Facebook:</strong> Posts ou Stories<br><br>
-        🎯 <strong>Dicas especiais:</strong><br>
-        • Use como papel de parede motivacional<br>
-        • Crie um álbum "Motivação Diária"<br />
-        • Compartilhe para inspirar outros!<br />
-    } else {
-      mensagem = `
-        🎉 <strong>Sua frase motivacional foi criada!</strong><br /><br />
-        🎨 <strong>Tema:</strong> ${temaFormatado}<br />
-        📁 Localização: Pasta <strong>Downloads</strong><br /><br />
-        💾 <strong>Pronta para usar em:</strong><br />
-        • Redes sociais (Instagram, Facebook, Twitter)<br />
-        • Status do WhatsApp<br />
-        • Papel de parede motivacional<br />
-        • Impressão para quadro ou adesivo<br /><br />
-        💡 <strong>Dica:</strong> Organize em uma pasta "Frases & Motivação"<br /><br />
-        💾 <strong>Arquivo salvo:</strong><br />
-        <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem;">${nomeArquivo}</code>
-      `;
-    }
-    
-    const modal = document.createElement('div');
-    modal.style.cssText = `
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
-      color: white;
-      padding: 20px 25px;
-      border-radius: 16px;
-      box-shadow: 0 10px 40px rgba(34, 197, 94, 0.3);
-      z-index: 99999999;
-      max-width: 90vw;
-      width: auto;
-      text-align: center;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      animation: slideUpFade 0.5s ease-out;
-    `;
-    
-    modal.innerHTML = `
-      <div style="line-height: 1.5; font-size: 0.9rem;">
-        ${mensagem}
-      </div>
-      <button onclick="this.parentElement.remove()" style="
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 8px;
-        margin-top: 15px;
-        cursor: pointer;
-        font-weight: 600;
-        backdrop-filter: blur(5px);
-      ">📤 Compartilhar Agora!</button>
-    `;
-    
-    // Adicionar animação CSS se não existir
-    if (!document.querySelector('#slideUpFade-animation')) {
-      const style = document.createElement('style');
-      style.id = 'slideUpFade-animation';
-      style.textContent = `
-        @keyframes slideUpFade {
-          from { 
-            opacity: 0; 
-            transform: translateX(-50%) translateY(100px) scale(0.9);
-          }
-          to { 
-            opacity: 1; 
-            transform: translateX(-50%) translateY(0) scale(1);
-          }
-        }
-      `;
-      document.head.appendChild(style);
-    }
-    
-    document.body.appendChild(modal);
-    
-    // Auto-remover após 10 segundos
-    setTimeout(() => {
-      if (modal.parentElement) {
-        modal.remove();
-      }
-    }, 10000);
-  }
   
   // === VERIFICAR DEPENDÊNCIAS ===
   function verificarDependencias() {
@@ -6467,6 +6643,25 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('✅ Todos os botões inicializados com sucesso!');
   }, 100);
+});
+
+// ==== ATALHO ESPECIAL PARA ATIVAR PREMIUM ====
+// Pressione Ctrl+Shift+P para ativar Premium durante desenvolvimento
+document.addEventListener('keydown', function(event) {
+  if (event.ctrlKey && event.shiftKey && event.key === 'P') {
+    event.preventDefault();
+    if (!isPremium()) {
+      ativarPremium();
+      console.log('🌟 Premium ativado via atalho!');
+    } else {
+      // Permitir desativar também
+      localStorage.removeItem('isPremium');
+      localStorage.removeItem('frasego_premium');
+      aplicarRestricoesPremium();
+      alert("❌ Premium desativado!");
+      console.log('⭐ Premium desativado via atalho!');
+    }
+  }
 });
 </script>
 </body>

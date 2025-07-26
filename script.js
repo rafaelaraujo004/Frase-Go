@@ -1532,6 +1532,15 @@ if (btnRemoverTodosFavs_2) {
 }
 
 function voltarFrase() {
+    // Verifica se o usuário atingiu o limite de frases e não é premium
+    if (!isPremium()) {
+        const usadas = Number(localStorage.getItem('frases_hoje')) || 0;
+        if (usadas >= 5) {
+            alert('🚫 Você atingiu o limite de frases diárias grátis. Torne-se Premium para acesso ilimitado!');
+            return;
+        }
+    }
+    
     if (indiceHistorico > 0) {
         indiceHistorico--;
         fraseDiv.textContent = historico[indiceHistorico];
@@ -1540,7 +1549,27 @@ function voltarFrase() {
 }
 
 function atualizarBotoes() {
-    voltarFraseBtn.disabled = indiceHistorico <= 0;
+    if (!voltarFraseBtn) return;
+    
+    // Verifica se há histórico anterior
+    const temHistorico = indiceHistorico > 0;
+    
+    // Verifica se o usuário atingiu o limite de frases e não é premium
+    let limiteBloqueado = false;
+    if (!isPremium()) {
+        const usadas = Number(localStorage.getItem('frases_hoje')) || 0;
+        limiteBloqueado = usadas >= 5;
+    }
+    
+    // Desabilita o botão se não há histórico OU se o limite foi atingido
+    voltarFraseBtn.disabled = !temHistorico || limiteBloqueado;
+    
+    // Adiciona/remove classe premium se o limite foi atingido
+    if (limiteBloqueado) {
+        voltarFraseBtn.classList.add('premium');
+    } else {
+        voltarFraseBtn.classList.remove('premium');
+    }
 }
 
 function mudarFonte() {
@@ -1730,11 +1759,19 @@ function aplicarRestricoesPremiumScript() {
     // Limite de frases diárias
     if (!isPremium()) {
         let usadas = Number(localStorage.getItem('frases_hoje')) || 0;
-        if (usadas >= 5 && novaFraseBtn) {
-            novaFraseBtn.disabled = true;
-            novaFraseBtn.classList.add('premium');
+        if (usadas >= 5) {
+            // Bloqueia botão Nova Frase
+            if (novaFraseBtn) {
+                novaFraseBtn.disabled = true;
+                novaFraseBtn.classList.add('premium');
+            }
+            // Bloqueia botão Frase Anterior
+            if (voltarFraseBtn) {
+                voltarFraseBtn.disabled = true;
+                voltarFraseBtn.classList.add('premium');
+            }
         }
-        // Impede click via JS
+        // Impede click via JS no botão Nova Frase
         if (novaFraseBtn) {
             novaFraseBtn.onclick = function(e) {
                 if (novaFraseBtn.disabled) {
@@ -1743,11 +1780,26 @@ function aplicarRestricoesPremiumScript() {
                 }
             };
         }
+        // Impede click via JS no botão Frase Anterior
+        if (voltarFraseBtn) {
+            voltarFraseBtn.onclick = function(e) {
+                if (voltarFraseBtn.disabled) {
+                    e.preventDefault();
+                    return false;
+                }
+            };
+        }
     } else {
+        // Para usuários premium, habilita ambos os botões
         if (novaFraseBtn) {
             novaFraseBtn.disabled = false;
             novaFraseBtn.classList.remove('premium');
             novaFraseBtn.onclick = null;
+        }
+        if (voltarFraseBtn) {
+            voltarFraseBtn.disabled = false;
+            voltarFraseBtn.classList.remove('premium');
+            voltarFraseBtn.onclick = null;
         }
     }
     // Bloqueia selects visualmente para não premium
@@ -2128,6 +2180,15 @@ if (btnRemoverTodosFavs) {
 }
 
 function voltarFrase() {
+    // Verifica se o usuário atingiu o limite de frases e não é premium
+    if (!isPremium()) {
+        const usadas = Number(localStorage.getItem('frases_hoje')) || 0;
+        if (usadas >= 5) {
+            alert('🚫 Você atingiu o limite de frases diárias grátis. Torne-se Premium para acesso ilimitado!');
+            return;
+        }
+    }
+    
     if (indiceHistorico > 0) {
         indiceHistorico--;
         fraseDiv.textContent = historico[indiceHistorico];
@@ -2136,7 +2197,27 @@ function voltarFrase() {
 }
 
 function atualizarBotoes() {
-    voltarFraseBtn.disabled = indiceHistorico <= 0;
+    if (!voltarFraseBtn) return;
+    
+    // Verifica se há histórico anterior
+    const temHistorico = indiceHistorico > 0;
+    
+    // Verifica se o usuário atingiu o limite de frases e não é premium
+    let limiteBloqueado = false;
+    if (!isPremium()) {
+        const usadas = Number(localStorage.getItem('frases_hoje')) || 0;
+        limiteBloqueado = usadas >= 5;
+    }
+    
+    // Desabilita o botão se não há histórico OU se o limite foi atingido
+    voltarFraseBtn.disabled = !temHistorico || limiteBloqueado;
+    
+    // Adiciona/remove classe premium se o limite foi atingido
+    if (limiteBloqueado) {
+        voltarFraseBtn.classList.add('premium');
+    } else {
+        voltarFraseBtn.classList.remove('premium');
+    }
 }
 
 function mudarFonte() {
