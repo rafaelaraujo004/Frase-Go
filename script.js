@@ -40,6 +40,18 @@ function mostrarModal(id) {
     });
     modal.style.display = 'flex';
     modal.classList.add('ativo');
+    
+    // Adiciona proteção para impedir fechamento clicando fora
+    if (id === 'modalLogin' || id === 'modalCadastro' || id === 'modalEsqueciSenha') {
+      modal.classList.add('auth-modal-bloqueado');
+      // Remove qualquer event listener de clique que possa fechar o modal
+      modal.style.pointerEvents = 'auto';
+      const modalForm = modal.querySelector('.modal-form');
+      if (modalForm) {
+        modalForm.style.pointerEvents = 'auto';
+      }
+    }
+    
     console.log(`Modal ${id} exibido com sucesso`);
   } else {
     console.error(`Modal ${id} não encontrado`);
@@ -65,6 +77,8 @@ async function checarSessao() {
           modalLogin.style.display = 'none';
           modalLogin.classList.remove('ativo');
         }
+        // Atualiza o indicador para usuário convidado
+        setTimeout(() => atualizarIndicadorStatus(), 200);
       }
     } else {
       console.log('Usuário logado, desbloqueando app');
@@ -75,6 +89,8 @@ async function checarSessao() {
       if (modalLogin) modalLogin.style.display = 'none';
       if (modalCadastro) modalCadastro.style.display = 'none';
       if (modalEsqueciSenha) modalEsqueciSenha.style.display = 'none';
+      // Atualiza o indicador para usuário logado
+      setTimeout(() => atualizarIndicadorStatus(), 200);
     }
   } catch (error) {
     console.error('Erro ao verificar sessão:', error);
@@ -177,6 +193,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Verifica a sessão do usuário
     checarSessao();
     
+    // Atualiza o indicador de status
+    setTimeout(() => {
+      atualizarIndicadorStatus();
+    }, 500);
+    
   }, 100); // Delay de 100ms para garantir renderização
 });
 
@@ -267,6 +288,9 @@ function inicializarEventListeners() {
       if (modalCadastro) modalCadastro.style.display = 'none';
       if (modalEsqueciSenha) modalEsqueciSenha.style.display = 'none';
       desbloquearApp();
+      
+      // Mostra uma mensagem de boas-vindas para o usuário convidado
+      mostrarMensagemBoasVindasConvidado();
     });
   } else {
     console.error('Elemento btnConvidado não encontrado!');
@@ -364,6 +388,139 @@ function inicializarEventListeners() {
       mostrarModal('modalLogin');
     });
   }
+  
+  // Proteção adicional contra fechamento de modais de autenticação
+  adicionarProtecaoModaisAuth();
+}
+
+// Função para adicionar proteção extra aos modais de autenticação
+function adicionarProtecaoModaisAuth() {
+  // Intercepta qualquer tentativa de fechar modais de autenticação
+  document.addEventListener('click', function(e) {
+    const modalLogin = document.getElementById('modalLogin');
+    const modalCadastro = document.getElementById('modalCadastro');
+    const modalEsqueciSenha = document.getElementById('modalEsqueciSenha');
+    
+    // Se algum modal de auth estiver ativo, previne fechamento por clique fora
+    if ((modalLogin && modalLogin.classList.contains('ativo')) ||
+        (modalCadastro && modalCadastro.classList.contains('ativo')) ||
+        (modalEsqueciSenha && modalEsqueciSenha.classList.contains('ativo'))) {
+      
+      // Se clicou no overlay dos modais de auth, previne o fechamento
+      if (e.target.id === 'modalLogin' || 
+          e.target.id === 'modalCadastro' || 
+          e.target.id === 'modalEsqueciSenha') {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Mostra um feedback visual sutil indicando que é necessário fazer login
+        mostrarFeedbackLoginObrigatorio(e.target);
+        
+        return false;
+      }
+    }
+  }, true); // Usa capture para interceptar antes de outros listeners
+  
+  // Bloqueia tecla ESC para modais de auth
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const modalLogin = document.getElementById('modalLogin');
+      const modalCadastro = document.getElementById('modalCadastro');
+      const modalEsqueciSenha = document.getElementById('modalEsqueciSenha');
+      
+      if ((modalLogin && modalLogin.classList.contains('ativo')) ||
+          (modalCadastro && modalCadastro.classList.contains('ativo')) ||
+          (modalEsqueciSenha && modalEsqueciSenha.classList.contains('ativo'))) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Mostra feedback para ESC também
+        const modalAtivo = modalLogin?.classList.contains('ativo') ? modalLogin :
+                          modalCadastro?.classList.contains('ativo') ? modalCadastro :
+                          modalEsqueciSenha;
+        if (modalAtivo) {
+          mostrarFeedbackLoginObrigatorio(modalAtivo);
+        }
+        
+        return false;
+      }
+    }
+  }, true);
+}
+
+// Função para mostrar feedback visual quando usuário tenta fechar modal de login
+function mostrarFeedbackLoginObrigatorio(modal) {
+  const modalForm = modal.querySelector('.modal-form');
+  if (!modalForm) return;
+  
+  // Remove qualquer feedback anterior
+  const feedbackAnterior = modal.querySelector('.feedback-login-obrigatorio');
+  if (feedbackAnterior) {
+    feedbackAnterior.remove();
+  }
+  
+  // Cria o elemento de feedback
+  const feedback = document.createElement('div');
+  feedback.className = 'feedback-login-obrigatorio';
+  feedback.textContent = 'É necessário fazer login ou continuar como convidado';
+  feedback.style.cssText = `
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #f44336;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 10001;
+    animation: feedbackPulse 0.3s ease-out;
+  `;
+  
+  // Adiciona animação CSS se não existir
+  if (!document.querySelector('#feedback-login-styles')) {
+    const style = document.createElement('style');
+    style.id = 'feedback-login-styles';
+    style.textContent = `
+      @keyframes feedbackPulse {
+        0% { opacity: 0; transform: translateX(-50%) scale(0.8); }
+        100% { opacity: 1; transform: translateX(-50%) scale(1); }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
+  modalForm.appendChild(feedback);
+  
+  // Remove o feedback após 3 segundos
+  setTimeout(() => {
+    if (feedback.parentNode) {
+      feedback.remove();
+    }
+  }, 3000);
+  
+  // Adiciona uma pequena animação de "shake" no modal
+  modalForm.style.animation = 'shake 0.5s ease-in-out';
+  
+  // Adiciona animação de shake se não existir
+  if (!document.querySelector('#shake-animation-styles')) {
+    const shakeStyle = document.createElement('style');
+    shakeStyle.id = 'shake-animation-styles';
+    shakeStyle.textContent = `
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+      }
+    `;
+    document.head.appendChild(shakeStyle);
+  }
+  
+  setTimeout(() => {
+    modalForm.style.animation = '';
+  }, 500);
 }
 
 // Logout handler (adicione um botão de logout se quiser)
@@ -371,6 +528,137 @@ window.logoutSupabase = async function() {
   await supabase.auth.signOut();
   checarSessao();
 };
+
+// Função para mostrar mensagem de boas-vindas para usuários convidados
+function mostrarMensagemBoasVindasConvidado() {
+  // Cria um toast de boas-vindas
+  const toast = document.createElement('div');
+  toast.style.cssText = `
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    z-index: 10000;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    max-width: 90vw;
+    animation: slideDown 0.3s ease-out;
+  `;
+  
+  toast.innerHTML = `
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span style="font-size: 18px;">👋</span>
+      <div>
+        <div style="font-weight: 600; margin-bottom: 4px;">Bem-vindo(a) ao Frase Go!</div>
+        <div style="font-size: 12px; opacity: 0.9;">Você está usando como convidado. Limite: 5 frases por dia</div>
+      </div>
+    </div>
+  `;
+  
+  // Adiciona animação CSS
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes slideDown {
+      from { transform: translateX(-50%) translateY(-100%); opacity: 0; }
+      to { transform: translateX(-50%) translateY(0); opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { transform: translateX(-50%) translateY(0); opacity: 1; }
+      to { transform: translateX(-50%) translateY(-100%); opacity: 0; }
+    }
+  `;
+  document.head.appendChild(style);
+  
+  document.body.appendChild(toast);
+  
+  // Remove o toast após 4 segundos
+  setTimeout(() => {
+    toast.style.animation = 'slideUp 0.3s ease-in';
+    setTimeout(() => {
+      if (toast.parentNode) {
+        toast.parentNode.removeChild(toast);
+      }
+      if (style.parentNode) {
+        style.parentNode.removeChild(style);
+      }
+    }, 300);
+  }, 4000);
+  
+  // Atualiza o indicador de status
+  atualizarIndicadorStatus();
+}
+
+// Função para criar e atualizar o indicador de status do usuário
+function atualizarIndicadorStatus() {
+  let indicador = document.getElementById('indicadorStatus');
+  
+  // Se não existe, cria o indicador
+  if (!indicador) {
+    indicador = document.createElement('div');
+    indicador.id = 'indicadorStatus';
+    indicador.style.cssText = `
+      position: absolute;
+      top: 50px;
+      right: 14px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid #e0e0e0;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      z-index: 4;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    `;
+    
+    // Adiciona o indicador à frase-box
+    const fraseBox = document.querySelector('.frase-box');
+    if (fraseBox) {
+      fraseBox.appendChild(indicador);
+    }
+  }
+  
+  // Atualiza o conteúdo baseado no status do usuário
+  if (isConvidado()) {
+    indicador.innerHTML = `
+      <span style="display: inline-flex; align-items: center; gap: 4px; color: #ff9800;">
+        👤 <span>Convidado</span>
+      </span>
+    `;
+    indicador.title = 'Você está usando como convidado. Para salvar favoritos e ter acesso ilimitado, faça login ou crie uma conta.';
+  } else if (isPremium()) {
+    indicador.innerHTML = `
+      <span style="display: inline-flex; align-items: center; gap: 4px; color: #4CAF50;">
+        ⭐ <span>Premium</span>
+      </span>
+    `;
+    indicador.title = 'Usuário Premium - Acesso completo a todos os recursos';
+  } else {
+    indicador.innerHTML = `
+      <span style="display: inline-flex; align-items: center; gap: 4px; color: #2196F3;">
+        ✓ <span>Gratuito</span>
+      </span>
+    `;
+    indicador.title = 'Usuário logado - Versão gratuita';
+  }
+  
+  // Adiciona estilos para modo escuro
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  if (isDarkMode) {
+    indicador.style.background = 'rgba(35, 35, 43, 0.9)';
+    indicador.style.borderColor = '#444';
+    indicador.style.color = '#e0e0e0';
+  }
+}
 // --- Jogo da velha (tags) ---
 let iconeJogoDaVelha = document.getElementById('iconeJogoDaVelha');
 if (!window._tagsBtnHandlerAdded) {
@@ -1369,6 +1657,17 @@ const frases = {
 // Remover duplicidade: esta seção já existe acima, então remova daqui.
 
 function mostrarFrase(nova = true) {
+    // Verifica limite de frases para usuários não premium ao gerar nova frase
+    if (nova && !isPremium()) {
+        const usadas = Number(localStorage.getItem('frases_hoje')) || 0;
+        if (usadas >= 5) {
+            alert('🚫 Você atingiu o limite de frases diárias grátis. Torne-se Premium para acesso ilimitado!');
+            return;
+        }
+        // Incrementa contador de frases usadas
+        localStorage.setItem('frases_hoje', usadas + 1);
+    }
+    
     const tema = temaSelect.value;
     const frasesTema = frases[tema];
     if (nova) {
@@ -1561,8 +1860,22 @@ function atualizarBotoes() {
         limiteBloqueado = usadas >= 5;
     }
     
-    // Desabilita o botão se não há histórico OU se o limite foi atingido
+    // Desabilita o botão voltar se não há histórico OU se o limite foi atingido
     voltarFraseBtn.disabled = !temHistorico || limiteBloqueado;
+    
+    // Desabilita o botão nova frase se o limite foi atingido
+    if (novaFraseBtn) {
+        novaFraseBtn.disabled = limiteBloqueado;
+        if (limiteBloqueado) {
+            novaFraseBtn.classList.add('premium');
+            novaFraseBtn.style.opacity = '0.5';
+            novaFraseBtn.style.cursor = 'not-allowed';
+        } else {
+            novaFraseBtn.classList.remove('premium');
+            novaFraseBtn.style.opacity = '';
+            novaFraseBtn.style.cursor = '';
+        }
+    }
     
     // Adiciona/remove classe premium se o limite foi atingido
     if (limiteBloqueado) {
@@ -1580,7 +1893,7 @@ function mudarFonte() {
 temaSelect.addEventListener('change', () => {
     historico = [];
     indiceHistorico = -1;
-    mostrarFrase();
+    mostrarFrase(false); // false = não conta no limite ao mudar tema
 });
 fonteSelect.addEventListener('change', mudarFonte);
 novaFraseBtn.addEventListener('click', () => mostrarFrase(true));
@@ -1604,7 +1917,7 @@ if (temaSelectWatermark) {
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', () => {
-    mostrarFrase();
+    mostrarFrase(false); // false = primeira frase não conta no limite
     mudarFonte();
     atualizarCoracao();
 });
@@ -1816,27 +2129,19 @@ function isPremium() {
     return localStorage.getItem('frasego_premium') === 'true' || localStorage.getItem('isPremium') === 'true';
 }
 
+function isConvidado() {
+    return localStorage.getItem('usuario_convidado') === 'true';
+}
+
+function isLoggedIn() {
+    // Verifica se há uma sessão ativa no Supabase
+    return supabase && supabase.auth && supabase.auth.getSession && localStorage.getItem('supabase.auth.token');
+}
+
 // Aplica restrições ao carregar
 document.addEventListener('DOMContentLoaded', aplicarRestricoesPremiumScript);
 temaSelect?.addEventListener('change', aplicarRestricoesPremiumScript);
 fonteSelect?.addEventListener('change', aplicarRestricoesPremiumScript);
-
-// Garante que ao clicar em Nova Frase, respeite o limite
-if (novaFraseBtn) {
-    novaFraseBtn.addEventListener('click', function(e) {
-        if (!isPremium()) {
-            let usadas = Number(localStorage.getItem('frases_hoje')) || 0;
-            if (usadas >= 5) {
-                e.preventDefault();
-                alert('🚫 Você atingiu o limite de frases diárias grátis. Torne-se Premium para acesso ilimitado!');
-                return;
-            }
-            usadas++;
-            localStorage.setItem('frases_hoje', usadas);
-            aplicarRestricoesPremiumScript();
-        }
-    });
-}
 
 // === FUNCIONALIDADES DE IMAGEM DE FUNDO ===
 
@@ -2016,30 +2321,6 @@ if (favoritos.length && typeof favoritos[0] === 'string') {
 let historico = [];
 let indiceHistorico = -1;
 
-function mostrarFrase(nova = true) {
-    const tema = temaSelect.value;
-    const frasesTema = frases[tema];
-    if (nova) {
-        if (historico.length === frasesTema.length && indiceHistorico === historico.length - 1) {
-            historico = [];
-            indiceHistorico = -1;
-        }
-        let frase;
-        let tentativas = 0;
-        do {
-            frase = frasesTema[Math.floor(Math.random() * frasesTema.length)];
-            tentativas++;
-        } while (historico.includes(frase) && tentativas < 20);
-        historico = historico.slice(0, indiceHistorico + 1);
-        historico.push(frase);
-        indiceHistorico++;
-    }
-    fraseDiv.textContent = historico[indiceHistorico];
-    setTimeout(() => {
-        atualizarCoracao();
-        atualizarBotoes();
-    }, 0);
-}
 function atualizarCoracao() {
     if (!btnFavoritar) return;
     const fraseAtual = fraseDiv.textContent;
@@ -2196,44 +2477,6 @@ function voltarFrase() {
     }
 }
 
-function atualizarBotoes() {
-    if (!voltarFraseBtn) return;
-    
-    // Verifica se há histórico anterior
-    const temHistorico = indiceHistorico > 0;
-    
-    // Verifica se o usuário atingiu o limite de frases e não é premium
-    let limiteBloqueado = false;
-    if (!isPremium()) {
-        const usadas = Number(localStorage.getItem('frases_hoje')) || 0;
-        limiteBloqueado = usadas >= 5;
-    }
-    
-    // Desabilita o botão se não há histórico OU se o limite foi atingido
-    voltarFraseBtn.disabled = !temHistorico || limiteBloqueado;
-    
-    // Adiciona/remove classe premium se o limite foi atingido
-    if (limiteBloqueado) {
-        voltarFraseBtn.classList.add('premium');
-    } else {
-        voltarFraseBtn.classList.remove('premium');
-    }
-}
-
-function mudarFonte() {
-    const fonte = fonteSelect.value;
-    fraseDiv.style.fontFamily = fontes[fonte];
-}
-
-temaSelect.addEventListener('change', () => {
-    historico = [];
-    indiceHistorico = -1;
-    mostrarFrase();
-});
-fonteSelect.addEventListener('change', mudarFonte);
-novaFraseBtn.addEventListener('click', () => mostrarFrase(true));
-voltarFraseBtn.addEventListener('click', voltarFrase);
-
 // --- Marca d'água temática ---
 const bgWatermark = document.querySelector('.bg-watermark');
 var temaSelectWatermark = window.temaSelect || document.getElementById('temaSelect');
@@ -2261,13 +2504,6 @@ if (temaSelectWatermark) {
   window.addEventListener('DOMContentLoaded', atualizarMarcaDagua);
   atualizarMarcaDagua();
 }
-
-// Inicialização
-document.addEventListener('DOMContentLoaded', () => {
-    mostrarFrase();
-    mudarFonte();
-    atualizarCoracao();
-});
 
 // Ativar modo escuro
 const btnDarkMode = document.getElementById('btnDarkMode');
@@ -2430,6 +2666,26 @@ function carregarImagemSalva() {
 // Inicializar quando o DOM carregar
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM carregado, iniciando sistema de imagens...');
+    
+    // Aguardar um pouco para garantir que todos os elementos estejam prontos
+    setTimeout(() => {
+        inicializarImagensFundo();
+        carregarImagemSalva();
+    }, 500);
+});
+
+// Também inicializar quando a sidebar for aberta
+document.addEventListener('click', function(e) {
+    if (e.target && e.target.id === 'btnMenuUsuario') {
+        // Pequeno delay para aguardar a sidebar abrir
+        setTimeout(() => {
+            if (!galeriaTemas) {
+                console.log('Reinicializando sistema de imagens...');
+                inicializarImagensFundo();
+            }
+        }, 100);
+    }
+});rregado, iniciando sistema de imagens...');
     
     // Aguardar um pouco para garantir que todos os elementos estejam prontos
     setTimeout(() => {

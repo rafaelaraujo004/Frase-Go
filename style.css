@@ -59,16 +59,71 @@ body.sidebar-usuario-aberta {
 @media (max-width: 768px) {
   /* Remove class que pode estar travando a sidebar */
   body.sidebar-usuario-aberta {
-    overflow: hidden !important;
-    position: fixed !important;
     width: 100% !important;
     height: 100% !important;
+  }
+  #sidebarUsuario {
+    max-height: none !important;
+    height: 100vh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
   }
   
   /* Força overlay a ser clicável para fechar */
   #sidebarUsuarioOverlay {
     touch-action: auto !important;
     -webkit-tap-highlight-color: transparent !important;
+  }
+  
+  /* Oculta botões quando sidebar estiver aberta para garantir sobreposição */
+  body.sidebar-usuario-aberta #btnMenuUsuario,
+  body.sidebar-usuario-aberta #btnDownloadCard {
+    z-index: 1 !important;
+    opacity: 0.2 !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease !important;
+  }
+  
+  /* Oculta todos os botões interativos quando sidebar estiver aberta */
+  body.sidebar-usuario-aberta .mid-bar,
+  body.sidebar-usuario-aberta .bottom-botoes,
+  body.sidebar-usuario-aberta .coracao-btn,
+  body.sidebar-usuario-aberta .favoritos-btn,
+  body.sidebar-usuario-aberta .copiar-btn,
+  body.sidebar-usuario-aberta .tags-btn,
+  body.sidebar-usuario-aberta button:not(.fecharSidebar):not(#btnSalvarUsuario):not(#btnLimparImagemFundo) {
+    z-index: 1 !important;
+    opacity: 0.3 !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease !important;
+  }
+  
+  /* Oculta modais quando sidebar estiver aberta para evitar conflitos */
+  body.sidebar-usuario-aberta .modal-overlay,
+  body.sidebar-usuario-aberta #favoritosModal,
+  body.sidebar-usuario-aberta #tagsModal {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  
+  /* Força todos os elementos com z-index alto a ficarem abaixo da sidebar */
+  body.sidebar-usuario-aberta *:not(#sidebarUsuario):not(#sidebarUsuarioOverlay):not(.fecharSidebar):not(#sidebarUsuario *) {
+    z-index: 1 !important;
+  }
+  
+  /* Mantém apenas a sidebar e seu overlay com z-index alto */
+  body.sidebar-usuario-aberta #sidebarUsuarioOverlay {
+    z-index: 999999999999 !important;
+  }
+  
+  body.sidebar-usuario-aberta #sidebarUsuario {
+    z-index: 9999999999999 !important;
+  }
+  
+  /* Garante que elementos da sidebar mantenham funcionalidade */
+  body.sidebar-usuario-aberta #sidebarUsuario * {
+    z-index: inherit !important;
   }
   
   /* Garante que botão fechar seja grande o suficiente */
@@ -1144,6 +1199,15 @@ background: linear-gradient(135deg, #e0f0ff, #ffffff);
   opacity: 1 !important;
 }
 
+/* Proteção especial para modais de autenticação */
+.modal-overlay.auth-modal-bloqueado {
+  pointer-events: auto !important;
+}
+
+.modal-overlay.auth-modal-bloqueado .modal-form {
+  pointer-events: auto !important;
+}
+
 .modal-form {
   background: #fff;
   border-radius: 12px;
@@ -1331,7 +1395,7 @@ div[style*="background: rgba"].hidden {
     width: 100vw !important;
     height: 100vh !important;
     background: rgba(30,32,40,0.65) !important;
-    z-index: 999999 !important;
+    z-index: 999999999999 !important;
     justify-content: center !important;
     align-items: center !important;
     padding: 15px !important;
@@ -1350,7 +1414,7 @@ div[style*="background: rgba"].hidden {
     background: #f9fafb !important;
     border-radius: 12px !important;
     padding: 1.5rem 1rem !important;
-    z-index: 1000000 !important;
+    z-index: 9999999999999 !important;
     max-height: 80vh !important;
     overflow-y: auto !important;
   }
@@ -1505,7 +1569,7 @@ div[style*="background: rgba"].hidden {
     left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    z-index: 999999 !important;
+    z-index: 999999999999 !important;
   }
   
   /* Auto-hide sidebar após 30 segundos em mobile se necessário */
@@ -1604,4 +1668,46 @@ body.dark-mode .botao-navegacao:hover {
 
 body.dark-mode .botao-navegacao:active {
   box-shadow: 0 3px 10px rgba(0, 212, 255, 0.3) !important;
+}
+
+/* === Estilos para alternar ícone do usuário no modo escuro === */
+#btnMenuUsuario.light-mode-icon {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+  border-color: rgba(59, 130, 246, 0.2) !important;
+}
+
+#btnMenuUsuario.light-mode-icon .menu-bar {
+  background: #3b82f6 !important;
+}
+
+#btnMenuUsuario.dark-mode-icon {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important;
+  border-color: rgba(100, 200, 255, 0.3) !important;
+}
+
+#btnMenuUsuario.dark-mode-icon .menu-bar {
+  background: #64c8ff !important;
+}
+
+/* === DESKTOP SIDEBAR BEHAVIOR === */
+/* Em desktop, os botões permanecem visíveis mesmo com sidebar aberta */
+@media (min-width: 769px) {
+  body.sidebar-usuario-aberta #btnMenuUsuario,
+  body.sidebar-usuario-aberta #btnDownloadCard,
+  body.sidebar-usuario-aberta .mid-bar,
+  body.sidebar-usuario-aberta .bottom-botoes,
+  body.sidebar-usuario-aberta .coracao-btn,
+  body.sidebar-usuario-aberta .favoritos-btn,
+  body.sidebar-usuario-aberta .copiar-btn,
+  body.sidebar-usuario-aberta .tags-btn,
+  body.sidebar-usuario-aberta button {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    z-index: initial !important;
+  }
+  
+  /* Remove a regra de z-index forçado em desktop */
+  body.sidebar-usuario-aberta *:not(#sidebarUsuario):not(#sidebarUsuarioOverlay):not(.fecharSidebar):not(#sidebarUsuario *) {
+    z-index: initial !important;
+  }
 }

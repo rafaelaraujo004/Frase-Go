@@ -93,7 +93,7 @@
               </svg>
             </button>
             <!-- NOVA CAIXA DE TEXTO ESTILO ANEXO (fixa, 4cm abaixo do topo) -->
-            <div id="twitterTextBox" style="background:rgba(90,90,105,0.78);border-radius:17px;box-shadow:0 8px 29px 0 rgba(31,38,135,0.18);position:absolute;top:4cm;left:50%;transform:translateX(-50%);width:262px;max-width:calc(90vw - 2cm);min-width:182px;min-height:36px;max-height:294px;padding:25px 32px 25px 32px;display:flex;flex-direction:column;align-items:center;overflow:visible;transition:background 0.5s;border: 1.5px solid rgba(13,71,161,0.4);z-index:1;">
+            <div id="twitterTextBox" style="background:rgba(90,90,105,0.78);border-radius:17px;box-shadow:0 8px 29px 0 rgba(31,38,135,0.18);position:absolute;top:4cm;left:50%;transform:translateX(-50%);width:340px;max-width:calc(98vw - 1cm);min-width:220px;min-height:36px;max-height:294px;padding:25px 48px 25px 48px;display:flex;flex-direction:column;align-items:center;overflow:visible;transition:background 0.5s;border: 1.5px solid rgba(13,71,161,0.4);z-index:1;">
                 <!-- Imagem de fundo -->
                 <div id="imagemFundoContainer" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:17px;overflow:hidden;z-index:-1;">
                   <img id="imagemFundo" style="width:100%;height:100%;object-fit:cover;opacity:0.3;transition:opacity 0.3s;" />
@@ -212,6 +212,35 @@
                   
                   body.dark-mode #btnDownloadCard[style*="opacity: 0.5"] svg path {
                     stroke: #6b7280 !important;
+                  }
+                  
+                  /* Estilos para botão de nova frase desabilitado */
+                  #novaFrase[style*="opacity: 0.5"],
+                  #novaFrase:disabled {
+                    background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%) !important;
+                    border-color: rgba(148, 163, 184, 0.3) !important;
+                    cursor: not-allowed !important;
+                    color: #94a3b8 !important;
+                  }
+                  
+                  #novaFrase[style*="opacity: 0.5"]:hover,
+                  #novaFrase:disabled:hover {
+                    transform: none !important;
+                    background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%) !important;
+                    color: #94a3b8 !important;
+                  }
+                  
+                  body.dark-mode #novaFrase[style*="opacity: 0.5"],
+                  body.dark-mode #novaFrase:disabled {
+                    background: linear-gradient(135deg, #374151 0%, #1f2937 100%) !important;
+                    border-color: rgba(75, 85, 99, 0.3) !important;
+                    color: #6b7280 !important;
+                  }
+                  
+                  body.dark-mode #novaFrase[style*="opacity: 0.5"]:hover,
+                  body.dark-mode #novaFrase:disabled:hover {
+                    background: linear-gradient(135deg, #374151 0%, #1f2937 100%) !important;
+                    color: #6b7280 !important;
                   }
                   
                   /* Tooltip para o botão de download */
@@ -1939,6 +1968,17 @@
                     <img class="imagem-tema" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=300&fit=crop&auto=format&q=80" alt="Praia" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
                     
                     <img class="imagem-tema" src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=400&h=300&fit=crop&auto=format&q=80" alt="Deserto" onclick="selecionarImagemFundo(this.src)" style="cursor: pointer;" onload="this.setAttribute('data-loaded', 'true')" onerror="this.style.display='none'">
+                    <!-- Upload e botões juntos -->
+                    <div style="width:100%;display:flex;flex-direction:column;align-items:center;gap:0.7rem;margin-top:1.2rem;">
+                      <div class="upload-area" onclick="document.getElementById('uploadImagem').click()" style="width:100%;margin-bottom:0.5rem;">
+                        <input type="file" id="uploadImagem" accept="image/*">
+                        <p class="upload-text">📤 Clique para enviar sua imagem</p>
+                      </div>
+                      <div class="controles-imagem-botoes" style="width:100%;display:flex;gap:1.2rem;justify-content:center;">
+                        <button class="btn-imagem" id="btnRemoverImagem">🗑️ Remover</button>
+                        <button class="btn-imagem" id="btnOpacidadeImagem">🔍 Opacidade</button>
+                      </div>
+                    </div>
                   </div>
                   
                   <!-- Upload de imagem personalizada -->
@@ -1963,6 +2003,8 @@
                 
                 <!-- Indicador de posição de rolagem -->
                 <div class="scroll-position-indicator" id="scrollPosition">0%</div>
+                <!-- Espaço extra para rolagem -->
+                <div style="height:10cm;width:100%;"></div>
                 
               </div>
             </div>
@@ -3150,9 +3192,26 @@
       }
     });
 
-    // Vincular aos botões
-    document.getElementById('novaFrase')?.addEventListener('click', mostrarProximaFrase);
-    document.getElementById('voltarFrase')?.addEventListener('click', mostrarFraseAnterior);
+    // Vincular aos botões com controle unificado
+    // CONTROLE UNIFICADO DO BOTÃO FRASE ANTERIOR
+    // Consolidado em um único listener para evitar múltiplos alerts
+    document.getElementById('voltarFrase')?.addEventListener('click', function(e) {
+      // Verificar se é premium
+      if (!isPremium()) {
+        let usadas = Number(localStorage.getItem('frases_hoje')) || 0;
+        if (usadas >= 5) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          alert('🚫 Você atingiu o limite de frases diárias grátis. Torne-se Premium para acesso ilimitado!');
+          return;
+        }
+        // Registrar uso apenas se não atingiu o limite
+        registrarUsoFrase();
+      }
+      
+      // Executar a lógica de mostrar frase anterior
+      mostrarFraseAnterior();
+    });
 
     // === MODAL DE DOWNLOAD ===
     function mostrarModalDownload() {
@@ -3661,8 +3720,15 @@ if (btnSalvarUsuario) {
       // Event listeners para fechar modais
       document.addEventListener('click', function(e) {
         if (e.target.classList.contains('modal-overlay')) {
-          e.target.style.display = 'none';
-          e.target.classList.remove('ativo');
+          // Não permite fechar modais de autenticação clicando fora
+          const isAuthModal = e.target.id === 'modalLogin' || 
+                             e.target.id === 'modalCadastro' || 
+                             e.target.id === 'modalEsqueciSenha';
+          
+          if (!isAuthModal) {
+            e.target.style.display = 'none';
+            e.target.classList.remove('ativo');
+          }
         }
       });
       
@@ -3884,18 +3950,6 @@ function aplicarRestricoesPremium() {
       temaSelect.value = 'motivacional';
     }
   }
-  // BLOQUEIO DE FRASES EXCEDENTES
-  const frasesMaxGratuitas = 5;
-  const usadas = Number(localStorage.getItem('frases_hoje')) || 0;
-  const btnNovaFrase = document.getElementById('novaFrase');
-  if (btnNovaFrase) {
-    btnNovaFrase.disabled = !premium && usadas >= frasesMaxGratuitas;
-    if (!premium && usadas >= frasesMaxGratuitas) {
-      btnNovaFrase.classList.add('premium');
-    } else {
-      btnNovaFrase.classList.remove('premium');
-    }
-  }
   
   // CONTROLE VISUAL DO BOTÃO DE DOWNLOAD
   const btnDownloadCard = document.getElementById('btnDownloadCard');
@@ -3947,17 +4001,24 @@ function registrarUsoFrase() {
   aplicarRestricoesPremium();
 })();
 
-// VINCULAR AO BOTÃO NOVA FRASE
-document.getElementById('novaFrase').addEventListener('click', function(e) {
+// CONTROLE UNIFICADO DO BOTÃO NOVA FRASE
+// Consolidado em um único listener para evitar múltiplos alerts
+document.getElementById('novaFrase')?.addEventListener('click', function(e) {
+  // Verificar se é premium
   if (!isPremium()) {
     let usadas = Number(localStorage.getItem('frases_hoje')) || 0;
     if (usadas >= 5) {
       e.preventDefault();
+      e.stopImmediatePropagation();
       alert('🚫 Você atingiu o limite de frases diárias grátis. Torne-se Premium para acesso ilimitado!');
       return;
     }
+    // Registrar uso apenas se não atingiu o limite
+    registrarUsoFrase();
   }
-  registrarUsoFrase();
+  
+  // Executar a lógica de mostrar próxima frase
+  mostrarProximaFrase();
 });
 
 // OPCIONAL: VINCULAR A UM BOTÃO PARA SIMULAR O PREMIUM
@@ -3992,7 +4053,6 @@ document.addEventListener('DOMContentLoaded', function () {
   // Bloqueia selects e botão para não premium
   const fonteSelect = document.getElementById('fonteSelect');
   const temaSelect = document.getElementById('temaSelect');
-  const btnNovaFrase = document.getElementById('novaFrase');
   if (fonteSelect) fonteSelect.addEventListener('mousedown', function(e) {
     if (!isPremium() && fonteSelect.options[fonteSelect.selectedIndex].disabled) {
       e.preventDefault();
@@ -4000,11 +4060,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   if (temaSelect) temaSelect.addEventListener('mousedown', function(e) {
     if (!isPremium() && temaSelect.options[temaSelect.selectedIndex].disabled) {
-      e.preventDefault();
-    }
-  });
-  if (btnNovaFrase) btnNovaFrase.addEventListener('click', function(e) {
-    if (!isPremium() && btnNovaFrase.disabled) {
       e.preventDefault();
     }
   });
@@ -4092,14 +4147,8 @@ function verificarLimiteDeFrases() {
     return true;
 }
 
-// Ao clicar no botão de nova frase
-document.getElementById('novaFrase').addEventListener('click', function (e) {
-    if (!verificarLimiteDeFrases()) {
-        e.stopImmediatePropagation();
-        return;
-    }
-    // Aqui segue normalmente a lógica da nova frase (já existente no seu código)
-});
+// Sempre rodar ao carregar
+document.addEventListener('DOMContentLoaded', bloquearTemasEFonte);
 
 // Botão premium ativa conta (simulação ou redirecionamento)
 document.getElementById('btnAssinarPremium')?.addEventListener('click', () => {
@@ -4112,9 +4161,6 @@ document.getElementById('btnAssinarPremium')?.addEventListener('click', () => {
         location.reload();
     }
 });
-
-// Sempre rodar ao carregar
-document.addEventListener('DOMContentLoaded', bloquearTemasEFonte);
 </script>
 <link rel="manifest" href="manifest.json">
 <link rel="manifest" href="/manifest.json">
