@@ -1364,22 +1364,9 @@ const frases = {
     ]
 };
 
-const fontes = {
-    'Roboto': 'Roboto, sans-serif',
-    'Montserrat': 'Montserrat, sans-serif',
-    'Lato': 'Lato, sans-serif',
-    'Inter': 'Inter, sans-serif',
-    'Open Sans': 'Open Sans, sans-serif',
-    'Space Mono': 'Space Mono, monospace'
-};
+/* Removido: declaração duplicada de fontes */
 
-let favoritos = JSON.parse(localStorage.getItem('favoritosAppFrases') || '[]');
-if (favoritos.length && typeof favoritos[0] === 'string') {
-    favoritos = favoritos.map(f => ({ frase: f, fonte: 'Roboto' }));
-    localStorage.setItem('favoritosAppFrases', JSON.stringify(favoritos));
-}
-let historico = [];
-let indiceHistorico = -1;
+// Remover duplicidade: esta seção já existe acima, então remova daqui.
 
 function mostrarFrase(nova = true) {
     const tema = temaSelect.value;
@@ -1530,9 +1517,9 @@ function renderizarFavoritos() {
     });
 }
 // Remover todos os favoritos (confirmação só uma vez)
-const btnRemoverTodosFavs = document.getElementById('btnRemoverTodosFavs');
-if (btnRemoverTodosFavs) {
-    btnRemoverTodosFavs.replaceWith(btnRemoverTodosFavs.cloneNode(true));
+const btnRemoverTodosFavs_2 = document.getElementById('btnRemoverTodosFavs');
+if (btnRemoverTodosFavs_2) {
+    btnRemoverTodosFavs_2.replaceWith(btnRemoverTodosFavs_2.cloneNode(true));
     const novoBtnRemoverTodosFavs = document.getElementById('btnRemoverTodosFavs');
     novoBtnRemoverTodosFavs.addEventListener('click', () => {
         if (confirm('Tem certeza que deseja remover todos os favoritos?')) {
@@ -1540,8 +1527,6 @@ if (btnRemoverTodosFavs) {
             localStorage.setItem('favoritosAppFrases', JSON.stringify(favoritos));
             renderizarFavoritos();
             atualizarCoracao();
-            // Feedback visual
-            alert('Todos os favoritos foram removidos!');
         }
     });
 }
@@ -1573,23 +1558,11 @@ novaFraseBtn.addEventListener('click', () => mostrarFrase(true));
 voltarFraseBtn.addEventListener('click', voltarFrase);
 
 // --- Marca d'água temática ---
-const bgWatermark = document.querySelector('.bg-watermark');
 var temaSelectWatermark = window.temaSelect || document.getElementById('temaSelect');
 
-const watermarks = {
-  motivacional: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">💪</text></svg>')`,
-  amor: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">❤️</text></svg>')`,
-  amizade: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">🤝</text></svg>')`,
-  felicidade: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">😃</text></svg>')`,
-  superacao: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">🏆</text></svg>')`,
-  gratidao: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">🙏</text></svg>')`,
-  reflexao: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">💭</text></svg>')`,
-  sucesso: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">📈</text></svg>')`,
-  familia: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">👨‍👩‍👧‍👦</text></svg>')`,
-  inspiracao: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">💡</text></svg>')`,
-  default: `url('data:image/svg+xml;utf8,<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="55%" text-anchor="middle" font-size="110" font-family="Montserrat" dy=".3em">✨</text></svg>')`,
-};
+// (Removido: declaração duplicada de watermarks)
 function atualizarMarcaDagua() {
+  const bgWatermark = document.querySelector('.bg-watermark');
   if (!bgWatermark || !temaSelectWatermark) return;
   const tema = temaSelectWatermark.value;
   bgWatermark.style.backgroundImage = watermarks[tema] || watermarks['default'];
@@ -1608,7 +1581,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Ativar modo escuro
-const btnDarkMode = document.getElementById('btnDarkMode');
 btnDarkMode?.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
 });
@@ -1657,22 +1629,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Copiar frase principal
-const btnCopiarFrase = document.getElementById('btnCopiarFrase');
-if (btnCopiarFrase) {
-    btnCopiarFrase.addEventListener('click', () => {
-        const frase = fraseDiv.textContent;
-        if (!frase) return;
-        const el = document.createElement('textarea');
-        el.value = frase;
-        document.body.appendChild(el);
-        el.select();
-        document.execCommand('copy');
-        document.body.removeChild(el);
-        alert('Frase copiada para a área de transferência!');
-    });
-}
-
-;
+// (Removido: declaração duplicada de btnCopiarFrase)
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
