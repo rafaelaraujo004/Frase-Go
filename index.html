@@ -17,7 +17,7 @@
 <body>
     <!-- Modal de Login -->
     <div id="modalLogin" class="modal-overlay">
-      <form id="formLogin" class="modal-form" role="dialog" aria-labelledby="loginTitle" aria-describedby="loginDesc">
+      <form id="formLogin" class="modal-form" role="dialog" aria-labelledby="loginTitle" aria-describedby="loginDesc" onmousedown="event.stopPropagation();">
         <h2 id="loginTitle">Entrar</h2>
         <p id="loginDesc" class="sr-only">Faça login para acessar recursos exclusivos</p>
         <input id="loginEmail" type="email" placeholder="E-mail" required aria-label="E-mail">
@@ -32,6 +32,55 @@
         </div>
         <button type="button" id="btnConvidado" class="guest-login-btn" aria-label="Continuar como convidado">
           Continuar como convidado
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+      // Impede que o modal seja fechado ao clicar fora
+      document.addEventListener('DOMContentLoaded', function() {
+        var modalLogin = document.getElementById('modalLogin');
+        if (modalLogin) {
+          // Sempre exibe o modal de login ao abrir o app
+          modalLogin.style.display = 'flex';
+          modalLogin.addEventListener('mousedown', function(e) {
+            // Não fecha ao clicar fora
+            e.stopPropagation();
+          });
+        }
+        // Entrada fácil como convidado
+        var btnConvidado = document.getElementById('btnConvidado');
+        if (btnConvidado) {
+          btnConvidado.addEventListener('click', function() {
+            // Simula login de convidado
+            window.localStorage.setItem('usuarioConvidado', 'true');
+            document.getElementById('modalLogin').style.display = 'none';
+            // Aqui você pode disparar qualquer evento de login ou inicialização do app
+            // Exemplo: inicializarAppConvidado();
+          });
+        }
+
+        // Login com Google
+        var btnGoogle = document.getElementById('btnGoogle');
+        if (btnGoogle) {
+          btnGoogle.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Inicializa o Google Identity Services
+            google.accounts.id.initialize({
+              client_id: '25116379174-ge4bkufro9t96mhm9cms4c79nom2samv.apps.googleusercontent.com', // Substitua pelo seu Client ID do Google
+              callback: function(response) {
+                // Se o login for bem-sucedido
+                if (response.credential) {
+                  window.localStorage.setItem('usuarioLogado', 'true');
+                  document.getElementById('modalLogin').style.display = 'none';
+                  // Aqui você pode disparar qualquer evento de login ou inicialização do app
+                  // Exemplo: inicializarAppUsuario();
+                }
+              }
+            });
+            // Exibe o popup de login
+            google.accounts.id.prompt();
+          });
+        }
+      });
+    </script>
         </button>
         <div id="loginErro" class="modal-error" role="alert"></div>
       </form>
