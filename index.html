@@ -2,18 +2,32 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frase Go</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Frases Motivacionais</title>
+    
+    <!-- SEO e PWA Meta Tags -->
+    <meta name="description" content="Frase Go - Encontre inspiração diária com frases motivacionais, de amor, amizade e muito mais. Personalize com temas e fontes exclusivas.">
+    <meta name="keywords" content="frases motivacionais, inspiração, motivação, amor, amizade, app">
+    <meta name="author" content="Rafael Araujo">
+    
+    <!-- PWA Configuration -->
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Frases Motivacionais">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json" />
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Montserrat:400,700|Lato:400,700|Inter:400,700|Open+Sans:400,700|Space+Mono:400,700|Fira+Sans:400,700|Work+Sans:400,700|Poppins:400,700|Merriweather:400,700|Quicksand:400,700&display=swap" rel="stylesheet">
-    <!-- Adicione o script da biblioteca html2canvas aqui -->
+    
+    <!-- External Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-    <!-- Biblioteca alternativa para casos especiais -->
     <script src="https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/dist/dom-to-image.min.js"></script>
-    <link rel="manifest" href="manifest.json" />
 </head>
-<meta name="theme-color" content="#0d0d0d">
-<meta name="description" content="Frase Go - Encontre inspiração diária com frases motivacionais, de amor, amizade e muito mais. Personalize com temas e fontes exclusivas.">
 <body>
     <!-- Modal de Login -->
     <div id="modalLogin" class="modal-overlay">
@@ -6766,5 +6780,9 @@ document.addEventListener('keydown', function(event) {
   }
 });
 </script>
+
+<!-- Integração com Capacitor para funcionalidades nativas -->
+<script src="capacitor-integration.js"></script>
+
 </body>
 </html>

@@ -99,107 +99,182 @@ async function checarSessao() {
   }
 }
 
+// === INICIALIZAÇÃO PRINCIPAL ===
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM carregado, inicializando autenticação...');
-  
-  // Adicionar delay para garantir que todos os elementos sejam renderizados
-  setTimeout(() => {
-    console.log('🔍 Verificando elementos do DOM após delay...');
+    console.log('🚀 Iniciando aplicação...');
     
-    // Verificar se os modais existem
-    const modalLogin = document.getElementById('modalLogin');
-    const modalCadastro = document.getElementById('modalCadastro');
-    const modalEsqueciSenha = document.getElementById('modalEsqueciSenha');
-    
-    console.log('📋 Status dos modais no script.js:');
-    console.log('  • modalLogin:', modalLogin ? '✅ Encontrado' : '❌ Não encontrado');
-    console.log('  • modalCadastro:', modalCadastro ? '✅ Encontrado' : '❌ Não encontrado');
-    console.log('  • modalEsqueciSenha:', modalEsqueciSenha ? '✅ Encontrado' : '❌ Não encontrado');
-    
-    // Se modalLogin não existe, exibir erro detalhado
-    if (!modalLogin) {
-      console.error('❌ ERRO CRÍTICO: Modal de login não encontrado!');
-      console.error('📋 Todos os elementos encontrados no DOM:');
-      const allElements = document.querySelectorAll('[id]');
-      allElements.forEach(el => {
-        if (el.id.includes('modal') || el.id.includes('login') || el.id.includes('Login')) {
-          console.log('  🔍 Elemento relacionado:', el.id, el.tagName);
-        }
-      });
-      return;
-    }
-    
-    // Inicializa os elementos de erro como ocultos
-    document.querySelectorAll('.modal-error, .modal-success').forEach(el => {
-      el.style.display = 'none';
-    });
-    
-    // Verifica se o Supabase foi carregado
-    if (typeof window.supabase === 'undefined') {
-      console.error('Supabase não foi carregado. Verifique se o script do Supabase está incluído.');
-      // Em caso de erro, permite acesso como convidado
-      desbloquearApp();
-      return;
-    }
-    
-    console.log('Supabase carregado com sucesso');
-    
-    // Configura listener para mudanças de autenticação
-    supabase.auth.onAuthStateChange((event, session) => {
-      console.log('Auth state changed:', event, session);
-      
-      if (event === 'SIGNED_IN') {
-        console.log('Usuário logado com sucesso');
-        desbloquearApp();
-        // Oculta todos os modais
+    // Delay para garantir que todos os elementos sejam renderizados
+    setTimeout(() => {
+        console.log('🔍 Verificando elementos do DOM após delay...');
+        
+        // Verificar se os modais existem
         const modalLogin = document.getElementById('modalLogin');
         const modalCadastro = document.getElementById('modalCadastro');
         const modalEsqueciSenha = document.getElementById('modalEsqueciSenha');
         
-        if (modalLogin) {
-          modalLogin.style.display = 'none';
-          modalLogin.classList.remove('ativo');
+        console.log('📋 Status dos modais no script.js:');
+        console.log('  • modalLogin:', modalLogin ? '✅ Encontrado' : '❌ Não encontrado');
+        console.log('  • modalCadastro:', modalCadastro ? '✅ Encontrado' : '❌ Não encontrado');
+        console.log('  • modalEsqueciSenha:', modalEsqueciSenha ? '✅ Encontrado' : '❌ Não encontrado');
+        
+        // Se modalLogin não existe, exibir erro detalhado
+        if (!modalLogin) {
+            console.error('❌ ERRO CRÍTICO: Modal de login não encontrado!');
+            console.error('📋 Todos os elementos encontrados no DOM:');
+            const allElements = document.querySelectorAll('[id]');
+            allElements.forEach(el => {
+                if (el.id.includes('modal') || el.id.includes('login') || el.id.includes('Login')) {
+                    console.log('  🔍 Elemento relacionado:', el.id, el.tagName);
+                }
+            });
+            return;
         }
-        if (modalCadastro) {
-          modalCadastro.style.display = 'none';
-          modalCadastro.classList.remove('ativo');
+        
+        // Inicializa os elementos de erro como ocultos
+        document.querySelectorAll('.modal-error, .modal-success').forEach(el => {
+            el.style.display = 'none';
+        });
+        
+        // Verifica se o Supabase foi carregado
+        if (typeof window.supabase === 'undefined') {
+            console.error('Supabase não foi carregado. Verifique se o script do Supabase está incluído.');
+            // Em caso de erro, permite acesso como convidado
+            desbloquearApp();
+            return;
         }
-        if (modalEsqueciSenha) {
-          modalEsqueciSenha.style.display = 'none';
-          modalEsqueciSenha.classList.remove('ativo');
-        }
-      } else if (event === 'SIGNED_OUT') {
-        console.log('Usuário deslogado');
-        // Remove flag de convidado se existir
-        localStorage.removeItem('usuario_convidado');
+        
+        console.log('Supabase carregado com sucesso');
+        
+        // Configura listener para mudanças de autenticação
+        supabase.auth.onAuthStateChange((event, session) => {
+            console.log('Auth state changed:', event, session);
+            
+            if (event === 'SIGNED_IN') {
+                console.log('Usuário logado com sucesso');
+                desbloquearApp();
+                // Oculta todos os modais
+                const modalLogin = document.getElementById('modalLogin');
+                const modalCadastro = document.getElementById('modalCadastro');
+                const modalEsqueciSenha = document.getElementById('modalEsqueciSenha');
+                
+                if (modalLogin) {
+                    modalLogin.style.display = 'none';
+                    modalLogin.classList.remove('ativo');
+                }
+                if (modalCadastro) {
+                    modalCadastro.style.display = 'none';
+                    modalCadastro.classList.remove('ativo');
+                }
+                if (modalEsqueciSenha) {
+                    modalEsqueciSenha.style.display = 'none';
+                    modalEsqueciSenha.classList.remove('ativo');
+                }
+            } else if (event === 'SIGNED_OUT') {
+                console.log('Usuário deslogado');
+                // Remove flag de convidado se existir
+                localStorage.removeItem('usuario_convidado');
+                checarSessao();
+            }
+        });
+        
+        // Verifica se os elementos dos modais existem
+        const modalLoginCheck = document.getElementById('modalLogin');
+        const formLogin = document.getElementById('formLogin');
+        const btnConvidado = document.getElementById('btnConvidado');
+        
+        console.log('Elementos encontrados:', {
+            modalLogin: !!modalLoginCheck,
+            formLogin: !!formLogin,
+            btnConvidado: !!btnConvidado
+        });
+        
+        // Adiciona todos os event listeners de autenticação
+        inicializarEventListeners();
+        
+        // Verifica a sessão do usuário
         checarSessao();
-      }
-    });
+        
+        // Inicializa funcionalidades principais do app
+        inicializarAplicacao();
+        
+        // Atualiza o indicador de status
+        setTimeout(() => {
+            atualizarIndicadorStatus();
+        }, 500);
+        
+    }, 100); // Delay de 100ms para garantir renderização
+});
+
+// === INICIALIZAÇÃO DO APLICATIVO ===
+function inicializarAplicacao() {
+    console.log('🎯 Inicializando funcionalidades do aplicativo...');
     
-    // Verifica se os elementos dos modais existem
-    const modalLoginCheck = document.getElementById('modalLogin');
-    const formLogin = document.getElementById('formLogin');
-    const btnConvidado = document.getElementById('btnConvidado');
+    // Inicializa sistema de frases
+    mostrarFrase(false); // false = primeira frase não conta no limite
+    mudarFonte();
+    atualizarCoracao();
     
-    console.log('Elementos encontrados:', {
-      modalLogin: !!modalLoginCheck,
-      formLogin: !!formLogin,
-      btnConvidado: !!btnConvidado
-    });
-    
-    // Adiciona todos os event listeners aqui
-    inicializarEventListeners();
-    
-    // Verifica a sessão do usuário
-    checarSessao();
-    
-    // Atualiza o indicador de status
+    // Inicializa sistema de imagens
     setTimeout(() => {
-      atualizarIndicadorStatus();
+        inicializarImagensFundo();
+        carregarImagemSalva();
     }, 500);
     
-  }, 100); // Delay de 100ms para garantir renderização
-});
+    // Inicializa botão de print/salvar
+    inicializarBotaoPrint();
+    
+    // Aplica restrições premium
+    aplicarRestricoesPremiumScript();
+    
+    console.log('✅ Aplicação inicializada com sucesso!');
+}
+
+function inicializarBotaoPrint() {
+    const btnPrint = document.getElementById('btnPrint');
+    if (!btnPrint) {
+        console.warn('⚠️ Botão salvar não encontrado no DOM!');
+        return;
+    }
+    
+    btnPrint.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        if (typeof html2canvas === 'undefined') {
+            alert('Erro: Biblioteca html2canvas NÃO carregada. O botão não pode funcionar.');
+            return;
+        }
+        
+        const fraseBox = document.querySelector('.frase-box');
+        if (!fraseBox) {
+            alert('Erro: Área da frase (.frase-box) não encontrada!');
+            return;
+        }
+        
+        // Mostra feedback visual
+        mostrarFeedback('📸 Gerando imagem...', '#2196f3');
+        
+        html2canvas(fraseBox, {
+            backgroundColor: null,
+            useCORS: true,
+            scale: 2
+        }).then(function(canvas) {
+            const data = new Date();
+            const nomeArquivo = 'frase-' + data.getFullYear() + '-' + (data.getMonth()+1) + '-' + data.getDate() + '-' + data.getHours() + data.getMinutes() + data.getSeconds() + '.png';
+            const link = document.createElement('a');
+            link.download = nomeArquivo;
+            link.href = canvas.toDataURL('image/png', 1.0);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            mostrarFeedback('✅ Download concluído!', '#4caf50');
+        }).catch(function(error) {
+            console.error('Erro ao gerar imagem:', error);
+            mostrarFeedback('❌ Erro ao gerar imagem', '#f44336');
+        });
+    });
+}
 
 function inicializarEventListeners() {
   // --- HANDLERS DE AUTENTICAÇÃO ---
@@ -1815,20 +1890,41 @@ function renderizarFavoritos() {
         favoritosLista.appendChild(li);
     });
 }
-// Remover todos os favoritos (confirmação só uma vez)
-const btnRemoverTodosFavs_2 = document.getElementById('btnRemoverTodosFavs');
-if (btnRemoverTodosFavs_2) {
-    btnRemoverTodosFavs_2.replaceWith(btnRemoverTodosFavs_2.cloneNode(true));
-    const novoBtnRemoverTodosFavs = document.getElementById('btnRemoverTodosFavs');
-    novoBtnRemoverTodosFavs.addEventListener('click', () => {
-        if (confirm('Tem certeza que deseja remover todos os favoritos?')) {
-            favoritos = [];
-            localStorage.setItem('favoritosAppFrases', JSON.stringify(favoritos));
-            renderizarFavoritos();
-            atualizarCoracao();
-        }
-    });
+
+// Botão para remover todos os favoritos
+function inicializarBotaoRemoverTodosFavoritos() {
+    const btnRemoverTodosFavs = document.getElementById('btnRemoverTodosFavs');
+    if (btnRemoverTodosFavs) {
+        // Remove event listeners anteriores
+        btnRemoverTodosFavs.replaceWith(btnRemoverTodosFavs.cloneNode(true));
+        const novoBtnRemoverTodosFavs = document.getElementById('btnRemoverTodosFavs');
+        
+        novoBtnRemoverTodosFavs.addEventListener('click', () => {
+            if (confirm('Tem certeza que deseja remover todos os favoritos?')) {
+                favoritos = [];
+                localStorage.setItem('favoritosAppFrases', JSON.stringify(favoritos));
+                renderizarFavoritos();
+                atualizarCoracao();
+                mostrarFeedback('🗑️ Todos os favoritos foram removidos', '#ff9800');
+            }
+        });
+    }
 }
+
+// Chama a inicialização do botão na renderização dos favoritos
+function renderizarFavoritos() {
+    if (!favoritosLista) return;
+    favoritosLista.innerHTML = '';
+    
+    const btnRemoverTodosFavs = document.getElementById('btnRemoverTodosFavs');
+    if (!favoritos.length) {
+        favoritosLista.innerHTML = '<li>Nenhuma frase favoritada ainda.</li>';
+        if (btnRemoverTodosFavs) btnRemoverTodosFavs.style.display = 'none';
+        return;
+    } else {
+        if (btnRemoverTodosFavs) btnRemoverTodosFavs.style.display = 'block';
+        inicializarBotaoRemoverTodosFavoritos();
+    }
 
 function voltarFrase() {
     // Verifica se o usuário atingiu o limite de frases e não é premium
@@ -1916,11 +2012,16 @@ if (temaSelectWatermark) {
 }
 
 // Inicialização
+// === FUNCIONALIDADES PRINCIPAIS ===
+
+// Inicialização da aplicação principal (já consolidada acima)
+/* REMOVIDO: Event listeners duplicados
 document.addEventListener('DOMContentLoaded', () => {
-    mostrarFrase(false); // false = primeira frase não conta no limite
+    mostrarFrase(false);
     mudarFonte();
     atualizarCoracao();
 });
+*/
 
 // Ativar modo escuro
 btnDarkMode?.addEventListener('click', () => {
@@ -2138,12 +2239,19 @@ function isLoggedIn() {
     return supabase && supabase.auth && supabase.auth.getSession && localStorage.getItem('supabase.auth.token');
 }
 
-// Aplica restrições ao carregar
-document.addEventListener('DOMContentLoaded', aplicarRestricoesPremiumScript);
+// Aplica restrições ao carregar (já chamado na inicialização principal)
+// document.addEventListener('DOMContentLoaded', aplicarRestricoesPremiumScript);
 temaSelect?.addEventListener('change', aplicarRestricoesPremiumScript);
 fonteSelect?.addEventListener('change', aplicarRestricoesPremiumScript);
 
 // === FUNCIONALIDADES DE IMAGEM DE FUNDO ===
+
+// Variáveis globais para o sistema de imagens
+let imagemAtual = '';
+let opacidadeAtual = 0.5;
+let galeriaTemas = null;
+let imagemFundo = null;
+let btnOpacidadeImagem = null;
 
 // Banco de imagens por tema (URLs corrigidas e sem duplicatas)
 const imagensPorTema = {
@@ -2265,29 +2373,6 @@ const imagensPorTema = {
         'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=300&fit=crop&auto=format',
         'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop&auto=format',
         'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop&auto=format',
-        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop'
-    ],
-    familia: [
-        'https://images.unsplash.com/photo-1511895426328-dc8714efa8cd?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1554887681-47d40ffaeaac?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1542596768-5d1d21f1cf98?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1511895426328-dc8714efa8cd?w=400&h=300&fit=crop'
-    ],
-    inspiracao: [
-        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1464822759844-d150ad6cbedb?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1519452634265-7b808fcb13d0?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1527266237111-a4989d028b4b?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop',
-        'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop',
         'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&auto=format'
     ],
     versiculo: [
@@ -2511,48 +2596,12 @@ btnDarkMode?.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
 });
 
-// Print da área principal - garantir que o botão existe ao adicionar o evento
+// Print da área principal (já consolidado na função inicializarBotaoPrint)
+/* REMOVIDO: Event listener duplicado
 document.addEventListener('DOMContentLoaded', function() {
-    var btnPrint = document.getElementById('btnPrint');
-    if (!btnPrint) {
-        alert('Botão salvar não encontrado no DOM!');
-        return;
-    }
-    btnPrint.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        alert('Clique detectado no botão salvar!');
-        if (typeof html2canvas === 'undefined') {
-            alert('Erro: Biblioteca html2canvas NÃO carregada. O botão não pode funcionar.');
-            return;
-        }
-        var fraseBox = document.querySelector('.frase-box');
-        if (!fraseBox) {
-            alert('Erro: Área da frase (.frase-box) não encontrada!');
-            return;
-        }
-        alert('Iniciando captura da área da frase...');
-        html2canvas(fraseBox, {
-            backgroundColor: null,
-            useCORS: true,
-            scale: 2
-        }).then(function(canvas) {
-            alert('Imagem gerada! Iniciando download...');
-            var data = new Date();
-            var nomeArquivo = 'frase-' + data.getFullYear() + '-' + (data.getMonth()+1) + '-' + data.getDate() + '-' + data.getHours() + data.getMinutes() + data.getSeconds() + '.png';
-            var link = document.createElement('a');
-            link.download = nomeArquivo;
-            link.href = canvas.toDataURL('image/png', 1.0);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            alert('Download concluído!');
-        }).catch(function(error) {
-            alert('Erro ao gerar a imagem. Veja o console para detalhes.');
-            console.error('Erro ao gerar imagem:', error);
-        });
-    });
+    // Código movido para inicializarBotaoPrint()
 });
+*/
 
 // Copiar frase principal
 const btnCopiarFrase = document.getElementById('btnCopiarFrase');
@@ -2580,35 +2629,133 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// --- RESTRIÇÕES PARA NÃO PREMIUM ---
-function aplicarRestricoesPremiumScript() {
-    // Bloqueia temas premium
-    const temasPremium = ['inspiração', 'sucesso', 'gratidao'];
-    if (temaSelect) {
-        [...temaSelect.options].forEach(opt => {
-            if (temasPremium.includes(opt.value)) {
-                if (!isPremium()) {
-                    opt.disabled = true;
-                    opt.classList.add('premium');
-                    if (!opt.textContent.includes('(Premium)')) opt.textContent += ' (Premium)';
-                } else {
-                    opt.disabled = false;
-                    opt.classList.remove('premium');
-                    opt.textContent = opt.textContent.replace(' (Premium)', '');
-                }
-            } else {
-                opt.disabled = false;
-                opt.classList.remove('premium');
-                opt.textContent = opt.textContent.replace(' (Premium)', '');
+// Funções auxiliares para sistema de imagens
+function mostrarFeedback(mensagem, cor = '#4caf50') {
+    // Cria um elemento de feedback temporário
+    const feedback = document.createElement('div');
+    feedback.textContent = mensagem;
+    feedback.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${cor};
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        z-index: 10000;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        animation: slideInRight 0.3s ease-out;
+    `;
+    
+    // Adiciona animação CSS se não existir
+    if (!document.querySelector('#feedback-styles')) {
+        const style = document.createElement('style');
+        style.id = 'feedback-styles';
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
             }
-        });
-        // Impede seleção via JS
-        if (!isPremium() && temasPremium.includes(temaSelect.value)) {
-            temaSelect.value = 'motivacional';
-        }
-        // Impede seleção via teclado
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
     }
     
+    document.body.appendChild(feedback);
+    
+    // Remove após 3 segundos
+    setTimeout(() => {
+        feedback.style.animation = 'slideOutRight 0.3s ease-in';
+        setTimeout(() => {
+            if (feedback.parentNode) {
+                feedback.parentNode.removeChild(feedback);
+            }
+        }, 300);
+    }, 3000);
+}
+
+function aplicarImagemFundo(urlImagem) {
+    console.log('Aplicando imagem de fundo:', urlImagem);
+    
+    if (!imagemFundo) {
+        imagemFundo = document.querySelector('.imagem-fundo') || 
+                     document.querySelector('.frase-box') ||
+                     document.body;
+    }
+    
+    if (imagemFundo && urlImagem) {
+        imagemFundo.style.backgroundImage = `url("${urlImagem}")`;
+        imagemFundo.style.backgroundSize = 'cover';
+        imagemFundo.style.backgroundPosition = 'center';
+        imagemFundo.style.backgroundRepeat = 'no-repeat';
+        
+        // Aplica opacidade se definida
+        if (opacidadeAtual !== undefined) {
+            const overlay = imagemFundo.querySelector('.background-overlay') || 
+                           createBackgroundOverlay(imagemFundo);
+            overlay.style.opacity = 1 - opacidadeAtual;
+        }
+        
+        // Salva no localStorage
+        localStorage.setItem('imagemFundo', urlImagem);
+        imagemAtual = urlImagem;
+        
+        console.log('Imagem de fundo aplicada com sucesso');
+    }
+}
+
+function createBackgroundOverlay(container) {
+    const overlay = document.createElement('div');
+    overlay.className = 'background-overlay';
+    overlay.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: white;
+        pointer-events: none;
+        z-index: 1;
+    `;
+    container.style.position = 'relative';
+    container.appendChild(overlay);
+    return overlay;
+}
+
+function inicializarImagensFundo() {
+    console.log('Inicializando sistema de imagens de fundo...');
+    
+    // Inicializa elementos DOM
+    imagemFundo = document.querySelector('.imagem-fundo') || 
+                 document.querySelector('.frase-box') ||
+                 document.body;
+    
+    btnOpacidadeImagem = document.getElementById('btnOpacidadeImagem');
+    galeriaTemas = document.querySelector('.galeria-temas') || 
+                   document.getElementById('galeriaTemas');
+    
+    // Configura botão de opacidade se existir
+    if (btnOpacidadeImagem) {
+        btnOpacidadeImagem.addEventListener('click', alterarOpacidadeImagem);
+    }
+    
+    // Configura galeria de temas se existir
+    if (galeriaTemas) {
+        configurarGaleriaTemas();
+    }
+    
+    console.log('Sistema de imagens inicializado:', {
+        imagemFundo: !!imagemFundo,
+        btnOpacidade: !!btnOpacidadeImagem,
+        galeria: !!galeriaTemas
+    });
+}
+
+function alterarOpacidadeImagem() {
     try {
         // Cicla entre 0.2, 0.3, 0.5, 0.7, 0.9
         const opacidades = [0.2, 0.3, 0.5, 0.7, 0.9];
@@ -2616,7 +2763,14 @@ function aplicarRestricoesPremiumScript() {
         const proximoIndice = (indiceAtual + 1) % opacidades.length;
         
         opacidadeAtual = opacidades[proximoIndice];
-        imagemFundo.style.opacity = opacidadeAtual;
+        
+        // Aplica opacidade ao overlay
+        if (imagemFundo) {
+            const overlay = imagemFundo.querySelector('.background-overlay');
+            if (overlay) {
+                overlay.style.opacity = 1 - opacidadeAtual;
+            }
+        }
         
         // Salvar no localStorage
         localStorage.setItem('opacidadeImagem', opacidadeAtual);
@@ -2637,6 +2791,29 @@ function aplicarRestricoesPremiumScript() {
     }
 }
 
+function configurarGaleriaTemas() {
+    // Cria botões para cada tema na galeria
+    Object.keys(imagensPorTema).forEach(tema => {
+        const btnTema = document.createElement('button');
+        btnTema.textContent = tema.charAt(0).toUpperCase() + tema.slice(1);
+        btnTema.className = 'btn-tema-imagem';
+        btnTema.onclick = () => selecionarImagemAleatoria(tema);
+        
+        if (galeriaTemas) {
+            galeriaTemas.appendChild(btnTema);
+        }
+    });
+}
+
+function selecionarImagemAleatoria(tema) {
+    const imagens = imagensPorTema[tema];
+    if (imagens && imagens.length > 0) {
+        const imagemAleatoria = imagens[Math.floor(Math.random() * imagens.length)];
+        aplicarImagemFundo(imagemAleatoria);
+        mostrarFeedback(`🎨 Tema ${tema} aplicado!`, '#9c27b0');
+    }
+}
+
 // Carregar configuração salva
 function carregarImagemSalva() {
     console.log('Carregando configuração de imagem salva...');
@@ -2645,15 +2822,14 @@ function carregarImagemSalva() {
         const imagemSalva = localStorage.getItem('imagemFundo');
         const opacidadeSalva = localStorage.getItem('opacidadeImagem');
         
+        if (opacidadeSalva) {
+            opacidadeAtual = parseFloat(opacidadeSalva);
+            console.log('Opacidade salva:', opacidadeAtual);
+        }
+        
         if (imagemSalva) {
             console.log('Imagem salva encontrada:', imagemSalva);
             imagemAtual = imagemSalva;
-            
-            if (opacidadeSalva) {
-                opacidadeAtual = parseFloat(opacidadeSalva);
-                console.log('Opacidade salva:', opacidadeAtual);
-            }
-            
             aplicarImagemFundo(imagemSalva);
         } else {
             console.log('Nenhuma imagem salva encontrada');
@@ -2663,36 +2839,12 @@ function carregarImagemSalva() {
     }
 }
 
-// Inicializar quando o DOM carregar
+// Inicialização do sistema de imagens (já consolidado na inicialização principal)
+/* REMOVIDO: Event listeners duplicados
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM carregado, iniciando sistema de imagens...');
-    
-    // Aguardar um pouco para garantir que todos os elementos estejam prontos
-    setTimeout(() => {
-        inicializarImagensFundo();
-        carregarImagemSalva();
-    }, 500);
+    // Código movido para inicializarAplicacao()
 });
-
-// Também inicializar quando a sidebar for aberta
-document.addEventListener('click', function(e) {
-    if (e.target && e.target.id === 'btnMenuUsuario') {
-        // Pequeno delay para aguardar a sidebar abrir
-        setTimeout(() => {
-            if (!galeriaTemas) {
-                console.log('Reinicializando sistema de imagens...');
-                inicializarImagensFundo();
-            }
-        }, 100);
-    }
-});rregado, iniciando sistema de imagens...');
-    
-    // Aguardar um pouco para garantir que todos os elementos estejam prontos
-    setTimeout(() => {
-        inicializarImagensFundo();
-        carregarImagemSalva();
-    }, 500);
-});
+*/
 
 // Também inicializar quando a sidebar for aberta
 document.addEventListener('click', function(e) {
