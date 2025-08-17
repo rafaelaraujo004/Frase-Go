@@ -1,0 +1,1 @@
+console.log('Frase Go carregado');
